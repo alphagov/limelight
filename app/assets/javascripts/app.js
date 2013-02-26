@@ -2,6 +2,10 @@ define([
     'licensing/collections/applications'
 ], function(Applications) {
     
+    if (window.jasmine) {
+        return;
+    }
+    
     var applications = new Applications();
     applications.fetch({
         success: function (e) {
