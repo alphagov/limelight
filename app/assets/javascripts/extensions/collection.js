@@ -1,8 +1,10 @@
 define([
-    'backbone'
+    'backbone',
+    'extensions/model'
 ],
-function (Backbone) {
+function (Backbone, Model) {
     var Collection = Backbone.Collection.extend({
+        model: Model
     });
     
     return Collection;
