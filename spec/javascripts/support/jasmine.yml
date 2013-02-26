@@ -1,0 +1,5 @@
+helpers:
+  - helpers/**/*.js
+spec_files:
+  - spec/**/spec.*.js
+spec_dir: spec/javascripts
