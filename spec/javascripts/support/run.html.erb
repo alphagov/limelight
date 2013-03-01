@@ -11,19 +11,16 @@
       <script src="<%= jasmine_file %>" type="text/javascript"></script>
   <% end %>
 
-  <% js_files.each do |js_file| %>
+  <% js_files.reject { |each| each.start_with?("/__spec__/") }.each do |js_file| %>
       <script src="<%= js_file %>" type="text/javascript"></script>
   <% end %>
+
 </head>
 <body>
 <script type="text/javascript">
     var jsApiReporter = new jasmine.JsApiReporter();
-    var specsList = [
-        '/__spec__/spec/extensions/spec.model.js',
-        '/__spec__/spec/extensions/spec.collection.js',
-        '/__spec__/spec/extensions/spec.view.js',
-        '/__spec__/spec/extensions/spec.d3view.js'
-    ];
+
+    var specsList = <%= spec_files.map { |each| "/__spec__/" + each } %>;
     require(specsList, function() {
         var jasmineEnv = jasmine.getEnv();
 

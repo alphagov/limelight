@@ -3,5 +3,8 @@ src_files:
   - jasmine_config.js
   - config.js
 
+spec_files:
+  - spec/**/spec.*.js
+
 helpers:
   - helpers/**/*.js
