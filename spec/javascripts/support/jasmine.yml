@@ -1,5 +1,7 @@
 src_files:
   - vendor/require.js
+  - jasmine_config.js
+  - config.js
 
 helpers:
   - helpers/**/*.js

@@ -24,21 +24,6 @@
         '/__spec__/spec/extensions/spec.view.js',
         '/__spec__/spec/extensions/spec.d3view.js'
     ];
-    requirejs.config({
-        baseUrl: 'assets/',
-        paths: {
-            jquery: '/assets/vendor/jquery',
-            jqueryxdr: '/assets/vendor/jquery.xdr',
-            jquerymockjax: '/assets/vendor/jquery.mockjax',
-            lodash: '/assets/vendor/lodash',
-            backbone: '/assets/vendor/backbone',
-            css: '/assets/vendor/require-css',
-            modernizr: '/assets/vendor/modernizr',
-            moment: '/assets/vendor/moment',
-            tpl: '/assets/vendor/tpl',
-            d3: '/assets/vendor/d3.v3'
-        }
-    });
     require(specsList, function() {
         var jasmineEnv = jasmine.getEnv();
 
