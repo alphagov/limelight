@@ -16,15 +16,13 @@
   <% end %>
 </head>
 <body>
-
-
 <script type="text/javascript">
     var jsApiReporter = new jasmine.JsApiReporter();
     var specsList = [
-        'spec/extensions/spec.model',
-        'spec/extensions/spec.collection',
-        'spec/extensions/spec.view',
-        'spec/extensions/spec.d3view'
+        '/__spec__/spec/extensions/spec.model.js',
+        '/__spec__/spec/extensions/spec.collection.js',
+        '/__spec__/spec/extensions/spec.view.js',
+        '/__spec__/spec/extensions/spec.d3view.js'
     ];
     requirejs.config({
         baseUrl: 'assets/',
