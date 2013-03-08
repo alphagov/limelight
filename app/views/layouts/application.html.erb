@@ -1,13 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Limelight</title>
+  <title><%= yield(:title) %></title>
   <%= stylesheet_link_tag "application", :media => "all" %>
   <%= csrf_meta_tags %>
 </head>
 <body>
 
-<%= yield %>
+<div id="wrapper">
+  
+  <header id="global">
+    <p>Licensing performance</p>
+  </header>
+  
+  <section id="content">
+    <%= yield %>
+  </section>
+</div>
 
 <%= javascript_include_tag 'vendor/require', data: { main: '/assets/config' } %>
 </body>
