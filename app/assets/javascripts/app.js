@@ -1,5 +1,6 @@
 define([
-    'licensing/collections/applications'
+    'licensing/collections/applications',
+    'mockapi'
 ], function(Applications) {
     
     if (window.jasmine) {
