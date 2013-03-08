@@ -2,12 +2,19 @@ define([
     'extensions/collection'
 ],
 function (Collection) {
-    var Applications = Collection.extend({
-        url: 'http://datainsight-frontend.dev.gov.uk:5000/licensing',
+    var WeeklyApplications = Collection.extend({
+        queryUrl: 'licensing',
+        queryParams: function () {
+          return {
+            start_at: this.moment().startOf('week').subtract(8, 'weeks'),
+            end_at: this.moment().startOf('week'),
+            period: 'week'
+          }
+        },
         parse: function (response) {
             return response.data;
         }
     });
     
-    return Applications;
+    return WeeklyApplications;
 });
