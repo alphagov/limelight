@@ -1,20 +1,19 @@
 define([
     'licensing/collections/applications',
+    'licensing/views/totalapplications',
     'mockapi'
-], function(Applications) {
+], function(ApplicationsCollection, TotalApplicationsView) {
     
     if (window.jasmine) {
         return;
     }
     
-    var applications = new Applications();
-    applications.fetch({
-        success: function (e) {
-            console.log(arguments);
-        },
-        error: function (e) {
-            console.error(arguments);
-        }
-    })
+    var collection = new ApplicationsCollection();
     
+    var view = new TotalApplicationsView({
+      el: $('#total-applications'),
+      collection: collection
+    });
+    
+    collection.fetch();
 });
