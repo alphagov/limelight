@@ -1,19 +1,20 @@
 define([
-    'licensing/collections/applications',
-    'licensing/views/totalapplications',
-    'mockapi'
+  'licensing/collections/applications',
+  'licensing/views/totalapplications',
+  'fakeapi'
 ], function(ApplicationsCollection, TotalApplicationsView) {
-    
-    if (window.jasmine) {
-        return;
-    }
-    
-    var collection = new ApplicationsCollection();
-    
-    var view = new TotalApplicationsView({
-      el: $('#total-applications'),
-      collection: collection
-    });
-    
-    collection.fetch();
+
+  if (window.jasmine) {
+    // do not initialise app when unit testing
+    return;
+  }
+
+  var collection = new ApplicationsCollection();
+
+  var view = new TotalApplicationsView({
+    el: $('#total-applications'),
+    collection: collection
+  });
+
+  collection.fetch();
 });

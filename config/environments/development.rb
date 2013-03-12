@@ -29,4 +29,6 @@ Limelight::Application.configure do
   config.assets.debug = true
 
   config.assets.paths << Rails.root.join("spec", "javascripts")
+  
+  config.backdrop_url = ENV["BACKDROP_URL"] || "http://limelight.dev.gov.uk:5000"
 end

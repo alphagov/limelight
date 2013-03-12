@@ -5,11 +5,20 @@ define([
   'moment'
 ],
 function ($, Backbone, Model, moment) {
+  
+  // get base URL for Backdrop instance (with trailing slash if missing)
+  var baseUrl = $('#wrapper').data('backdrop-url').replace(/\/?$/, '/');
+  
   var Collection = Backbone.Collection.extend({
     
     moment: moment,
     
     model: Model,
+    
+    /**
+     * Defines location of Backdrop service
+     */
+    baseUrl: baseUrl,
     
     defaultDateFormat: Model.prototype.defaultDateFormat,
     
@@ -23,12 +32,6 @@ function ($, Backbone, Model, moment) {
       obj = obj || this;
       return _.isFunction(obj[prop]) ? obj[prop].call(obj) : obj[prop];
     },
-    
-    /**
-     * Defines location of Backdrop service
-     * TODO: use environment configuration
-     */
-    baseUrl: '//limelight.dev.gov.uk:5000/',
     
     /**
      * Constructs a Backdrop query for the current environment

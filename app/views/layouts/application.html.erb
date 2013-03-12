@@ -7,7 +7,8 @@
 </head>
 <body>
 
-<div id="wrapper">
+<%# Configuration variable added to wrapper element because slimmer removes body attributes %>
+<div id="wrapper" data-backdrop-url="<%= Rails.application.config.backdrop_url %>" data-environment="<%= ENV['RAILS_ENV'] %>"  >
   
   <header id="global">
     <p>Licensing performance</p>
@@ -19,5 +20,6 @@
 </div>
 
 <%= javascript_include_tag 'vendor/require', data: { main: '/assets/config' } %>
+
 </body>
 </html>
