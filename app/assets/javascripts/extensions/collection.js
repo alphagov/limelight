@@ -7,7 +7,10 @@ define([
 function ($, Backbone, Model, moment) {
   
   // get base URL for Backdrop instance (with trailing slash if missing)
-  var baseUrl = $('#wrapper').data('backdrop-url').replace(/\/?$/, '/');
+  var baseUrl = $('#wrapper').data('backdrop-url');
+  if (baseUrl) {
+    baseUrl = baseUrl.replace(/\/?$/, '/');
+  }
   
   var Collection = Backbone.Collection.extend({
     
