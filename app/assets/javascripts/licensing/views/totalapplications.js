@@ -1,8 +1,10 @@
 define([
-  'extensions/d3view'
+  'extensions/graph/graph',
+  'extensions/graph/axis',
+  'extensions/graph/line'
 ],
-function (D3View) {
-  var TotalApplications = D3View.extend({
+function (Graph, Axis, Line) {
+  var TotalApplications = Graph.extend({
     
     width: 954,
     height: 400,
@@ -14,37 +16,55 @@ function (D3View) {
       right: 40
     },
     
-    xAxis: {
-      visible: true
-    },
-    
-    yAxis: {
-      distance: 10
-    },
-    
-    render: function () {
-      var xScale = this.xScale = this.calcXScale();
-      var yScale = this.yScale = this.calcYScale();
-      
-      
-      var line = d3.svg.line()
-        .x(function (model) {
-          return xScale(model.get('_start_at').toDate());
-        })
-        .y(function (model) {
-          return yScale(model.get('count'));
-        });
-
-      this.innerWrapper.append("svg:path")
-        .classed("line", true)
-        .attr("d", line(this.collection.models));
-      
-      D3View.prototype.render.apply(this, arguments);
-    },
+    components: [
+      {
+        view: Axis,
+        options: {
+          classed: 'x-axis',
+          position: 'bottom',
+          orient: 'bottom',
+          tickPadding: 4,
+          tickFormat: function () {
+            return d3.time.format("%e %b");
+          },
+          offsetY: 20,
+          getScale: function () {
+            return this.scales.x;
+          }
+        }
+      },
+      {
+        view: Axis,
+        options: {
+          position: 'left',
+          classed: 'y-axis',
+          ticks: 7,
+          orient: 'left',
+          getScale: function () {
+            return this.scales.y;
+          },
+          tickFormat: function () {
+            return this.numberListFormatter([this.scales.y.domain()[1]]);
+          }
+        }
+      },
+      {
+        view: Line,
+        options: {
+          classed: 'line',
+          x: function (model) {
+            return this.scales.x(model.get('_start_at').toDate());
+          },
+          y: function (model) {
+            return this.scales.y(model.get('_count'));
+          }
+        }
+      }
+    ],
     
     calcXScale: function () {
       var collection = this.collection;
-      var xScale = d3.time.scale();
+      var xScale = this.d3.time.scale();
       xScale.domain([
         collection.first().get('_start_at').toDate(),
         collection.last().get('_start_at').toDate()
@@ -55,16 +75,14 @@ function (D3View) {
     
     calcYScale: function () {
       var collection = this.collection;
-      var yScale = d3.scale.linear();
-      var max = d3.max(collection.models, function (model) {
-        return model.get('count');
+      var yScale = this.d3.scale.linear();
+      var max = this.d3.max(collection.models, function (model) {
+        return model.get('_count');
       })
-      yScale.domain([0, max]);
+      yScale.domain([0, max]).nice();
       yScale.range([this.innerHeight, 0]);
       return yScale;
-    },
-    
-    
+    }
   });
   
   return TotalApplications;

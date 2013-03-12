@@ -17,7 +17,7 @@ function (moment) {
       data.push({
         _start_at: start.format(dateFormat),
         _end_at: end.format(dateFormat),
-        count: Math.floor(Math.random() * 6e4)
+        _count: Math.floor(Math.random() * 6e4)
       });
     };
     
