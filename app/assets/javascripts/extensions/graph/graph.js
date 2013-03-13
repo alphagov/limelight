@@ -26,13 +26,13 @@ function (View, d3) {
       this.prepareGraphArea();
       
       this.scales = {};
+      var componentInstances = this.componentInstances = [];
       
       // initialize graph components
       var defaultComponentOptions = this.getDefaultComponentOptions();
-      _.each(this.components, function (component) {
-        component.instance = new component.view(_.extend(
-          {}, defaultComponentOptions, component.options
-        ));
+      _.each(this.components, function (definition) {
+        var options = _.extend({}, defaultComponentOptions, definition.options);
+        componentInstances.push(new definition.view(options));
       }, this);
     },
     
@@ -97,8 +97,8 @@ function (View, d3) {
       this.scales.x = this.calcXScale();
       this.scales.y = this.calcYScale();
       
-      _.each(this.components, function (component) {
-        component.instance.render();
+      _.each(this.componentInstances, function (component) {
+        component.render();
       }, this);
     }
   });

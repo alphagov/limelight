@@ -92,8 +92,8 @@ function (Graph, Collection, d3) {
           a: 'c',    // overridden default option
           foo: 'baz' // component option
         });
-        expect(graph.components[0].instance instanceof testComponent1).toBe(true);
-        expect(graph.components[1].instance instanceof testComponent2).toBe(true);
+        expect(graph.componentInstances[0] instanceof testComponent1).toBe(true);
+        expect(graph.componentInstances[1] instanceof testComponent2).toBe(true);
       });
     });
     
@@ -197,14 +197,7 @@ function (Graph, Collection, d3) {
       var component2 = {
         render: jasmine.createSpy()
       };
-      graph.components = [
-        {
-          instance: component1
-        },
-        {
-          instance: component2
-        }
-      ];
+      graph.componentInstances = [component1, component2];
       graph.render();
       expect(component1.render).toHaveBeenCalled();
       expect(component2.render).toHaveBeenCalled();
