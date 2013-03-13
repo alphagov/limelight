@@ -158,21 +158,39 @@ function (Graph, Collection, d3) {
       graph = new Graph({
         collection: new Collection()
       });
-      graph.calcXScale = jasmine.createSpy().andReturn('test x scale');
+    });
+    
+    it("requires an x scale implementation", function() {
       graph.calcYScale = jasmine.createSpy().andReturn('test y scale');
+      expect(function () {
+        graph.render();
+      }).toThrow();
+    });
+    
+    it("requires a y scale implementation", function() {
+      graph.calcXScale = jasmine.createSpy().andReturn('test x scale');
+      expect(function () {
+        graph.render();
+      }).toThrow();
     });
     
     it("calculates x scale", function() {
+      graph.calcXScale = jasmine.createSpy().andReturn('test x scale');
+      graph.calcYScale = jasmine.createSpy().andReturn('test y scale');
       graph.render();
       expect(graph.scales.x).toEqual('test x scale');
     });
     
     it("calculates y scale", function() {
+      graph.calcXScale = jasmine.createSpy().andReturn('test x scale');
+      graph.calcYScale = jasmine.createSpy().andReturn('test y scale');
       graph.render();
       expect(graph.scales.y).toEqual('test y scale');
     });
     
     it("renders component instances", function() {
+      graph.calcXScale = jasmine.createSpy().andReturn('test x scale');
+      graph.calcYScale = jasmine.createSpy().andReturn('test y scale');
       var component1 = {
         render: jasmine.createSpy()
       };

@@ -78,6 +78,16 @@ function (View, d3) {
         .attr('transform', 'translate(' + this.margin.left + ', ' + this.margin.top +')');
     },
     
+    // Not implemented; override in configuration or subclass
+    calcXScale: function () {
+      throw('No x scale defined.');
+    },
+    
+    // Not implemented; override in configuration or subclass
+    calcYScale: function () {
+      throw('No y scale defined.');
+    },
+    
     /**
      * Calculates current scales, then renders components in defined order.
      */
