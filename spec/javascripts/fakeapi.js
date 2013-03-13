@@ -1,5 +1,6 @@
 define([
   'fakeapi/licensing/totalapplications',
+  'jquery',
   'helpers/jquery.mockjax'
 ],
 function (applicationsResponse) {

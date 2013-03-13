@@ -1,7 +1,6 @@
 define([
   'licensing/collections/applications',
-  'licensing/views/totalapplications',
-  'fakeapi'
+  'licensing/views/totalapplications'
 ], function(ApplicationsCollection, TotalApplicationsView) {
 
   if (window.jasmine) {
