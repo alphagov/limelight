@@ -41,6 +41,9 @@ gem 'requirejs-rails', '~> 0.8.0'
 
 group :test, :development do
   gem "rspec-rails", "~> 2.12.0"
+  
+  gem 'cucumber-rails', :require => false
+  
   gem "jasmine", "~> 1.2.0"
   gem "jasmine-phantom", "~> 0.0.6"
 end
