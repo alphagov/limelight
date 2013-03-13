@@ -20,7 +20,7 @@ function (Line) {
           wrapper: wrapper,
           y: function () {}
         });
-        view.render()
+        view.render();
       }).toThrow();
     });
     
@@ -30,7 +30,7 @@ function (Line) {
           wrapper: wrapper,
           x: function () {}
         });
-        view.render()
+        view.render();
       }).toThrow();
     });
     
@@ -54,7 +54,7 @@ function (Line) {
           return model.b;
         }
       });
-      view.render()
+      view.render();
       
       expect(wrapper.select('path').attr('d')).toEqual('M1,2L3,4L5,6');
     });
