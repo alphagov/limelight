@@ -9,7 +9,7 @@ require.config({
   paths: {
     jquery: '/assets/vendor/jquery',
     jqueryxdr: '/assets/vendor/jquery.xdr',
-    jquerymockjax: '/helpers/jquery.mockjax',
+    jquerymockjax: '/assets/helpers/jquery.mockjax',
     lodash: '/assets/vendor/lodash',
     backbone: '/assets/vendor/backbone',
     css: '/assets/vendor/require-css',
