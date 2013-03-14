@@ -1,9 +1,12 @@
 define([
-  'moment'
+  'moment',
+  'fakeapi/random'
 ],
-function (moment) {
+function (moment, Random) {
   
   var dateFormat = 'YYYY-MM-DDTHH:mm:ssTZ';
+  
+  var rnd = new Random(1);
   
   var getResponse = function (query) {
     
@@ -17,7 +20,7 @@ function (moment) {
       data.push({
         _start_at: start.format(dateFormat),
         _end_at: end.format(dateFormat),
-        _count: Math.floor(Math.random() * 6e4)
+        _count: rnd(3e4, 6e4)
       });
     };
     
