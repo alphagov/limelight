@@ -4,7 +4,7 @@ define([
   'extensions/graph/line'
 ],
 function (Graph, Axis, Line) {
-  var TotalApplications = Graph.extend({
+  var ApplicationsGraph = Graph.extend({
     
     width: 954,
     height: 400,
@@ -85,5 +85,5 @@ function (Graph, Axis, Line) {
     }
   });
   
-  return TotalApplications;
+  return ApplicationsGraph;
 });

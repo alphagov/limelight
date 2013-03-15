@@ -1,19 +1,19 @@
-#total-applications {
+.applications-graph {
     border: 1px solid #999;
 }
 
-#total-applications .line {
+.applications-graph .line {
   fill: none;
   stroke: #108095;
   stroke-width: 3px;
 }
 
-#total-applications .x-axis path,
-#total-applications .y-axis path {
+.applications-graph .x-axis path,
+.applications-graph .y-axis path {
   display: none;
 }
 
-#total-applications .x-axis line {
+.applications-graph .x-axis line {
   fill: none;
   stroke: #444;
   stroke-width: 1px;
