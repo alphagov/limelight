@@ -6,7 +6,7 @@ class LicensingController < ApplicationController
   
   def licences
     
-    api = BackdropAPI.new(config.backdrop_url)
+    api = backdrop_api
     
     response = api.get_licences
     
