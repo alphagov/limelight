@@ -24,4 +24,13 @@ class LicensingController < ApplicationController
     
   end
 
+  def per_licence
+    
+    @licence = {
+      :licenceUrlSlug => 'temporary-events-notice',
+      :licenceName => "Temporary events notice"
+    }
+    
+  end
+
 end

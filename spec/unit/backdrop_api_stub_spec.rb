@@ -22,4 +22,13 @@ describe BackdropAPIStub do
       response["data"]["licenceUrlSlug"]["application-to-licence-a-street-collection"]["licenceName"][0].should == "Application to licence a street collection"
     end
   end
+  
+  describe "get_licence" do
+    it "should return a licence from the get_licence fixture" do
+      response = BackdropAPIStub.new.get_licence('application-to-licence-a-street-collection')
+
+      response["data"]["licenceUrlSlug"].should have(1).licence
+      response["data"]["licenceUrlSlug"]["application-to-licence-a-street-collection"]["licenceName"][0].should == "Application to licence a street collection"
+    end
+  end
 end
