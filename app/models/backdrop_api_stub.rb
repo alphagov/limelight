@@ -14,13 +14,12 @@ class BackdropAPIStub
   end
 
   def get_licence(slug)
-    fixture("get_licence")
+    fixture(slug)
   end
 
   private
   def fixture(name)
     fixture_file = File.join(@fixture_path, "#{name}.json")
-
     JSON.parse(File.read(fixture_file))
   rescue *[JSON::ParserError, Errno::ENOENT] => e
     raise Songkick::Transport::UpstreamError.new e.message
