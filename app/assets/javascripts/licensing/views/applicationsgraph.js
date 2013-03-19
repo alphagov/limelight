@@ -24,6 +24,12 @@ function (Graph, Axis, Line) {
             classed: 'x-axis',
             position: 'bottom',
             orient: 'bottom',
+            tickValues: function () {
+              // a tick every sunday
+              return this.collection.map(function (model) {
+                return moment(model.get('_end_at')).subtract(1, 'days').toDate();
+              });
+            },
             tickPadding: 4,
             tickFormat: function () {
               return d3.time.format("%e %b");
@@ -54,7 +60,9 @@ function (Graph, Axis, Line) {
           options: {
             classed: 'line',
             x: function (model) {
-              return this.scales.x(model.get('_start_at').toDate());
+              // display data points on sundays
+              var x = model.get('_end_at').subtract(1, 'days');
+              return this.scales.x(x.toDate());
             },
             y: function (model) {
               return this.scales.y(model.get('_count'));
@@ -65,12 +73,12 @@ function (Graph, Axis, Line) {
     },
     
     calcXScale: function () {
+      // scale from first sunday to last sunday
       var collection = this.collection;
+      var start = moment(collection.first().get('_end_at')).subtract(1, 'days');
+      var end = moment(collection.last().get('_end_at')).subtract(1, 'days');
       var xScale = this.d3.time.scale();
-      xScale.domain([
-        collection.first().get('_start_at').toDate(),
-        collection.last().get('_start_at').toDate()
-      ]);
+      xScale.domain([start.toDate(), end.toDate()]);
       xScale.range([0, this.innerWidth]);
       return xScale;
     },
