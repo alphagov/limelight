@@ -40,3 +40,7 @@ end
 Then(/^the subtitle should be "(.*?)"$/) do |subtitle|
   page.find("#content h2").should have_content(subtitle)
 end
+
+Then(/^the navigation link for "(.*?)" should be active$/) do |link_title|
+  page.find("#global nav li.active a[text()='#{link_title}']").should be_visible
+end
