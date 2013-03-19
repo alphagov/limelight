@@ -1,7 +1,7 @@
 define([
   'jquerymockjax',
   'fakeapi/licensing/perlicence',
-  'fakeapi/licensing/totalapplications'
+  'fakeapi/licensing/applications'
 ],
 function () {
   

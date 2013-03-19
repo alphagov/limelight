@@ -1,8 +1,11 @@
 define([
-    'backbone'
+    'backbone',
+    'moment'
 ],
-function (Backbone) {
+function (Backbone, moment) {
     var View = Backbone.View.extend({
+      
+      moment: moment,
       
       magnitudes: {
           million:  {value: 1e6, suffix:"m"},

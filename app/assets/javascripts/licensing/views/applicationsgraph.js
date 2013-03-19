@@ -61,7 +61,7 @@ function (Graph, Axis, Line) {
             classed: 'line',
             x: function (model) {
               // display data points on sundays
-              var x = model.get('_end_at').subtract(1, 'days');
+              var x = this.moment(model.get('_end_at')).subtract(1, 'days');
               return this.scales.x(x.toDate());
             },
             y: function (model) {
