@@ -26,11 +26,24 @@ class LicensingController < ApplicationController
 
   def per_licence
     
-    @licence = {
-      :licenceUrlSlug => 'temporary-events-notice',
-      :licenceName => "Temporary events notice"
-    }
+    slug = params[:slug]
     
+    api = backdrop_api
+    
+    response = api.get_licence(slug)
+    
+    data = response["data"]["licenceUrlSlug"]
+    
+    if data && data[slug]
+      
+      @licence = {
+        :licenceUrlSlug => slug,
+        :licenceName => response["data"]["licenceUrlSlug"][slug]["licenceName"][0]
+      }
+      
+    else
+      raise ActionController::RoutingError.new('Licence not found.')
+    end
   end
 
 end

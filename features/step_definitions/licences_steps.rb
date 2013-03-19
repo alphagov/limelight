@@ -32,3 +32,11 @@ end
 Then(/^the (\d+)(?:st|nd|rd|th) link should be "(.*?)"$/) do |position, href|
   page.all("ul#licences li a")[position.to_i - 1][:href].should == href
 end
+
+Then(/^the page title should be "(.*?)"$/) do |title|
+  page.find("#content h1").should have_content(title)
+end
+
+Then(/^the subtitle should be "(.*?)"$/) do |subtitle|
+  page.find("#content h2").should have_content(subtitle)
+end
