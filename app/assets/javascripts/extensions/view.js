@@ -30,8 +30,8 @@ function (Backbone) {
        * @return {Function}
        */
       numberListFormatter: function (values) {
-        function isAnExactMultipleOf(value) {
-          return function(n) { return n % value === 0; };
+        function isAnExactMultipleOf(magnitude) {
+          return function(n) { return n % magnitude === 0; };
         }
 
         var max = values.reduce(function(a,b) {return a > b ? a : b});
