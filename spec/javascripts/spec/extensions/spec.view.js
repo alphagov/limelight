@@ -131,7 +131,43 @@ function (View, Backbone) {
           expect(function() { View.prototype.calculateLinearTicks([0, 0], 5)})
               .toThrow(new Error("Upper bound must be larger than lower."));
         });
-      })
+      });
+    });
+
+    describe("prop", function() {
+      it("retrieves an object property", function() {
+        var view = new View();
+        view.testProp = { foo: 'bar' };
+        expect(view.prop('testProp')).toEqual({ foo: 'bar' });
+      });
+      
+      it("retrieves an object method result", function() {
+        var view = new View();
+        view.otherProp = { foo: 'bar' };
+        view.testProp = function () {
+          return this.otherProp;
+        };
+        expect(view.prop('testProp')).toEqual({ foo: 'bar' });
+      });
+      
+      it("retrieves property from another object", function() {
+        var view = new View();
+        var anotherObject = {
+          testProp: { foo: 'bar' }
+        };
+        expect(view.prop('testProp', anotherObject)).toEqual({ foo: 'bar' });
+      });
+      
+      it("retrieves method result from another object", function() {
+        var view = new View();
+        var anotherObject = {
+          otherProp: { foo: 'bar' },
+          testProp: function () {
+            return this.otherProp;
+          }
+        };
+        expect(view.prop('testProp', anotherObject)).toEqual({ foo: 'bar' });
+      });
     });
   });
 });
