@@ -1,7 +1,6 @@
 src_files:
-  - vendor/require.js
-  - jasmine_config.js
-  - config.js
+  - assets/vendor/require.js
+  - assets/config.js
 
 spec_files:
   - spec/**/spec.*.js

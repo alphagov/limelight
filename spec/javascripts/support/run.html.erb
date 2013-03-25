@@ -7,10 +7,6 @@
       <link rel="stylesheet" href="<%= css_file %>" type="text/css" media="screen"/>
   <% end %>
 
-  <% jasmine_files.each do |jasmine_file| %>
-      <script src="<%= jasmine_file %>" type="text/javascript"></script>
-  <% end %>
-
   <% js_files.reject { |each| each.start_with?("/__spec__/") }.each do |js_file| %>
       <script src="<%= js_file %>" type="text/javascript"></script>
   <% end %>
@@ -20,7 +16,7 @@
 <script type="text/javascript">
     var jsApiReporter = new jasmine.JsApiReporter();
 
-    var specsList = <%= spec_files.map { |each| "/__spec__/" + each } %>;
+    var specsList = <%= js_files.select { |each| each.start_with?("/__spec__/") } %>;
     require(specsList, function() {
         var jasmineEnv = jasmine.getEnv();
 
