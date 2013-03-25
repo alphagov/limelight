@@ -28,11 +28,6 @@ function (View) {
       el.addClass('outer-table-wrapper');
       el.empty();
       
-      var that = this;
-      $(window).on('resize', function (e) {
-        that.adjustTableLayout.call(that);
-      });
-
       var tableHead = $('<table></table>').addClass('head');
       tableHead.appendTo(el);
 
@@ -49,11 +44,17 @@ function (View) {
       tbody.appendTo(tableBody);
       this.renderBody(tbody, wrapper);
 
-      if (this.options.preventDocumentScroll) {
+      if (this.preventDocumentScroll) {
         this.applyPreventDocumentScroll(wrapper);
       }
-
+      
       this.adjustTableLayout();
+      this.adjustTableLayout();
+      var that = this;
+      $(window).on('resize', function (e) {
+        that.adjustTableLayout.call(that);
+      });
+
     },
 
     close: function () {
@@ -80,7 +81,15 @@ function (View) {
 
       var tds = el.find('td');
       el.find('th').each(function (i) {
-        $(this).width(tds.eq(i).width() + 1);
+        var th = $(this);
+        var td = tds.eq(i);
+        
+        th.css('width', 'auto');
+        td.css('width', 'auto');
+        
+        var width = Math.max(th.width(), td.width());
+        th.width(width);
+        td.width(width);
       });
     },
 
@@ -116,7 +125,7 @@ function (View) {
       var data = this.collection;
       var that = this;
 
-      if (this.options.lazyRender) {
+      if (this.lazyRender) {
         // render table on demand in chunks. whenever the user scrolls to the
         // bottom, append another chunk of rows.
 

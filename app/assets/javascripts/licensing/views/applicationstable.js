@@ -3,6 +3,9 @@ define([
 ],
 function (Table) {
   var ApplicationsTable = Table.extend({
+    
+    lazyRender: true,
+    
     columns: [
       {
         id: 'title',

@@ -10,6 +10,7 @@ require.config({
   paths: {
     jquery: '/assets/vendor/jquery',
     jqueryxdr: '/assets/vendor/jquery.xdr',
+    jquerymousewheel: '/assets/vendor/jquery.mousewheel',
     jquerymockjax: '/assets/helpers/jquery.mockjax',
     lodash: '/assets/vendor/lodash',
     backbone: '/assets/vendor/backbone',
@@ -22,7 +23,7 @@ require.config({
 
   shim: {
     backbone: {
-      deps: ['lodash', 'jquery', 'jqueryxdr'],
+      deps: ['lodash', 'jquery', 'jqueryxdr', 'jquerymousewheel'],
       exports: 'Backbone'
     },
 
@@ -35,6 +36,10 @@ require.config({
     },
     
     jqueryxdr: {
+      deps: ['jquery']
+    },
+
+    jquerymousewheel: {
       deps: ['jquery']
     },
 
