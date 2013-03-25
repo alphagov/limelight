@@ -60,5 +60,8 @@ module Limelight
 
     config.backdrop_url = Plek.new.find("read.backdrop")
 
+    # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
+    config.assets.precompile += %w( *.css *.js )
+
   end
 end

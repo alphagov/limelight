@@ -14,4 +14,7 @@
 /log/*.log
 /tmp
 
+# Ignore everything inside public by default
+public/*
+
 .idea

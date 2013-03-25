@@ -39,8 +39,6 @@ end
 # To use debugger
 # gem 'debugger'
 
-gem 'requirejs-rails', '~> 0.8.0'
-
 group :test, :development do
   gem "rspec-rails", "~> 2.12.0"
   
