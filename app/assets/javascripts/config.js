@@ -2,9 +2,7 @@
 require.config({
 
   deps: [
-    'fakeapi',
-    // get controller path for this page from wrapper element
-    window.$ && $('#wrapper').data('controller')
+    'bootstrap'
   ],
 
   paths: {
