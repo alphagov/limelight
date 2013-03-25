@@ -18,11 +18,7 @@
 
     var specsList = <%= js_files.select { |each| each.start_with?("/__spec__/") } %>;
     require(specsList, function() {
-        var jasmineEnv = jasmine.getEnv();
-
-        jasmineEnv.addReporter(new jasmine.HtmlReporter());
-        jasmineEnv.addReporter(jsApiReporter);
-        jasmineEnv.execute();
+        jasmine.getEnv().addReporter(jsApiReporter);
     }, function (e) {
         console.error(e, e.requireModules);
     });

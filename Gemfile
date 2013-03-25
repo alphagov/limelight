@@ -47,5 +47,5 @@ group :test, :development do
   gem 'cucumber-rails', :require => false
   
   gem "jasmine"
-  gem "jasmine-phantom", "~> 0.0.6"
+  gem "jasmine-phantom"
 end
