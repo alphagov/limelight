@@ -20,7 +20,8 @@ function (require, Applications, Collection) {
         filter_by: this.licenceUrlSlug,
         group_by: 'authorityUrlSlug',
         limit: 5,
-        sort_by: '_count'
+        sort_by: '_count:descending',
+        collect: 'authorityName,licenceName'
       });
     }
   });
