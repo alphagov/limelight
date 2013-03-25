@@ -7,17 +7,19 @@ require.config({
     window.$ && $('#wrapper').data('controller')
   ],
 
+  baseUrl: '/limelight',
+
   paths: {
-    jquery: '/assets/vendor/jquery',
-    jqueryxdr: '/assets/vendor/jquery.xdr',
-    jquerymockjax: '/assets/helpers/jquery.mockjax',
-    lodash: '/assets/vendor/lodash',
-    backbone: '/assets/vendor/backbone',
-    css: '/assets/vendor/require-css',
-    modernizr: '/assets/vendor/modernizr',
-    moment: '/assets/vendor/moment',
-    tpl: '/assets/vendor/tpl',
-    d3: '/assets/vendor/d3.v3',
+    jquery: 'vendor/jquery',
+    jqueryxdr: 'vendor/jquery.xdr',
+    jquerymockjax: 'helpers/jquery.mockjax',
+    lodash: 'vendor/lodash',
+    backbone: 'vendor/backbone',
+    css: 'vendor/require-css',
+    modernizr: 'vendor/modernizr',
+    moment: 'vendor/moment',
+    tpl: 'vendor/tpl',
+    d3: 'vendor/d3.v3'
   },
 
   shim: {

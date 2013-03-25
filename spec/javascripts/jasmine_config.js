@@ -1,3 +1,3 @@
 requirejs.config({
-    baseUrl: 'assets/'
+    baseUrl: '/assets'
 });
