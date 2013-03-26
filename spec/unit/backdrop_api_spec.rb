@@ -1,6 +1,14 @@
 require 'spec_helper'
 
 describe BackdropAPI do
+
+  before :each do
+    @httparty_stub = double("HttpParty")
+
+    Songkick::Transport::HttParty.stub(:new)
+    .with("http://backdrop/", :user_agent => "Limelight", :timeout => 30)
+    .and_return(@httparty_stub)
+  end
   
   describe "get_licences" do
     
@@ -94,6 +102,26 @@ describe BackdropAPI do
       
     end
     
+  end
+
+  describe "authentication" do
+    it "should authenticate with credentials" do
+
+      response_stub = double("response")
+      response_stub.stub(:data).and_return({})
+
+      @httparty_stub.should_receive(:with_headers)
+        .with({"Authorization" => "Basic: doctor:who"})
+        .and_return(@httparty_stub)
+
+      @httparty_stub.should_receive(:get)
+      .with("/performance/licensing/api?group_by=licenceUrlSlug&collect=licenceName&period=week")
+      .and_return(response_stub)
+
+      client = BackdropAPI.new("http://backdrop/", {username: 'doctor', password: 'who'})
+      client.get_licences
+
+    end
   end
 
 end
