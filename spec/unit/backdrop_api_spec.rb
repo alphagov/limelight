@@ -111,7 +111,7 @@ describe BackdropAPI do
       response_stub.stub(:data).and_return({})
 
       @httparty_stub.should_receive(:with_headers)
-        .with({"Authorization" => "Basic: doctor:who"})
+        .with({"Authorization" => "Basic ZG9jdG9yOndobw=="}) # base64 encoded for 'doctor:who'
         .and_return(@httparty_stub)
 
       @httparty_stub.should_receive(:get)

@@ -24,7 +24,8 @@ class BackdropAPI
     transport = Songkick::Transport::HttParty.new(@backdrop_url, :user_agent => "Limelight", :timeout => 30)
 
     if @credentials.present?
-      transport = transport.with_headers("Authorization" => "Basic: #{@credentials[:username]}:#{@credentials[:password]}")
+      encoded_credentials = Base64.strict_encode64 "#{@credentials[:username]}:#{@credentials[:password]}"
+      transport = transport.with_headers("Authorization" => "Basic #{encoded_credentials}")
     end
 
     transport.get(path)
