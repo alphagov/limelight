@@ -55,5 +55,11 @@ module Limelight
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+
+    config.assets.prefix = 'limelight'
+
+    # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
+    config.assets.precompile += %w( *.css *.js )
+
   end
 end

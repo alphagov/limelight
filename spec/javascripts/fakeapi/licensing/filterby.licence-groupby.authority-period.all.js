@@ -11,7 +11,7 @@ define([
       this.rnd = new Random(1);
     },
     
-    url: /\/licensing\/?\?(.*group_by=authorityUrlSlug.*period=all)/,
+    url: /\/licensing\/?.*\?(.*group_by=authorityUrlSlug.*period=all)/,
     
     getData: function (query) {
       

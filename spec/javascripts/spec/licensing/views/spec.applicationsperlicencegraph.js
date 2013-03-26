@@ -84,7 +84,12 @@ function (Graph, Collection, moment) {
       it("scales range to inner height", function() {
         expect(graph.calcYScale().range()).toEqual([333, 0]);
       });
-    });
+
+      it("sets the tickValues correctly", function() {
+          expect(graph.calcYScale().tickValues)
+              .toEqual([0, 20, 40, 60, 80, 100, 120])
+      });
+   });
     
     describe("render", function() {
       it("renders lines for each time series", function() {

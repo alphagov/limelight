@@ -88,9 +88,11 @@ function (Graph, Axis, Line) {
       var yScale = this.d3.scale.linear();
       var max = this.d3.max(collection.models, function (model) {
         return model.get('_count');
-      })
-      yScale.domain([0, max]).nice();
-      yScale.range([this.innerHeight, 0]);
+      });
+      var tickValues = this.calculateLinearTicks([0, max], 7);
+      yScale.domain(tickValues.extent);
+      yScale.rangeRound([this.innerHeight, 0]);
+      yScale.tickValues = tickValues.values;
       return yScale;
     }
   });
