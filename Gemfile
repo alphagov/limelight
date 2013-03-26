@@ -46,4 +46,6 @@ group :test, :development do
   
   gem "jasmine"
   gem "jasmine-phantom"
+
+  gem 'fakeweb'
 end
