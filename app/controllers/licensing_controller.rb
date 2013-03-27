@@ -17,4 +17,8 @@ class LicensingController < ApplicationController
     end
   end
 
+  def authorities
+    @authorities = nil
+  end
+
 end
