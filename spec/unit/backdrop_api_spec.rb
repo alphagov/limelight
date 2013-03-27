@@ -1,6 +1,10 @@
 require 'spec_helper'
 
 describe BackdropAPI do
+
+  before :each do
+    FakeWeb.clean_registry
+  end
   
   describe "get_licences" do
     
