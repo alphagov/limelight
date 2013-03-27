@@ -32,13 +32,13 @@ class LicensingController < ApplicationController
     
     response = api.get_licence(slug)
     
-    data = response["data"]["licenceUrlSlug"]
+    data = response["data"]
     
-    if data && data[slug]
+    if data && data[0]
       
       @licence = {
         :licenceUrlSlug => slug,
-        :licenceName => response["data"]["licenceUrlSlug"][slug]["licenceName"][0]
+        :licenceName => response["data"][0]["licenceName"][0]
       }
       
     else

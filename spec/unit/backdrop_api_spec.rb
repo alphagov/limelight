@@ -31,7 +31,7 @@ describe BackdropAPI do
       response = { "data" => "data-for-a-specific-licence" }
 
       FakeWeb.register_uri(:get,
-                           "http://backdrop/performance/licensing/api?filter_by=licenceUrlSlug:application-to-licence-a-street-collection&group_by=licenceUrlSlug&collect=licenceName&period=all",
+                           "http://backdrop/performance/licensing/api?filter_by=licenceUrlSlug:application-to-licence-a-street-collection&group_by=licenceUrlSlug&collect=licenceName",
                            :body => response.to_json)
 
       client = BackdropAPI.new("http://backdrop/")
