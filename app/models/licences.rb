@@ -18,7 +18,7 @@ class Licences
     licences_to_return = []
     unless backdrop_response.empty?
       if backdrop_response['data']['licenceUrlSlug']
-        backdrop_response['data']['licenceUrlSlug'].map do |slug, value|
+        backdrop_response['data']['licenceUrlSlug'].each do |slug, value|
           licences_to_return.append(Licence.new(slug, value["licenceName"][0]))
         end
       end

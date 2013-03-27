@@ -11,7 +11,7 @@ class Authorities
     authorities_to_return = []
     unless backdrop_response.empty?
       if backdrop_response["data"]["authorityUrlSlug"]
-        backdrop_response["data"]["authorityUrlSlug"].map do |slug, value|
+        backdrop_response["data"]["authorityUrlSlug"].each do |slug, value|
           authorities_to_return.append(Authority.new(slug, value["authorityName"][0]))
         end
       end
