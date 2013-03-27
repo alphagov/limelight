@@ -44,3 +44,7 @@ end
 Then(/^the navigation link for "(.*?)" should be active$/) do |link_title|
   page.find("#global nav li.active a[text()='#{link_title}']").should be_visible
 end
+
+When /^there should be (\d+) authorities$/ do |num_authorities|
+  page.all("ul#authorities li").count.should == num_authorities.to_i
+end

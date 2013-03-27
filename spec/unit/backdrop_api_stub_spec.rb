@@ -31,4 +31,12 @@ describe BackdropAPIStub do
       response["data"]["licenceUrlSlug"]["application-to-licence-a-street-collection"]["licenceName"][0].should == "Application to licence a street collection"
     end
   end
+
+  describe "get_authorities" do
+    it "should return authorities from the get_authorities fixture" do
+      response = BackdropAPIStub.new.get_authorities
+
+      response["data"]["authorityUrlSlug"].should have(2).authorities
+    end
+  end
 end
