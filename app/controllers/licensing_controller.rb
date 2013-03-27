@@ -28,22 +28,22 @@ class LicensingController < ApplicationController
     
     slug = params[:slug]
     
-    api = backdrop_api
-    
-    response = api.get_licence(slug)
-    
-    data = response["data"]
-    
-    if data && data[0]
+    #api = backdrop_api
+    #
+    #response = api.get_licence(slug)
+    #
+    #data = response["data"]
+    #
+    #if data && data[0]
       
       @licence = {
         :licenceUrlSlug => slug,
-        :licenceName => response["data"][0]["licenceName"][0]
+        :licenceName => slug # response["data"][0]["licenceName"][0]
       }
       
-    else
-      raise ActionController::RoutingError.new('Licence not found.')
-    end
+    #else
+    #  raise ActionController::RoutingError.new('Licence not found.')
+    #end
   end
 
 end
