@@ -59,6 +59,23 @@ describe BackdropAPI do
     
   end
 
+  describe "get_authority" do
+    it "should retrieve data listing specific authorities" do
+      response = { "data" => "something that looks nothing like the real data"}
+
+      FakeWeb.register_uri(
+        :get,
+        "http://backdrop/performance/licensing/api?filter_by=authorityUrlSlug:some-auth-slug&group_by=authorityUrlSlug&collect=authorityName&period=all",
+        :body => response.to_json
+      )
+
+      client = BackdropAPI.new("http://backdrop/")
+
+      authority = client.get_authority('some-auth-slug')
+      authority['data'].should == "something that looks nothing like the real data"
+    end
+  end
+
   describe "authentication" do
     it "should authenticate with credentials" do
       response = { "data" => "some-licence-data" }

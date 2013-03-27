@@ -8,7 +8,6 @@ Given(/^API responds with (.*)$/) do |fixture_file|
     .and_return(response_stub)
   
   response_stub.stub(:data).and_return(JSON.parse(File.read(path)))
-  
   Songkick::Transport::HttParty.stub(:new)
     .and_return(httparty_stub)
 end

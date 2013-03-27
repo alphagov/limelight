@@ -25,6 +25,16 @@ class BackdropAPI
     response.data
   end
 
+  def get_authority(slug)
+    response = get(
+      "/performance/licensing/api?filter_by=authorityUrlSlug:#{slug}" +
+      "&group_by=authorityUrlSlug" +
+      "&collect=authorityName" +
+      "&period=all"
+    )
+    response.data
+  end
+
   def get(path)
     transport = Songkick::Transport::HttParty.new(@backdrop_url, :user_agent => "Limelight", :timeout => 30)
 

@@ -23,7 +23,7 @@
         <li<% if ['licences', 'per_licence'].include? controller.action_name %> class="active"<% end %>>
           <%= link_to "Licences", :action => "licences" %>
         </li>
-        <li <% if controller.action_name == 'authorities' %> class="active" <% end %>>
+        <li <% if ['authorities','per_authority'].include? controller.action_name %> class="active" <% end %>>
           <%= link_to "Authorities", :action => "authorities" %>
         </li>
       </ul>

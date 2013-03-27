@@ -39,4 +39,13 @@ describe BackdropAPIStub do
       response["data"]["authorityUrlSlug"].should have(2).authorities
     end
   end
+
+  describe "get_authority" do
+    it "should return an authority from the fixtures" do
+      response = BackdropAPIStub.new.get_authority("fake-authority-1")
+
+      response["data"]["authorityUrlSlug"].should have(1).authority
+      response["data"]["authorityUrlSlug"]["fake-authority-1"]["authorityName"][0].should == "Fake Authority 1"
+    end
+  end
 end
