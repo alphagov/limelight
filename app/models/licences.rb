@@ -23,6 +23,6 @@ class Licences
         end
       end
     end
-    return licences_to_return
+    licences_to_return
   end
 end

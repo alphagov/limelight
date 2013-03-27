@@ -22,4 +22,10 @@ describe Authority do
     authorities[1].name.should == "Fake Authority Two"
     authorities[1].slug.should == "fake-authority-2"
   end
+
+  it "should return an empty array when the backdrop response is empty" do
+    authorities = Authorities.from_backdrop_response({})
+
+    authorities.should be_empty
+  end
 end
