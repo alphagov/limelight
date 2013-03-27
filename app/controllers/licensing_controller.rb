@@ -10,12 +10,12 @@ class LicensingController < ApplicationController
     
     response = api.get_licences
     
-    if response["data"]["licenceUrlSlug"]
+    if response["data"]
       
-      @licences = response["data"]["licenceUrlSlug"].map do |slug, value|
+      @licences = response["data"].map do |value|
         {
-          :licenceUrlSlug => slug,
-          :licenceName => value["licenceName"][0]
+          :licenceUrlSlug => value["licenceUrlSlug"],
+          :licenceName => value["licenceUrlSlug"] # value["licenceName"][0]
         }
       end
     else

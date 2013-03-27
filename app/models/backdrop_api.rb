@@ -11,7 +11,7 @@ class BackdropAPI
   end
   
   def get_licences
-    response = get("/performance/licensing/api?group_by=licenceUrlSlug&collect=licenceName&period=week")
+    response = get("/performance/licensing/api?group_by=licenceUrlSlug")
     response.data
   end
 
