@@ -18,4 +18,18 @@ describe Licence do
     licence.name.should == "Some Name"
     licence.slug.should == "some-slug"
   end
+
+  it "should raise an error if the slug is not found in the response" do
+    response = {
+      "data" => {
+        "licenceUrlSlug" => {
+          "some-slug" => {
+            "licenceName" => ["Some Name"]
+          }
+        }
+      }
+    }
+
+    expect {Licence.from_backdrop_response("some-other-licence", response)}.to raise_error
+  end
 end
