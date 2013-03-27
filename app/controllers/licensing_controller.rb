@@ -6,21 +6,7 @@ class LicensingController < ApplicationController
   
   def licences
     
-    api = backdrop_api
-    
-    response = api.get_licences
-    
-    if response["data"]["licenceUrlSlug"]
-      
-      @licences = response["data"]["licenceUrlSlug"].map do |slug, value|
-        {
-          :licenceUrlSlug => slug,
-          :licenceName => value["licenceName"][0]
-        }
-      end
-    else
-      @licences = []
-    end
+    @licences = Licences.from_backdrop_response(backdrop_api.get_licences)
     
   end
 
