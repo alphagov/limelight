@@ -5,10 +5,6 @@ class Licence
     @name = name
     @slug = slug
   end
-
-  def self.from_backdrop_response(backdrop_response)
-
-  end
 end
 
 # TODO: not sure if this would be better as some kind of module method
