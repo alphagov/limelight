@@ -1,11 +1,3 @@
-class Authority
-  attr_accessor :slug, :name
-  def initialize(slug, name)
-    @slug = slug
-    @name = name
-  end
-end
-
 class Authorities
   def self.from_backdrop_response(backdrop_response)
     authorities_to_return = []
