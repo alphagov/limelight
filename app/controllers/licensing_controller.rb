@@ -22,10 +22,7 @@ class LicensingController < ApplicationController
     
     if data && data[slug]
       
-      @licence = {
-        :licenceUrlSlug => slug,
-        :licenceName => response["data"]["licenceUrlSlug"][slug]["licenceName"][0]
-      }
+      @licence = Licence.from_backdrop_response(slug, response)
       
     else
       raise ActionController::RoutingError.new('Licence not found.')

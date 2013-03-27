@@ -5,6 +5,11 @@ class Licence
     @name = name
     @slug = slug
   end
+
+  def self.from_backdrop_response(slug, backdrop_response)
+    licences = backdrop_response["data"]["licenceUrlSlug"]
+    self.new(slug, licences[slug]["licenceName"][0])
+  end
 end
 
 # TODO: not sure if this would be better as some kind of module method
