@@ -20,6 +20,25 @@ describe BackdropAPI do
     
   end
 
+  describe "get_authorities" do
+
+    it "should retrieve a list of authorities" do
+      response = { "data" => ["foo_authoritiy", "bar_authoritiy"]}
+
+      FakeWeb.register_uri(
+        :get,
+        "http://backdrop/performance/licensing/api?group_by=authorityUrlSlug&collect=authorityName&period=week",
+        :body => response.to_json
+      )
+
+      client = BackdropAPI.new("http://backdrop/")
+      authorities = client.get_authorities
+
+      authorities.should == response
+    end
+
+  end
+
   describe "get_licence" do
     
     it "should retrieve data for a specific licence" do
