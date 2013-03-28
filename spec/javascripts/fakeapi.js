@@ -1,8 +1,8 @@
 define([
   'jquerymockjax',
-  'fakeapi/licensing/filterby.licence-groupby.authority-period.all',
-  'fakeapi/licensing/perlicence',
-  'fakeapi/licensing/applications'
+  'fakeapi/licensing/perlicencetable',
+  'fakeapi/licensing/perlicencegraph',
+  'fakeapi/licensing/total'
 ],
 function () {
   // use XMLHttpRequest for cross domain mock calls on IE

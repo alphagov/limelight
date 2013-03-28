@@ -18,7 +18,7 @@ define([
       var values = _.map(this.authorities, function (name) {
         return {
           authorityUrlSlug: name.replace(' ', '-').toLowerCase(),
-          _count: this.rnd(1e3, 1e4),
+          _count: Math.floor(this.rnd(0, 1e4)),
           authorityName: [name]
         }
       }, this);
