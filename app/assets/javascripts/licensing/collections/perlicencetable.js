@@ -1,13 +1,16 @@
 define([
   'require',
-  'extensions/collection'
+  'extensions/collection',
+  'licensing/models/perlicencetablerow'
 ],
-function (require, Collection) {
+function (require, Collection, Model) {
   /**
    * Retrieves data for a specific licence, grouped by authority,
    * for all authorities
    */
   var LicenceApplications = Collection.extend({
+    
+    model: Model,
     
     initialize: function (models, options) {
       this.licenceUrlSlug = options.licenceUrlSlug;
@@ -17,7 +20,7 @@ function (require, Collection) {
     parse: function (response) {
       return response.data.values;
     },
-
+    
     queryUrl: 'licensing',
 
     queryParams: function () {
@@ -32,6 +35,7 @@ function (require, Collection) {
         period: 'all'
       };
     }
+    
   });
 
   return LicenceApplications;

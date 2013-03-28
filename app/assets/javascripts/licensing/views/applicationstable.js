@@ -11,9 +11,12 @@ function (Table) {
         id: 'title',
         title: 'Licence',
         getValue: function (model) {
-          var licence = model.get('licenceName')[0]
-          var authority = model.get('authorityName')[0]
-          return licence + ' &ndash; ' + authority;
+          var res = model.get('authorityName');
+          var licence = model.get('licenceName');
+          if (licence) {
+            res = licence + ' &ndash; ' + res;
+          }
+          return res;
         }
       },
       {
