@@ -4,9 +4,10 @@ class Licences
   def self.from_backdrop_response(backdrop_response)
     licences_to_return = []
     unless backdrop_response.empty?
-      if backdrop_response['data']['licenceUrlSlug']
-        backdrop_response['data']['licenceUrlSlug'].each do |slug, value|
-          licences_to_return.append(Licence.new(slug, value["licenceName"][0]))
+      if backdrop_response['data']
+        backdrop_response['data'].each do |licence_data|
+          licences_to_return.append(Licence.new(licence_data["licenceUrlSlug"],
+                                                licence_data["licenceUrlSlug"]))
         end
       end
     end

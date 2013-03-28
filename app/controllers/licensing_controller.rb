@@ -11,7 +11,8 @@ class LicensingController < ApplicationController
   def per_licence
     slug = params[:slug]
     begin
-      @licence = Licence.from_backdrop_response(slug, backdrop_api.get_licence(slug))
+      #@licence = Licence.from_backdrop_response(backdrop_api.get_licence(slug))
+      @licence = Licence.new(slug, slug)
     rescue Exception => e
       raise ActionController::RoutingError.new('Licence not found.')
     end

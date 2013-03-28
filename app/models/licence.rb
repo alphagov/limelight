@@ -6,8 +6,11 @@ class Licence
     @slug = slug
   end
 
-  def self.from_backdrop_response(slug, backdrop_response)
-    licences = backdrop_response["data"]["licenceUrlSlug"]
-    self.new(slug, licences[slug]["licenceName"][0])
+  def self.from_backdrop_response(backdrop_response)
+    if backdrop_response["data"].count != 1
+      raise "expected exactly one entry, got #{backdrop_response}"
+    end
+    licences = backdrop_response["data"][0]
+    self.new(licences["licenceUrlSlug"], licences["licenceName"][0])
   end
 end
