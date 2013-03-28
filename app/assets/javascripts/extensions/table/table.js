@@ -12,7 +12,22 @@ function (View) {
       var collection = this.collection = options.collection;
       collection.on('reset add remove', this.render, this);
       
+      if (this.defaultSortColumn) {
+        var column = this.columns[this.defaultSortColumn];
+        this.collection.sortByAttr(column.id, column.defaultDescending);
+      }
+      
       View.prototype.initialize.apply(this, arguments);
+    },
+    
+    events: {
+      'click th.sortable': function (e) {
+        var th = $(e.target);
+        var column = this.columns[this.$el.find('th').index(th)];
+        var isCurrent = th.hasClass('descending') || th.hasClass('ascending');
+        var descending = isCurrent ? th.hasClass('ascending') : column.defaultDescending;
+        this.collection.sortByAttr(column.id, Boolean(descending));
+      }
     },
 
     /**
@@ -24,7 +39,7 @@ function (View) {
         throw('no columns defined for table');
       }
 
-      var el = this.el;
+      var el = this.$el;
       el.addClass('outer-table-wrapper');
       el.empty();
       
@@ -58,7 +73,7 @@ function (View) {
     },
 
     close: function () {
-      var el = this.el;
+      var el = this.$el;
       el.find('.inner-table-wrapper').off('mousewheel');
       el.find('.inner-table-wrapper').off('scroll');
       $(window).off('resize');
@@ -68,7 +83,7 @@ function (View) {
     },
 
     adjustTableLayout: function () {
-      var el = this.el;
+      var el = this.$el;
       
       var head = el.find('table.head');
       var body = el.find('table.body');
@@ -197,7 +212,7 @@ function (View) {
       var that = this;
       _.each(options.columns, function (column, i) {
         var td = $(tdString);
-        td.addClass(column.className);
+        td.addClass(column.className || column.id);
 
         var value;
         if (options.allowGetValue && typeof column.getValue === 'function') {
@@ -215,24 +230,10 @@ function (View) {
         if (options.header && column.sortable) {
           td.addClass('sortable');
 
-          var currentSortColumn = (column === that.sortColumn);
+          var currentSortColumn = (column.id === that.collection.sortAttr);
 
           if (currentSortColumn) {
-            td.addClass(that.sortDescending ? 'descending' : 'ascending');
-          }
-          var handler = function (e) {
-            var descending;
-            if (currentSortColumn) {
-              descending = !that.sortDescending;
-            } else {
-              descending = column.defaultDescending;
-            }
-            that.render.call(that);
-          };
-          if (window.Modernizr && Modernizr.touch) {
-            td.on('touchend', handler);
-          } else {
-            td.on('click', handler);
+            td.addClass(that.collection.sortDescending ? 'descending' : 'ascending');
           }
         }
       });

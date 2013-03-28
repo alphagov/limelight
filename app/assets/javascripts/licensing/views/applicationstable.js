@@ -8,8 +8,9 @@ function (Table) {
     
     columns: [
       {
-        id: 'title',
+        id: 'authorityName',
         title: 'Licence',
+        sortable: true,
         getValue: function (model) {
           var res = model.get('authorityName');
           var licence = model.get('licenceName');
@@ -20,13 +21,18 @@ function (Table) {
         }
       },
       {
-        id: 'count',
+        id: '_count',
         title: 'Licence&nbsp;applications',
+        sortable: true,
+        defaultDescending: true,
         getValue: function (model) {
           return this.formatNumericLabel(model.get('_count'));
         }
       }
-    ]
+    ],
+    
+    defaultSortColumn: 1
+    
   });
   
   return ApplicationsTable;

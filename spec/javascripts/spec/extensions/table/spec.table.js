@@ -5,6 +5,71 @@ define([
 ],
 function (Table, Collection, Model) {
   describe("Table", function() {
+    
+    describe("events", function () {
+      var el, collection, table;
+      beforeEach(function() {
+        el = $('<div id="jasmine-playground"></div>').appendTo($('body'));
+        var TestTable = Table.extend({
+          columns: [
+            {
+              id: 'foo',
+              title: 'Foo Title',
+              sortable: true
+            },
+            {
+              id: 'bar',
+              title: 'Bar Title',
+              className: 'barclass',
+              sortable: true,
+              defaultDescending: true
+            }
+          ]
+        });
+
+        collection = new Collection([
+          { foo: 4, bar: 'one' },
+          { foo: 2, bar: 'two' },
+          { foo: 3, bar: 'three' }
+        ]);
+        
+        spyOn(collection, "sortByAttr").andCallThrough();
+
+        table = new TestTable({
+          el: el,
+          collection: collection
+        });
+        table.render();
+      });
+
+      afterEach(function() {
+        el.remove();
+      });
+
+      it("re-sorts collection by column in default ascending direction", function () {
+        el.find('th:eq(0)').click();
+        expect(collection.sortByAttr).toHaveBeenCalledWith('foo', false);
+      });
+      
+      it("re-sorts collection by column in default descending direction", function () {
+        el.find('th:eq(1)').click();
+        expect(collection.sortByAttr).toHaveBeenCalledWith('bar', true);
+      });
+      
+      it("re-sorts collection by column and toggles direction when column is current sort column", function () {
+        el.find('th:eq(0)').click();
+        expect(collection.sortByAttr.argsForCall[0]).toEqual(['foo', false]);
+        
+        el.find('th:eq(0)').click();
+        expect(collection.sortByAttr.argsForCall[1]).toEqual(['foo', true]);
+        
+        el.find('th:eq(1)').click();
+        expect(collection.sortByAttr.argsForCall[2]).toEqual(['bar', true]);
+        
+        el.find('th:eq(1)').click();
+        expect(collection.sortByAttr.argsForCall[3]).toEqual(['bar', false]);
+      });
+    });
 
     describe("render", function() {
       
@@ -172,7 +237,8 @@ function (Table, Collection, Model) {
               id: 'bar',
               className: 'barclass'
             }
-          ]
+          ],
+          defaultSortColumn: 1
         });
         
         model = new Model({
@@ -180,9 +246,7 @@ function (Table, Collection, Model) {
           foo: 'foo title'
         });
         table = new TestTable({
-          collection: {
-            on: jasmine.createSpy()
-          }
+          collection: new Collection([model])
         });
       });
 
@@ -230,7 +294,6 @@ function (Table, Collection, Model) {
       it("renders a table header row for sortable columns and indicates current sort column ascending", function() {
         table.columns[0].sortable = true;
         table.columns[1].sortable = true;
-        table.sortColumn = table.columns[1];
 
         var tr = table.renderRow(model, {
           header: true
@@ -251,8 +314,7 @@ function (Table, Collection, Model) {
       it("renders a table header row for sortable columns and indicates current sort column descending", function() {
         table.columns[0].sortable = true;
         table.columns[1].sortable = true;
-        table.sortColumn = table.columns[1];
-        table.sortDescending = true;
+        table.collection.sortDescending = true;
 
         var tr = table.renderRow(model, {
           header: true
