@@ -7,28 +7,15 @@ define([
 function (TotalAndByAuthority, Total, ByAuthority, Collection) {
   describe("ApplicationsTotalAndByAuthorityCollection", function() {
     
-    describe("initialize", function() {
-      
-      it("creates a 'meta' collection", function() {
-        var totalAndByAuthority = new TotalAndByAuthority();
-        expect(totalAndByAuthority.meta instanceof Collection).toBe(true);
-        expect(totalAndByAuthority.meta.length).toEqual(0);
-      });
-      
-      it("creates instances for the constituent collections", function() {
-        var totalAndByAuthority = new TotalAndByAuthority();
-        expect(totalAndByAuthority.collectionInstances[0] instanceof Total).toBe(true);
-        expect(totalAndByAuthority.collectionInstances[1] instanceof ByAuthority).toBe(true);
-      });
-    });
-    
     describe("parse", function() {
       
       var totalAndByAuthority, moment;
       beforeEach(function() {
         totalAndByAuthority = new TotalAndByAuthority();
         moment = totalAndByAuthority.moment;
-        totalAndByAuthority.collectionInstances[0].reset([
+        var total = totalAndByAuthority.collectionInstances[0];
+        var byAuthority = totalAndByAuthority.collectionInstances[1];
+        total.reset(total.parse({ data: [
           {
             _start_at: moment('2013-02-18T00:00:00+00:00'),
             _end_at: moment('2013-02-25T00:00:00+00:00'),
@@ -44,146 +31,179 @@ function (TotalAndByAuthority, Total, ByAuthority, Collection) {
             _end_at: moment('2013-03-11T00:00:00+00:00'),
             _count: 110
           }
-        ]);
-        totalAndByAuthority.collectionInstances[1].reset([
+        ]}));
+        
+        byAuthority.reset(byAuthority.parse({data: [
           {
-            _start_at: moment('2013-02-18T00:00:00+00:00'),
-            _end_at: moment('2013-02-25T00:00:00+00:00'),
-            authorityUrlSlug: {
-              westminster: { _count: 1 },
-              croydon:     { _count: 2 },
-              wandsworth:  { _count: 3 },
-              lambeth:     { _count: 4 },
-              bristol:     { _count: 5 }
-            }
+            values: [
+              {
+                _end_at: moment('2013-02-25T00:00:00+00:00'),
+                _count: 1,
+                _start_at: moment('2013-02-18T00:00:00+00:00')
+              },
+              {
+                _end_at: moment('2013-03-04T00:00:00+00:00'),
+                _count: 6,
+                _start_at: moment('2013-02-25T00:00:00+00:00')
+              },
+              {
+                _end_at: moment('2013-03-11T00:00:00+00:00'),
+                _count: 11,
+                _start_at: moment('2013-03-04T00:00:00+00:00')
+              }
+            ],
+            authorityUrlSlug: "westminster",
+            authorityName: ['Westminster'],
+            licenceName: ['Temporary events notice'],
+            _group_count: 3
           },
           {
-            _start_at: moment('2013-02-25T00:00:00+00:00'),
-            _end_at: moment('2013-03-04T00:00:00+00:00'),
-            authorityUrlSlug: {
-              westminster: { _count:  6 },
-              croydon:     { _count:  7 },
-              wandsworth:  { _count:  8 },
-              lambeth:     { _count:  9 },
-              bristol:     { _count: 10 }
-            }
+            values: [
+              {
+                _end_at: moment('2013-02-25T00:00:00+00:00'),
+                _count: 2,
+                _start_at: moment('2013-02-18T00:00:00+00:00')
+              },
+              {
+                _end_at: moment('2013-03-04T00:00:00+00:00'),
+                _count: 7,
+                _start_at: moment('2013-02-25T00:00:00+00:00')
+              },
+              {
+                _end_at: moment('2013-03-11T00:00:00+00:00'),
+                _count: 12,
+                _start_at: moment('2013-03-04T00:00:00+00:00')
+              }
+            ],
+            authorityUrlSlug: "croydon",
+            authorityName: ['Croydon'],
+            licenceName: ['Temporary events notice'],
+            _group_count: 3
           },
           {
-            _start_at: moment('2013-03-04T00:00:00+00:00'),
-            _end_at: moment('2013-03-11T00:00:00+00:00'),
-            authorityUrlSlug: {
-              westminster: { _count: 11 },
-              croydon:     { _count: 12 },
-              wandsworth:  { _count: 13 },
-              lambeth:     { _count: 14 },
-              bristol:     { _count: 15 }
-            }
+            values: [
+              {
+                _end_at: moment('2013-02-25T00:00:00+00:00'),
+                _count: 3,
+                _start_at: moment('2013-02-18T00:00:00+00:00')
+              },
+              {
+                _end_at: moment('2013-03-04T00:00:00+00:00'),
+                _count: 8,
+                _start_at: moment('2013-02-25T00:00:00+00:00')
+              },
+              {
+                _end_at: moment('2013-03-11T00:00:00+00:00'),
+                _count: 13,
+                _start_at: moment('2013-03-04T00:00:00+00:00')
+              }
+            ],
+            authorityUrlSlug: "wandsworth",
+            authorityName: ['Wandsworth'],
+            licenceName: ['Temporary events notice'],
+            _group_count: 3
+          },
+          {
+            values: [
+              {
+                _end_at: moment('2013-02-25T00:00:00+00:00'),
+                _count: 4,
+                _start_at: moment('2013-02-18T00:00:00+00:00')
+              },
+              {
+                _end_at: moment('2013-03-04T00:00:00+00:00'),
+                _count: 9,
+                _start_at: moment('2013-02-25T00:00:00+00:00')
+              },
+              {
+                _end_at: moment('2013-03-11T00:00:00+00:00'),
+                _count: 14,
+                _start_at: moment('2013-03-04T00:00:00+00:00')
+              }
+            ],
+            authorityUrlSlug: "lambeth",
+            authorityName: ['Lambeth'],
+            licenceName: ['Temporary events notice'],
+            _group_count: 3
+          },
+          {
+            values: [
+              {
+                _end_at: moment('2013-02-25T00:00:00+00:00'),
+                _count: 5,
+                _start_at: moment('2013-02-18T00:00:00+00:00')
+              },
+              {
+                _end_at: moment('2013-03-04T00:00:00+00:00'),
+                _count: 10,
+                _start_at: moment('2013-02-25T00:00:00+00:00')
+              },
+              {
+                _end_at: moment('2013-03-11T00:00:00+00:00'),
+                _count: 15,
+                _start_at: moment('2013-03-04T00:00:00+00:00')
+              }
+            ],
+            authorityUrlSlug: "bristol",
+            authorityName: ['Bristol'],
+            licenceName: ['Temporary events notice'],
+            _group_count: 3
           }
-        ]);
+        ]}));
       });
       
-      it("populates the meta collection with additional data when available", function() {
-        totalAndByAuthority.collectionInstances[1].reset([
-          {
-            _start_at: moment('2013-02-18T00:00:00+00:00'),
-            _end_at: moment('2013-02-25T00:00:00+00:00'),
-            authorityUrlSlug: {
-              westminster: { _count: 1, authorityName: ['Westminster'], licenceName: ['Temporary events notice'] },
-              croydon:     { _count: 2, authorityName: ['Croydon']    , licenceName: ['Temporary events notice'] },
-              wandsworth:  { _count: 3, authorityName: ['Wandsworth'] , licenceName: ['Temporary events notice'] },
-              lambeth:     { _count: 4, authorityName: ['Lambeth']    , licenceName: ['Temporary events notice'] },
-              bristol:     { _count: 5, authorityName: ['Bristol']    , licenceName: ['Temporary events notice'] }
-            }
-          },
-          {
-            _start_at: moment('2013-02-25T00:00:00+00:00'),
-            _end_at: moment('2013-03-04T00:00:00+00:00'),
-            authorityUrlSlug: {
-              westminster: { _count:  6, authorityName: ['Westminster'], licenceName: ['Temporary events notice'] },
-              croydon:     { _count:  7, authorityName: ['Croydon']    , licenceName: ['Temporary events notice'] },
-              wandsworth:  { _count:  8, authorityName: ['Wandsworth'] , licenceName: ['Temporary events notice'] },
-              lambeth:     { _count:  9, authorityName: ['Lambeth']    , licenceName: ['Temporary events notice'] },
-              bristol:     { _count: 10, authorityName: ['Bristol']    , licenceName: ['Temporary events notice'] }
-            }
-          },
-          {
-            _start_at: moment('2013-03-04T00:00:00+00:00'),
-            _end_at: moment('2013-03-11T00:00:00+00:00'),
-            authorityUrlSlug: {
-              westminster: { _count: 11, authorityName: ['Westminster'], licenceName: ['Temporary events notice'] },
-              croydon:     { _count: 12, authorityName: ['Croydon']    , licenceName: ['Temporary events notice'] },
-              wandsworth:  { _count: 13, authorityName: ['Wandsworth'] , licenceName: ['Temporary events notice'] },
-              lambeth:     { _count: 14, authorityName: ['Lambeth']    , licenceName: ['Temporary events notice'] },
-              bristol:     { _count: 15, authorityName: ['Bristol']    , licenceName: ['Temporary events notice'] }
-            }
-          }
-        ]);
-        totalAndByAuthority.parse();
-        expect(totalAndByAuthority.meta.length).toEqual(6);
-        expect(totalAndByAuthority.meta.at(0).get('id')).toEqual('total');
-        expect(totalAndByAuthority.meta.at(0).get('title')).toEqual('Total applications');
-        var westminster = totalAndByAuthority.meta.find(function (metaModel) {
-          return metaModel.get('id') == 'westminster';
-        });
+      it("combines both data sources with additional data when available", function() {
+        totalAndByAuthority.reset(totalAndByAuthority.parse(), { parse: true });
+        
+        expect(totalAndByAuthority.length).toEqual(6);
+        var total = totalAndByAuthority.at(0);
+        expect(total.get('id')).toEqual('total');
+        expect(total.get('title')).toEqual('Total applications');
+        expect(total.get('values').at(0).get('_start_at').format('YYYY-MM-DD')).toEqual('2013-02-18');
+        expect(total.get('values').at(0).get('_end_at').format('YYYY-MM-DD')).toEqual('2013-02-25');
+        expect(total.get('values').at(0).get('_count')).toEqual(90);
+        expect(total.get('values').at(2).get('_start_at').format('YYYY-MM-DD')).toEqual('2013-03-04');
+        expect(total.get('values').at(2).get('_end_at').format('YYYY-MM-DD')).toEqual('2013-03-11');
+        expect(total.get('values').at(2).get('_count')).toEqual(110);
+        
+        var westminster = totalAndByAuthority.at(1);
+        expect(westminster.get('id')).toEqual('westminster');
         expect(westminster.get('title')).toEqual('Westminster');
         expect(westminster.get('subTitle')).toEqual('Temporary events notice');
-        var bristol = totalAndByAuthority.meta.find(function (metaModel) {
-          return metaModel.get('id') == 'bristol';
-        });
-        expect(bristol.get('title')).toEqual('Bristol');
-        expect(bristol.get('subTitle')).toEqual('Temporary events notice');
+        expect(westminster.get('values').at(0).get('_start_at').format('YYYY-MM-DD')).toEqual('2013-02-18');
+        expect(westminster.get('values').at(0).get('_end_at').format('YYYY-MM-DD')).toEqual('2013-02-25');
+        expect(westminster.get('values').at(0).get('_count')).toEqual(1);
+        expect(totalAndByAuthority.at(5).get('id')).toEqual('bristol');
+        expect(totalAndByAuthority.at(5).get('title')).toEqual('Bristol');
+        expect(totalAndByAuthority.at(5).get('subTitle')).toEqual('Temporary events notice');
       });
       
-      it("populates the meta collection with fallback data", function() {
-        totalAndByAuthority.parse();
-        expect(totalAndByAuthority.meta.length).toEqual(6);
-        expect(totalAndByAuthority.meta.at(0).get('id')).toEqual('total');
-        expect(totalAndByAuthority.meta.at(0).get('title')).toEqual('Total applications');
-        var westminster = totalAndByAuthority.meta.find(function (metaModel) {
-          return metaModel.get('id') == 'westminster';
+      it("combines both data sources with fallback data", function() {
+        totalAndByAuthority.collectionInstances[1].each(function (group) {
+          group.set('authorityName', null);
+          group.set('licenceName', null);
         });
-        expect(westminster.get('title')).toEqual('westminster');
-        expect(westminster.get('subTitle')).toBeFalsy();
-        var bristol = totalAndByAuthority.meta.find(function (metaModel) {
-          return metaModel.get('id') == 'bristol';
-        });
-        expect(bristol.get('title')).toEqual('bristol');
-        expect(bristol.get('subTitle')).toBeFalsy();
-      });
-      
-      it("combines data from constituent collections", function() {
-        var result = totalAndByAuthority.parse();
-        expect(result.length).toEqual(3);
-        expect(result[0]).toEqual({
-          _start_at: moment('2013-02-18T00:00:00+00:00'),
-          _end_at: moment('2013-02-25T00:00:00+00:00'),
-          total:      90,
-          westminster: 1,
-          croydon:     2,
-          wandsworth:  3,
-          lambeth:     4,
-          bristol:     5
-        });
-        expect(result[1]).toEqual({
-          _start_at: moment('2013-02-25T00:00:00+00:00'),
-          _end_at: moment('2013-03-04T00:00:00+00:00'),
-          total:     100,
-          westminster: 6,
-          croydon:     7,
-          wandsworth:  8,
-          lambeth:     9,
-          bristol:    10
-        });
-        expect(result[2]).toEqual({
-          _start_at: moment('2013-03-04T00:00:00+00:00'),
-          _end_at: moment('2013-03-11T00:00:00+00:00'),
-          total:      110,
-          westminster: 11,
-          croydon:     12,
-          wandsworth:  13,
-          lambeth:     14,
-          bristol:     15
-        });
+        totalAndByAuthority.reset(totalAndByAuthority.parse(), { parse: true });
+        
+        expect(totalAndByAuthority.length).toEqual(6);
+        var total = totalAndByAuthority.at(0);
+        expect(total.get('id')).toEqual('total');
+        expect(total.get('title')).toEqual('Total applications');
+        expect(total.get('values').at(0).get('_start_at').format('YYYY-MM-DD')).toEqual('2013-02-18');
+        expect(total.get('values').at(0).get('_end_at').format('YYYY-MM-DD')).toEqual('2013-02-25');
+        expect(total.get('values').at(0).get('_count')).toEqual(90);
+        expect(total.get('values').at(2).get('_start_at').format('YYYY-MM-DD')).toEqual('2013-03-04');
+        expect(total.get('values').at(2).get('_end_at').format('YYYY-MM-DD')).toEqual('2013-03-11');
+        expect(total.get('values').at(2).get('_count')).toEqual(110);
+        expect(totalAndByAuthority.at(0).get('id')).toEqual('total');
+        expect(totalAndByAuthority.at(0).get('title')).toEqual('Total applications');
+        expect(totalAndByAuthority.at(0).get('subTitle')).toBeFalsy();
+        expect(totalAndByAuthority.at(1).get('id')).toEqual('westminster');
+        expect(totalAndByAuthority.at(1).get('title')).toEqual('westminster');
+        expect(totalAndByAuthority.at(0).get('subTitle')).toBeFalsy();
+        expect(totalAndByAuthority.at(5).get('id')).toEqual('bristol');
+        expect(totalAndByAuthority.at(5).get('title')).toEqual('bristol');
+        expect(totalAndByAuthority.at(0).get('subTitle')).toBeFalsy();
       });
     });
   });

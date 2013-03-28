@@ -9,11 +9,17 @@ function (Collection) {
     queryParams: function () {
       // add 1 day to correct for sun-sat week
       var end = this.moment().startOf('week').add(1, 'days');
-      return {
+      
+      var query = {
         start_at: this.moment(end).subtract(9, 'weeks'),
         end_at: end,
         period: 'week'
+      };
+      if (this.options.licenceUrlSlug) {
+        query.filter_by = 'licenceUrlSlug:' + this.options.licenceUrlSlug;
       }
+      
+      return query;
     },
 
     parse: function (response) {
