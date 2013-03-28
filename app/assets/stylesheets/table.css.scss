@@ -70,9 +70,15 @@ article table {
     th {
         border-top:0;
         border-bottom:0;
+        white-space:nowrap;
+        word-wrap:break-word;
         
         &:first-child {
             border-left:0;
+        }
+
+        &:last-child {
+            border-right-color:#dee0e2;
         }
 
         &.sortable {

@@ -22,7 +22,7 @@ function (Table) {
       },
       {
         id: '_count',
-        title: 'Licence&nbsp;applications',
+        title: 'Licence applications',
         sortable: true,
         defaultDescending: true,
         getValue: function (model) {
@@ -32,7 +32,6 @@ function (Table) {
     ],
     
     defaultSortColumn: 1
-    
   });
   
   return ApplicationsTable;

@@ -12,6 +12,8 @@ function (View) {
       var collection = this.collection = options.collection;
       collection.on('reset add remove', this.render, this);
       
+      _.bindAll(this, 'adjustTableLayout');
+      
       if (this.defaultSortColumn) {
         var column = this.columns[this.defaultSortColumn];
         this.collection.sortByAttr(column.id, column.defaultDescending);
@@ -34,6 +36,7 @@ function (View) {
     * Renders the table using the column definition and the current data.
     */
     render: function () {
+      $(window).off('resize', this.adjustTableLayout);
 
       if (!this.columns) {
         throw('no columns defined for table');
@@ -64,12 +67,7 @@ function (View) {
       }
       
       this.adjustTableLayout();
-      this.adjustTableLayout();
-      var that = this;
-      $(window).on('resize', function (e) {
-        that.adjustTableLayout.call(that);
-      });
-
+      $(window).on('resize', this.adjustTableLayout);
     },
 
     close: function () {
@@ -82,6 +80,9 @@ function (View) {
       el.empty();
     },
 
+    /**
+     * Keeps widths of columns in head and body tables in sync.
+     */
     adjustTableLayout: function () {
       var el = this.$el;
       
@@ -90,17 +91,22 @@ function (View) {
       head.css('width', 'auto');
       body.css('width', 'auto');
       
-      var width = Math.max(head.width(), body.width());
-      head.width(width);
-      body.width(width);
+      var tableWidth = el.width();
+      head.width(tableWidth);
+      body.width(tableWidth);
 
+      var ths = el.find('th');
       var tds = el.find('td');
-      el.find('th').each(function (i) {
+      ths.each(function (i) {
         var th = $(this);
         var td = tds.eq(i);
         
-        th.css('width', 'auto');
-        td.css('width', 'auto');
+        if (th.prop('style')) {
+          delete th.prop('style').width;
+        }
+        if (td.prop('style')) {
+          delete td.prop('style').width;
+        }
         
         var width = Math.max(th.width(), td.width());
         th.width(width);
