@@ -31,7 +31,7 @@ function (require, Collection, Model) {
         end_at: end,
         filter_by: 'licenceUrlSlug:' + this.licenceUrlSlug,
         group_by: 'authorityUrlSlug',
-        collect: 'authorityName,licenceName',
+        collect: ['authorityName', 'licenceName'],
         queryId: 'perlicencetable'
       };
     }

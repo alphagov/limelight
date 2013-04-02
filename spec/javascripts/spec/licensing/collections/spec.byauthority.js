@@ -23,7 +23,7 @@ function (Collection, Applications) {
         expect(params.group_by).toEqual('authorityUrlSlug');
         expect(params.limit).toEqual(5);
         expect(params.sort_by).toEqual('_count:descending');
-        expect(params.collect).toEqual('authorityName,licenceName');
+        expect(params.collect).toEqual(['authorityName', 'licenceName']);
       });
       
       it("requests data for the last nine weeks", function() {
@@ -47,7 +47,7 @@ function (Collection, Applications) {
         expect(params.group_by).toEqual('authorityUrlSlug');
         expect(params.limit).toEqual(5);
         expect(params.sort_by).toEqual('_count:descending');
-        expect(params.collect).toEqual('authorityName,licenceName');
+        expect(params.collect).toEqual(['authorityName', 'licenceName']);
         expect(params.filter_by).toEqual('licenceUrlSlug:test-licence');
       });
     });
