@@ -23,7 +23,7 @@ function (Collection, Applications) {
         expect(params.end_at.format('YYYY-MM-DDTHH:mm:ss')).toEqual('2013-03-11T00:00:00');
         expect(params.filter_by).toEqual('licenceUrlSlug:test-licence');
         expect(params.group_by).toEqual('authorityUrlSlug');
-        expect(params.collect).toEqual('authorityName,licenceName');
+        expect(params.collect).toEqual(['authorityName', 'licenceName']);
       });
     });
   });

@@ -50,6 +50,24 @@ function (Collection, Model, Backbone) {
         expect(collection.prop('testProp', anotherObject)).toEqual({ foo: 'bar' });
       });
     });
+    
+    describe("fetch", function () {
+      var TestCollection;
+      beforeEach(function() {
+        TestCollection = Collection.extend({
+          baseUrl: '//testdomain/',
+          queryUrl: 'bucketname',
+          queryId: 'testid'
+        });
+        spyOn(TestCollection.prototype, "sync");
+      });
+
+      it("adds a unique identifier to the request", function () {
+        var collection = new TestCollection();
+        collection.fetch();
+        expect(collection.sync.argsForCall[0][2].queryId).toEqual('testid');
+      });
+    });
 
     describe("url", function() {
 

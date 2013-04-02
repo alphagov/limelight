@@ -22,6 +22,8 @@ function (require, Collection, Model) {
     },
     
     queryUrl: 'licensing',
+    
+    queryId: 'perlicencetable',
 
     queryParams: function () {
       // add 1 day to correct for sun-sat week
@@ -31,8 +33,7 @@ function (require, Collection, Model) {
         end_at: end,
         filter_by: 'licenceUrlSlug:' + this.licenceUrlSlug,
         group_by: 'authorityUrlSlug',
-        collect: ['authorityName', 'licenceName'],
-        queryId: 'perlicencetable'
+        collect: ['authorityName', 'licenceName']
       };
     }
     

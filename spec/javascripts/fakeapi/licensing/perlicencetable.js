@@ -11,7 +11,9 @@ define([
       this.rnd = new Random(1);
     },
     
-    url: /\/licensing\/?.*\?(.*queryId=perlicencetable.*)/,
+    url: /\/licensing\/?.*\?(.*)/,
+    
+    queryId: 'perlicencetable',
     
     getData: function (query) {
       

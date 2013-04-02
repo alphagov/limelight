@@ -41,6 +41,13 @@ function ($, Backbone, Model, moment) {
       return _.isFunction(obj[prop]) ? obj[prop].call(obj) : obj[prop];
     },
     
+    fetch: function (options) {
+      options = _.extend({
+        queryId: this.queryId
+      }, options);
+      Backbone.Collection.prototype.fetch.call(this, options);
+    },
+    
     /**
      * Constructs a Backdrop query for the current environment
      */
