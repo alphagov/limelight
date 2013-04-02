@@ -21,8 +21,7 @@ function (Collection, Applications) {
         var params = collection.queryParams();
         expect(params.start_at.format('YYYY-MM-DDTHH:mm:ss')).toEqual('2013-03-04T00:00:00');
         expect(params.end_at.format('YYYY-MM-DDTHH:mm:ss')).toEqual('2013-03-11T00:00:00');
-        expect(params.period).toEqual('all');
-        expect(params.filter_by).toEqual('test-licence');
+        expect(params.filter_by).toEqual('licenceUrlSlug:test-licence');
         expect(params.group_by).toEqual('authorityUrlSlug');
         expect(params.collect).toEqual('authorityName,licenceName');
       });

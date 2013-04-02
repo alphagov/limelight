@@ -18,7 +18,7 @@ function (require, Collection, Model) {
     },
     
     parse: function (response) {
-      return response.data.values;
+      return response.data;
     },
     
     queryUrl: 'licensing',
@@ -29,10 +29,10 @@ function (require, Collection, Model) {
       return {
         start_at: this.moment(end).subtract(1, 'weeks'),
         end_at: end,
-        filter_by: this.licenceUrlSlug,
+        filter_by: 'licenceUrlSlug:' + this.licenceUrlSlug,
         group_by: 'authorityUrlSlug',
         collect: 'authorityName,licenceName',
-        period: 'all'
+        queryId: 'perlicencetable'
       };
     }
     

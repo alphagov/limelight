@@ -15,7 +15,8 @@ function (require, Applications, Group) {
         group_by: 'authorityUrlSlug',
         limit: 5,
         sort_by: '_count:descending',
-        collect: 'authorityName,licenceName'
+        collect: 'authorityName,licenceName',
+        queryId: 'perlicencegraph'
       });
     },
     

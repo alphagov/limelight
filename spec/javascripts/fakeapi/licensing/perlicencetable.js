@@ -11,7 +11,7 @@ define([
       this.rnd = new Random(1);
     },
     
-    url: /\/licensing\/?.*\?(.*group_by=authorityUrlSlug.*period=all)/,
+    url: /\/licensing\/?.*\?(.*queryId=perlicencetable.*)/,
     
     getData: function (query) {
       
@@ -23,7 +23,7 @@ define([
         }
       }, this);
       
-      var licenceUrlSlug = query.filter_by;
+      var licenceUrlSlug = query.filter_by.split(':')[1];
       var licenceName = {
         "application-to-licence-a-street-collection": "Application to licence a street collection",
         "register-as-a-scrap-metal-dealer": "Register as a scrap metal dealer"
@@ -32,16 +32,7 @@ define([
         value.licenceName = [licenceName];
       });
       
-      var data = {
-        values: values
-      };
-      if (query.start_at) {
-        data._start_at = query.start_at.originalValue;
-      }
-      if (query.end_at) {
-        data._end_at = query.end_at.originalValue;
-      }
-      return data;
+      return values;
     },
     
     authorities: [
