@@ -1,9 +1,12 @@
 define([
-  'extensions/collection'
+  'extensions/collection',
+  'extensions/group',
 ],
-function (Collection) {
+function (Collection, Group) {
   var WeeklyApplications = Collection.extend({
 
+    model: Group,
+    
     queryUrl: 'licensing',
 
     queryParams: function () {
@@ -23,14 +26,11 @@ function (Collection) {
     },
 
     parse: function (response) {
-      return response.data;
-    },
-
-    /**
-    * Keep sorted chronologically
-    */
-    comparator: function(model) {
-      return +model.get('_start_at');
+      return [{
+        id: 'total',
+        title: 'Total applications',
+        values: response.data
+      }];
     }
   });
 
