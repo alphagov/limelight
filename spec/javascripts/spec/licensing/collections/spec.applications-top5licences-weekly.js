@@ -1,8 +1,8 @@
 define([
-  'licensing/collections/applications-top5authorities-weekly'
+  'licensing/collections/applications-top5licences-weekly'
 ],
-function (Collection) {
-  describe("ApplicationsByAuthorityCollection", function() {
+function (Collection, Applications) {
+  describe("ApplicationsByLicenceCollection", function() {
     describe("queryParams", function() {
       it("requests data for the last nine weeks", function() {
         var collection = new Collection([]);
@@ -20,17 +20,17 @@ function (Collection) {
         expect(params.start_at.format('YYYY-MM-DDTHH:mm:ss')).toEqual('2013-01-07T00:00:00');
         expect(params.end_at.format('YYYY-MM-DDTHH:mm:ss')).toEqual('2013-03-11T00:00:00');
         expect(params.period).toEqual('week');
-        expect(params.group_by).toEqual('authorityUrlSlug');
+        expect(params.group_by).toEqual('licenceUrlSlug');
         expect(params.limit).toEqual(5);
         expect(params.sort_by).toEqual('_count:descending');
         expect(params.collect).toContain('licenceName');
         expect(params.collect).toContain('authorityName');
       });
       
-      it("requests data for the last nine weeks", function() {
+      it("requests data for the last nine weeks for a specific licence", function() {
         var collection = new Collection([], {
           filterBy: {
-            licenceUrlSlug: 'test-licence'
+            authorityUrlSlug: 'fake-licence-1'
           }
         });
         spyOn(Collection.__super__, "moment");
@@ -47,12 +47,12 @@ function (Collection) {
         expect(params.start_at.format('YYYY-MM-DDTHH:mm:ss')).toEqual('2013-01-07T00:00:00');
         expect(params.end_at.format('YYYY-MM-DDTHH:mm:ss')).toEqual('2013-03-11T00:00:00');
         expect(params.period).toEqual('week');
-        expect(params.group_by).toEqual('authorityUrlSlug');
+        expect(params.group_by).toEqual('licenceUrlSlug');
         expect(params.limit).toEqual(5);
         expect(params.sort_by).toEqual('_count:descending');
         expect(params.collect).toContain('licenceName');
         expect(params.collect).toContain('authorityName');
-        expect(params.filter_by).toEqual('licenceUrlSlug:test-licence');
+        expect(params.filter_by).toEqual('authorityUrlSlug:fake-licence-1');
       });
     });
     
@@ -79,9 +79,9 @@ function (Collection) {
                 _start_at: moment('2013-03-04T00:00:00+00:00')
               }
             ],
-            authorityUrlSlug: "westminster",
-            authorityName: ['Westminster'],
-            licenceName: ['Temporary events notice'],
+            licenceUrlSlug: "amusement",
+            licenceName: ['Amusement arcade operation'],
+            authorityName: ['Fake Authority'],
             _group_count: 3
           },
           {
@@ -102,9 +102,9 @@ function (Collection) {
                 _start_at: moment('2013-03-04T00:00:00+00:00')
               }
             ],
-            authorityUrlSlug: "lambeth",
-            authorityName: ['Lambeth'],
-            licenceName: ['Temporary events notice'],
+            licenceUrlSlug: "betting",
+            licenceName: ['Betting shop operation'],
+            authorityName: ['Fake Authority'],
             _group_count: 3
           },
           {
@@ -125,9 +125,9 @@ function (Collection) {
                 _start_at: moment('2013-03-04T00:00:00+00:00')
               }
             ],
-            authorityUrlSlug: "bristol",
-            authorityName: ['Bristol'],
-            licenceName: ['Temporary events notice'],
+            licenceUrlSlug: "bingo",
+            licenceName: ['Bingo hall operation'],
+            authorityName: ['Fake Authority'],
             _group_count: 3
           }
         ]};
@@ -135,9 +135,9 @@ function (Collection) {
       
       it("sorts by last entry count descending", function () {
         var collection = new Collection(response, { parse: true })
-        expect(collection.at(0).get('id')).toEqual('bristol');
-        expect(collection.at(1).get('id')).toEqual('lambeth');
-        expect(collection.at(2).get('id')).toEqual('westminster');
+        expect(collection.at(0).get('id')).toEqual('bingo');
+        expect(collection.at(1).get('id')).toEqual('betting');
+        expect(collection.at(2).get('id')).toEqual('amusement');
         
       });
       
@@ -146,15 +146,15 @@ function (Collection) {
         
         expect(collection.length).toEqual(3);
         var westminster = collection.at(2);
-        expect(westminster.get('id')).toEqual('westminster');
-        expect(westminster.get('title')).toEqual('Westminster');
-        expect(westminster.get('subTitle')).toEqual('Temporary events notice');
+        expect(westminster.get('id')).toEqual('amusement');
+        expect(westminster.get('title')).toEqual('Amusement arcade operation');
+        expect(westminster.get('subTitle')).toEqual('Fake Authority');
         expect(westminster.get('values').at(0).get('_start_at').format('YYYY-MM-DD')).toEqual('2013-02-18');
         expect(westminster.get('values').at(0).get('_end_at').format('YYYY-MM-DD')).toEqual('2013-02-25');
         expect(westminster.get('values').at(0).get('_count')).toEqual(1);
-        expect(collection.at(0).get('id')).toEqual('bristol');
-        expect(collection.at(0).get('title')).toEqual('Bristol');
-        expect(collection.at(0).get('subTitle')).toEqual('Temporary events notice');
+        expect(collection.at(0).get('id')).toEqual('bingo');
+        expect(collection.at(0).get('title')).toEqual('Bingo hall operation');
+        expect(collection.at(0).get('subTitle')).toEqual('Fake Authority');
       });
       
       it("uses fallback data when additional data is not available", function() {
@@ -168,14 +168,14 @@ function (Collection) {
         
         expect(collection.length).toEqual(3);
         var westminster = collection.at(2);
-        expect(westminster.get('id')).toEqual('westminster');
-        expect(westminster.get('title')).toEqual('westminster');
+        expect(westminster.get('id')).toEqual('amusement');
+        expect(westminster.get('title')).toEqual('amusement');
         expect(westminster.get('subTitle')).not.toBeDefined();
         expect(westminster.get('values').at(0).get('_start_at').format('YYYY-MM-DD')).toEqual('2013-02-18');
         expect(westminster.get('values').at(0).get('_end_at').format('YYYY-MM-DD')).toEqual('2013-02-25');
         expect(westminster.get('values').at(0).get('_count')).toEqual(1);
-        expect(collection.at(0).get('id')).toEqual('bristol');
-        expect(collection.at(0).get('title')).toEqual('bristol');
+        expect(collection.at(0).get('id')).toEqual('bingo');
+        expect(collection.at(0).get('title')).toEqual('bingo');
         expect(collection.at(0).get('subTitle')).not.toBeDefined()
       });
     });
