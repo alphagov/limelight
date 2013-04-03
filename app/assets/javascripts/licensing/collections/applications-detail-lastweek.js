@@ -17,7 +17,6 @@ function (require, Collection, Model) {
         throw "groupBy option is mandatory";
       }
       this.groupBy = options.groupBy;
-      this.filterBy = options.filterBy;
       Collection.prototype.initialize.apply(this, arguments);
     },
     
@@ -38,16 +37,6 @@ function (require, Collection, Model) {
         group_by: this.groupBy,
         collect: ['authorityName', 'licenceName']
       };
-      
-      if (this.filterBy) {
-        params.filter_by = _.map(this.filterBy, function(value, key) {
-          return key + ':' + value;
-        });
-        
-        if (params.filter_by.length === 1) {
-          params.filter_by = params.filter_by[0];
-        }
-      }
       
       return params;
     },
