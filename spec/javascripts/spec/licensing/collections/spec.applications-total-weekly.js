@@ -8,15 +8,8 @@ function (Collection, Group) {
       
       it("requests data for the last nine weeks", function() {
         var collection = new Collection();
-        spyOn(collection, "moment");
-        collection.moment.plan = function () {
-          var realMoment = collection.moment.originalValue;
-          // set "now" to a fixed date to enable static expectations
-          if (!arguments.length) {
-            return realMoment('2013-03-13');
-          }
-          return realMoment.apply(null, arguments);
-        }
+        
+        setupMoment('2013-03-13', collection);
       
         var params = collection.queryParams();
         expect(params.start_at.format('YYYY-MM-DDTHH:mm:ss')).toEqual('2013-01-07T00:00:00');
