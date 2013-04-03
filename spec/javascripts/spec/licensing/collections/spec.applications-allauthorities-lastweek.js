@@ -1,5 +1,5 @@
 define([
-  'licensing/collections/perlicencetable'
+  'licensing/collections/applications-allauthorities-lastweek.js'
 ],
 function (Collection, Applications) {
   describe("ApplicationsByAuthorityCollection", function() {

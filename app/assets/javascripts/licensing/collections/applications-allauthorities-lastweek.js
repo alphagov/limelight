@@ -23,7 +23,7 @@ function (require, Collection, Model) {
     
     queryUrl: 'licensing',
     
-    queryId: 'perlicencetable',
+    queryId: 'applications-allauthorities-lastweek',
 
     queryParams: function () {
       // add 1 day to correct for sun-sat week

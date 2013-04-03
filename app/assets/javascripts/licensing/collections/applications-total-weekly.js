@@ -9,7 +9,7 @@ function (Collection, Group) {
     
     queryUrl: 'licensing',
 
-    queryId: 'totalapplications',
+    queryId: 'applications-total-weekly',
     
     queryParams: function () {
       // add 1 day to correct for sun-sat week

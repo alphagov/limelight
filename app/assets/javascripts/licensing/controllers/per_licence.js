@@ -1,7 +1,7 @@
 define([
-  'licensing/collections/totalandbyauthority',
+  'licensing/collections/applications-totalandtop5authorities-weekly',
   'licensing/views/applicationsperlicencegraph',
-  'licensing/collections/perlicencetable',
+  'licensing/collections/applications-allauthorities-lastweek',
   'licensing/views/applicationstable'
 ], function(GraphCollection, GraphView, TableCollection, TableView) {
   

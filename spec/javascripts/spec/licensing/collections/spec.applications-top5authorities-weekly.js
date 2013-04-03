@@ -1,5 +1,5 @@
 define([
-  'licensing/collections/byauthority'
+  'licensing/collections/applications-top5authorities-weekly'
 ],
 function (Collection, Applications) {
   describe("ApplicationsByAuthorityCollection", function() {

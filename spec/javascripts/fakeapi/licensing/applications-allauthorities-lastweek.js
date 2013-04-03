@@ -13,7 +13,7 @@ define([
     
     url: /\/licensing\/?.*\?(.*)/,
     
-    queryId: 'perlicencetable',
+    queryId: 'applications-allauthorities-lastweek',
     
     getData: function (query) {
       

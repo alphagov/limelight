@@ -1,6 +1,6 @@
 define([
   'require',
-  './applications',
+  './applications-total-weekly',
   'extensions/group'
 ],
 function (require, Applications, Group) {
@@ -19,7 +19,7 @@ function (require, Applications, Group) {
       });
     },
     
-    queryId: 'byauthorityapplications',
+    queryId: 'applications-top5authorities-weekly',
     
     comparator: function (a, b) {
       // sort by last value
