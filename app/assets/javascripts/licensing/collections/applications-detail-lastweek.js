@@ -1,7 +1,7 @@
 define([
   'require',
   'extensions/collection',
-  'licensing/models/perlicencetablerow'
+  'licensing/models/applicationstablerow'
 ],
 function (require, Collection, Model) {
   /**
