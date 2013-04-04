@@ -231,28 +231,6 @@ function (View) {
       return tr;
     },
 
-    defaultComparator: function (a, b, column, descending) {
-      var aVal = a[column.id];
-      if (typeof aVal === 'string') {
-        aVal = aVal.toLowerCase();
-      }
-      var bVal = b[column.id];
-      if (typeof bVal === 'string') {
-        bVal = bVal.toLowerCase();
-      }
-      var res = 0;
-      if (aVal < bVal) {
-        res = -1;
-      } else if (aVal > bVal) {
-        res = 1;
-      }
-      if (descending) {
-        res *= -1;
-      }
-
-      return res;
-    },
-
     /**
     * Stops the page from scrolling when the user scrolls inside the table
     */
