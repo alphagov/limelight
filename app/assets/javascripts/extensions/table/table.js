@@ -94,24 +94,6 @@ function (View) {
       var tableWidth = el.width();
       head.width(tableWidth);
       body.width(tableWidth);
-
-      var ths = el.find('th');
-      var tds = el.find('td');
-      ths.each(function (i) {
-        var th = $(this);
-        var td = tds.eq(i);
-        
-        if (th.prop('style')) {
-          delete th.prop('style').width;
-        }
-        if (td.prop('style')) {
-          delete td.prop('style').width;
-        }
-        
-        var width = Math.max(th.width(), td.width());
-        th.width(width);
-        td.width(width);
-      });
     },
 
     /**
