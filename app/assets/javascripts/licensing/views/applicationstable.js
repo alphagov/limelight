@@ -12,12 +12,14 @@ function (Table) {
         title: 'Licence',
         sortable: true,
         getValue: function (model) {
-          var res = model.get('authorityName');
-          var licence = model.get('licenceName');
-          if (licence) {
-            res = licence + ' &ndash; ' + res;
-          }
-          return res;
+          var res = [];
+          _.each(['licenceName', 'authorityName'], function (attr) {
+            var name = model.get(attr);
+            if (name) {
+              res.push(name);
+            }
+          });
+          return res.join(' &ndash; ');
         }
       },
       {
