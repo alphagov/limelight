@@ -208,6 +208,8 @@ function (View) {
         } else {
           if (_.isFunction(model.get)) {
             value = model.get(column.id);
+          } else if (_.isFunction(model[column.id])) {
+            value = model[column.id].call(that);
           } else {
             value = model[column.id];
           }
@@ -224,7 +226,7 @@ function (View) {
             td.addClass(that.collection.sortDescending ? 'descending' : 'ascending');
           }
         }
-      });
+      }, this);
 
       return tr;
     },
