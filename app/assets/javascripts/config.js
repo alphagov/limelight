@@ -8,7 +8,7 @@ require.config({
   baseUrl: (window.$ && $('#wrapper').data('base-url')) || '/limelight',
 
   paths: {
-    jquery: 'vendor/jquery',
+    jquery: 'jqueryloader',
     jqueryxdr: 'vendor/jquery.xdr',
     jquerymousewheel: 'vendor/jquery.mousewheel',
     jquerymockjax: 'helpers/jquery.mockjax',

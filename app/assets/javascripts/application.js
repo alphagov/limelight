@@ -19,16 +19,25 @@ define({
         });
       }
     }
-
-    var backdropUrl = $('#wrapper').data('backdrop-url');
-    if (!window.jasmine && backdropUrl && backdropUrl.indexOf('//fakeapi') == -1) {
-      // use real API
-      loadApplication();
-    } else {
-      // use fake API
-      req(['fakeapi'], function (fakeapi) {
-        loadApplication();
+    
+    // first, ensure that we have jquery available
+    req(['jquery'], function ($) {
+      
+      // wait until document is fully loaded to ensure we can read config
+      $(document).ready(function () {
+        
+        // inspect configuration
+        var backdropUrl = $('#wrapper').data('backdrop-url');
+        if (!window.jasmine && backdropUrl && backdropUrl.indexOf('//fakeapi') == -1) {
+          // use real API
+          loadApplication();
+        } else {
+          // use fake API
+          req(['fakeapi'], function (fakeapi) {
+            loadApplication();
+          });
+        }
       });
-    }
+    });
   }
 });
