@@ -1,7 +1,9 @@
 /**
- * Provides jQuery to limelight modules while not interfering with global
- * jQuery version provided by static project.
+ * Shim to provide global jQuery as an AMD module.
  */
-define(['vendor/jquery'], function () {
-  return jQuery.noConflict(true);
+define(function () {
+  // This workaround is necessary because the Static project includes jQuery
+  // manually but the jquery.mousewheel plugin defines a 'jquery' AMD
+  // dependency when it detects require.js to be present.
+  return window.jQuery;
 });
