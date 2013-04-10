@@ -15,14 +15,7 @@ function (Table) {
         },
         sortable: false,
         getValue: function (model) {
-          var res = [];
-          _.each(['licenceName', 'authorityName'], function (attr) {
-            var name = model.get(attr);
-            if (name) {
-              res.push(name);
-            }
-          });
-          return res.join(' &ndash; ');
+          return model.get('name');
         }
       },
       {

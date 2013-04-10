@@ -14,11 +14,26 @@ function (require, Collection, Model) {
         throw "groupBy option is mandatory";
       }
       this.groupBy = options.groupBy;
+      if (this.groupBy === 'authorityUrlSlug') {
+        this.collect = 'authorityName';
+      } else if (this.groupBy === 'licenceUrlSlug') {
+        this.collect = 'licenceName';
+      }
       Collection.prototype.initialize.apply(this, arguments);
     },
     
     parse: function (response) {
-      return response.data;
+      return _.map(response.data, function (row) {
+        row.slug = row[this.groupBy];
+        delete row[this.groupBy];
+        if (row[this.collect]) {
+          row.name = row[this.collect][0];
+          delete row[this.collect];
+        } else {
+          row.name = row.slug;
+        }
+        return row;
+      }, this);
     },
     
     queryUrl: 'licensing',
@@ -32,14 +47,9 @@ function (require, Collection, Model) {
         end_at: end,
         limit: 5,
         group_by: this.groupBy,
-        sort_by: '_count:descending'
+        sort_by: '_count:descending',
+        collect: this.collect
       };
-      
-      if (this.groupBy === 'authorityUrlSlug') {
-        params.collect = 'authorityName';
-      } else if (this.groupBy === 'licenceUrlSlug') {
-        params.collect = 'licenceName';
-      }
       
       return params;
     }
