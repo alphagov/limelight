@@ -27,7 +27,7 @@ function (Table) {
       },
       {
         id: '_count',
-        title: 'Licence applications',
+        title: 'Applications last week',
         sortable: false,
         defaultDescending: true,
         getValue: function (model) {
