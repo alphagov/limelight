@@ -64,11 +64,13 @@ function (Collection, Applications) {
         expect(collection.parse(response)).toEqual([
           {
             slug: 'slug1',
-            name: 'Slug 1'
+            name: 'Slug 1',
+            url: '/performance/licensing/authorities/slug1'
           },
           {
             slug: 'slug2',
-            name: 'Slug 2'
+            name: 'Slug 2',
+            url: '/performance/licensing/authorities/slug2'
           }
         ]);
       });
@@ -88,11 +90,13 @@ function (Collection, Applications) {
         expect(collection.parse(response)).toEqual([
           {
             slug: 'slug1',
-            name: 'slug1'
+            name: 'slug1',
+            url: '/performance/licensing/authorities/slug1'
           },
           {
             slug: 'slug2',
-            name: 'slug2'
+            name: 'slug2',
+            url: '/performance/licensing/authorities/slug2'
           }
         ]);
       });
@@ -118,11 +122,13 @@ function (Collection, Applications) {
         expect(collection.parse(response)).toEqual([
           {
             slug: 'slug1',
-            name: 'Slug 1'
+            name: 'Slug 1',
+            url: '/performance/licensing/licences/slug1'
           },
           {
             slug: 'slug2',
-            name: 'Slug 2'
+            name: 'Slug 2',
+            url: '/performance/licensing/licences/slug2'
           }
         ]);
       });
@@ -142,11 +148,13 @@ function (Collection, Applications) {
         expect(collection.parse(response)).toEqual([
           {
             slug: 'slug1',
-            name: 'slug1'
+            name: 'slug1',
+            url: '/performance/licensing/licences/slug1'
           },
           {
             slug: 'slug2',
-            name: 'slug2'
+            name: 'slug2',
+            url: '/performance/licensing/licences/slug2'
           }
         ]);
       });

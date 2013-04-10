@@ -16,16 +16,24 @@ function (require, Collection, Model) {
       this.groupBy = options.groupBy;
       if (this.groupBy === 'authorityUrlSlug') {
         this.collect = 'authorityName';
+        this.urlFragment = 'authorities';
       } else if (this.groupBy === 'licenceUrlSlug') {
         this.collect = 'licenceName';
+        this.urlFragment = 'licences';
       }
+      
+      
       Collection.prototype.initialize.apply(this, arguments);
     },
     
     parse: function (response) {
+      
       return _.map(response.data, function (row) {
         row.slug = row[this.groupBy];
         delete row[this.groupBy];
+        
+        row.url = '/performance/licensing/' + this.urlFragment + '/' + row.slug;
+        
         if (row[this.collect]) {
           row.name = row[this.collect][0];
           delete row[this.collect];
