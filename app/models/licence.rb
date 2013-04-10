@@ -10,7 +10,12 @@ class Licence
     if backdrop_response["data"].count != 1
       raise "expected exactly one entry, got #{backdrop_response}"
     end
-    licences = backdrop_response["data"][0]
-    self.new(licences["licenceUrlSlug"], licences["licenceName"][0])
+    licence = backdrop_response["data"].first
+    if licence["licenceName"].blank?
+      name = licence["licenceUrlSlug"]
+    else
+      name = licence["licenceName"].first
+    end
+    self.new(licence["licenceUrlSlug"], name)
   end
 end

@@ -10,7 +10,12 @@ class Authority
       raise "expected a response with one entry, got #{backdrop_response}"
     end
 
-    authority = backdrop_response['data'][0]
-    Authority.new(authority['authorityUrlSlug'], authority['authorityUrlSlug'])
+    authority = backdrop_response['data'].first
+    if authority["authorityName"].blank?
+      name = authority["authorityUrlSlug"]
+    else
+      name = authority["authorityName"].first
+    end
+    self.new(authority['authorityUrlSlug'], name)
   end
 end
