@@ -59,3 +59,24 @@
   }
 }
 
+@media (max-width: 640px) {
+  .applications-graph {
+    .y-axis .tick text {
+      font-size:1.5em;
+    }
+    .y-axis .tick:nth-child(even) text {
+      font-size:2em;
+        display:none;
+    }
+    
+    .x-axis .tick text {
+      font-size:1.5em;
+    }
+    .x-axis .tick:nth-child(even) text {
+      font-size:2em;
+        display:none;
+    }
+  }
+}
+
+
