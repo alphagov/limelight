@@ -36,6 +36,7 @@
       fill: none;
       stroke: #444;
       stroke-width: 1px;
+      vector-effect: non-scaling-stroke;
 
       &.crisp {
         shape-rendering: crispEdges;
@@ -53,5 +54,8 @@
     
   }
 
+  .tick line {
+    vector-effect: non-scaling-stroke;
+  }
 }
 
