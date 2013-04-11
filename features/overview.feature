@@ -15,3 +15,5 @@ Feature: Overview page
         And the 2nd section description should be "Top 5 most applied for licences on GOV.UK last month"
         And the 3rd subtitle should be "Top authorities last month"
         And the 3rd section description should be "Top authorities by licence application volume on GOV.UK last month"
+        And I see a link to "/performance/licensing/licences"
+        And I see a link to "/performance/licensing/authorities"

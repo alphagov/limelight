@@ -56,3 +56,7 @@ end
 When /^there should be (\d+) authorities$/ do |num_authorities|
   page.all("ul#authorities li").count.should == num_authorities.to_i
 end
+
+Then(/^I see a link to "(.*?)"$/) do |url|
+  page.all("#content a[href=\"#{url}\"]").count.should == 1
+end
