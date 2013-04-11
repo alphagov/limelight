@@ -1,10 +1,12 @@
 .applications-graph {
-  border: 1px solid #999;
+  
 
   .line {
     fill: none;
     stroke: #0F8094;
-    stroke-width: 4px;
+    stroke-width: 2.5px;
+    stroke-linecap: round;
+    stroke-linejoin: round;
   }
   
   .line0 { stroke: #0F8094; }
@@ -39,7 +41,7 @@
     }
     
     text.total {
-      font-size:1.2em;
+      font-size:1em;
     }
     
     text.text2 {
