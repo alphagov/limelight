@@ -20,7 +20,7 @@ define([
   });
   
   var top5LicencesTable = new Top5Table({
-    title: 'Licence name',
+    title: 'Licence',
     el: $('#top5-licences-table'),
     collection: top5LicencesCollection
   });
@@ -33,7 +33,7 @@ define([
   });
   
   var top5AuthoritiesTable = new Top5Table({
-    title: 'Authority name',
+    title: 'Authority',
     el: $('#top5-authorities-table'),
     collection: top5AuthoritiesCollection
   });
