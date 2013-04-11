@@ -1,6 +1,6 @@
-body {
-    font-family: ntatabularnumbers, nta, Arial, sans-serif;
-}
+@import 'colours';
+
+
 
 #wrapper {
   max-width: 1020px;
@@ -59,4 +59,14 @@ header#global {
   border-top: 10px solid #108095;
   background-color: #FFFFFF;
   padding: 1em 2em;
+  
+  header {
+    border-bottom: 5px solid $primary-colour;
+    padding-bottom: 2em;
+    margin-bottom:1.5em;
+    
+    h1 {
+      width: 75%  ;
+    }
+  }
 }
