@@ -6,7 +6,6 @@ Feature: Overview page
   Scenario: visiting overview page
        When I go to /performance/licensing
        Then I should get back a status of 200
-        And the navigation link for "Overview" should be active
         And the category title should be "Transactions"
         And the page title should be "Licensing (GOV.UK applications)"
         And the 1st subtitle should be "Weekly licence applications"

@@ -54,7 +54,7 @@ Then(/^the (\d+)(?:st|nd|rd|th) section description should be "(.*?)"$/) do |pos
 end
 
 Then(/^the navigation link for "(.*?)" should be active$/) do |link_title|
-  page.find("#global nav li.active a[text()='#{link_title}']").should be_visible
+  page.find("#global nav li.sub-level a.current").should have_content(link_title)
 end
 
 When /^there should be (\d+) authorities$/ do |num_authorities|
