@@ -1,5 +1,5 @@
 define([
-  'licensing/collections/applications-top5-lastmonth'
+  'licensing/collections/applications-top5-lastweek'
 ],
 function (Collection, Applications) {
   describe("ApplicationsDetailLastWeek", function() {
@@ -18,8 +18,8 @@ function (Collection, Applications) {
         setupMoment('2013-03-13 06:45:00', collection);
       
         var params = collection.queryParams();
-        expect(params.start_at.format('YYYY-MM-DDTHH:mm:ss')).toEqual('2013-02-01T00:00:00');
-        expect(params.end_at.format('YYYY-MM-DDTHH:mm:ss')).toEqual('2013-03-01T00:00:00');
+        expect(params.start_at.format('YYYY-MM-DDTHH:mm:ss')).toEqual('2013-03-04T00:00:00');
+        expect(params.end_at.format('YYYY-MM-DDTHH:mm:ss')).toEqual('2013-03-11T00:00:00');
         expect(params.group_by).toEqual('licenceUrlSlug');
         expect(params.collect).toEqual('licenceName');
         expect(params.sort_by).toEqual('_count:descending');
@@ -33,8 +33,8 @@ function (Collection, Applications) {
         setupMoment('2013-03-13 06:45:00', collection);
       
         var params = collection.queryParams();
-        expect(params.start_at.format('YYYY-MM-DDTHH:mm:ss')).toEqual('2013-02-01T00:00:00');
-        expect(params.end_at.format('YYYY-MM-DDTHH:mm:ss')).toEqual('2013-03-01T00:00:00');
+        expect(params.start_at.format('YYYY-MM-DDTHH:mm:ss')).toEqual('2013-03-04T00:00:00');
+        expect(params.end_at.format('YYYY-MM-DDTHH:mm:ss')).toEqual('2013-03-11T00:00:00');
         expect(params.group_by).toEqual('authorityUrlSlug');
         expect(params.collect).toEqual('authorityName');
         expect(params.sort_by).toEqual('_count:descending');

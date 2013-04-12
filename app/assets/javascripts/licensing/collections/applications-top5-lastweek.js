@@ -46,12 +46,12 @@ function (require, Collection, Model) {
     
     queryUrl: 'licensing',
     
-    queryId: 'applications-top5-lastmonth',
+    queryId: 'applications-top5-lastweek',
 
     queryParams: function () {
-      var end = this.moment().startOf('month');
+      var end = this.moment().day(1).startOf('day');
       var params = {
-        start_at: this.moment(end).subtract(1, 'months'),
+        start_at: this.moment(end).subtract(1, 'weeks'),
         end_at: end,
         limit: 5,
         group_by: this.groupBy,

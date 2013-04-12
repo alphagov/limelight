@@ -13,7 +13,7 @@ define([
     
     url: /\/licensing\/?.*\?(.*)/,
     
-    queryId: 'applications-top5-lastmonth',
+    queryId: 'applications-top5-lastweek',
     
     getData: function (query) {
       

@@ -1,7 +1,7 @@
 define([
   'licensing/collections/applications-total-weekly',
   'licensing/views/applicationsgraph',
-  'licensing/collections/applications-top5-lastmonth',
+  'licensing/collections/applications-top5-lastweek',
   'licensing/views/top5table'
 ], function(GraphCollection, ApplicationsGraph, Top5Collection, Top5Table) {
   
