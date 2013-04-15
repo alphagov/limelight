@@ -53,7 +53,7 @@ function (Graph, Collection, moment) {
     });
     
     describe("calcYScale", function() {
-      it("scales domain to a nice minimum value to avoid extreme line jumps on graph and duplicate y axis values", function () {
+      it("scales domain to a minimum value of 6 to avoid extreme line jumps on graph and duplicate y axis values", function () {
         collection.at(0).get('values').each(function (model) { model.set('_count', 1); });
         expect(graph.calcYScale().domain()).toEqual([0, 6]);
         
