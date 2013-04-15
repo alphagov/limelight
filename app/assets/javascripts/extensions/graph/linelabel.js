@@ -82,7 +82,7 @@ function (Component) {
      * @param {Selection} selection d3 selection to operate on
      */
     enter: function (selection) {
-      selection.each(function (metaModel) {
+      selection.each(function (model) {
         d3.select(this).append('text');
       });
     },
@@ -92,9 +92,9 @@ function (Component) {
      * @param {Selection} selection d3 selection to operate on
      */
     update: function (selection) {
-      selection.each(function (metaModel) {
+      selection.each(function (model) {
         d3.select(this).selectAll("text")
-            .text(metaModel.get('title'))
+            .text(model.get('title'))
             .attr('transform', 'translate(0, 5)');
       });
     },
