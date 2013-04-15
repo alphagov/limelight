@@ -39,7 +39,18 @@ function (Collection, Applications) {
         expect(params.collect).toEqual('licenceName');
         expect(params.filter_by).not.toBeDefined();
       });
-      
+
+      it("requests date for a month during BST time", function() {
+        var collection = new Collection([], {
+            groupBy: 'authorityUrlSlug'
+        });
+
+        setupMoment('2013-05-13 06:45:00', collection);
+
+        var params = collection.queryParams();
+        expect(params.start_at.format('YYYY-MM-DDTHH:mm:ssZZ')).toEqual('2013-05-06T00:00:00+0000');
+        expect(params.end_at.format('YYYY-MM-DDTHH:mm:ssZZ')).toEqual('2013-05-13T00:00:00+0000');
+      });
     });
     
     describe("comparators", function () {
