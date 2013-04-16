@@ -9,7 +9,7 @@ function (require, ApplicationsGraph, LineLabel) {
     margin: {
       top: 20,
       bottom: 50,
-      left: 60,
+      left: 45,
       right: 200
     },
     
