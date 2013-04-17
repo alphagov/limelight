@@ -13,7 +13,7 @@ function (require, Graph, XAxis, YAxis, Stack) {
     
     margin: {
       top: 20,
-      bottom: 50,
+      bottom: 40,
       left: 60,
       right: 40
     },

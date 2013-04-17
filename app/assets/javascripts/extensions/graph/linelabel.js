@@ -8,7 +8,7 @@ function (Component) {
     linePaddingInner: 4,
     linePaddingOuter: 4,
     overlapLabelTop: 0,
-    overlapLabelBottom: 30,
+    overlapLabelBottom: 20,
     
     maxTextWidth: null,
     showSquare: false,
