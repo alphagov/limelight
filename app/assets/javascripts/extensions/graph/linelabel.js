@@ -15,6 +15,8 @@ function (Component) {
     squareSize: 11,
     squarePadding: 4,
     
+    classed: 'labels',
+    
     /**
      * Renders labels for current collection.
      */
@@ -22,11 +24,11 @@ function (Component) {
       Component.prototype.render.apply(this, arguments);
       
       var left = this.innerWidth + this.offset;
-      this.group = this.wrapper.append('g')
-        .attr('class', 'labels')
+      this.componentWrapper
+        .classed(this.classed, true)
         .attr('transform', 'translate(' + left + ', 0)');
       
-      var selection = this.group.selectAll('g')
+      var selection = this.componentWrapper.selectAll('g')
           .data(this.collection.models);
           
       var enterSelection = selection.enter().append('g')
