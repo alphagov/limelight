@@ -7,7 +7,7 @@ define([
     $.map($('#licences-list li'), function (li) {
       var $li = $(li);
       return {
-        id: $li.text(),
+        title: $li.text(),
         el: $li
       };
     })
