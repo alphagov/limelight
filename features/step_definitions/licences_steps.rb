@@ -32,12 +32,14 @@ Then(/^the (\d+)(?:st|nd|rd|th) group title should be "(.*?)"$/) do |position, t
   page.all("#content dt")[position.to_i - 1].should have_content(title)
 end
 
-Then(/^the (\d+)(?:st|nd|rd|th) title should be "(.*?)"$/) do |position, title|
-  page.all("#content li")[position.to_i - 1].should have_link(title)
+Then(/^the (\d+)(?:st|nd|rd|th) title in the (\d+)(?:st|nd|rd|th) group should be "(.*?)"$/) do |position, group, title|
+  dd = page.all('#content dd')[group.to_i - 1]
+  dd.all("li")[position.to_i - 1].should have_link(title)
 end
 
-Then(/^the (\d+)(?:st|nd|rd|th) link should be "(.*?)"$/) do |position, href|
-  page.all("#content li a")[position.to_i - 1][:href].should == href
+Then(/^the (\d+)(?:st|nd|rd|th) link in the (\d+)(?:st|nd|rd|th) group should be "(.*?)"$/) do |position, group, href|
+  dd = page.all('#content dd')[group.to_i - 1]
+  dd.all("li a")[position.to_i - 1][:href].should == href
 end
 
 Then(/^the category title should be "(.*?)"$/) do |title|
