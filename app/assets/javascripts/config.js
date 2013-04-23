@@ -4,7 +4,7 @@ $(document).ready(function () {
   
   require.config({
 
-    deps: ['bootstrap', 'extensions/backbone'],
+    deps: ['bootstrap'],
 
     baseUrl: baseUrl,
 
