@@ -1,6 +1,6 @@
 define([
-  'extensions/collection',
-  'extensions/group',
+  'extensions/collections/collection',
+  'extensions/models/group'
 ],
 function (Collection, Group) {
   var WeeklyApplications = Collection.extend({
@@ -25,7 +25,7 @@ function (Collection, Group) {
     parse: function (response) {
       return [{
         id: 'total',
-        title: 'Total applications',
+        title: 'Total submissions',
         values: response.data
       }];
     }

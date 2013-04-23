@@ -1,5 +1,5 @@
 define([
-  'extensions/table/table'
+  'extensions/views/table/table'
 ],
 function (Table) {
   var ApplicationsTable = Table.extend({
@@ -27,7 +27,7 @@ function (Table) {
       },
       {
         id: '_count',
-        title: 'Applications last week',
+        title: 'Submissions last week',
         sortable: true,
         defaultDescending: true,
         getValue: function (model) {

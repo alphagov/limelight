@@ -1,6 +1,6 @@
 define([
   'backbone',
-  'extensions/model',
+  'extensions/models/model',
   'extensions/mixins/safesync',
   'moment'
 ],
