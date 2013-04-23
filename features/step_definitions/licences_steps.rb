@@ -24,6 +24,10 @@ Then(/^there should be (\d+) licences$/) do |num_licences|
   page.all("#licences-list li").count.should == num_licences.to_i
 end
 
+Then(/^the "(.*?)" count should be (\d+)$/) do |type, count|
+  page.find("##{type}-list .count").should have_content(count)
+end
+
 Then(/^the (\d+)(?:st|nd|rd|th) group title should be "(.*?)"$/) do |position, title|
   page.all("#content dt")[position.to_i - 1].should have_content(title)
 end

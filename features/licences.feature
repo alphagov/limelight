@@ -12,6 +12,7 @@ Feature: Listing licences
         And the category title should be "Licensing"
         And the category title should link to "/performance/licensing"
         And the page title should be "Licences (licences on GOV.UK only)"
+        And the "licences" count should be 2
         And the 1st group title should be "A"
         And the 2nd group title should be "R"
         And the 1st title should be "Application to licence a street collection"
