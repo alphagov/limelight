@@ -24,12 +24,16 @@ Then(/^there should be (\d+) licences$/) do |num_licences|
   page.all("#licences-list li").count.should == num_licences.to_i
 end
 
+Then(/^the (\d+)(?:st|nd|rd|th) group title should be "(.*?)"$/) do |position, title|
+  page.all("#content dt")[position.to_i - 1].should have_content(title)
+end
+
 Then(/^the (\d+)(?:st|nd|rd|th) title should be "(.*?)"$/) do |position, title|
-  page.all("#content ul li")[position.to_i - 1].should have_link(title)
+  page.all("#content li")[position.to_i - 1].should have_link(title)
 end
 
 Then(/^the (\d+)(?:st|nd|rd|th) link should be "(.*?)"$/) do |position, href|
-  page.all("#content ul li a")[position.to_i - 1][:href].should == href
+  page.all("#content li a")[position.to_i - 1][:href].should == href
 end
 
 Then(/^the category title should be "(.*?)"$/) do |title|

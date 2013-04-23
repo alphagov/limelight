@@ -18,9 +18,16 @@
     <p class="count"><%= @authorities.length %></p>
   </header>
 
-  <ul>
-    <% @authorities.each do |authority| %>
+  <dl>
+    <% @authorities.each do |letter, group| %>
+    <dt><%= letter.upcase %></dt>
+    <dd>
+      <ol>
+        <% group.each do |authority| %>
         <li><%= link_to authority.name, authority_path(authority.slug) %></li>
+        <% end %>
+      </ol>
+    </dd>
     <% end %>
-  </ul>
+  </dl>
 </section>

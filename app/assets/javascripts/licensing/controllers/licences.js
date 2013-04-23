@@ -15,6 +15,7 @@ define([
   
   var view = new Filter({
     el: $('#filter-wrapper'),
+    listEl: $('#licences-list dl'),
     countEl: $('#licences-list .count'),
     label: 'Find an application, licence, notice or registration named:',
     placeholder: 'Example: Temporary Event Notice',
