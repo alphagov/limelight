@@ -12,6 +12,7 @@ function (View) {
     },
     
     events: {
+      'keydown input': 'onKeyDown',
       'keyup input': 'onKeyUp'
     },
     
@@ -36,6 +37,12 @@ function (View) {
       
       if (this.countEl) {
         this.countEl.text(this.collection.filtered.length);
+      }
+    },
+    
+    onKeyDown: function (e) {
+      if (e.keyCode == 27) {
+        return false;
       }
     },
     
