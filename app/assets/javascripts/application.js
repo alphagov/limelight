@@ -5,7 +5,7 @@
 
 define({
   load: function(name, req, onLoad, config) {
-    
+
     var that = this;
     var loadApplication = function () {
       if (window.jasmine) {
@@ -19,7 +19,7 @@ define({
         });
       }
     }
-    
+
     var backdropUrl = $('#wrapper').data('backdrop-url');
     if (!window.jasmine && backdropUrl && backdropUrl.indexOf('//fakeapi') == -1) {
       // use real API

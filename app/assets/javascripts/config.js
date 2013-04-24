@@ -1,11 +1,8 @@
-$(document).ready(function () {
-  
-  var baseUrl = $('#wrapper').data('base-url') || '/limelight';
-  
-  require.config({
+var baseUrl, requireConfig;
 
-    deps: ['bootstrap'],
+baseUrl = '/limelight';
 
+requireConfig = {
     baseUrl: baseUrl,
 
     paths: {
@@ -26,19 +23,18 @@ $(document).ready(function () {
         deps: ['lodash', 'jqueryxdr', 'jquerymousewheel'],
         exports: 'Backbone'
       },
-
       modernizr: {
         exports: 'Modernizr'
       },
-
       moment: {
         exports: 'Moment'
       },
-
       d3: {
         exports: 'd3'
       }
     }
+};
 
-  });
-})
+require.config(requireConfig);
+
+require(['bootstrap']);

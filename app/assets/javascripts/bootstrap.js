@@ -1,8 +1,5 @@
-define([
-  'require',
-  'application!'
-],
-function () {
-  // Simple proxy to 'application' module. require.js does not like plugins
-  // as config dependencies.
+define([ 'jquery' ], function ($) {
+  $(document).ready(function () {
+    require([$('#wrapper').data('controller')]);
+  });
 });
