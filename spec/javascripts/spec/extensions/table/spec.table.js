@@ -255,8 +255,7 @@ function (Table, Collection, Model) {
         it("renders partial table body for large number of rows when lazy render is active and renders a placeholder row", function() {
           table.renderBody(tbody);
           expect(tbody.find('tr').length).toEqual(31);
-          var loadMoreLink = tbody.find('tr:last-child td a');
-          expect(loadMoreLink).toHaveText('Show more rows…');
+          expect(tbody.find('tr:last-child td a.js-load-more').length).toEqual(1);
         });
         
         it("renders additional rows when user clicks on link in placeholder row", function() {
