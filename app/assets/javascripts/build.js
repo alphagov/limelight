@@ -9,7 +9,7 @@
     "licensing/controllers/per_licence"
   ],
 
-  out: "../../../public/limelight/config.js",
+  out: "production.js",
 
   baseUrl: ".",
 
