@@ -1,5 +1,9 @@
-var requireConfig = {
-    baseUrl: '/limelight',
+var baseUrl, requireConfig;
+
+baseUrl = document.getElementById('wrapper').getAttribute('data-base-url') || '/limelight';
+
+requireConfig = {
+    baseUrl: baseUrl,
 
     paths: {
       jquery: 'jqueryloader',

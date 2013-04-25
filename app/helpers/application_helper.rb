@@ -1,5 +1,9 @@
 module ApplicationHelper
 
+  def assets_base_url
+    main_js_path.gsub(%r{/[^./]+.js}, '')
+  end
+
   def main_js_path
     if Rails.application.assets.find_asset("production.js").present?
       asset_path("production.js")
