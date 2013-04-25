@@ -1,9 +1,5 @@
-var baseUrl, requireConfig;
-
-baseUrl = '/limelight';
-
-requireConfig = {
-    baseUrl: baseUrl,
+var requireConfig = {
+    baseUrl: '/limelight',
 
     paths: {
       jquery: 'jqueryloader',
