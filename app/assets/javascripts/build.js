@@ -11,6 +11,8 @@
 
   out: "production.js",
 
+  preserveLicenseComments: false,
+
   baseUrl: ".",
 
 
