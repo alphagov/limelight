@@ -1,6 +1,7 @@
-var baseUrl, requireConfig;
+var baseUrl, d3Url, requireConfig;
 
-baseUrl = document.getElementById('wrapper').getAttribute('data-base-url') || '/limelight';
+baseUrl = $('#wrapper').data('base-url') || '/limelight';
+d3Url = $('#wrapper').data('d3-url') || 'vendor/d3.v3';
 
 requireConfig = {
     baseUrl: baseUrl,
@@ -15,7 +16,7 @@ requireConfig = {
       modernizr: 'vendor/modernizr',
       moment: 'vendor/moment',
       tpl: 'vendor/tpl',
-      d3: 'vendor/d3.v3'
+      d3: d3Url
     },
 
     shim: {
