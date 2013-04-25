@@ -43,5 +43,7 @@
     d3: {
       exports: 'd3'
     }
-  }
+  },
+
+  excludeShallow: [ 'd3' ]
 })
