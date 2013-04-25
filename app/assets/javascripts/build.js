@@ -1,7 +1,7 @@
 ({
   name: "config",
 
-  include: [
+  deps: [
     "licensing/controllers/authorities",
     "licensing/controllers/licences",
     "licensing/controllers/overview",
