@@ -1,6 +1,12 @@
 namespace :rjs do
+  desc "Compile javascripts with r.js"
   task :compile do
-    `cd app/assets/javascripts; node r.js -o build.js`
+    system "cd app/assets/javascripts; node r.js -o build.js"
+  end
+
+  desc "Remove files compiled with r.js"
+  task :clean do
+    FileUtils.rm("app/assets/javascripts/production.js")
   end
 end
 
