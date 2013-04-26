@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><% if (title) { %><%= title %><% } else { %>Performance Platform<% } %></title>
+  <link rel="stylesheet" href="https://assets.digital.cabinet-office.gov.uk/static/fonts.css" type="text/css" media="screen" >
+  <link rel="stylesheet" href="<%= cssPath %>limelight.css" type="text/css" media="screen" >
+</head>
+<body>
+
+<header role="banner" id="global-header">
+  <div class="header-wrapper">
+    <div class="header-global">
+      <div class="header-logo">
+        <a href="/" title="Go to the gov.uk homepage" id="logo" class="content">
+          <img src="<%= cssPath %>gov.uk_logotype-2x.png" alt="GOV.UK">
+        </a>
+        <a href="#search" class="search-toggle js-header-toggle">Search</a>
+      </div>
+
+      <form id="search" class="site-search" action="/search" method="get" role="search">
+        <div class="content">
+          <label for="site-search-text">Search</label>
+          <input type="search" name="q" id="site-search-text" title="Search" class="js-search-focus">
+          <input class="submit" type="submit" value="Search" />
+        </div>
+      </form>
+    </div>
+  </div>
+</header>
+
+<div id="wrapper" data-backdrop-url=""
+     data-environment="" data-base-url="" data-controller="<%= controller %>">
+  
+  <header id="global">
+    
+    <nav class="performance-nav">
+      <a class="top-level" href="#">
+          <span class="top-level-link">Licensing performance</span>
+          <span class="alpha-tag">Alpha</span>
+      </a>
+      <div class="menu-wrapper">
+        <a id="menu-toggle" href="#" data-hide-or-show="sub-level">menu</a>
+        <div class="inner-nav">
+          <ul id="navigation">
+            <li class="sub-level">
+              <a href="#">Authorities</a>
+            </li>
+            <li class="sub-level">
+              <a href="#">Licences</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+  
+  <section id="content">
+    <%= content %>
+  </section>
+</div>
+
+<script data-main="/limelight/js/config.js" src="/limelight/js/vendor/require.js" type="text/javascript"></script>
+
+</body>
+</html>
