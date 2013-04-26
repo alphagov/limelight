@@ -8,7 +8,7 @@ module ApplicationHelper
     if Rails.application.assets.find_asset("production.js").present?
       asset_path("production.js")
     else
-      asset_path("config.js")
+      asset_path("main.js")
     end
   end
 

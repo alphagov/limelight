@@ -1,5 +1,5 @@
 ({
-  name: "config",
+  name: "main",
 
   deps: [
     "licensing/controllers/authorities",
