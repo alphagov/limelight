@@ -12,6 +12,7 @@ function (View) {
     },
     
     events: {
+      'keydown input': 'onKeyDown',
       'keyup input': 'onKeyUp'
     },
     
@@ -23,14 +24,31 @@ function (View) {
         model.get('el').removeClass('performance-hidden');
       });
       
+      // hide groups that have no visible children
+      this.listEl.find('dd, dt').removeClass('performance-hidden');
+      this.listEl.find('dd').each(function (i, dd) {
+        var $dd = $(dd);
+        if (!$dd.find('li:not(.performance-hidden)').length) {
+          // no children visible, hide group too
+          $dd.addClass('performance-hidden');
+          $dd.prev('dt').addClass('performance-hidden');
+        }
+      });
+      
       if (this.countEl) {
         this.countEl.text(this.collection.filtered.length);
       }
     },
     
+    onKeyDown: function (e) {
+      if (e.keyCode == this.keys.escape) {
+        return false;
+      }
+    },
+    
     onKeyUp: function (e) {
       var term = this.inputEl.val();
-      if (e.keyCode == 27) {
+      if (e.keyCode == this.keys.escape) {
         if (!term.length) {
           this.inputEl.blur();
           return;
