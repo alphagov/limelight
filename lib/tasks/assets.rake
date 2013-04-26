@@ -6,8 +6,9 @@ namespace :rjs do
 
   desc "Remove files compiled with r.js"
   task :clean do
-    FileUtils.rm("app/assets/javascripts/production.js")
+    FileUtils.rm_f("app/assets/javascripts/production.js")
   end
 end
 
 Rake::Task["assets:precompile"].enhance(["rjs:compile"])
+Rake::Task["assets:clean"].enhance(["rjs:clean"])
