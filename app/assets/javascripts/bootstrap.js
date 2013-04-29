@@ -8,14 +8,12 @@ define([ 'require', 'jquery' ], function (require, $) {
     return backdropUrl().indexOf('//fakeapi') !== -1
   }
 
-  $(document).ready(function () {
-    var controller = $('#wrapper').data('controller');
-    if (useFakeApi()) {
-      require(['fakeapi'], function(_) {
-        require([ controller ]);
-      });
-    } else {
+  var controller = $('#wrapper').data('controller');
+  if (useFakeApi()) {
+    require(['fakeapi'], function(_) {
       require([ controller ]);
-    }
-  });
+    });
+  } else {
+    require([ controller ]);
+  }
 });

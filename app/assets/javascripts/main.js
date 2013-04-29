@@ -1,9 +1,11 @@
-var baseUrl, d3Url, requireConfig;
+$(document).ready(function () {
 
-baseUrl = $('#wrapper').data('base-url') || '/limelight';
-d3Url = $('#wrapper').data('d3-url') || 'vendor/d3.v3';
+  var baseUrl, d3Url, requireConfig;
 
-requireConfig = {
+  baseUrl = $('#wrapper').data('base-url') || '/limelight';
+  d3Url = $('#wrapper').data('d3-url') || 'vendor/d3.v3';
+
+  requireConfig = {
     baseUrl: baseUrl,
 
     paths: {
@@ -34,8 +36,9 @@ requireConfig = {
         exports: 'd3'
       }
     }
-};
+  };
 
-require.config(requireConfig);
+  require.config(requireConfig);
 
-require(['bootstrap']);
+  require(['bootstrap']);
+});
