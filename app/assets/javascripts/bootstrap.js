@@ -1,4 +1,4 @@
-define([ 'jquery' ], function ($) {
+define([ 'require', 'jquery' ], function (require, $) {
   function backdropUrl() {
     var backdropUrl = $('#wrapper').data('backdrop-url');
     return backdropUrl || "";
@@ -9,9 +9,13 @@ define([ 'jquery' ], function ($) {
   }
 
   $(document).ready(function () {
+    var controller = $('#wrapper').data('controller');
     if (useFakeApi()) {
-      require(['fakeapi']);
+      require(['fakeapi'], function(_) {
+        require([ controller ]);
+      });
+    } else {
+      require([ controller ]);
     }
-    require([$('#wrapper').data('controller')]);
   });
 });
