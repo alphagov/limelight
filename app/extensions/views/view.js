@@ -60,7 +60,7 @@ function (Backbone, moment, d3) {
           return function(n) { return n % magnitude === 0; };
         }
 
-        var max = values.reduce(function(a,b) {return a > b ? a : b});
+        var max = values.reduce(function(a,b) {return a > b ? a : b;});
         var magnitude = this.magnitudeFor(max);
         var decimalPlaces = values.every(isAnExactMultipleOf(magnitude.value))? 0 : 1;
         
@@ -90,9 +90,9 @@ function (Backbone, moment, d3) {
             err = targetTickCount / span * step;
 
         // Filter ticks to get closer to the desired count.
-        if (err <= .15) step *= 10;
-        else if (err <= .35) step *= 5;
-        else if (err <= .75) step *= 2;
+        if (err <= 0.15) step *= 10;
+        else if (err <= 0.35) step *= 5;
+        else if (err <= 0.75) step *= 2;
 
         // Round start and stop values to step interval.
         var first = Math.floor(extent[0] / step) * step,
@@ -113,7 +113,7 @@ function (Backbone, moment, d3) {
        * and some rounding issues.
        */
       formatNumericLabel: function(value) {
-        if (value == 0) return "0";
+        if (value === 0) return "0";
         
         var magnitudes = View.prototype.magnitudes;
         var magnitude = function(num, n) {
@@ -169,7 +169,7 @@ function (Backbone, moment, d3) {
         var remaining = 0;
         var subviewReady = function () {
           if (--remaining <= 0) {
-            callback()
+            callback();
           }
         };
         

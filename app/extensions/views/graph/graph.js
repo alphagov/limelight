@@ -48,7 +48,7 @@ function (View) {
         width: this.width,
         height: this.height,
         scales: this.scales
-      }
+      };
     },
     
     /**

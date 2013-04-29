@@ -15,7 +15,7 @@ define([
         options: function () {
           return {
             collection: this.graphCollection
-          }
+          };
         }
       },
       '#top5-licences-table': {
@@ -24,7 +24,7 @@ define([
           return {
             title: 'Licence',
             collection: this.top5LicencesCollection
-          }
+          };
         }
       },
       '#top5-authorities-table': {
@@ -33,7 +33,7 @@ define([
           return {
             title: 'Authority',
             collection: this.top5AuthoritiesCollection
-          }
+          };
         }
       }
     }

@@ -31,7 +31,7 @@ function (Component) {
       var selection = this.componentWrapper.selectAll('g')
           .data(this.collection.models);
           
-      var enterSelection = selection.enter().append('g')
+      var enterSelection = selection.enter().append('g');
       enterSelection.append('line');
       if (this.showSquare) {
         enterSelection.append('rect');
@@ -111,7 +111,7 @@ function (Component) {
         xOffset += this.squareSize + this.squarePadding;
       }
       selection.each(function (model, i) {
-        var selection = d3.select(this)
+        var selection = d3.select(this);
         selection.selectAll("text")
             .text(model.get('title'))
             .attr('transform', 'translate(' + xOffset + ', 6)');
@@ -145,7 +145,7 @@ function (Component) {
           return 0;
         })
         .classed('crisp', function (metaModel) {
-          return metaModel.get('y') - metaModel.get('yLabel') == 0;
+          return metaModel.get('y') - metaModel.get('yLabel') === 0;
         });
     },
     
@@ -177,9 +177,9 @@ function (Component) {
           text.text(truncated);
           if (this.getBBox().width <= maxWidth) {
             break;
-          };
-        };
-      })
+          }
+        }
+      });
     },
     
     /**
@@ -246,7 +246,7 @@ function (Component) {
         
         // move anchor element a bit closer to ideal
         var anchor = _.extend({}, items[indexToOptimise]);
-        var targetDist = anchor.dist * .9;
+        var targetDist = anchor.dist * 0.9;
         
         anchor.min = anchor.ideal + targetDist; 
         if (anchor.absoluteLowestMin != null) {
@@ -263,27 +263,28 @@ function (Component) {
         var sumSquareDist = anchor.squareDist;
         solution[anchor.index] = anchor;
         
+        var i, item;
         // nudge previous elements upwards
-        for (var i = indexToOptimise - 1; i >= 0; i--) {
-          var item = _.extend({}, items[i]);
+        for (i = indexToOptimise - 1; i >= 0; i--) {
+          item = _.extend({}, items[i]);
           item.max = Math.min(item.max, curMin);
           curMin = item.min = item.max - item.size;
           item.dist = item.min - item.ideal;
           item.squareDist = Math.pow(item.dist, 2);
           sumSquareDist += item.squareDist;
           solution[i] = item;
-        };
+        }
         
         // nudge following elements downwards
-        for (var i = indexToOptimise + 1; i < items.length; i++) {
-          var item = _.extend({}, items[i]);
+        for (i = indexToOptimise + 1; i < items.length; i++) {
+          item = _.extend({}, items[i]);
           item.min = Math.max(item.min, curMax);
           curMax = item.max = item.min + item.size;
           item.dist = item.min - item.ideal;
           item.squareDist = Math.pow(item.dist, 2);
           sumSquareDist += item.squareDist;
           solution[i] = item;
-        };
+        }
         
         solution.sumSquareDist = sumSquareDist;
         
@@ -293,11 +294,12 @@ function (Component) {
       var doIterate = true;
       var maxIterations = 100;
       var threshold = 1;
+      var squareDistComparator = function (item) {
+        return -item.squareDist;
+      };
       for (var iteration = 0; doIterate && iteration < maxIterations; iteration++) {
         doIterate = false;
-        var itemsBySquareDist = _.sortBy(bestSolution, function (item) {
-          return -item.squareDist;
-        });
+        var itemsBySquareDist = _.sortBy(bestSolution, squareDistComparator);
         
         for (var i = 0, ni = itemsBySquareDist.length; i < ni && !doIterate; i++) {
           var item = itemsBySquareDist[i];
@@ -309,8 +311,8 @@ function (Component) {
             // result has not converged yet, continue search
             doIterate = true;
           }
-        };
-      };
+        }
+      }
       
       return bestSolution;
     }

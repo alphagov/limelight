@@ -32,7 +32,7 @@ function (Backbone, moment) {
         } else {
           console.warn(value, 'is not a valid date');
         }
-      })
+      });
 
       return attributes;
     }

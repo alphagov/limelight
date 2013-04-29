@@ -137,7 +137,7 @@ function (View) {
         // no data, show placeholder message
         var message = "No data available.";
         
-        var placeholderRow = $([
+        var row = $([
           '<tr class="placeholder"><td colspan="',
           this.columns.length,
           '">',
@@ -145,7 +145,7 @@ function (View) {
           '</td></tr>'
         ].join(''));
         
-        tbody.append(placeholderRow);
+        tbody.append(row);
       } else if (this.lazyRender) {
         // render table on demand in chunks. whenever the user scrolls to the
         // bottom, append another chunk of rows.
@@ -163,12 +163,12 @@ function (View) {
           for (; index < last; index++) {
             var tr = that.renderRow.call(that, data.at(index));
             tr.appendTo(tbody);
-          };
+          }
           if (last < data.length) {
             // more rows available, show placeholder
             tbody.append(placeholderRow);
           }
-        }
+        };
 
         scrollWrapper.on('scroll', function (e) {
           var visibleHeight = scrollWrapper.outerHeight();
@@ -266,7 +266,7 @@ function (View) {
 
         // prevent document scroll if scrolling upwards at the top
         var scrollTop = el.scrollTop();
-        if (scrollTop == 0 && deltaY > 0) {
+        if (scrollTop === 0 && deltaY > 0) {
           e.preventDefault();
           return;
         }

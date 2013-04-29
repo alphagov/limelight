@@ -23,7 +23,7 @@ function (Component) {
       var models = this.collection.models;
       for (var i = models.length - 1; i >= 0; i--){
         this.renderLine(models[i], i);
-      };
+      }
     },
     
     /**
@@ -36,7 +36,7 @@ function (Component) {
       var timeseries = group.get('values');
       
       var line = d3.svg.line();
-      line.x(_.bind(this.x, this, group, this.collection))
+      line.x(_.bind(this.x, this, group, this.collection));
       line.y(_.bind(this.y, this, group, this.collection));
 
       var path = this.componentWrapper.append("path")
@@ -45,7 +45,7 @@ function (Component) {
       if (this.lineClassed) {
         var classed = this.lineClassed;
         if (_.isFunction(classed)) {
-          classed = classed(group, index)
+          classed = classed(group, index);
         }
         path.attr('class', classed);
       }

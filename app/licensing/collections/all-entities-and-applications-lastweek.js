@@ -43,10 +43,11 @@ function (require, MultiCollection, AllEntities, ApplicationsLastWeek) {
     
     comparators: {
       group: function (attr, descending) {
+        var comparatorAttr;
         if (this.groupBy == 'authorityUrlSlug') {
-          var comparatorAttr = 'authoritySortName';
+          comparatorAttr = 'authoritySortName';
         } else {
-          var comparatorAttr = this.groupBy;
+          comparatorAttr = this.groupBy;
         }
         return this.defaultComparator(comparatorAttr, descending);
       }

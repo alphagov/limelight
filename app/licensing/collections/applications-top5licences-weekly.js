@@ -41,7 +41,7 @@ function (require, Applications, AuthorityHelpersMixin) {
           attributes.title = group.licenceUrlSlug;
         }
         if (group.authorityName) {
-          var authorityName = group.authorityName[0]
+          var authorityName = group.authorityName[0];
           attributes.subTitle = this.getAuthorityShortName(authorityName);
         }
         data.push(attributes);

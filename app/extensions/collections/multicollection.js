@@ -38,7 +38,8 @@ function (Collection) {
     fetch: function (options) {
       options = options || {};
       
-      var openRequests = numRequests = this.collectionInstances.length;
+      var numRequests = this.collectionInstances.length;
+      var openRequests = numRequests;
       var successfulRequests = 0;
       var that = this;
       
@@ -63,7 +64,7 @@ function (Collection) {
         collection.on('error', function () {
           // escalate error status
           if (options.error) {
-            options.error.apply(collection, arguments)
+            options.error.apply(collection, arguments);
           }
           var args = ['error'].concat(Array.prototype.slice.call(arguments));
           this.trigger.apply(this, args);

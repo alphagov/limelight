@@ -7,10 +7,11 @@ define([
 function (Backbone, Model, SafeSync, moment) {
   
   // get base URL for Backdrop instance (with trailing slash if missing)
-  if (global && global.baseUrl) {
-    var baseUrl = global.baseUrl;
+  var baseUrl;
+  if (typeof global === 'object' && global.baseUrl) {
+    baseUrl = global.baseUrl;
   } else {
-    var baseUrl = $('#wrapper').data('backdrop-url');
+    baseUrl = $('#wrapper').data('backdrop-url');
     if (baseUrl) {
       baseUrl = baseUrl.replace(/\/?$/, '/');
     }
@@ -99,7 +100,7 @@ function (Backbone, Model, SafeSync, moment) {
         // use custom comparator
         this.comparator = comparators[attr].call(this, attr, descending);
       } else {
-        this.comparator = this.defaultComparator.call(this, attr, descending)
+        this.comparator = this.defaultComparator.call(this, attr, descending);
       }
       this.sortDescending = Boolean(descending);
       this.sortAttr = attr;

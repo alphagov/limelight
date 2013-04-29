@@ -69,7 +69,7 @@ function (Component) {
           })
           .attr("d", function(group) {
             return line(group.get('values').models);
-          })
+          });
     }
   });
 
