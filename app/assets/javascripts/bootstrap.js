@@ -5,7 +5,7 @@ define([ 'require', 'jquery' ], function (require, $) {
   }
 
   function useFakeApi() {
-    return window.jasmine || backdropUrl().indexOf('//fakeapi') !== -1
+    return backdropUrl().indexOf('//fakeapi') !== -1
   }
 
   $(document).ready(function () {
