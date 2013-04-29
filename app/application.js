@@ -8,31 +8,29 @@ define({
     req(['jquery'], function ($) {
       var that = this;
       var loadApplication = function () {
-        if (window.jasmine) {
-          // Don't initialise app when running unit tests
-          onLoad.call(that);
-        } else {
-          // Load controller for this page
-          var controller = $('#wrapper').data('controller');
-          req([controller], function (controller) {
-            var view = controller({
-              el: $('#wrapper')
-            });
-            view.render();
-            onLoad.call(that);
+        
+        // Load controller for this page
+        var controller = $('#wrapper').data('controller');
+        req([controller], function (controller) {
+          var view = controller({
+            el: $('#wrapper')
           });
-        }
+          view.render();
+          onLoad.call(that);
+        });
       }
       
       var backdropUrl = $('#wrapper').data('backdrop-url');
-      if (!window.jasmine && backdropUrl && backdropUrl.indexOf('//fakeapi') == -1) {
-        // use real API
-        loadApplication();
-      } else {
+      if (window.jasmine) {
+        onLoad.call(that);
+      } else if (backdropUrl && backdropUrl.indexOf('//fakeapi') >= 0) {
         // use fake API
         req(['fakeapi'], function (fakeapi) {
           loadApplication();
         });
+      } else {
+        // use real API
+        loadApplication();
       }
     });
   }

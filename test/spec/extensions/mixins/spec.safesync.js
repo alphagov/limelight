@@ -1,6 +1,7 @@
 define([
   'extensions/mixins/safesync',
-  'backbone'
+  'backbone',
+  'test/helpers/jquery.mockjax.js'
 ],
 function (SafeSync, Backbone) {
   describe("SafeSync", function() {

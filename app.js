@@ -1,45 +1,10 @@
+var config = require('./config');
 var requirejs = require('requirejs');
 
-requirejs.config({
-    //Pass the top-level main.js/index.js require
-    //function to requirejs so that node modules
-    //are loaded relative to the top-level JS file.
-    nodeRequire: require,
-
-    baseUrl: 'app/',
-
-    paths: {
-      // jquery: 'jqueryloader',
-      // jqueryxdr: 'vendor/jquery.xdr',
-      // jquerymousewheel: 'vendor/jquery.mousewheel',
-      lodash: 'vendor/lodash',
-      backbone: 'vendor/backbone',
-      css: 'vendor/require-css',
-      modernizr: 'vendor/modernizr',
-      moment: 'vendor/moment',
-      text: 'vendor/text',
-      tpl: 'vendor/tpl'
-    },
-    
-    shim: {
-      backbone: {
-        deps: ['lodash'],//, 'jquerymousewheel'] , 'jqueryxdr'],
-        exports: 'Backbone'
-      },
-    
-      modernizr: {
-        exports: 'Modernizr'
-      },
-    
-      moment: {
-        exports: 'Moment'
-      }
-    }
-});
+requirejs.config(config);
 
 var express = require('express')
   , cons = require('consolidate')
-  , swig = require('swig')
   , http = require('http')
   , path = require('path');
 
@@ -78,6 +43,13 @@ app.configure('development', function(){
 
 routes(app);
 
-http.createServer(app).listen(app.get('port'), function(){
+var server = http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
 });
+
+
+exports = module.exports = server;
+
+exports.use = function() {
+	app.use.apply(app, arguments);
+};

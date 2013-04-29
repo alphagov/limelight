@@ -1,9 +1,29 @@
+var config = require('./config');
+config.baseUrl = '';
+
 module.exports = function(grunt) {
-	"use strict";
+  "use strict";
 
   // Project configuration.
   grunt.initConfig({
     clean: ["public/"],
+    watch: {
+      js: {
+        files: [
+          'app/**/*',
+          'test/spec/**/*.js'
+        ],
+        tasks: ['forever:restart'],
+        nospawn: true
+      },
+      css: {
+        files: [
+          'styles/**/*'
+        ],
+        tasks: ['sass'],
+        nospawn: true
+      }
+    },
     sass: {
       dist: {
         files: {
@@ -19,13 +39,29 @@ module.exports = function(grunt) {
         }
       }
     },
+    forever: {
+      options: {
+        index: 'app.js',
+        logDir: 'log'
+      }
+    },
+    jasmine: {
+      limelight: {
+        src: 'app/**/*.js',
+        options: {
+          specs: 'test/spec/**/spec.*.js',
+          helpers: 'test/helpers/*.js',
+          template: 'test/testrunner.html'
+        }
+      }
+    },
     jshint: {
       options: {
         eqnull: true
       },
       all: [
-        "extensions/**/*.js",
-        "licensing/**/*.js"
+        "app/extensions/**/*.js",
+        "app/licensing/**/*.js"
       ]
     },
     copy: {
@@ -54,14 +90,24 @@ module.exports = function(grunt) {
       }
     }
   });
-
-  grunt.loadNpmTasks('grunt-contrib-jshint');
-  grunt.loadNpmTasks('grunt-contrib-clean');
-  grunt.loadNpmTasks('grunt-contrib-copy');
-  grunt.loadNpmTasks('grunt-contrib-sass');
-
+  
+  [
+    'grunt-forever',
+    'grunt-contrib-watch',
+    'grunt-contrib-jasmine',
+    'grunt-contrib-jshint',
+    'grunt-contrib-clean',
+    'grunt-contrib-copy',
+    'grunt-contrib-sass'
+  ].forEach(function (task) {
+    grunt.loadNpmTasks(task);
+  });
+  
   // Default task.
-  grunt.registerTask('default', ['clean', 'sass', 'copy:debug']);
+  grunt.registerTask('build', ['clean', 'jshint', 'jasmine', 'sass', 'copy:debug']);
+  grunt.registerTask('start', ['sass', 'forever:start', 'watch']);
+  grunt.registerTask('stop', ['forever:stop']);
+  grunt.registerTask('default', ['build']);
 
 };
 

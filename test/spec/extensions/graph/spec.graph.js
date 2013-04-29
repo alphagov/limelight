@@ -159,6 +159,12 @@ function (Graph, Collection, d3) {
       graph = new Graph({
         collection: new Collection()
       });
+      graph.svg = {
+        style: jasmine.createSpy(),
+        node: jasmine.createSpy().andReturn({
+          outerHTML: 'foo'
+        })
+      };
     });
     
     it("requires an x scale implementation", function() {

@@ -8,4 +8,5 @@ public/*
 
 .idea
 .sass-cache
+forever
 node_modules
