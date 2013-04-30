@@ -15,6 +15,7 @@
     "consolidate": "*",
     "swig": "*",
     "xtend": "*",
+    "optimist": "*",
     "requirejs": "*",
     "jquery": "*",
     "jsdom": "*",

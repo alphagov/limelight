@@ -28,8 +28,7 @@
   </div>
 </header>
 
-<div id="wrapper" data-backdrop-url=""
-     data-environment="" data-base-url="" data-controller="<%= controller %>">
+<div id="wrapper">
   
   <header id="global">
     
@@ -59,7 +58,17 @@
   </section>
 </div>
 
-<script data-main="/limelight/js/config.js" src="/limelight/js/vendor/require.js" type="text/javascript"></script>
+<script type="text/javascript" charset="utf-8">
+window.GOVUK = {
+  config: {
+    baseUrl: '<%= requireBaseUrl %>',
+    backdropUrl: '<%= backdropUrl %>',
+    controller: '<%= controller %>'
+  }
+};
+</script>
+
+<script data-main="/limelight/js/main.js" src="/limelight/js/vendor/require.js" type="text/javascript"></script>
 
 </body>
 </html>

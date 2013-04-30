@@ -7,6 +7,7 @@ define([
 ],
 function (overviewController, View, templateBase, template404, template500) {
   
+  
   var processRequest = function (controller, req, res) {
     var timeout = setTimeout(function() {
       processRequest(create500, req, res);
@@ -23,7 +24,9 @@ function (overviewController, View, templateBase, template404, template500) {
         title: view.title,
         cssPath: '/limelight/css/',
         content: view.$el.html(),
-        controller: overviewController.path
+        controller: overviewController.path,
+        requireBaseUrl: global.requireBaseUrl,
+        backdropUrl: global.backdropUrl
       }));
     });
     

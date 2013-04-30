@@ -105,7 +105,7 @@ module.exports = function(grunt) {
   
   // Default task.
   grunt.registerTask('build', ['clean', 'jshint', 'jasmine', 'sass', 'copy:debug']);
-  grunt.registerTask('start', ['sass', 'forever:start', 'watch']);
+  grunt.registerTask('start', ['sass', 'copy:debug', 'forever:restart', 'watch']);
   grunt.registerTask('stop', ['forever:stop']);
   grunt.registerTask('default', ['build']);
 

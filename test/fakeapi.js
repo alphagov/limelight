@@ -1,5 +1,6 @@
 define([
   'lodash',
+  'jquery',
   'helpers/jquery.mockjax',
   'fakeapi/licensing/applications-top5-lastweek',
   'fakeapi/licensing/applications-detail-lastweek',
@@ -18,7 +19,7 @@ function (_) {
   $.mockjaxSettings.log = true;
   $.mockjaxSettings.responseTime = 300;
   
-  var responses = Array.prototype.slice.call(arguments, 2);
+  var responses = Array.prototype.slice.call(arguments, 3);
   for (var i = 0, ni = responses.length; i < ni; i++) {
     var response = new responses[i]()
     $.mockjax(_.bind(response.getDefinition, response));

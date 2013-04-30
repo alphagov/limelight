@@ -6,7 +6,6 @@ define([
 function (Overview, Top5Collection, GraphCollection) {
   
   var Controller = function (req, res) {
-    
     var el;
     if (_.isObject(req) && req.el) {
       el = req.el;

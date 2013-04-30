@@ -1,5 +1,6 @@
 var config = require('./config');
 var requirejs = require('requirejs');
+var argv = require('optimist').argv;
 
 requirejs.config(config);
 
@@ -10,7 +11,9 @@ var express = require('express')
 
 
 global.isServer = true;
-global.baseUrl = 'http://publicapi.dev.gov.uk/';
+global.backdropUrl = argv.BACKDROP_URL || 'http://publicapi.dev.gov.uk/';
+global.requireBaseUrl = argv.REQUIRE_BASE_URL || '/limelight/js';
+
 
 var $ = global.$ = global.jQuery = require('jquery');
 var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
@@ -39,6 +42,7 @@ app.configure(function(){
 
 app.configure('development', function(){
   app.use(express.errorHandler());
+  app.get('/jasmine', express.static(path.join(__dirname, '_SpecRunner.html')))
 });
 
 routes(app);

@@ -8,10 +8,12 @@ function (Backbone, Model, SafeSync, moment) {
   
   // get base URL for Backdrop instance (with trailing slash if missing)
   var baseUrl;
-  if (typeof global === 'object' && global.baseUrl) {
-    baseUrl = global.baseUrl;
+  if (typeof global === 'object' && global.backdropUrl) {
+    baseUrl = global.backdropUrl;
+  } else if (window.jasmine) {
+      baseUrl = '';
   } else {
-    baseUrl = $('#wrapper').data('backdrop-url');
+    baseUrl = GOVUK.config.backdropUrl;
     if (baseUrl) {
       baseUrl = baseUrl.replace(/\/?$/, '/');
     }
