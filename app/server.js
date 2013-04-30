@@ -1,8 +1,13 @@
-var config = require('./config');
 var requirejs = require('requirejs');
-var argv = require('optimist').argv;
+requirejs.config({
+  nodeRequire: require
+});
 
+var config = requirejs('./config');
+config.baseUrl = 'app/';
 requirejs.config(config);
+
+var argv = require('optimist').argv;
 
 var express = require('express')
   , cons = require('consolidate')
@@ -34,9 +39,9 @@ app.configure(function(){
   app.use(express.methodOverride());
   app.use(express.compress());
   app.use(app.router);
-  app.use('/limelight/js', express.static(path.join(__dirname, 'app')));
-  app.use('/limelight/js', express.static(path.join(__dirname, 'test')));
-  app.use('/limelight', express.static(path.join(__dirname, 'public')));
+  app.use('/limelight/js', express.static(path.join(__dirname)));
+  app.use('/limelight/js', express.static(path.join(__dirname, '..', 'test')));
+  app.use('/limelight', express.static(path.join(__dirname, '..', 'public')));
   app.use(express.favicon(path.join(__dirname, 'public', 'favicon.ico')));
 });
 

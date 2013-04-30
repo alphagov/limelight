@@ -1,6 +1,3 @@
-var config = require('./config');
-config.baseUrl = '';
-
 module.exports = function(grunt) {
   "use strict";
 
@@ -41,7 +38,7 @@ module.exports = function(grunt) {
     },
     forever: {
       options: {
-        index: 'app.js',
+        index: 'app/server.js',
         logDir: 'log'
       }
     },
@@ -63,6 +60,27 @@ module.exports = function(grunt) {
         "app/extensions/**/*.js",
         "app/licensing/**/*.js"
       ]
+    },
+    requirejs: {
+      debug: {
+        
+        options: {
+          mainConfigFile: "app/client.js",
+
+          // Output file.
+          out: "dist/limelight.js",
+          baseUrl: 'app/',
+          name: "client",
+          
+          deps: [
+            'routes'
+          ],
+
+          // Do not wrap everything in an IIFE.
+          wrap: false
+        }
+        
+      }
     },
     copy: {
       debug: {
@@ -98,7 +116,8 @@ module.exports = function(grunt) {
     'grunt-contrib-jshint',
     'grunt-contrib-clean',
     'grunt-contrib-copy',
-    'grunt-contrib-sass'
+    'grunt-contrib-sass',
+    'grunt-contrib-requirejs'
   ].forEach(function (task) {
     grunt.loadNpmTasks(task);
   });
