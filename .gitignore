@@ -9,5 +9,6 @@
 public/*
 .grunt
 .sass-cache
+dist
 forever
 node_modules

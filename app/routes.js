@@ -7,6 +7,7 @@ define([
 ],
 function (overviewController, View, templateBase, template404, template500) {
   
+  var environment = process.env.NODE_ENV || 'development';
   
   var processRequest = function (controller, req, res) {
     var timeout = setTimeout(function() {
@@ -26,7 +27,8 @@ function (overviewController, View, templateBase, template404, template500) {
         content: view.$el.html(),
         controller: overviewController.path,
         requireBaseUrl: global.requireBaseUrl,
-        backdropUrl: global.backdropUrl
+        backdropUrl: global.backdropUrl,
+        environment: environment
       }));
     });
     

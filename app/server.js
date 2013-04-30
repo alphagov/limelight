@@ -41,6 +41,7 @@ app.configure(function(){
   app.use(app.router);
   app.use('/limelight/js', express.static(path.join(__dirname)));
   app.use('/limelight/js', express.static(path.join(__dirname, '..', 'test')));
+  app.use('/limelight/js', express.static(path.join(__dirname, '..', 'dist')));
   app.use('/limelight', express.static(path.join(__dirname, '..', 'public')));
   app.use(express.favicon(path.join(__dirname, 'public', 'favicon.ico')));
 });

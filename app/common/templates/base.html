@@ -68,7 +68,12 @@ window.GOVUK = {
 };
 </script>
 
-<script data-main="/limelight/js/client.js" src="/limelight/js/vendor/require.js" type="text/javascript"></script>
+
+<% if (environment === 'production') { %>
+  <script src="<%= requireBaseUrl %>/limelight.js" type="text/javascript"></script>
+<% } else { %>
+  <script data-main="<%= requireBaseUrl %>/client.js" src="<%= requireBaseUrl %>/vendor/require.js" type="text/javascript"></script>
+<% } %>
 
 </body>
 </html>

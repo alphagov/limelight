@@ -1,3 +1,14 @@
+var extend = require("xtend");
+
+var getRequirejsConfig = function () {
+  var requirejsConfig;
+  global.define = function (config) {
+    requirejsConfig = config({ isBuild: true });
+  };
+  require('./app/config');
+  return requirejsConfig;
+};
+
 module.exports = function(grunt) {
   "use strict";
 
@@ -63,23 +74,17 @@ module.exports = function(grunt) {
     },
     requirejs: {
       debug: {
-        
-        options: {
-          mainConfigFile: "app/client.js",
-
-          // Output file.
+        options: extend(getRequirejsConfig(), {
+          baseUrl: 'app',
           out: "dist/limelight.js",
-          baseUrl: 'app/',
           name: "client",
-          
+          include: ["vendor/almond"],
           deps: [
+            'bootstrap',
             'routes'
           ],
-
-          // Do not wrap everything in an IIFE.
           wrap: false
-        }
-        
+        })
       }
     },
     copy: {

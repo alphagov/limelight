@@ -1,4 +1,4 @@
-define(function () {
+define(function (options) {
   
   var config = {
     paths: {
@@ -24,7 +24,7 @@ define(function () {
     }
   };
   
-  if (typeof window === 'object') {
+  if (typeof window === 'object' || options && options.isBuild) {
     // additional setup for client
     config.paths.jquery = 'vendor/jquery';
     config.paths.jqueryxdr = 'vendor/jquery.xdr';
