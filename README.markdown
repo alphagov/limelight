@@ -9,6 +9,7 @@ You can run this either in your development VM or your host machine.
 
 - Download and install Node.js: http://nodejs.org/
 - Install dependencies and run development server:
+
 ```
 $ cd <limelight_repo>
 $ npm install
