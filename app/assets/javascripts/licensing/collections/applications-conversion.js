@@ -1,26 +1,33 @@
 define([
   'extensions/collections/collection'
 ], function(Collection) {
-  var AllSteps = Collection.extend({
-
-    parse: function (response) {
-      return response.data;
-    },
-
+  var ApplicationsConversionCollection = Collection.extend({
+    
     queryUrl: 'licensing_conversion',
 
     queryId: 'applications-conversion',
 
-    steps: [
-      "apply_1", "apply_2", "apply_3"
-    ],
-
+    steps: ['apply_1', 'apply_2', 'apply_3'],
+    
+    stepTitles: {
+      apply_1: 'Start',
+      apply_2: 'Step 1',
+      apply_3: 'End'
+    },
+    
     queryParams: function() {
-      var params = {
-        group_by: "stepUrlSlug"
+      return {
+        group_by: 'stepUrlSlug'
       };
+    },
 
-      return params;
+    parse: function (response) {
+      var titles = this.stepTitles;
+      var data = response.data;
+      _.each(data, function (step) {
+        step.title = titles[step.stepUrlSlug];
+      });
+      return data;
     },
 
     comparator: function(step1, step2) {
@@ -52,5 +59,5 @@ define([
     }
   });
 
-  return AllSteps;
+  return ApplicationsConversionCollection;
 });

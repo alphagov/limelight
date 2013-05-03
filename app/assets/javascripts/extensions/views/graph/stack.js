@@ -40,6 +40,12 @@ function (Component) {
         .y(_.bind(this.yStack, this));
       var layers = stack(this.collection.models);
       
+      var selection = this.componentWrapper.selectAll('g')
+          .data(layers);
+      this.renderContent(selection);
+    },
+    
+    renderContent: function (selection) {
       var getX = _.bind(this.x, this);
       var getY = _.bind(this.y, this);
       var area = d3.svg.area()
@@ -50,10 +56,6 @@ function (Component) {
       var line = d3.svg.line()
         .x(getX)
         .y(getY);
-      
-      
-      var selection = this.componentWrapper.selectAll('g')
-          .data(layers);
       
       var enterSelection = selection.enter().append('g');
       enterSelection.append("path")

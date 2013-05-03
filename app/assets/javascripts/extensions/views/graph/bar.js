@@ -1,47 +1,75 @@
 define([
-  'extensions/views/graph/component'
+  'require',
+  './stack'
 ],
-function(Component) {
-  var BarComponent = Component.extend({
-    render: function() {
-      Component.prototype.render.apply(this, arguments);
-
-      var selection = this.componentWrapper.selectAll('g.bar')
-          .data(this.collection.at(0).get('values').models);
-
-      var enterSelection = selection.enter().append('g').attr('class', 'bar');
-      enterSelection.append('rect');
-      enterSelection.append('line');
-      enterSelection.append('text');
-
+function(require, StackComponent) {
+  var BarComponent = StackComponent.extend({
+    
+    align: 'centre',
+    
+    classed: 'bar',
+    
+    renderContent: function (selection) {
+      
+      var getY0 = _.bind(this.y0, this);
+      
+      var enterSelection = selection.enter().append('g');
+      
       var that = this;
-      selection.each(function (model, i) {
-        model.set('x', that.x.call(that, model, i));
-        model.set('y', that.y.call(that, model, i));
-        model.set('width', that.width.call(that, model, i));
-      }, this);
+      selection.each(function (group, groupIndex) {
+        var segmentSelection = that.d3.select(this).selectAll('g.segment')
+            .data(group.get('values').models);
+        var enterSegmentSelection = segmentSelection.enter().append('g').attr('class', 'segment');
 
-      selection.each(function(model, i) {
-        d3.select(this)
-          .select('rect')
-          .attr('x', model.get('x'))
-          .attr('y', model.get('y'))
-          .attr('width', model.get('width'))
-          .attr('height', that.scales.y(0) - model.get('y'));
+        enterSegmentSelection.append('rect');
+        enterSegmentSelection.append('line');
+        if (that.text) {
+          enterSegmentSelection.append('text');
+        }
+        
+        segmentSelection.each(function (model, i) {
+          that.updateSegment.call(that, groupIndex, d3.select(this), model, i);
+        }, this);
+      });
+    },
+    
+    updateSegment: function (groupIndex, segment, model, i) {
+      var x = this.x(model, i);
+      var y = this.y(model, i);
+      var y0 = this.y0(model, i);
+      var width = this.barWidth(model, i);
 
-        d3.select(this)
-          .select('line')
-          .attr('x1', model.get('x'))
-          .attr('y1', model.get('y'))
-          .attr('x2', model.get('x') + model.get('width'))
-          .attr('y2', model.get('y'));
+      var xLeft = x;
+      var align = this.align;
+      if (align === 'right') {
+        xLeft -= width;
+      } else if (align !== 'left') {
+        xLeft -= width / 2;
+      }
+      
+      segment.select('rect').attr({
+        'class': 'stack' + groupIndex,
+        x: xLeft,
+        y: y,
+        width: width,
+        height: y0 - y
+      });
 
-        d3.select(this)
-          .select('text')
-          .attr('x', model.get('x'))
-          .attr('y', model.get('y'));
+      segment.select('line').attr({
+        'class': 'line' + groupIndex,
+        x1: xLeft,
+        y1: y,
+        x2: xLeft + width,
+        y2: y,
+      });
 
-      }, this);
+      if (this.text) {
+        segment.select('text').attr({
+          'class': 'text' + groupIndex,
+          x: x,
+          y: y
+        }).text(this.text(model, i));
+      }
     }
   });
 
