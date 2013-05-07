@@ -7,7 +7,7 @@ define([
 function (require, Graph, XAxis, Bar) {
   var ConversionGraph = Graph.extend({
     
-    width: 454,
+    width: 954,
     height: 200,
     
     margin: {
@@ -48,7 +48,7 @@ function (require, Graph, XAxis, Bar) {
               return this.scales.x(1) - this.scales.x(0);
             },
             text: function (model, i) {
-              return Math.round(100 * model.get('events') / this.scales.y.domain()[1]) + ' %';
+              return Math.round(100 * model.get('events') / this.scales.y.domain()[1]) + '%';
             }
           }
         }

@@ -2,6 +2,20 @@ define([
   'licensing/collections/applications-conversion'
 ], function(Collection) {
   describe("ApplicationsConversion", function() {
+    describe("queryParams", function() {
+      
+      it("requests data for the last week", function() { 
+        var collection = new Collection();
+        
+        setupMoment('2013-03-13', collection);
+      
+        var params = collection.queryParams();
+        expect(params.start_at.format('YYYY-MM-DDTHH:mm:ss')).toEqual('2013-03-04T00:00:00');
+        expect(params.end_at.format('YYYY-MM-DDTHH:mm:ss')).toEqual('2013-03-11T00:00:00');
+        expect(params.group_by).toEqual('stepUrlSlug');
+      });
+    });
+    
     describe("Sorting", function() {
       it("should not change order if they follow the specified sort order", function() {
         var models = [

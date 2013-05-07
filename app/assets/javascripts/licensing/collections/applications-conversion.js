@@ -10,15 +10,20 @@ define([
     steps: ['apply_1', 'apply_2', 'apply_3'],
     
     stepTitles: {
-      apply_1: 'Start',
-      apply_2: 'Step 1',
+      apply_1: 'Step 1',
+      apply_2: 'Step 2',
       apply_3: 'End'
     },
     
     queryParams: function() {
-      return {
+      var at_midnight = this.moment().utc().day(1).startOf('day');
+      var query = {
+        start_at: at_midnight.clone().subtract(1, 'weeks'),
+        end_at: at_midnight,
         group_by: 'stepUrlSlug'
       };
+
+      return query;
     },
 
     parse: function (response) {
