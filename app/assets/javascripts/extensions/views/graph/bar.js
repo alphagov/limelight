@@ -13,7 +13,7 @@ function(require, StackComponent) {
       
       var getY0 = _.bind(this.y0, this);
       
-      var enterSelection = selection.enter().append('g');
+      var enterSelection = selection.enter().append('g').attr('class', 'group');
       
       var that = this;
       selection.each(function (group, groupIndex) {
