@@ -31,8 +31,14 @@ define([
   };
 
   var SafeSync = {};
-
+  
+  /**
+   * Escapes all content retrieved.
+   * Sets `loading` state while retrieving data.
+   */
   SafeSync.sync = function (method, model, options) {
+    // N.B. `loading` state is not set correctly when multiple requests
+    // are sent simultaneously
     this.loading = true;
     this.trigger('loading');
     
