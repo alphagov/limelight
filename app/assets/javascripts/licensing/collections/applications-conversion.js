@@ -3,7 +3,8 @@ define([
 ], function(Collection) {
   var ApplicationsConversionCollection = Collection.extend({
     
-    queryUrl: 'licensing_conversion',
+    serviceName: 'licensing',
+    apiName: 'journey',
 
     queryId: 'applications-conversion',
 
