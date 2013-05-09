@@ -7,7 +7,7 @@ define([
   var FunnelResponse = Response.extend({
 
     initialize: function() {
-      this.rnd = new Random(1);
+      this.rnd = new Random();
     },
 
     url: /\/licensing\/?.*\?(.*)/,
@@ -16,12 +16,12 @@ define([
 
     getData: function(query) {
       var maxValue = 1e4;
-      var values = _.map(this.steps, function(stepSlug) {
+      var values = _.map(this.steps, function (category) {
         // monotonically but randomly decreasing value
         maxValue = Math.floor(this.rnd(0, maxValue));
         return {
-          stepUrlSlug: stepSlug,
-          events: maxValue
+          eventCategory: category,
+          uniqueEvents: maxValue
         };
       }, this);
 
@@ -29,7 +29,10 @@ define([
     },
 
     steps: [
-      "apply_1", "apply_2", "apply_3"
+      'licensingUserJourney:downloadFormPage',
+      'licensingUserJourney:submitApplicationPage',
+      'licensingUserJourney:feeInfoPage',
+      'licensingUserJourney:end'
     ]
   });
 
