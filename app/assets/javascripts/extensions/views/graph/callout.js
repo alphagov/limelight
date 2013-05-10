@@ -1,8 +1,7 @@
 define([
-  'extensions/views/graph/component',
-  'extensions/models/point'
+  'extensions/views/graph/component'
 ],
-function (Component, Point) {
+function (Component) {
   var Callout = Component.extend({
     
     events: {
