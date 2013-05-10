@@ -4,7 +4,8 @@ define([
 function (Collection) {
   var WeeklyApplications = Collection.extend({
 
-    queryUrl: 'licensing',
+    serviceName: 'licensing',
+    apiName: 'application',
 
     queryId: 'applications-total-weekly',
     
