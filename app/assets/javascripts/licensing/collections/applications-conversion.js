@@ -16,10 +16,10 @@ define([
     ],
     
     stepTitles: {
-      'licensingUserJourney:downloadFormPage': 'Download form',
-      'licensingUserJourney:submitApplicationPage': 'Submit application',
-      'licensingUserJourney:feeInfoPage': 'Fee info',
-      'licensingUserJourney:end': 'End'
+      'licensingUserJourney:downloadFormPage': 'Download form page',
+      'licensingUserJourney:submitApplicationPage': 'Submit application page',
+      'licensingUserJourney:feeInfoPage': 'Fee info page *',
+      'licensingUserJourney:end': 'Done page'
     },
     
     queryParams: function() {
