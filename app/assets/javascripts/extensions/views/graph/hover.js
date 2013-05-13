@@ -42,8 +42,11 @@ function (Component, Modernizr) {
     
     onMouseMove: function (e) {
       var scaleFactor = this.graph.scaleFactor();
-      var x = e.offsetX / scaleFactor - this.margin.left;
-      var y = e.offsetY / scaleFactor - this.margin.top;
+      
+      var offset = this.$el.offset();
+      var scaleFactor = this.graph.scaleFactor();
+      var x = (e.pageX - offset.left) / scaleFactor - this.margin.left;
+      var y = (e.pageY - offset.top) / scaleFactor - this.margin.top;
       
       if (!this.bodyListener) {
         this.bodyListener = true;
