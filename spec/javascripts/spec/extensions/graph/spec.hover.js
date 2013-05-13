@@ -29,7 +29,10 @@ function (Hover) {
       it("listens to touchstart events in touch environments", function () {
         var component = new Hover({
           modernizr: { touch: true },
-          collection: { on: jasmine.createSpy() },
+          collection: {
+            on: jasmine.createSpy(),
+            selectItem: jasmine.createSpy()
+          },
           graph: { on: jasmine.createSpy() }
         });
         component.render();

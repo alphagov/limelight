@@ -13,6 +13,10 @@ function (Component, Modernizr) {
     
     events: function () {
       if (this.modernizr.touch) {
+        
+        _.bindAll(this, 'onTouchStartBody');
+        $('body').on('touchstart', this.onTouchStartBody);
+        
         return {
           'touchstart .hover': 'onTouchStart'
         }
@@ -21,6 +25,13 @@ function (Component, Modernizr) {
           'mousemove .hover': 'onMouseMove'
         }
       }
+    },
+    
+    dispose: function () {
+      if (this.modernizr.touch) {
+        $('body').off('touchstart', this.onTouchStartBody);
+      }
+      Component.prototype.dispose.apply(this, arguments);
     },
     
     render: function () {
@@ -47,6 +58,14 @@ function (Component, Modernizr) {
       return false;
     },
     
+    onTouchStartBody: function (e) {
+      if (this.ignoreNextBodyTouchStartEvent) {
+        this.ignoreNextBodyTouchStartEvent = false;
+      } else {
+        this.collection.selectItem(null, null);
+      }
+    },
+    
     onTouchStart: function (e) {
       var touch = e.originalEvent.touches[0];
       var offset = this.$el.offset();
@@ -54,20 +73,10 @@ function (Component, Modernizr) {
       var x = (touch.pageX - offset.left) / scaleFactor - this.margin.left;
       var y = (touch.pageY - offset.top) / scaleFactor - this.margin.top;
       
-      if (!this.bodyListener) {
-        this.bodyListener = true;
-        var that = this;
-        $('body').one('touchstart', function () {
-          that.bodyListener = false;
-          that.collection.selectItem(null, null);
-        });
-      }
-      
+      this.ignoreNextBodyTouchStartEvent = true;
       this.selectPoint(x, y, {
         toggle: true
       });
-
-      return false;
     },
     
     /**
