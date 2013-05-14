@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "engines": {
     "node": "0.8.x",
-    "npm":  "1.2.x"
+    "npm": "1.2.x"
   },
   "private": true,
   "scripts": {
@@ -33,7 +33,8 @@
     "grunt-contrib-copy": "*",
     "grunt-contrib-clean": "*",
     "grunt-contrib-sass": "~0.3.0",
-    "grunt-contrib-requirejs": "*"
+    "grunt-contrib-requirejs": "*",
+    "expectations": "~0.1.6",
+    "wd-sync": "~1.0.1"
   }
-  
 }

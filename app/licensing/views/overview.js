@@ -7,7 +7,7 @@ define([
   var Overview = View.extend({
     template: template,
     
-    title: 'Licensing performance - Overview',
+    title: 'Licensing - Performance Platform - GOV.UK',
     
     views: {
       '#total-applications': {

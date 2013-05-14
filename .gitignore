@@ -12,3 +12,4 @@ public/*
 dist
 forever
 node_modules
+chromedriver.log
