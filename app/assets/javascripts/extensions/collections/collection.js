@@ -26,8 +26,11 @@ function (Backbone, Model, SafeSync, moment) {
     defaultDateFormat: Model.prototype.defaultDateFormat,
     
     initialize: function (models, options) {
+      var queryParams = _.extend({}, this.prop("defaultQueryParams"), this.prop("queryParams"));
       this.options = options = options || {};
       this.filterBy = options.filterBy;
+      this.query = new Model(queryParams);
+      this.query.on("change", function () { this.fetch(); }, this);
       Backbone.Collection.prototype.initialize.apply(this, arguments);
     },
 
@@ -68,7 +71,7 @@ function (Backbone, Model, SafeSync, moment) {
      */
     url: function() {
       // add query parameters
-      var params = _.extend({}, this.prop('defaultQueryParams'), this.prop('queryParams'));
+      var params = _.clone(this.query.attributes);
       
       // convert date parameters
       _.each(params, function (value, key) {
