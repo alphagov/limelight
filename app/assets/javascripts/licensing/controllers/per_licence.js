@@ -8,7 +8,7 @@ define([
   var licenceUrlSlug = $('#wrapper').data('licence-url-slug');
   
   if (!$('.lte-ie8').length) {
-    var graphCollection = new GraphCollection([], {
+    var graphCollection = window.graphCollection = new GraphCollection([], {
       filterBy: {
         licenceUrlSlug: licenceUrlSlug
       }
