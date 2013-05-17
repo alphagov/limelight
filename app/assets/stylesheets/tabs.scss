@@ -1,0 +1,41 @@
+@import 'typography';
+
+.graph nav {
+    ul {
+        li {
+            &.active {
+                padding-top: 7px;
+                padding-bottom: 9px;
+                margin-bottom: -1px;
+                background-color: $white;
+                border: 1px solid $grey-2;
+                border-bottom: 0;
+                cursor: default;    
+            }
+            a {
+                text-decoration: none;
+                color: $text-colour;
+            }
+            a:hover {
+                text-decoration: underline;
+            }
+            @include core-19;
+            padding: 4px 16px;
+            border: 4px solid $white;
+            background-color: $grey-3;
+            list-style: none;
+            float: left;
+            cursor: pointer;
+            width: 6em;
+        }
+        &:after {
+            display: block;
+            clear: left;
+            content: '.';
+            height: 0;
+            overflow: hidden;
+        }
+        border-bottom: 1px solid $grey-2;
+        padding-left: 0;
+    }
+}
