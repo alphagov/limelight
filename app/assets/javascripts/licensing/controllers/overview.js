@@ -17,14 +17,12 @@ define([
       el: $('#total-applications'),
       collection: applicationsCollection
     });
-        
-    window.q = applicationsCollection.query;
-        
+                
     var graphNav = new Tabs({
         el: $("#applications-nav"), 
         model: applicationsCollection.query, 
         attr: 'period',
-        tabs: [{id: "week", name: "Week"}, {id:"month", name:"Month"}]
+        tabs: [{id: "week", name: "Weekly"}, {id:"month", name:"Monthly"}]
         });
         
     applicationsCollection.query.setPeriod('week');

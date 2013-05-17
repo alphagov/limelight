@@ -2,8 +2,9 @@ define([
   'licensing/collections/applications-totalandtop5authorities-weekly',
   'licensing/views/applicationsperlicencegraph',
   'licensing/collections/all-entities-and-applications-lastweek',
-  'licensing/views/applicationstable'
-], function(GraphCollection, GraphView, TableCollection, TableView) {
+  'licensing/views/applicationstable',
+  'extensions/views/tabs'
+], function(GraphCollection, GraphView, TableCollection, TableView, Tabs) {
   
   var licenceUrlSlug = $('#wrapper').data('licence-url-slug');
   
@@ -18,6 +19,13 @@ define([
       el: $('#applications-by-authority'),
       collection: graphCollection
     });
+    
+    var graphNav = new Tabs({
+        el: $("#applications-nav"), 
+        model: graphCollection.query, 
+        attr: 'period',
+        tabs: [{id: "week", name: "Weekly"}, {id:"month", name:"Monthly"}]
+        });
 
     graphCollection.query.setPeriod('week');
   }
