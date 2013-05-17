@@ -19,7 +19,7 @@ define([
       collection: graphCollection
     });
 
-    graphCollection.fetch();
+    graphCollection.query.setPeriod('week');
   }
   
   var tableCollection = new TableCollection([], {

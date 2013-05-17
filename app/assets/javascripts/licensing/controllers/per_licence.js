@@ -8,7 +8,7 @@ define([
   var licenceUrlSlug = $('#wrapper').data('licence-url-slug');
   
   if (!$('.lte-ie8').length) {
-    var graphCollection = window.graphCollection = new GraphCollection([], {
+    var graphCollection = new GraphCollection([], {
       filterBy: {
         licenceUrlSlug: licenceUrlSlug
       }
@@ -19,7 +19,7 @@ define([
       collection: graphCollection
     });
 
-    graphCollection.fetch();
+    graphCollection.query.setPeriod('week');
   }
   
   var tableCollection = new TableCollection([], {
