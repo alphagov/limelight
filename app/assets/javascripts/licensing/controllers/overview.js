@@ -23,7 +23,7 @@ define([
         el: $("#applications-nav"), 
         model: applicationsCollection.query, 
         attr: 'period',
-        tabs: [{id: "week", name: "Weekly"}, {id:"month", name:"Monthly"}]
+        tabs: [{id:"month", name:"Monthly"}, {id: "week", name: "Weekly"}]
         });
     
     var graphHeadline = new HeadlineView({

@@ -3,13 +3,13 @@
 .graph nav {
   ul {
     li {
-      @include core-19;
+      @include core-16;
       border: 4px solid $white;
       background-color: $grey-3;
       list-style: none;
       float: left;
       cursor: pointer;
-      width: 6em;
+      width: 8em;
       &:hover {
         text-decoration: underline;
       }
