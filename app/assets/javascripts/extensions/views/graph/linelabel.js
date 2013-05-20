@@ -65,8 +65,6 @@ function (Component) {
       selection.each(function (group) {
         var value = group.get('values').last().get('_count');
         var y = yScale(value);
-        group.set('yIdeal', y);
-        
         var size = d3.select(this).select('text').node().getBBox().height;
         
         positions.push({
