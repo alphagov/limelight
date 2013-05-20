@@ -27,7 +27,7 @@ define([
         tabs: [{id: "week", name: "Weekly"}, {id:"month", name:"Monthly"}]
         });
 
-    graphCollection.query.setPeriod('week');
+    graphCollection.query.set('period', 'week');
   }
   
   var tableCollection = new TableCollection([], {

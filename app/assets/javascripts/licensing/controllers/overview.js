@@ -25,7 +25,7 @@ define([
         tabs: [{id: "week", name: "Weekly"}, {id:"month", name:"Monthly"}]
         });
         
-    applicationsCollection.query.setPeriod('week');
+    applicationsCollection.query.set('period', 'week');
     
     var conversionCollection = new GraphCollection(null, {
       collections: [ConversionCollection]

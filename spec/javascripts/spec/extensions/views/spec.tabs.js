@@ -63,8 +63,7 @@ function(Tabs, Model) {
       
       beforeEach(function () {
         model = new Model();
-        model.set('anAttribute', 'foo');
-        model.setPeriod = jasmine.createSpy();
+        spyOn(model, "set");
         tab = new Tabs({
           model: model,
           attr: 'anAttribute',
@@ -81,7 +80,7 @@ function(Tabs, Model) {
       it("should update the model when a non-active tab is clicked on", function () {
         jasmine.renderView(tab, function () {
           tab.$el.find('li:eq(1)').trigger('click');
-          expect(model.setPeriod).toHaveBeenCalledWith('foo');
+          expect(model.set).toHaveBeenCalledWith('anAttribute', 'foo');
         });
       });
     });

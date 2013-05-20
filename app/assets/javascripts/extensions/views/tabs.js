@@ -12,7 +12,7 @@ function (View) {
         
         onTabClick: function (event) {
             var tabId = $(event.currentTarget).data('tab-id');
-            this.model.setPeriod(tabId);
+            this.model.set(this.attr, tabId);
             event.preventDefault();
         },
         

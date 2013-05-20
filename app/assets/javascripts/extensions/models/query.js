@@ -4,17 +4,25 @@ define([
 function (Model) {
   var Query = Model.extend({
     
-    setPeriod: function (periodName) {
+    set: function (attrs, options) {
+      if (!_.isObject(attrs)) {
+        key = attrs;
+        (attrs = {})[key] = options;
+        options = arguments[2];
+      }
       
-      var period = this.periods[periodName];
+      var periodName = attrs['period'];
+      var period = periodName ? this.periods[periodName] : null;
+      if (period) {
+        var endAt = period.boundary(this.moment());
+        var startAt = endAt.clone().subtract(period.duration, periodName + 's');
+        _.extend(attrs, {
+          end_at: endAt,
+          start_at: startAt
+        });
+      }
       
-      var endAt = period.boundary(this.moment());
-      var startAt = endAt.clone().subtract(period.duration, periodName + 's');
-      this.set({
-        end_at: endAt,
-        start_at: startAt,
-        period: periodName
-      });
+      Model.prototype.set.call(this, attrs, options);
     },
     
     periods: {
