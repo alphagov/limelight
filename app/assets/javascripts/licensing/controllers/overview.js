@@ -6,8 +6,9 @@ define([
   'extensions/collections/graphcollection',
   'licensing/collections/applications-conversion',
   'licensing/views/applications-conversion-graph',
-  'extensions/views/tabs'
-], function(ApplicationsCollection, ApplicationsGraph, Top5Collection, Top5Table, GraphCollection, ConversionCollection, ConversionGraph, Tabs) {
+  'extensions/views/tabs',
+  'licensing/views/applicationsgraph-headline'
+], function(ApplicationsCollection, ApplicationsGraph, Top5Collection, Top5Table, GraphCollection, ConversionCollection, ConversionGraph, Tabs, HeadlineView) {
   
   if (!$('.lte-ie8').length) {
     var applicationsCollection = new GraphCollection(null, {
@@ -24,6 +25,11 @@ define([
         attr: 'period',
         tabs: [{id: "week", name: "Weekly"}, {id:"month", name:"Monthly"}]
         });
+    
+    var graphHeadline = new HeadlineView({
+      el: $('#total-applications').siblings('h2'),
+      model: applicationsCollection.query
+    });
         
     applicationsCollection.query.set('period', 'week');
     
