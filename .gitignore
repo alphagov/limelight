@@ -13,3 +13,4 @@ dist
 forever
 node_modules
 chromedriver.log
+_SpecRunner.html

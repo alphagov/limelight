@@ -108,23 +108,33 @@ function (View) {
       throw('No y scale defined.');
     },
     
+    getConfigName: function () {
+      return null;
+    },
+    
     /**
      * Calculates current scales, then renders components in defined order.
      */
     render: function () {
       this.trigger('prerender');
-      // View.prototype.render.apply(this, arguments);
       
       this.scales.x = this.calcXScale();
       this.scales.y = this.calcYScale();
       
+      var configName = this.getConfigName();
+      
       _.each(this.componentInstances, function (component) {
+        if (configName) {
+          component.applyConfig(configName);
+        }
         component.render();
       }, this);
+
+      if (this.svg) {
+        this.svg.style('height', null);
+        this.$el.html(this.svg.node().outerHTML);
+      }
       
-      
-      this.svg.style('height', null);
-      this.$el.html(this.svg.node().outerHTML);
       this.trigger('postrender');
     }
   });

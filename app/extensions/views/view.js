@@ -66,7 +66,12 @@ function (Backbone, moment, d3) {
 
         var max = values.reduce(function(a,b) {return a > b ? a : b;});
         var magnitude = this.magnitudeFor(max);
-        var decimalPlaces = values.every(isAnExactMultipleOf(magnitude.value))? 0 : 1;
+        var decimalPlaces;
+        if (max === magnitude.value) {
+          decimalPlaces = 1;
+        } else {
+          decimalPlaces = values.every(isAnExactMultipleOf(magnitude.value))? 0 : 1;
+        }
         
         var format = this.format;
         return function(value) {
@@ -203,9 +208,17 @@ function (Backbone, moment, d3) {
             return;
           }
           options.el = el;
+
           var instance = instances[selector] = new view(options);
-          instance.on('postrender', subviewReady, this);
-          remaining++;
+
+          if (options.renderOnInit) {
+            instance.render();
+          } else {
+            instance.on('postrender', function() {
+              subviewReady(instance);
+            }, this);
+            remaining++;
+          }
         }, this);
         
         if (!remaining) {

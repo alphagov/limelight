@@ -40,21 +40,26 @@ function (require, Line, Component) {
       var stack = this.d3.layout.stack()
         .values(this.stackValues)
         .y(_.bind(this.yStack, this));
+        
       var layers = stack(this.collection.models);
       var selection = this.componentWrapper.selectAll('g.group')
           .data(layers);
+      selection.exit().remove();
+
       this.renderStack(selection);
     },
     
     renderStack: function (selection) {
+      var d3 = this.d3;
+
       var getX = _.bind(this.x, this);
       var getY = _.bind(this.y, this);
-      var area = this.d3.svg.area()
+      var area = d3.svg.area()
         .x(getX)
         .y0(_.bind(this.y0, this))
         .y1(getY);
         
-      var line = this.d3.svg.line()
+      var line = d3.svg.line()
         .x(getX)
         .y(getY);
       
@@ -62,17 +67,26 @@ function (require, Line, Component) {
       enterSelection.append("path")
           .attr("class", function (group, index) {
             return 'stack stack' + index + ' ' + group.get('id');
-          })
-          .attr("d", function(group) {
-            return area(group.get('values').models);
           });
       enterSelection.append("path")
           .attr("class", function (group, index) {
             return 'line line' + index + ' ' + group.get('id');
-          })
-          .attr("d", function(group) {
+          });
+        
+      selection.each(function (group, groupIndex) {
+        var groupSelection = d3.select(this);
+        
+        groupSelection.select('path.stack')
+          .attr("d", function() {
+            return area(group.get('values').models);
+          });
+        groupSelection.select('path.line')
+          .attr("d", function() {
             return line(group.get('values').models);
           });
+      });
+  
+      
     }
   });
 

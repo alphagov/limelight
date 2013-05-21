@@ -21,6 +21,7 @@ function (Collection) {
       this.collectionInstances = _.map(this.collections, function (classRef) {
         return new classRef(models, options);
       });
+      this.createQueryModel();
     },
     
     /**
@@ -37,9 +38,13 @@ function (Collection) {
      */
     fetch: function (options) {
       options = options || {};
-      
-      var numRequests = this.collectionInstances.length;
-      var openRequests = numRequests;
+
+      _.each(this.collectionInstances, function (collection) {
+        collection.query.set(this.query.attributes, {silent: true});
+      }, this);
+
+      var openRequests = this.collectionInstances.length;
+      var numRequests = openRequests;
       var successfulRequests = 0;
       var that = this;
       

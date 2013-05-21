@@ -37,7 +37,8 @@ function (Overview, Top5Collection, ApplicationsCollection, GraphCollection, Con
       el: el
     });
     
-    applicationsCollection.fetch();
+    console.log('set query');
+    applicationsCollection.query.set('period', 'week');
     conversionCollection.fetch();
     top5AuthoritiesCollection.fetch();
     top5LicencesCollection.fetch();
