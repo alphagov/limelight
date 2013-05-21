@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   slimmer_template :homepage
 
   def backdrop_api
-    use_api_stub? ? BackdropAPIStub.new : BackdropAPI.new(backdrop_url, backdrop_auth())
+    config_value(:use_api_stub, false) ? BackdropAPIStub.new : BackdropAPI.new(backdrop_url, backdrop_auth())
   end
 
   def backdrop_auth
@@ -22,13 +22,15 @@ class ApplicationController < ActionController::Base
   end
 
   def additional_requirejs_dependencies
-    Rails.configuration.additional_requirejs_dependencies if Rails.configuration.respond_to?(:additional_requirejs_dependencies)
+    config_value(:additional_requirejs_dependencies)
   end
 
-  private
-
-  def use_api_stub?
-    Rails.configuration.respond_to?(:use_api_stub) && Rails.configuration.use_api_stub
+  def config_value(property, default_value=nil)
+    if Rails.configuration.respond_to?(property.to_sym)
+      Rails.configuration.send(property.to_sym)
+    else
+      default_value
+    end
   end
 
 end
