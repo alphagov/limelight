@@ -14,13 +14,11 @@
      "environment" => ENV['RAILS_ENV'],
      "base-url" => requirejs_base_url,
      "d3-url" => requirejs_module_path("vendor/d3.v3.js"),
-     "controller" => /controller="(.+)"/.match(yield(:js_config))[1]
    }
    data["additional-dependencies"] = controller.additional_requirejs_dependencies if controller.additional_requirejs_dependencies
+   data.merge!(@js_config)
 %>
 <%= content_tag :div, id: "wrapper", data: data do %>
-
-  <!-- <%= yield :js_config %> -->
 
   <header id="global">
     
