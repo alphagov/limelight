@@ -84,8 +84,7 @@ function (Backbone, Model, SafeSync, moment) {
         }
       });
 
-      var url = this.baseUrl + 'performance/' + this.queryUrl + '/api?' + $.param(params, true);
-      return url;
+      return this.baseUrl + 'performance/' + this.serviceName + '/api/' + this.apiName +'?' + $.param(params, true);
     },
     
     /**
@@ -95,8 +94,9 @@ function (Backbone, Model, SafeSync, moment) {
      * otherwise uses default comparator.
      * @param {String} attr attribute to sort by
      * @param {Boolean} [descending=false] Sort descending when true, ascending when false
+     * @param {Object} [options={}] Sort options
      */
-    sortByAttr: function (attr, descending) {
+    sortByAttr: function (attr, descending, options) {
       var comparators = this.prop('comparators');
       if (comparators && comparators[attr]) {
         // use custom comparator
@@ -106,7 +106,7 @@ function (Backbone, Model, SafeSync, moment) {
       }
       this.sortDescending = Boolean(descending);
       this.sortAttr = attr;
-      this.sort();
+      this.sort(options);
     },
     
     /**
@@ -154,8 +154,25 @@ function (Backbone, Model, SafeSync, moment) {
         }
         return res;
       };
-    }
+    },
     
+    /**
+     * Chooses an item in the collection as `selected` and notifies listeners.
+     * @param {Number} index Index of item to select, or `null` to unselect
+     * @param {Object} [options={}] Options
+     * @param {Boolean} [options.silent=false] Suppress `change:selected` event
+     */
+    selectItem: function(index, options) { 
+      if (index === this.selectedIndex) {
+        return;
+      }
+      var model = (index == null) ? null : this.models[index];
+      this.selectedItem = model;
+      this.selectedIndex = index;
+      if (!options || !options.silent) {
+        this.trigger("change:selected", model, index);
+      }
+    }
   });
 
   _.extend(Collection.prototype, SafeSync);

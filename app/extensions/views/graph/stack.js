@@ -1,8 +1,10 @@
 define([
+  'require',
+  './line',
   'extensions/views/graph/component'
 ],
-function (Component) {
-  var Stack = Component.extend({
+function (require, Line, Component) {
+  var Stack = Line.extend({
     
     stackValues: function (group) {
       return group.get('values').models;
@@ -39,7 +41,12 @@ function (Component) {
         .values(this.stackValues)
         .y(_.bind(this.yStack, this));
       var layers = stack(this.collection.models);
-      
+      var selection = this.componentWrapper.selectAll('g.group')
+          .data(layers);
+      this.renderStack(selection);
+    },
+    
+    renderStack: function (selection) {
       var getX = _.bind(this.x, this);
       var getY = _.bind(this.y, this);
       var area = this.d3.svg.area()
@@ -51,11 +58,7 @@ function (Component) {
         .x(getX)
         .y(getY);
       
-      
-      var selection = this.componentWrapper.selectAll('g')
-          .data(layers);
-      
-      var enterSelection = selection.enter().append('g');
+      var enterSelection = selection.enter().append('g').attr('class', 'group');
       enterSelection.append("path")
           .attr("class", function (group, index) {
             return 'stack stack' + index + ' ' + group.get('id');

@@ -43,12 +43,13 @@ app.configure(function(){
   app.use('/limelight/js', express.static(path.join(__dirname, '..', 'test')));
   app.use('/limelight/js', express.static(path.join(__dirname, '..', 'dist')));
   app.use('/limelight', express.static(path.join(__dirname, '..', 'public')));
-  app.use(express.favicon(path.join(__dirname, 'public', 'favicon.ico')));
+  app.use(express.favicon(path.join(__dirname, '..', 'public', 'favicon.ico')));
 });
 
 app.configure('development', function(){
   app.use(express.errorHandler());
-  app.get('/jasmine', express.static(path.join(__dirname, '_SpecRunner.html')))
+  app.use('/jasmine', express.static(path.join(__dirname, '..', '_SpecRunner.html')))
+  // app.get('/jasmine', express.static(path.join(__dirname, '..', '_SpecRunner.html')))
 });
 
 routes(app);

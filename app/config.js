@@ -5,7 +5,7 @@ define(function (options) {
       lodash: 'vendor/lodash',
       backbone: 'vendor/backbone',
       css: 'vendor/require-css',
-      modernizr: 'vendor/modernizr',
+      modernizr: 'modernizr_shim',
       moment: 'vendor/moment',
       tpl: 'vendor/tpl'
     },
@@ -30,6 +30,7 @@ define(function (options) {
     config.paths.jqueryxdr = 'vendor/jquery.xdr';
     config.paths.jquerymousewheel = 'vendor/jquery.mousewheel';
     config.paths.d3 = 'vendor/d3.v3';
+    config.paths.modernizr = 'vendor/modernizr';
     config.shim.backbone.deps.concat(['jqueryxdr', 'jquerymousewheel']);
     config.shim.jqueryxdr = {
       deps: ['jquery'],
