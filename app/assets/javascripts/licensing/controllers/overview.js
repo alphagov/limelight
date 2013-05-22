@@ -7,7 +7,8 @@ define([
   'licensing/collections/applications-conversion',
   'licensing/views/applications-conversion-graph',
   'extensions/views/tabs',
-  'licensing/views/applicationsgraph-headline'
+  'licensing/views/applicationsgraph-headline',
+  'extensions/module-actions'
 ], function(ApplicationsCollection, ApplicationsGraph, Top5Collection, Top5Table, GraphCollection, ConversionCollection, ConversionGraph, Tabs, HeadlineView) {
   
   if (!$('.lte-ie8').length) {
