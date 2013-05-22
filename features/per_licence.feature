@@ -11,7 +11,7 @@ Feature: Visiting per-licence
         And the category title should be "Licences"
         And the category title should link to "/performance/licensing/licences"
         And the page title should be "Application to licence a street collection (submissions made through GOV.UK only)"
-        And the 1st subtitle should be "Weekly form submissions"
+        And the 1st subtitle should be "Form submissions"
         And the 1st section description should be "Total form submissions per week over the last 9 weeks and top authorities by submission volume in this time"
         And the 2nd subtitle should be "Submissions per authority"
         And the 2nd section description should be "Authorities offering Application to licence a street collection on GOV.UK"

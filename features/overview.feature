@@ -9,7 +9,7 @@ Feature: Overview page
         And the category title should be "Performance Platform"
         And the category title should link to "/performance"
         And the page title should be "Licensing performance (licences and authorities on GOV.UK only)"
-        And the 1st subtitle should be "Weekly form submissions"
+        And the 1st subtitle should be "Form submissions"
         And the 1st section description should be "Total form submissions per week over the last 9 weeks"
         And the 2nd subtitle should be "Submission drop-offs"
         And the 2nd section description should be "Percentages of unique visitors at common stages of licensing submissions \(last week, sampled data\)"

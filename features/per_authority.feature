@@ -11,7 +11,7 @@ Feature: Visiting per-authority
     And the category title should be "Authorities"
     And the category title should link to "/performance/licensing/authorities"
     And the page title should be "Fake authority 1"
-    And the 1st subtitle should be "Weekly form submissions"
+    And the 1st subtitle should be "Form submissions"
     And the 1st section description should be "Total form submissions per week over the last 9 weeks and top licences by submission volume in this time"
     And the 2nd subtitle should be "Licence submissions"
     And the 2nd section description should be "Licences offered by Fake authority 1 on GOV.UK"
