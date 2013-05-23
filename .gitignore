@@ -19,3 +19,7 @@ public/*
 
 .idea
 app/assets/javascripts/production.js
+
+chromedriver.log
+sauce_connect.log*
+reports/*

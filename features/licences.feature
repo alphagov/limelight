@@ -20,6 +20,7 @@ Feature: Listing licences
         And the 1st title in the 2nd group should be "Register as a scrap metal dealer"
         And the 1st link in the 2nd group should be "/performance/licensing/licences/register-as-a-scrap-metal-dealer"
   
+  @no-selenium
   Scenario: there are no licences
       Given API responds with no_licences.json
        When I go to /performance/licensing/licences

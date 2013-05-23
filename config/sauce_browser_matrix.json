@@ -1,0 +1,6 @@
+// see https://saucelabs.com/docs/platforms
+[
+	["Windows 7", "Internet Explorer", "9"],
+	["Windows XP", "Internet Explorer", "8"],
+	["OS X 10.8", "ipad", "6"]
+]
