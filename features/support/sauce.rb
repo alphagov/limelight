@@ -5,8 +5,9 @@ if ENV["CUCUMBER_PROFILE"] == 'sauce'
 
   Capybara.default_driver = :sauce
 
-  app_host = ENV["APP_HOST"] || 'http://limelight.dev.gov.uk'
-  Capybara.app_host = app_host
+  # To work with sauce, capybara has to run with a recognised port
+  # List of ports recognised by Sauce can be found at https://saucelabs.com/ruby
+  Capybara.server_port = 49221
 
   Sauce.config do |c|
 
