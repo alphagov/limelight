@@ -6,7 +6,9 @@ define([
   'extensions/views/tabs',
   'licensing/views/applicationsgraph-headline',
   'extensions/module-actions'
-], function(GraphCollection, GraphView, TableCollection, TableView, Tabs, HeadlineView) {
+], function(GraphCollection, GraphView, TableCollection, TableView, Tabs, HeadlineView, applyModuleActions) {
+
+  applyModuleActions();
   
   var authorityUrlSlug = $('#wrapper').data('authority-url-slug');
   

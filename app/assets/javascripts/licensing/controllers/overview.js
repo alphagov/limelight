@@ -9,7 +9,9 @@ define([
   'extensions/views/tabs',
   'licensing/views/applicationsgraph-headline',
   'extensions/module-actions'
-], function(ApplicationsCollection, ApplicationsGraph, Top5Collection, Top5Table, GraphCollection, ConversionCollection, ConversionGraph, Tabs, HeadlineView) {
+], function(ApplicationsCollection, ApplicationsGraph, Top5Collection, Top5Table, GraphCollection, ConversionCollection, ConversionGraph, Tabs, HeadlineView, applyModuleActions) {
+
+  applyModuleActions();
   
   if (!$('.lte-ie8').length) {
     var applicationsCollection = new GraphCollection(null, {
