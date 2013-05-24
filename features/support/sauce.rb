@@ -20,7 +20,7 @@ if ENV["CUCUMBER_PROFILE"] == 'sauce'
     browser_version = ENV["BROWSER_VERSION"]
 
     c[:browsers] = [[browser_platform, browser_name, browser_version]]
-
+    c[:job_name]  = [browser_platform, browser_name, browser_version].join(' / ')
   end
 
 end
