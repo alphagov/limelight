@@ -5,22 +5,25 @@ if ENV["CUCUMBER_PROFILE"] == 'sauce'
 
   Capybara.default_driver = :sauce
 
-  # To work with sauce, capybara has to run with a recognised port
-  # List of ports recognised by Sauce can be found at https://saucelabs.com/ruby
-  Capybara.server_port = 49221
+  if ENV["APP_HOST"]
+    # Use provided application location
+    Capybara.app_host = ENV["APP_HOST"]
+  else
+    # Use Capybara server. To work with sauce, Capybara has to run with a
+    # recognised port. List of ports recognised by Sauce can be found at
+    # https://saucelabs.com/ruby
+    Capybara.server_port = 49221
+  end
 
   Sauce.config do |c|
 
     if ENV['USE_TUNNEL']
       start_tunnel_for_parallel_tests(c)
     end
-    
-    browser_name = ENV["BROWSER_NAME"]
-    browser_platform = ENV["BROWSER_PLATFORM"]
-    browser_version = ENV["BROWSER_VERSION"]
 
-    c[:browsers] = [[browser_platform, browser_name, browser_version]]
-    c[:job_name]  = [browser_platform, browser_name, browser_version].join(' / ')
+    platform, name, version = ENV["BROWSER"].split(',')
+    
+    c[:browsers] = [[platform, name, version]]
   end
 
   Around do |scenario, block|

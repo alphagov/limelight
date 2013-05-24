@@ -1,7 +1,6 @@
 require 'cucumber/rake/task'
 require 'parallel'
 
-
 namespace :sauce do
   desc "Run all features against all browsers in parallel"
   task :cucumber => :environment do
@@ -13,19 +12,13 @@ namespace :sauce do
 
     Parallel.map(@browsers, :in_threads => @browsers.size) do |browser|
       begin
-        puts "Running with: #{browser.inspect}"
-
-        ENV["BROWSER_NAME"] = browser[1]
-        ENV["BROWSER_PLATFORM"] = browser[0]
-        ENV["BROWSER_VERSION"] = browser[2]
-
-
         report_file = "#{browser.join('_').gsub(' ', '_')}.json"
 
         ENV["CUCUMBER_OPTS"] = [
           "--profile sauce",
           "--format json",
-          "--out '#{report_dir}/#{report_file}'"
+          "--out '#{report_dir}/#{report_file}'",
+          "BROWSER='#{browser.join(',')}'"
         ].join(' ')
         
         Rake::Task[ "sauce:run_browser_tests" ].execute
