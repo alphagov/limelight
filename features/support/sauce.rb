@@ -23,5 +23,9 @@ if ENV["CUCUMBER_PROFILE"] == 'sauce'
     c[:job_name]  = [browser_platform, browser_name, browser_version].join(' / ')
   end
 
+  Around do |scenario, block|
+    Sauce::Capybara::Cucumber.around_hook scenario, block
+  end
+
 end
 
