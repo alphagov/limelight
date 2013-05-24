@@ -12,12 +12,16 @@ namespace :sauce do
 
     Parallel.map(@browsers, :in_threads => @browsers.size) do |browser|
       begin
-        report_file = "#{browser.join('_').gsub(' ', '_')}.json"
 
+        options = browser.pop if browser.length >= 4
+
+        report_file = "#{browser.join('_').gsub(' ', '_')}.json"
+        
         ENV["CUCUMBER_OPTS"] = [
           "--profile sauce",
-          "--format json",
+          "--format #{ENV["FORMAT"] || "json"}",
           "--out '#{report_dir}/#{report_file}'",
+          options,
           "BROWSER='#{browser.join(',')}'"
         ].join(' ')
         
