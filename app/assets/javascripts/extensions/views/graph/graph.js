@@ -8,13 +8,6 @@ function (View, d3) {
     
     d3: d3,
     
-    margin: {
-      top: 0,
-      bottom: 0,
-      left: 0,
-      right: 0
-    },
-    
     initialize: function (options) {
       View.prototype.initialize.apply(this, arguments);
       
@@ -32,6 +25,8 @@ function (View, d3) {
         var options = _.extend({}, defaultComponentOptions, definition.options);
         componentInstances.push(new definition.view(options));
       }, this);
+
+      $(window).on('resize', _.bind(this.render, this));
     },
     
     /**
@@ -47,10 +42,7 @@ function (View, d3) {
         svg: this.svg,
         wrapper: this.wrapper,
         margin: this.margin,
-        innerWidth: this.innerWidth,
-        innerHeight: this.innerHeight,
-        width: this.width,
-        height: this.height,
+        innerEl: this.innerEl,
         scales: this.scales
       }
     },
@@ -59,26 +51,14 @@ function (View, d3) {
      * Creates SVG element and group element inset by defined margin.
      */
     prepareGraphArea: function () {
-      this.innerWidth = this.width - this.margin.left - this.margin.right;
-      this.innerHeight = this.height - this.margin.top - this.margin.bottom;
+      this.innerEl = $('<div class="inner"></div>');
+      this.innerEl.appendTo(this.$el);
       
       var svg = this.svg = this.d3.select(this.el[0]).append('svg');
       
-      // configure SVG for automatic resize
-      svg.attr({
-        width: '100%',
-        height: '100%',
-        viewBox: '0 0 ' + this.width + ' ' + this.height,
-        style: 'max-width:' + this.width + 'px; max-height:' + this.height + 'px; display:block;'
-      });
-      
-      // ensure that size is calculated correctly in all browsers
-      this.adjustSize();
-      $(window).on('resize', _.bind(this.adjustSize, this));
-      
+      this.margin = {};
       this.wrapper = svg.append('g')
-        .classed('wrapper', true)
-        .attr('transform', 'translate(' + this.margin.left + ', ' + this.margin.top +')');
+        .classed('wrapper', true);
     },
     
     /**
@@ -118,6 +98,41 @@ function (View, d3) {
      */
     render: function () {
       View.prototype.render.apply(this, arguments);
+      
+      var width = this.width = this.$el.width();
+      var height = this.height = this.$el.height(); 
+
+      this.$el.attr('style', '');
+
+      // configure SVG for automatic resize
+      this.svg.attr({
+        width: '100%',
+        height: '100%',
+        viewBox: '0 0 ' + width + ' ' + height,
+        style: 'max-width:' + width + 'px; max-height:' + height + 'px; display:block;'
+      });
+
+      // this.$el.css({
+      //   width: 'auto',
+      //   height: 'auto'
+      // });
+
+      var innerEl = this.innerEl;
+      _.extend(this.margin, {
+        top: parseFloat(innerEl.css('top')),
+        bottom: parseFloat(innerEl.css('bottom')),
+        left: parseFloat(innerEl.css('left')),
+        right: parseFloat(innerEl.css('right'))
+      });
+      this.wrapper.attr('transform', 'translate(' + this.margin.left + ', ' + this.margin.top +')');
+
+
+      this.innerWidth = this.width - this.margin.left - this.margin.right;
+      this.innerHeight = this.height - this.margin.top - this.margin.bottom;
+
+      // ensure that size is calculated correctly in all browsers
+      var aspectRatio = this.width / this.height;
+      $(this.svg.node()).height(this.el.width() / aspectRatio);
       
       this.scales.x = this.calcXScale();
       this.scales.y = this.calcYScale();

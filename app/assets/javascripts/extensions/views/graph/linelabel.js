@@ -23,7 +23,7 @@ function (Component) {
     render: function () {
       Component.prototype.render.apply(this, arguments);
       
-      var left = this.innerWidth + this.offset;
+      var left = this.graph.innerWidth + this.offset;
       this.componentWrapper
         .classed(this.classed, true)
         .attr('transform', 'translate(' + left + ', 0)');
@@ -78,7 +78,7 @@ function (Component) {
       // optimise positions
       positions = this.positions = this.calcPositions(positions, {
         min: this.overlapLabelTop,
-        max: this.innerHeight + this.overlapLabelBottom
+        max: this.graph.innerHeight + this.overlapLabelBottom
       });
       
       // apply optimised positions

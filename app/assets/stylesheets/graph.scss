@@ -1,7 +1,19 @@
-@import 'colours';
+@import 'typography';
 
 .graph {
   position:relative;
+
+  text {
+    @include core-16;
+  }
+
+  .inner {
+    position:absolute;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+  }
   
   .line0 { stroke: $data-colour-1; }
   .line1 { stroke: $data-colour-2; }
@@ -127,6 +139,16 @@
 
 .applications-graph {
   
+  max-width: 954px;
+  height: 400px;
+
+  .inner {
+    top: 20px;
+    bottom: 40px;
+    left: 55px;
+    right: 40px;
+  }
+
   .labels {
 
     line {
@@ -177,7 +199,28 @@
     stroke-width: 1px;
     shape-rendering: crispEdges;
   }
+}
 
+#applications-by-licence .inner,
+#applications-by-authority .inner {
+  right: 200px
+}
+
+
+.conversion-graph {
+    max-width: 954px;
+    height: 200px;
+    
+    .inner {
+      top: 40px;
+      bottom: 40px;
+      left: 0px;
+      right: 0px;
+    }
+
+    .half-width & {
+      max-width: 464px;
+    }
 }
 
 @media (max-width: 640px) {
@@ -188,9 +231,6 @@
       display:none;
     }
     
-    .x-axis .tick text {
-      font-size:1.3em;
-    }
     .line {
       fill: none;
       stroke-width: 1.5px;
@@ -199,10 +239,6 @@
         stroke-width: 3px;
       }
     }
-    text {
-      font-size:1.3em;
-    }
-    
     
     .callout {
       font-size:.7em;
@@ -214,9 +250,23 @@
   }
   
   .applications-graph {
+    height: 250px;
+
+    .inner {
+      top: 20px;
+      bottom: 40px;
+      left: 35px;
+      right: 25px;
+    }
+
     .x-axis .tick:nth-child(even) text {
 
       display:none;
     }
   }
+
+  .half-width .conversion-graph {
+    max-width: 100%;
+  }
+
 }
