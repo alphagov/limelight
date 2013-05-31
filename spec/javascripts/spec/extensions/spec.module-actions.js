@@ -1,5 +1,5 @@
 define([
-  'extensions/module-actions'
+  'licensing/controllers/preprocessors/module-actions'
   ],
 function (applyModuleActions) {
   describe('Module Actions', function() {
