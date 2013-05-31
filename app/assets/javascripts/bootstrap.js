@@ -1,10 +1,12 @@
 define([ 'require', 'jquery' ], function (require, $) {
   var controller = $('#wrapper').data('controller'),
-      preController = $('#wrapper').data('preprocessor'),
+      preProcessors = $('#wrapper').data('preprocessor').split(','),
       loadThese = [];
 
-  if (preController) {
-    loadThese.push(preController);
+  if (preProcessors) {
+    $.each(preProcessors, function (i, preProcessor) {
+      loadThese.push("licensing/controllers/preprocessors/" + preProcessor);
+    })
   }
 
   loadThese.push(controller);

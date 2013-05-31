@@ -1,4 +1,4 @@
-define(function () {
+define(['modernizr'],function (Modernizr) {
 
   return function() {
     if (Modernizr.touch) {

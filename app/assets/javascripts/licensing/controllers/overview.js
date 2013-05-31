@@ -8,11 +8,9 @@ define([
   'licensing/views/applications-conversion-graph',
   'extensions/views/tabs',
   'licensing/views/applicationsgraph-headline',
-  'licensing/views/applications-success-rate',
-  'extensions/module-actions'
-], function (ApplicationsCollection, ApplicationsGraph, Top5Collection, Top5Table, GraphCollection, ConversionCollection, ConversionGraph, Tabs, HeadlineView, SuccessRateView, applyModuleActions) {
+  'licensing/views/applications-success-rate'
+], function (ApplicationsCollection, ApplicationsGraph, Top5Collection, Top5Table, GraphCollection, ConversionCollection, ConversionGraph, Tabs, HeadlineView, SuccessRateView) {
   return function () {
-    applyModuleActions();
 
     if (!$('.lte-ie8').length) {
       var applicationsCollection = new GraphCollection(null, {
