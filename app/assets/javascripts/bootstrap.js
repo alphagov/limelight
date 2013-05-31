@@ -7,11 +7,12 @@ define([ 'require', 'jquery' ], function (require, $) {
     loadThese.push(preController);
   }
 
-  loadThese.push(controller)
+  loadThese.push(controller);
 
-  require(loadThese, function (pre) {
-    if (pre && (typeof pre === 'function')) {
-      pre();
-    }
+  require(loadThese, function () {
+    var args = Array.prototype.slice.call(arguments);
+    $.each(args, function (i, func) {
+      func();
+    });
   });
 });
