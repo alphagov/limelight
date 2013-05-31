@@ -30,11 +30,34 @@ If you use the latter you will need to set up [slimmer](https://github.com/alpha
 
     bundle exec rake test:all
 
-**Selenium on your machine:**
+**Cucumber tests through Selenium:**
 
 [Download Selenium Server](http://docs.seleniumhq.org/download/) (2.33.0
-seems to work nicely) and run it with `java -jar selenium-server-standalone-2.33.0.jar`
+seems to work nicely). Run it on the host (physical or vm) with the browser under test with:
 
-Run the tests (other browsers are available, you may need drivers, etc):
+```shell
+java -jar selenium-server-standalone-2.33.0.jar
+```
+
+Run the tests:
+- `BROWSER_NAME`: eg. firefox, ie, chrome, safari
+- `DRIVER_HOST`: The IP address of the host running the selenium server.
 
     BROWSER_NAME=firefox DRIVER_HOST=10.0.2.2 bundle exec cucumber -p selenium
+
+
+**Cucumber tests through Sauce:**
+
+[Register with Saucelabs](https://saucelabs.com) and download their [Sauce Connect](https://saucelabs.com/docs/connect) tool. Run it locally with
+
+```shell
+java -jar Sauce-Connect.jar <sauce-user> <sauce-key>
+```
+
+Run the tests:
+- `GOVUK_ASSET_HOST`: Override the asset host so that assets can be loaded from an already running app. Uses `slimmer/test` if not provided.
+- `BROWSER`: platform,browser(,version) see their [list of browsers](https://saucelabs.com/docs/platforms)
+
+```shell
+GOVUK_ASSET_HOST='https://static.production.alphagov.co.uk' BROWSER="windows xp,firefox" SAUCE_USER_NAME=your-sauce-user-name SAUCE_API_KEY=your-sauce-key bundle exec cucumber -p sauce
+```
