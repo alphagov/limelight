@@ -1,7 +1,6 @@
-define(['modernizr'],function (Modernizr) {
-
-  return function() {
-    if (Modernizr.touch) {
+define(['modernizr'], function (Modernizr) {
+  var applyActions = function () {
+    if (applyActions.Modernizr.touch) {
       // module action items touch interaction
       $('ul.module-actions li').on('touchend', function(e) {
         var item = $(this);
@@ -17,4 +16,8 @@ define(['modernizr'],function (Modernizr) {
       });
     }
   }
+
+  applyActions.Modernizr = Modernizr;
+
+  return applyActions;
 });

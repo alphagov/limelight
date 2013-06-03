@@ -6,17 +6,17 @@ function (applyModuleActions) {
 
     describe('touch behaviour', function() {
 
-      var originalModernizr = window.Modernizr;
+      var originalModernizr = applyModuleActions.Modernizr;
 
       beforeEach(function() {
-        window.Modernizr = {
+        applyModuleActions.Modernizr = {
           touch: true
         };
         $('body').append($('<ul id="module1" class="module-actions">').append('<li></li>'));
       });
 
       afterEach(function() {
-        window.Modernizr = originalModernizr;
+        applyModuleActions.Modernizr = originalModernizr;
         $('ul.module-actions').remove();
       });
 
