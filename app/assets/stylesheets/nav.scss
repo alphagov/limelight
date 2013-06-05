@@ -1,5 +1,57 @@
 @import 'colours';
 
+#search,
+#global-header .search-toggle {
+  display:none;
+}
+
+span.alpha-tag {
+  text-transform: uppercase;
+  font-weight:normal;
+  letter-spacing: 1px;
+  color: white;
+  -webkit-font-smoothing: subpixel-antialiased;
+  background-color: $pink;
+  padding: 2px 5px 0;
+  font-size:67%;
+  display:inline-block;
+  vertical-align:top;
+  margin-top:2px;
+}
+
+a:hover span.alpha-tag {
+    text-decoration: none;
+}
+
+#global-header .header-proposition #proposition-links li {
+    width:100%;
+    a {
+        &.active {
+            color: lighten($primary-colour, 15%);
+            border-bottom:1px solid $primary-colour;
+        }
+        &:hover {
+            border-bottom:1px solid $primary-colour;
+        }
+        &:hover {
+            text-decoration:none;
+        }
+    }
+}
+
+@media (min-width: 769px) {
+    #global-header .header-proposition #proposition-links li {
+        width:auto;
+    }
+}
+
+@media (max-width: 379px) {
+  #global-header span.alpha-tag {
+    display:none;
+  }
+}
+
+
 nav {
   
   &.performance-nav {
@@ -66,21 +118,6 @@ nav {
     }
   }
   
-  span.alpha-tag {
-    text-transform: uppercase;
-    color: white;
-    -webkit-font-smoothing: subpixel-antialiased;
-    background-color: $pink;
-    padding: 2px 5px 0;
-    margin-left: 10px;
-    font-size:75%;
-    display:inline-block;
-  }
-
-  a:hover .alpha-tag {
-      text-decoration: none;
-  }
-
 }
 
 
@@ -163,10 +200,3 @@ nav {
 }
 
 
-@media (max-width: 379px) {
-  nav.performance-nav {
-    a.top-level .alpha-tag {
-      display:none;
-    }
-  }
-}
