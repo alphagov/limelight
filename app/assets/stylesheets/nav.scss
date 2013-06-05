@@ -27,7 +27,7 @@ a:hover span.alpha-tag {
     width:100%;
     a {
         &.active {
-            color: lighten($primary-colour, 15%);
+            color: $white;
             border-bottom:1px solid $primary-colour;
         }
         &:hover {
@@ -38,14 +38,15 @@ a:hover span.alpha-tag {
 }
 
 nav.performance-nav {
-  margin: 0 -2em;
+  margin: -1.5em -2em 2em -2em;
+
   border-bottom: 1px solid $border-colour;
   padding:0 15px;
 
   ul {
     list-style:none;
-    margin: -0.5em 0 0.5em 1em;
     padding: 0;
+    margin: 0 0 0.5em 1em;
 
     li {
       display:inline-block;
@@ -73,11 +74,17 @@ nav.performance-nav {
     }
 
     nav.performance-nav {
+
       ul {
-        margin: -0.5em 0 0.5em 15px;
         padding: 0 0 0 33.33%;
       }
     }
+}
+
+@media (max-width: 640px) {
+  nav.performance-nav {
+    margin-top:-0.5em;
+  }
 }
 
 @media (max-width: 379px) {

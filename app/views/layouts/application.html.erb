@@ -33,11 +33,9 @@
 %>
 <%= content_tag :div, id: "wrapper", data: data do %>
 
-  <header id="global">
-    <%= render :partial => "navigation" rescue nil %>
-  </header>
-  
   <section id="content" class="group">
+    <%= render :partial => "navigation" rescue nil %>
+    
     <%= yield %>
     <div id="report-a-problem"></div>
   </section>
