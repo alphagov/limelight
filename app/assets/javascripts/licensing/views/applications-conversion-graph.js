@@ -2,9 +2,10 @@ define([
   'require',
   'extensions/views/graph/graph',
   './xaxis',
-  'extensions/views/graph/bar'
+  'extensions/views/graph/bar',
+  'extensions/views/graph/hover'
 ],
-function (require, Graph, XAxis, Bar) {
+function (require, Graph, XAxis, Bar, Hover) {
   var ConversionGraph = Graph.extend({
     
     components: function () {
@@ -28,6 +29,8 @@ function (require, Graph, XAxis, Bar) {
         {
           view: Bar,
           options: {
+            interactive: true,
+            strokeAlign: 'inner',
             x: function (model, i) {
               return this.scales.x(i);
             },
@@ -41,6 +44,9 @@ function (require, Graph, XAxis, Bar) {
               return Math.round(100 * model.get('uniqueEvents') / this.scales.y.domain()[1]) + '%';
             }
           }
+        },
+        {
+          view: Hover
         }
       ];
     },
