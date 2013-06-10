@@ -5,7 +5,7 @@ define([
   'licensing/views/top5table',
   'extensions/collections/graphcollection',
   'licensing/collections/applications-conversion',
-  'licensing/views/conversion-graph/applications-conversion-graph',
+  'licensing/views/conversion-graph/conversion-graph',
   'extensions/views/tabs',
   'licensing/views/applicationsgraph-headline',
   'licensing/views/applications-success-rate'

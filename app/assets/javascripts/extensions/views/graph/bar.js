@@ -79,7 +79,7 @@ function(require, StackComponent) {
         x1: xLeft,
         y1: y,
         x2: xLeft + width,
-        y2: y,
+        y2: y
       });
 
       if (this.text) {
