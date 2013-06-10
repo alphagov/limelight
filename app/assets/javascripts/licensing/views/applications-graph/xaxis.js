@@ -1,13 +1,9 @@
 define([
-  'extensions/views/graph/axis'
+  'extensions/views/graph/xaxis'
 ],
-function (Axis) {
+function (XAxis) {
   
-  var ApplicationsXAxis = Axis.extend({
-    
-    classed: 'x-axis',
-    position: 'bottom',
-    orient: 'bottom',
+  var ApplicationsXAxis = XAxis.extend({
     
     configs: {
       week: {
@@ -49,18 +45,6 @@ function (Axis) {
         } else {
           return moment(d).format('D MMM');
         }
-      }
-    },
-    offsetY: 8,
-    getScale: function () {
-      return this.scales.x;
-    },
-    onChangeSelected: function (groupSelected, groupIndexSelected, modelSelected, indexSelected) {
-      var ticks = this.componentWrapper.selectAll('.tick');
-      ticks.classed('selected', false);
-
-      if (indexSelected != null) {
-        d3.select(ticks[0][indexSelected]).classed('selected', true);
       }
     }
   });

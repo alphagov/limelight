@@ -1,7 +1,7 @@
 define([
   'require',
   'extensions/views/graph/graph',
-  './xaxis',
+  'extensions/views/graph/xaxis',
   'extensions/views/graph/bar',
   'extensions/views/graph/hover'
 ],

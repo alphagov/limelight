@@ -1,5 +1,5 @@
 define([
-  'licensing/views/xaxis'
+  'extensions/views/graph/xaxis'
 ],
 function (XAxis) {
   describe("XAxis", function () {
