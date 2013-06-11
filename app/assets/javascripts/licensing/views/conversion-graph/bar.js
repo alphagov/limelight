@@ -1,5 +1,5 @@
 define([
-  'extensions/views/graph/bar'
+  'extensions/views/graph/stackedbar'
 ],
 function (Bar) {
   var ConversionBar = Bar.extend({
