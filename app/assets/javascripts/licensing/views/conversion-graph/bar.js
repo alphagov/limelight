@@ -1,17 +1,18 @@
 define([
-  'extensions/views/graph/stackedbar'
+  'extensions/views/graph/interleavedbar'
 ],
-function (Bar) {
-  var ConversionBar = Bar.extend({
+function (InterleavedBar) {
+  var ConversionBar = InterleavedBar.extend({
     interactive: true,
     strokeAlign: 'inner',
-    x: function (model, i) {
-      return this.scales.x(i);
-    },
+    
+    blockMarginFraction: 0,
+    barMarginFraction: 0,
+
     yStack: function (model) {
       return model.get('uniqueEvents');
     },
-    barWidth: function (model, i) {
+    blockWidth: function (model, i) {
       return this.scales.x(1) - this.scales.x(0);
     },
     text: function (model, i) {
