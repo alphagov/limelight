@@ -4,7 +4,7 @@ define([
   'licensing/collections/applications-top5-lastweek',
   'licensing/views/top5table',
   'extensions/collections/graphcollection',
-  'licensing/collections/applications-conversion',
+  'licensing/collections/conversion',
   'licensing/views/conversion-graph/conversion-graph',
   'extensions/views/tabs',
   'licensing/views/applicationsgraph-headline',
@@ -38,13 +38,11 @@ define([
 
       applicationsCollection.query.set('period', 'week');
 
-      var conversionCollection = new GraphCollection(null, {
-        collections: [ConversionCollection]
-      });
+      var conversionCollection = new ConversionCollection();
 
       var successRate = new SuccessRateView({
         el: $('#applications-success-rate'),
-        collection: conversionCollection.collectionInstances[0]
+        collection: conversionCollection.collectionInstances[1]
       });
 
 

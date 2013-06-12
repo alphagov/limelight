@@ -1,17 +1,30 @@
 define([
-  'licensing/collections/applications-conversion'
+  'licensing/collections/conversion-series'
 ], function(Collection) {
-  describe("ApplicationsConversion", function() {
+  describe("ConversionSeriesCollection", function() {
     describe("queryParams", function() {
       
-      it("requests data for the last week", function() { 
+      it("requests data for the last month by default", function() { 
         var collection = new Collection();
         
         setupMoment('2013-03-13', collection);
       
         var params = collection.queryParams();
-        expect(params.start_at.format('YYYY-MM-DDTHH:mm:ss')).toEqual('2013-03-04T00:00:00');
-        expect(params.end_at.format('YYYY-MM-DDTHH:mm:ss')).toEqual('2013-03-11T00:00:00');
+        expect(params.start_at.format('YYYY-MM-DDTHH:mm:ss')).toEqual('2013-02-01T00:00:00');
+        expect(params.end_at.format('YYYY-MM-DDTHH:mm:ss')).toEqual('2013-03-01T00:00:00');
+        expect(params.filter_by).toEqual('dataType:licensing_overview_journey');
+      });
+      
+      it("requests data for an earlier month", function() { 
+        var collection = new Collection(null, {
+          monthsAgo: 1
+        });
+        
+        setupMoment('2013-03-13', collection);
+      
+        var params = collection.queryParams();
+        expect(params.start_at.format('YYYY-MM-DDTHH:mm:ss')).toEqual('2013-01-01T00:00:00');
+        expect(params.end_at.format('YYYY-MM-DDTHH:mm:ss')).toEqual('2013-02-01T00:00:00');
         expect(params.filter_by).toEqual('dataType:licensing_overview_journey');
       });
     });

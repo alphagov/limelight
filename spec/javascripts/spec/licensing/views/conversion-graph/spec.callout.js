@@ -24,8 +24,8 @@ function (ConversionCallout, Collection, Model, moment) {
           }
         ]);
         collection.at(0).get('values').query = new Model({
-          start_at: moment('2013-06-11'),
-          end_at: moment('2013-06-18')
+          start_at: moment('2013-06-01'),
+          end_at: moment('2013-07-01')
         });
         view = new ConversionCallout({
           wrapper:wrapper,
@@ -56,17 +56,17 @@ function (ConversionCallout, Collection, Model, moment) {
         
         view.onChangeSelected(collection.at(0), 0, collection.at(0).get('values').at(0), 0);
         expect(view.$el.find('.arrow').css('left')).toEqual('40px');
-        expect(view.$el.find('h3')).toHaveHtml('<span class="date">11 – 17 Jun 2013</span> Stage 1');
+        expect(view.$el.find('h3')).toHaveHtml('<span class="date">June 2013</span> Stage 1');
         expect(view.$el.find('dl')).toHaveHtml('<dt>Unique visitors to stage:</dt><dd>12</dd>');
         
         view.onChangeSelected(collection.at(0), 0, collection.at(0).get('values').at(1), 1);
         expect(view.$el.find('.arrow').css('left')).toEqual('60px');
-        expect(view.$el.find('h3')).toHaveHtml('<span class="date">11 – 17 Jun 2013</span> Stage 2');
+        expect(view.$el.find('h3')).toHaveHtml('<span class="date">June 2013</span> Stage 2');
         expect(view.$el.find('dl')).toHaveHtml('<dt>Unique visitors to stage:</dt><dd>15</dd>');
 
         view.onChangeSelected(collection.at(0), 0, collection.at(0).get('values').at(2), 2);
         expect(view.$el.find('.arrow').css('left')).toEqual('80px');
-        expect(view.$el.find('h3')).toHaveHtml('<span class="date">11 – 17 Jun 2013</span> Stage 3');
+        expect(view.$el.find('h3')).toHaveHtml('<span class="date">June 2013</span> Stage 3');
         expect(view.$el.find('dl')).toHaveHtml('<dt>Unique visitors to stage:</dt><dd>18</dd>');
       });
     });

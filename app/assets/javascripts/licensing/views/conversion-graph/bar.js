@@ -5,9 +5,6 @@ function (InterleavedBar) {
   var ConversionBar = InterleavedBar.extend({
     interactive: true,
     strokeAlign: 'inner',
-    
-    blockMarginFraction: 0,
-    barMarginFraction: 0,
 
     yStack: function (model) {
       return model.get('uniqueEvents');

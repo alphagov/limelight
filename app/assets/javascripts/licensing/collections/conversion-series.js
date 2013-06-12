@@ -19,11 +19,12 @@ define([
       'licensingUserJourney:submitApplicationPage': 'Submit application',
       'licensingUserJourney:end': 'Done'
     },
-    
+
     queryParams: function() {
-      var at_midnight = this.moment().day(1).startOf('day');
+      var monthsAgo = this.options.monthsAgo || 0;
+      var at_midnight = this.moment().startOf('month').subtract(monthsAgo, 'months');
       var query = {
-        start_at: at_midnight.clone().subtract(1, 'weeks'),
+        start_at: at_midnight.clone().subtract(1, 'months'),
         end_at: at_midnight,
         filter_by: "dataType:licensing_overview_journey"
       };
