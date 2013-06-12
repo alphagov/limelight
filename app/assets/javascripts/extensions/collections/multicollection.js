@@ -8,18 +8,18 @@ function (Collection) {
    */
   var MultiCollection = Collection.extend({
     
-    /**
-     * Defines the constituent collection classes.
-     * Override in subclass or options
-     */
-    collections: [],
-    
     initialize: function (models, options) {
       if (options && options.collections) {
         this.collections = options.collections;
       }
       this.collectionInstances = _.map(this.collections, function (classRef) {
-        return new classRef(models, options);
+        if (classRef.collection) {
+          return new classRef.collection(
+            models, _.extend({}, classRef.options, options)
+          );
+        } else {
+          return new classRef(models, options);
+        }
       });
       this.createQueryModel();
     },
@@ -43,7 +43,8 @@ function (Collection) {
         collection.query.set(this.query.attributes, {silent: true})
       }, this);
 
-      var openRequests = numRequests = this.collectionInstances.length;
+      var numRequests = this.collectionInstances.length;
+      var openRequests = numRequests;
       var successfulRequests = 0;
       var that = this;
       
@@ -64,7 +65,6 @@ function (Collection) {
       };
       
       _.each(this.collectionInstances, function (collection) {
-        
         collection.on('error', function () {
           // escalate error status
           if (options.error) {
