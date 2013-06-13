@@ -1,15 +1,16 @@
 define([
   'licensing/collections/applications-total-weekly',
   'licensing/views/applications-graph/applicationsgraph',
+  'licensing/views/applications-graph/headline',
   'licensing/collections/applications-top5-lastweek',
   'licensing/views/top5table',
   'extensions/collections/graphcollection',
   'licensing/collections/conversion',
   'licensing/views/conversion-graph/conversion-graph',
+  'licensing/views/conversion-graph/headline',
   'extensions/views/tabs',
-  'licensing/views/applicationsgraph-headline',
   'licensing/views/applications-success-rate'
-], function (ApplicationsCollection, ApplicationsGraph, Top5Collection, Top5Table, GraphCollection, ConversionCollection, ConversionGraph, Tabs, HeadlineView, SuccessRateView) {
+], function (ApplicationsCollection, ApplicationsGraph, ApplicationsHeadlineView, Top5Collection, Top5Table, GraphCollection, ConversionCollection, ConversionGraph, ConversionGraphHeadlineView, Tabs, SuccessRateView) {
   return function () {
 
     if (!$('.lte-ie8').length) {
@@ -31,7 +32,7 @@ define([
         ]
       });
 
-      var graphHeadline = new HeadlineView({
+      var graphHeadline = new ApplicationsHeadlineView({
         el: $('#total-applications').siblings('h2'),
         model: applicationsCollection.query
       });
@@ -50,6 +51,12 @@ define([
         el: $('#applications-conversion-graph'),
         collection: conversionCollection
       });
+
+      var conversionGraphHeadlineView = new ConversionGraphHeadlineView({
+        el: $('#applications-conversion-graph').siblings('h2'),
+        collection: conversionCollection
+      });
+
       conversionCollection.fetch();
     }
 
