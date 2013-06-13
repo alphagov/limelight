@@ -72,19 +72,22 @@
 
         &:before {
           display: inline-block;
-          font-size: 1.3em;
-          margin-top:-0.1em;
-          padding-right: 5px;
-          vertical-align: top;
-          content: "\25FC";
+          width:0.8em;
+          height:0.8em;
+          padding:0;
+          margin-right: 0.4em;
+          margin-top:-0.2em;
+          vertical-align: middle;
+          text-indent:-999em;
+          content: ".";
         }
 
-        &.stack0:before { color: $data-colour-1; }
-        &.stack1:before { color: $data-colour-2; }
-        &.stack2:before { color: $data-colour-3; }
-        &.stack3:before { color: $data-colour-4; }
-        &.stack4:before { color: $data-colour-5; }
-        &.stack5:before { color: $data-colour-6; }
+        &.stack0:before { background: $data-colour-1; }
+        &.stack1:before { background: $data-colour-2; }
+        &.stack2:before { background: $data-colour-3; }
+        &.stack3:before { background: $data-colour-4; }
+        &.stack4:before { background: $data-colour-5; }
+        &.stack5:before { background: $data-colour-6; }
       }
 
       dl dt {
