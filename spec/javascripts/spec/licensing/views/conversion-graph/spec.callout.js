@@ -64,38 +64,54 @@ function (ConversionCallout, Collection, Model, moment) {
         el.remove();
       });
 
+      it("creates a callout with information about the currently selected item", function () {
+        view.render();
+        
+        view.onChangeSelected(collection.at(0), 0, collection.at(0).get('values').at(0), 0);
+        expect(view.$el.find('h3')).toHaveHtml('<span class="date stack0">May 2013</span> Stage 1');
+        expect(view.$el.find('dl')).toHaveHtml('<dt>Unique visitors to stage:</dt><dd>12</dd>');
+        
+        view.onChangeSelected(collection.at(0), 0, collection.at(0).get('values').at(1), 1);
+        expect(view.$el.find('h3')).toHaveHtml('<span class="date stack0">May 2013</span> Stage 2');
+        expect(view.$el.find('dl')).toHaveHtml('<dt>Unique visitors to stage:</dt><dd>15</dd>');
+
+        view.onChangeSelected(collection.at(0), 0, collection.at(0).get('values').at(2), 2);
+        expect(view.$el.find('h3')).toHaveHtml('<span class="date stack0">May 2013</span> Stage 3');
+        expect(view.$el.find('dl')).toHaveHtml('<dt>Unique visitors to stage:</dt><dd>18</dd>');
+        
+        view.onChangeSelected(collection.at(1), 1, collection.at(1).get('values').at(0), 0);
+        expect(view.$el.find('h3')).toHaveHtml('<span class="date stack1">June 2013</span> Stage 1');
+        expect(view.$el.find('dl')).toHaveHtml('<dt>Unique visitors to stage:</dt><dd>21</dd>');
+        
+        view.onChangeSelected(collection.at(1), 1, collection.at(1).get('values').at(1), 1);
+        expect(view.$el.find('h3')).toHaveHtml('<span class="date stack1">June 2013</span> Stage 2');
+        expect(view.$el.find('dl')).toHaveHtml('<dt>Unique visitors to stage:</dt><dd>24</dd>');
+
+        view.onChangeSelected(collection.at(1), 1, collection.at(1).get('values').at(2), 2);
+        expect(view.$el.find('h3')).toHaveHtml('<span class="date stack1">June 2013</span> Stage 3');
+        expect(view.$el.find('dl')).toHaveHtml('<dt>Unique visitors to stage:</dt><dd>27</dd>');
+      });
+
       it("positions an arrow element to point to the currently selected model", function () {
         view.render();
         
         view.onChangeSelected(collection.at(0), 0, collection.at(0).get('values').at(0), 0);
         expect(view.$el.find('.arrow').css('left')).toEqual('45px');
-        expect(view.$el.find('h3')).toHaveHtml('<span class="date">May 2013</span> Stage 1');
-        expect(view.$el.find('dl')).toHaveHtml('<dt>Unique visitors to stage:</dt><dd>12</dd>');
         
         view.onChangeSelected(collection.at(0), 0, collection.at(0).get('values').at(1), 1);
         expect(view.$el.find('.arrow').css('left')).toEqual('65px');
-        expect(view.$el.find('h3')).toHaveHtml('<span class="date">May 2013</span> Stage 2');
-        expect(view.$el.find('dl')).toHaveHtml('<dt>Unique visitors to stage:</dt><dd>15</dd>');
 
         view.onChangeSelected(collection.at(0), 0, collection.at(0).get('values').at(2), 2);
         expect(view.$el.find('.arrow').css('left')).toEqual('85px');
-        expect(view.$el.find('h3')).toHaveHtml('<span class="date">May 2013</span> Stage 3');
-        expect(view.$el.find('dl')).toHaveHtml('<dt>Unique visitors to stage:</dt><dd>18</dd>');
         
         view.onChangeSelected(collection.at(1), 1, collection.at(1).get('values').at(0), 0);
         expect(view.$el.find('.arrow').css('left')).toEqual('55px');
-        expect(view.$el.find('h3')).toHaveHtml('<span class="date">June 2013</span> Stage 1');
-        expect(view.$el.find('dl')).toHaveHtml('<dt>Unique visitors to stage:</dt><dd>21</dd>');
         
         view.onChangeSelected(collection.at(1), 1, collection.at(1).get('values').at(1), 1);
         expect(view.$el.find('.arrow').css('left')).toEqual('75px');
-        expect(view.$el.find('h3')).toHaveHtml('<span class="date">June 2013</span> Stage 2');
-        expect(view.$el.find('dl')).toHaveHtml('<dt>Unique visitors to stage:</dt><dd>24</dd>');
 
         view.onChangeSelected(collection.at(1), 1, collection.at(1).get('values').at(2), 2);
         expect(view.$el.find('.arrow').css('left')).toEqual('95px');
-        expect(view.$el.find('h3')).toHaveHtml('<span class="date">June 2013</span> Stage 3');
-        expect(view.$el.find('dl')).toHaveHtml('<dt>Unique visitors to stage:</dt><dd>27</dd>');
       });
     });
 

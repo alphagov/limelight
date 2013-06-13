@@ -51,7 +51,7 @@ function (Callout) {
       var end = moment(query.get('end_at')).subtract(1, 'days');
 
       var header = $('<h3>').html([
-        '<span class="date">',
+        '<span class="date stack' + groupIndex + '">',
         start.format('MMMM YYYY'),
         '</span> ',
         model.get('title')
