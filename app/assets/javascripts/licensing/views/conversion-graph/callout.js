@@ -11,8 +11,27 @@ function (Callout) {
     yOffset: 0,
     constrainToBounds: false,
 
-    x: function (model, index) {
-      return this.scales.x(index);
+    blockMarginFraction: 0.2,
+    barMarginFraction: 0.05,
+
+    x: function (model, index, group, groupIndex) {
+      // TODO: This calculation is repeated from InterleavedBar component
+      // What is the cleanest way to share this calculation?
+      var blockWidth = this.scales.x(1) - this.scales.x(0);
+      var blockMargin = this.blockMarginFraction * blockWidth / 2;
+
+      var numGroups = this.collection.length;
+      var numBarSpaces = numGroups - 1;
+
+      var allBarMargins = this.barMarginFraction * blockWidth;
+      var allBlockMargins = this.blockMarginFraction * blockWidth;
+      var barWidth = (blockWidth - allBlockMargins - allBarMargins) / numGroups;
+
+      var x = blockMargin + blockWidth * index + barWidth * (groupIndex + 0.5);
+      if (numBarSpaces > 0) {
+        x += groupIndex * allBarMargins / numBarSpaces;
+      }
+      return x;
     },
     
     y: function (model, index) {

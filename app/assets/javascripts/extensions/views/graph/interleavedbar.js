@@ -32,6 +32,7 @@ function(require, StackedBar) {
 
       return blockMargin + blockWidth * index + barWidth * groupIndex;
     },
+    
     barWidth: function (model, index, group, groupIndex) {
       var numGroups = this.collection.length;
       var numBarSpaces = numGroups - 1;
