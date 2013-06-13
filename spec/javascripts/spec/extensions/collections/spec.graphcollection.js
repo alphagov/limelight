@@ -177,5 +177,27 @@ function (GraphCollection, Collection, Group) {
       });
 
     });
+
+    describe("maxByAttr", function () {
+      it("calculates maximum value across groups for a specific attribute", function () {
+        var group0 = new Group({
+          values: [
+            { a: 1, b: 8 },
+            { a: 2, b: 7 }
+          ]
+        }, { parse: true });
+        var group1 = new Group({
+          values: [
+            { a: 3, b: 6 },
+            { a: 4, b: 5 }
+          ]
+        }, { parse: true });
+        var collection = new GraphCollection();
+        collection.reset([ group0, group1 ]);
+
+        expect(collection.maxByAttr('a')).toEqual(4);
+        expect(collection.maxByAttr('b')).toEqual(8);
+      });
+    });
   });
 });

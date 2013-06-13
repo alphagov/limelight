@@ -37,12 +37,18 @@ define([
       var order = this.steps;
       
       var data = [];
+      var maxVal = -Infinity;
       _.each(response.data, function (step) {
         if (!_.contains(order, step.eventCategory)) {
           return;
         }
         step.title = titles[step.eventCategory];
+        maxVal = Math.max(maxVal, step.uniqueEvents);
         data.push(step);
+      });
+
+      _.each(data, function (step) {
+        step.uniqueEventsNormalised = step.uniqueEvents / maxVal;
       });
       
       return data;
