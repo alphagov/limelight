@@ -14,7 +14,7 @@ Feature: Overview page
         And the 1st subtitle should be "Form submissions"
         And the 1st section description should be "Total form submissions per week over the last 9 weeks"
         And the 2nd subtitle should be "Completion rate"
-        And the 2nd section description should be "Completion rate for all submissions for last week"
+        And the 2nd section description should be "Completion rate for all submissions last month compared with the previous month"
         And the 3rd subtitle should be "Submission drop-offs"
         And the 3rd section description should be "Percentages of unique visitors at common stages of licensing submissions last week"
         And the 4th subtitle should be "Top licences last week"
