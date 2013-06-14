@@ -63,8 +63,8 @@ function(require, StackedBar) {
           var barWidth = this.barWidth(model, index, group, groupIndex)
           var barCentre = barX + barWidth / 2;
           var dist = Math.abs(barCentre - e.x);
-          if (dist < best.dist) {
-            // found new best item
+          var isNewBest = dist < best.dist;
+          if (isNewBest) {
             best = {
               dist: dist,
               group: group,

@@ -86,14 +86,6 @@ function (require, MultiCollection, Group) {
         groupIndex = null;
       }
       this.trigger('change:selected', group, groupIndex, model, index)
-    },
-
-    maxByAttr: function (attr) {
-      return d3.max(this.models, function (group) {
-        return d3.max(group.get('values').models, function (value) {
-          return value.get(attr);
-        });
-      });
     }
   });
   
