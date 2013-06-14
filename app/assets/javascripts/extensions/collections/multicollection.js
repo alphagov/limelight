@@ -8,6 +8,12 @@ function (Collection) {
    */
   var MultiCollection = Collection.extend({
     
+    /**
+     * Defines the constituent collection classes.
+     * Override in subclass or options
+     */
+    collections: [],
+    
     initialize: function (models, options) {
       if (options && options.collections) {
         this.collections = options.collections;
