@@ -4,7 +4,7 @@ define([
   'licensing/collections/all-entities-and-applications-lastweek',
   'licensing/views/applicationstable',
   'extensions/views/tabs',
-  'licensing/views/applicationsgraph-headline',
+  'licensing/views/applications-graph/headline'
 ], function (GraphCollection, GraphView, TableCollection, TableView, Tabs, HeadlineView) {
   return function () {
 
