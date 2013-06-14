@@ -34,23 +34,28 @@ define([
     
     parse: function (response) {
       var titles = this.stepTitles;
-      var order = this.steps;
       
-      var data = [];
-      var maxVal = -Infinity;
-      _.each(response.data, function (step) {
-        if (!_.contains(order, step.eventCategory)) {
-          return;
-        }
-        step.title = titles[step.eventCategory];
-        maxVal = Math.max(maxVal, step.uniqueEvents);
-        data.push(step);
+      var data = _.map(this.steps, function (eventCategory) {
+        return _.extend({
+          title: titles[eventCategory],
+          eventCategory: eventCategory,
+          uniqueEvents: 0,
+          uniqueEventsNormalised: 0
+        }, _.find(response.data, function (responseStep) {
+          return responseStep.eventCategory === eventCategory;
+        }));
       });
 
-      _.each(data, function (step) {
-        step.uniqueEventsNormalised = step.uniqueEvents / maxVal;
-      });
-      
+      var maxVal = _.reduce(data, function (memo, step) {
+        return Math.max(memo, step. uniqueEvents);
+      }, 0);
+
+      if (maxVal !== 0) {
+        _.each(data, function (step) {
+          step.uniqueEventsNormalised = step.uniqueEvents / maxVal;
+        });
+      }
+
       return data;
     },
 

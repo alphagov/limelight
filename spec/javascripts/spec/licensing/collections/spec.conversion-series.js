@@ -60,14 +60,16 @@ define([
         var models = [
           {eventCategory: "afly_1", uniqueEvents: 4321},
           {eventCategory: "licensingUserJourney:downloadFormPage", uniqueEvents: 54321},
-          {eventCategory: "licensingUserJourney:submitApplicationPage", uniqueEvents: 321}
+          {eventCategory: "licensingUserJourney:submitApplicationPage", uniqueEvents: 321},
+          {eventCategory: "licensingUserJourney:end", uniqueEvents: 3211}
         ];
         var collection = new Collection();
         collection.reset(collection.parse({ data: models }));
 
-        expect(collection.length).toEqual(2);
+        expect(collection.length).toEqual(3);
         expect(collection.at(0).get('eventCategory')).toEqual("licensingUserJourney:downloadFormPage");
         expect(collection.at(1).get('eventCategory')).toEqual("licensingUserJourney:submitApplicationPage");
+        expect(collection.at(2).get('eventCategory')).toEqual("licensingUserJourney:end");
       });
 
     });
@@ -88,6 +90,23 @@ define([
         expect(collection.at(1).get('uniqueEventsNormalised')).toEqual(0.5);
         expect(collection.at(2).get('eventCategory')).toEqual("licensingUserJourney:end");
         expect(collection.at(2).get('uniqueEventsNormalised')).toEqual(0.2);
+      });
+
+      it("deals with missing steps in the response", function () {
+        var models = [];
+        var collection = new Collection();
+        collection.reset(collection.parse({ data: models }));
+
+        expect(collection.length).toEqual(3);
+        expect(collection.at(0).get('eventCategory')).toEqual("licensingUserJourney:downloadFormPage");
+        expect(collection.at(0).get('uniqueEvents')).toEqual(0);
+        expect(collection.at(0).get('uniqueEventsNormalised')).toEqual(0);
+        expect(collection.at(1).get('eventCategory')).toEqual("licensingUserJourney:submitApplicationPage");
+        expect(collection.at(1).get('uniqueEvents')).toEqual(0);
+        expect(collection.at(1).get('uniqueEventsNormalised')).toEqual(0);
+        expect(collection.at(2).get('eventCategory')).toEqual("licensingUserJourney:end");
+        expect(collection.at(2).get('uniqueEvents')).toEqual(0);
+        expect(collection.at(2).get('uniqueEventsNormalised')).toEqual(0);
       });
     });
   });
