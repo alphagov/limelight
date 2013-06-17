@@ -10,7 +10,7 @@ function (Collection) {
     },
     queryParams: {
       sort_by: "_timestamp:descending",
-      limit: 1
+      limit: 2
     }
   });
   return VisitorsRealtimeCollection;

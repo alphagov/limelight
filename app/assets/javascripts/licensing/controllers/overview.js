@@ -93,18 +93,20 @@ define([
     top5AuthoritiesCollection.fetch();
 
     if ($('#number-of-visitors-realtime').length) {
+      var updateInterval = 120 * 1000;
       var visitorsRealtimeCollection = new VisitorsRealtimeCollection();
 
       var visitorsRealtimeView = new VisitorsRealtimeView({
         el: $('#number-of-visitors-realtime'),
-        collection: visitorsRealtimeCollection
+        collection: visitorsRealtimeCollection,
+        collectionUpdateInterval: updateInterval
       });
 
       visitorsRealtimeCollection.fetch();
 
       setInterval(function () {
         visitorsRealtimeCollection.fetch();
-      }, 30 * 1000);
+      }, updateInterval);
     }
   };
 });

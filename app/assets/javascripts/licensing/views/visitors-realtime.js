@@ -3,17 +3,53 @@ define([
 ],
 function (View) {
   var VisitorsRealtimeView = View.extend({
-    initialize: function () {
-      this.collection.on('reset', this.render, this);
+    initialize: function (options) {
+      this.collection.on('reset', this.setValue, this);
+      this.collectionUpdateInterval = options && options.collectionUpdateInterval || 120 * 1000;
+      this.numberOfVisitorsRealtime = 0;
     },
-    render: function () {
-      if (this.collection.length == 0) {
+    updateInterval: 5000,
+    setValue: function () {
+      if (!this.collection.length) {
         return;
       }
 
-      var numberOfVisitorsRealtime = this.collection.at(0).get("unique_visitors");
+      if (this.timer) {
+        clearTimeout(this.timer);
+        this.timer = null;
+      }
 
-      this.$el.html("<strong>" + numberOfVisitorsRealtime + "</strong> Users online now");
+      var newNumberOfVisitors = parseFloat(this.collection.at(0).get("unique_visitors"));
+      if (!this.currentNumberOfVisitors) {
+        if (this.collection.length == 1) {
+          this.currentNumberOfVisitors = 0;
+        } else {
+          this.currentNumberOfVisitors = parseFloat(this.collection.at(1).get("unique_visitors"));
+        }
+      }
+
+      var numberOfSteps = this.collectionUpdateInterval / this.updateInterval;
+
+      var diff = (newNumberOfVisitors - this.currentNumberOfVisitors) / numberOfSteps;
+
+      var that = this;
+      var interpolate = function () {
+        that.render.call(that);
+        that.currentNumberOfVisitors += diff;
+
+        if (numberOfSteps-- > 0) {
+          that.timer = setTimeout(interpolate, that.updateInterval);
+        }
+      };
+      interpolate();
+    },
+    render: function () {
+      if (!this.collection.length) {
+        return;
+      }
+      var numberOfVisitors = this.currentNumberOfVisitors || parseFloat(this.collection.at(0).get("unique_visitors"));
+
+      this.$el.html("<strong>" + Math.round(numberOfVisitors) + "</strong> Users online now");
     }
   });
   return VisitorsRealtimeView;
