@@ -1,5 +1,5 @@
 define([
-  'licensing/views/conversion-graph/callout',
+  'extensions/views/conversion-graph/callout',
   'extensions/collections/collection',
   'extensions/models/model',
   'moment'

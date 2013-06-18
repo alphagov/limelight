@@ -1,5 +1,5 @@
 define([
-  'licensing/views/conversion-graph/headline',
+  'extensions/views/conversion-graph/headline',
   'extensions/models/model',
   'moment'
 ],
@@ -38,11 +38,12 @@ function (Headline, Model, moment) {
       it("renders a headline string including the start dates of the queries for both items", function () {
 
         var view = new Headline({
-          collection: collection
+          collection: collection,
+          title: 'Percentages of unique visitors'
         });
 
         jasmine.renderView(view, function () {
-          expect(view.$el).toHaveHtml('Percentages of unique visitors at common stages of licensing submissions in <span class="group0">March</span> compared with <span class="group1">April</span>');
+          expect(view.$el).toHaveHtml('Percentages of unique visitors in <span class="group0">March</span> compared with <span class="group1">April</span>');
         });
         
       });

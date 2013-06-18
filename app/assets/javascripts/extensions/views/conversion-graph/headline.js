@@ -14,9 +14,8 @@ function (View) {
         return c.collectionInstances[index].query.get('start_at').format('MMMM');
       };
       this.$el.html([
-        'Percentages of unique visitors at common stages ',
-        'of licensing submissions in ',
-        '<span class="group0">',
+        this.title,
+        ' in <span class="group0">',
         getMonth(0),
         '</span>',
         ' compared with ',
