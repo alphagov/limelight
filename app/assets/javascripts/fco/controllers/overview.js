@@ -2,16 +2,17 @@ define([
   'extensions/collections/graphcollection',
   'fco/collections/conversion-series',
   'extensions/views/conversion-graph/conversion-graph',
-  'extensions/views/conversion-graph/headline',
   'extensions/views/conversion-success-rate'
-], function (GraphCollection, ConversionCollection, ConversionGraph, ConversionGraphHeadlineView, SuccessRateView) {
+], function (GraphCollection, ConversionCollection, ConversionGraph, SuccessRateView) {
   return function () {
 
     var serviceName = $("#wrapper").data("service-name");
 
     var conversionCollection = new GraphCollection(null, {
-      collections: [{collection: ConversionCollection, options: {monthsAgo: 1}},
-                    {collection: ConversionCollection, options: {monthsAgo: 0}}],
+      collections: [
+        {collection: ConversionCollection, options: {weeksAgo: 1}},
+        {collection: ConversionCollection, options: {weeksAgo: 0}}
+      ],
       serviceName: serviceName
     });
 
@@ -27,12 +28,6 @@ define([
       collection: conversionCollection.collectionInstances[0],
       startStep: serviceName + ':start',
       endStep: serviceName + ':done'
-    });
-
-    var conversionGraphHeadlineView = new ConversionGraphHeadlineView({
-      el: $('#applications-conversion-graph').siblings('h2'),
-      collection: conversionCollection,
-      title: 'Percentages of unique visitors at each stage'
     });
 
     conversionCollection.fetch();

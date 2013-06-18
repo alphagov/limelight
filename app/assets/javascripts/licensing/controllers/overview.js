@@ -7,10 +7,9 @@ define([
   'extensions/collections/graphcollection',
   'licensing/collections/conversion',
   'extensions/views/conversion-graph/conversion-graph',
-  'extensions/views/conversion-graph/headline',
   'extensions/views/tabs',
   'extensions/views/conversion-success-rate'
-], function (ApplicationsCollection, ApplicationsGraph, ApplicationsHeadlineView, Top5Collection, Top5Table, GraphCollection, ConversionCollection, ConversionGraph, ConversionGraphHeadlineView, Tabs, SuccessRateView) {
+], function (ApplicationsCollection, ApplicationsGraph, ApplicationsHeadlineView, Top5Collection, Top5Table, GraphCollection, ConversionCollection, ConversionGraph, Tabs, SuccessRateView) {
   return function () {
 
     if (!$('.lte-ie8').length) {
@@ -52,12 +51,6 @@ define([
       var conversionGraph = new ConversionGraph({
         el: $('#applications-conversion-graph'),
         collection: conversionCollection
-      });
-
-      var conversionGraphHeadlineView = new ConversionGraphHeadlineView({
-        el: $('#applications-conversion-graph').siblings('h2'),
-        collection: conversionCollection,
-        title: 'Percentages of unique visitors at common stages of licensing submissions'
       });
 
       conversionCollection.fetch();

@@ -16,26 +16,26 @@ define([
     });
     describe("queryParams", function() {
       
-      it("requests data for the last month by default", function() { 
+      it("requests data for the last week by default", function() { 
         var collection = new TestCollection();
         
         setupMoment('2013-03-13', collection);
       
         var params = collection.queryParams();
-        expect(params.start_at.format('YYYY-MM-DDTHH:mm:ss')).toEqual('2013-02-01T00:00:00');
-        expect(params.end_at.format('YYYY-MM-DDTHH:mm:ss')).toEqual('2013-03-01T00:00:00');
+        expect(params.start_at.format('YYYY-MM-DDTHH:mm:ss')).toEqual('2013-03-04T00:00:00');
+        expect(params.end_at.format('YYYY-MM-DDTHH:mm:ss')).toEqual('2013-03-11T00:00:00');
       });
       
-      it("requests data for an earlier month", function() { 
+      it("requests data for an earlier week", function() { 
         var collection = new TestCollection(null, {
-          monthsAgo: 1
+          weeksAgo: 1
         });
         
         setupMoment('2013-03-13', collection);
       
         var params = collection.queryParams();
-        expect(params.start_at.format('YYYY-MM-DDTHH:mm:ss')).toEqual('2013-01-01T00:00:00');
-        expect(params.end_at.format('YYYY-MM-DDTHH:mm:ss')).toEqual('2013-02-01T00:00:00');
+        expect(params.start_at.format('YYYY-MM-DDTHH:mm:ss')).toEqual('2013-02-25T00:00:00');
+        expect(params.end_at.format('YYYY-MM-DDTHH:mm:ss')).toEqual('2013-03-04T00:00:00');
       });
     });
     

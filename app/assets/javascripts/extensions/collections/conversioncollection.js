@@ -4,14 +4,13 @@ define([
   var ConversionCollection = Collection.extend({
 
     queryParams: function() {
-      var monthsAgo = this.options.monthsAgo || 0;
-      var at_midnight = this.moment().startOf('month').subtract(monthsAgo, 'months');
-      var query = {
-        start_at: at_midnight.clone().subtract(1, 'months'),
-        end_at: at_midnight
+      var weeksAgo = this.options.weeksAgo || 0;
+      var startOfWeek = this.moment().utc().day(1).startOf('day').subtract(weeksAgo, 'weeks');
+      
+      return {
+        start_at: startOfWeek.clone().subtract(1, 'weeks'),
+        end_at: startOfWeek
       };
-
-      return query;
     },
     
     parse: function (response) {
