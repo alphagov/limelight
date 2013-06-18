@@ -1,3 +1,5 @@
+require_relative '../../lib/feature_toggles'
+
 describe "Feature toggles" do
   describe "update from hash" do
 

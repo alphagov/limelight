@@ -1,39 +1,10 @@
-class FeatureToggles
-  def initialize
-    @feature_toggles = {}
-  end
+require_relative '../../lib/feature_toggles'
 
-  def update_from_hash(hash)
-    feature_toggles_hash =
-        hash.reduce({}) do |feature_toggles, (feature, activation)|
-          feature_toggles.tap {|ft| ft[feature.to_sym] = toggle_value(activation)}
-        end
-    @feature_toggles.update(feature_toggles_hash)
-  end
+main_yaml_path = Rails.root.join("config", "environments", "feature_toggles.yml")
+override_yaml_path  = Rails.root.join("config", "environments", "feature_toggles_override.yml")
 
-  def update_from_yaml_file(file_path)
-    update_from_hash(load_yaml(file_path))
-  end
+toggles = FeatureToggles.new
+toggles.update_from_yaml_file(main_yaml_path)
+toggles.update_from_yaml_file(override_yaml_path) if File.exists? override_yaml_path
 
-  def to_hash
-    @feature_toggles
-  end
-
-  private
-
-  def toggle_value(activation)
-    case activation
-      when "release"
-        true
-      when "dev"
-        (Rails.env.development? or Rails.env.test?)
-      else
-        false
-    end
-  end
-
-  def load_yaml(file_path)
-    YAML.load(File.read(file_path))
-  end
-
-end
+Limelight::Application.config.feature_toggles = toggles.to_hash
