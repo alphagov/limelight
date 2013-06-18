@@ -1,7 +1,7 @@
 require_relative '../../lib/feature_toggles'
 
-main_yaml_path = Rails.root.join("config", "environments", "feature_toggles.yml")
-override_yaml_path  = Rails.root.join("config", "environments", "feature_toggles_override.yml")
+main_yaml_path = Rails.root.join("config", "feature_toggles.yml")
+override_yaml_path  = Rails.root.join("config", "feature_toggles_override.yml")
 
 toggles = FeatureToggles.new
 toggles.update_from_yaml_file(main_yaml_path)
