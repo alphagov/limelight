@@ -1,5 +1,5 @@
 define([
-  'licensing/views/applications-success-rate',
+  'extensions/views/conversion-success-rate',
   'extensions/collections/collection'
 ],
 function (SuccessRateView, Collection) {
@@ -38,7 +38,9 @@ function (SuccessRateView, Collection) {
           }
         ]);
         var view = new SuccessRateView({
-          collection: collection
+          collection: collection,
+          startStep: 'licensingUserJourney:downloadFormPage',
+          endStep: 'licensingUserJourney:end'
         });
         expect(view.getValue()).toEqual(0.5);
       });
@@ -70,7 +72,7 @@ function (SuccessRateView, Collection) {
 
         jasmine.renderView(view, function () {
           expect(view.$el.html()).toEqual(
-            '<strong>23%</strong> average success rate'
+            '<strong>23%</strong> average completion rate'
           );
         });
       });

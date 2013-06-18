@@ -6,6 +6,21 @@
   <h1>Licensing performance <span class="tagline">(licences and authorities on GOV.UK only)</span></h1>
 </header>
 
+<% if Settings.feature_toggles[:show_licensing_visitors_realtime] %>
+  <section>
+    <h1>Live service usage</h1>
+    <ul class="module-actions">
+      <li class="info">
+        <div>
+          <p>Shows estimated number of users currently accessing licensing pages.</p>
+        </div>
+      </li>
+    </ul>
+    <h2>Users actively browsing licensing pages now</h2>
+    <p id="number-of-visitors-realtime" class="impact-number"></p>
+  </section>
+<% end %>
+
 <section class="graph">
   <h1>Form submissions</h1>
   <ul class="module-actions">
@@ -27,10 +42,11 @@
       <li class="info">
         <div>
           <p>Data sources: Google Analytics (unique visitors numbers based on sampled data)</p>
+          <p>Completion calculated as percentage of unique visitors who arrived at the done page out of those who arrived at the download form page.</p>
         </div>
       </li>
     </ul>
-    <h2>Completion rate for all submissions for last week</h2>
+    <h2>Completion rate for all submissions last month</h2>
     <p id="applications-success-rate" class="impact-number"></p>
   </section>
 <% end %>
@@ -42,11 +58,11 @@
       <div>
         <p>Data sources: Google Analytics (unique visitors numbers based on sampled data)</p>
         <p>Shows only those stages that are common across all licensing submissions (some licences have additional fee payment stages which are not included).</p>
-        <p>Percentages calculated as percentage of unique visitors who arrived at each stage out of those who started.</p>
+        <p>Calculated as percentage of unique visitors who arrived at each stage out of those who arrived at the download form page.</p>
       </div>
     </li>
   </ul>
-  <h2>Percentages of unique visitors at common stages of licensing submissions (last week, sampled data)</h2>
+  <h2>Percentages of unique visitors at common stages of licensing submissions <span class="group0">two weeks ago</span> compared with <span class="group1">last week</span></h2>
   <figure class="graph conversion-graph" id="applications-conversion-graph"></figure>
 </section>
 
