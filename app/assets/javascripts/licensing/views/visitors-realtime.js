@@ -4,12 +4,12 @@ define([
 function (View) {
   var VisitorsRealtimeView = View.extend({
     initialize: function (options) {
-      this.collection.on('reset', this.setValue, this);
-      this.collectionUpdateInterval = options && options.collectionUpdateInterval || 120 * 1000;
+      this.collection.on('reset', this.updateValue, this);
+      this.collectionUpdateInterval = (options && options.collectionUpdateInterval) || 120 * 1000;
       this.numberOfVisitorsRealtime = 0;
     },
     updateInterval: 5000,
-    setValue: function () {
+    updateValue: function () {
       if (!this.collection.length) {
         return;
       }
