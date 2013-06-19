@@ -1,5 +1,5 @@
 define([
-  'licensing/views/realtime',
+  'licensing/views/uptime',
   'licensing/collections/licensing-availability-for-24-hours'
 ], function (RealtimeView, LicensingAvailabilityFor24HoursCollection) {
   describe("RealtimeView", function () {

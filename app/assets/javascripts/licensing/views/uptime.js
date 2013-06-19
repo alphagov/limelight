@@ -2,7 +2,7 @@ define([
   'extensions/views/view'
 ],
 function (View) {
-  var RealtimeView = View.extend({
+  var UptimeView = View.extend({
     initialize: function () {
       this.collection.on('reset', this.render, this);
       View.prototype.initialize.apply(this, arguments);
@@ -11,5 +11,5 @@ function (View) {
         this.$el.html("<strong>" + this.collection.getPercentageOfUptime() + "%</strong>");
     }
   });
-  return RealtimeView;
+  return UptimeView;
 });
