@@ -49,6 +49,8 @@ module ApplicationHelper
       if parameters[:action] == 'services'
         services_path
       end
+    when "fco"
+      services_path
     when "licensing"
       services_path
     end
