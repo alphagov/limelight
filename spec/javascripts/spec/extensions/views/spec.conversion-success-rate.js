@@ -45,6 +45,29 @@ function (SuccessRateView, Collection) {
         expect(view.getValue()).toEqual(0.5);
       });
 
+      it("returns 0 when end value is 0", function () {
+        collection.reset([
+          {
+            eventCategory: 'licensingUserJourney:end',
+            uniqueEvents: 0
+          },
+          {
+            eventCategory: 'licensingUserJourney:downloadFormPage',
+            uniqueEvents: 200
+          },
+          {
+            eventCategory: 'ignored',
+            uniqueEvents: 23
+          }
+        ]);
+        var view = new SuccessRateView({
+          collection: collection,
+          startStep: 'licensingUserJourney:downloadFormPage',
+          endStep: 'licensingUserJourney:end'
+        });
+        expect(view.getValue()).toEqual(0);
+      });
+
       it("returns null when either start or end value are not available", function () {
         collection.reset([
           {
