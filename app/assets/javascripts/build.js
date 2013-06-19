@@ -48,4 +48,4 @@
   },
 
   excludeShallow: [ 'd3' ]
-})
+});
