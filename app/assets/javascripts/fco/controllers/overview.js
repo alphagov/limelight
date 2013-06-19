@@ -30,7 +30,7 @@ define([
 
     var successRate = new SuccessRateView({
       el: $('#applications-success-rate'),
-      collection: conversionCollection.collectionInstances[0],
+      collection: conversionCollection.collectionInstances[1],
       startStep: serviceName + ':start',
       endStep: serviceName + ':done'
     });
