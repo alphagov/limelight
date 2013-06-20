@@ -44,7 +44,7 @@ nav.performance-nav {
 
   ul {
     list-style:none;
-    padding: 0;
+    padding: 0 0 0 33.33%;
     margin: 0 0 0.5em 1em;
 
     li {
@@ -67,17 +67,16 @@ nav.performance-nav {
 }
 
 
-@media (min-width: 769px) {
-    #global-header .header-proposition #proposition-links li {
-        width:auto;
-    }
+@media (max-width: 768px) {
+  #global-header .header-proposition #proposition-links li {
+    width:100%;
+  }
 
-    nav.performance-nav {
-
-      ul {
-        padding: 0 0 0 33.33%;
-      }
+  nav.performance-nav {
+    ul {
+      padding: 0;
     }
+  }
 }
 
 @media (max-width: 640px) {
