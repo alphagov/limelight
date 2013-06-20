@@ -31,6 +31,8 @@ function (require, Graph, XAxis, YAxis, Stack, Hover, Callout) {
     getConfigName: function () {
       return this.collection.query.get('period') || 'week';
     },
+
+    valueAttr: '_count',
     
     calcXScale: function () {
       var start, end, xScale;
@@ -57,9 +59,10 @@ function (require, Graph, XAxis, YAxis, Stack, Hover, Callout) {
     calcYScale: function () {
       var collection = this.collection;
       var d3 = this.d3;
+      var valueAttr = this.valueAttr;
       var max = d3.max(this.collection.models, function (group) {
         return d3.max(group.get('values').models, function (value) {
-          return value.get('_count');
+          return value.get(valueAttr);
         });
       });
       

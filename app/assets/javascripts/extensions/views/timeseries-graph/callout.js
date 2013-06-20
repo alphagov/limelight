@@ -11,7 +11,7 @@ function (Callout) {
     yOffset: -7,
     
     y: function (model, index) {
-      return this.scales.y(model.get('_count'));
+      return this.scales.y(model.get(this.graph.valueAttr));
     },
     
     configs: {
@@ -63,7 +63,7 @@ function (Callout) {
         group.get('title'),
         '</dt>',
         '<dd>',
-        this.formatNumericLabel(Math.floor(model.get('_count'))),
+        this.formatNumericLabel(Math.floor(model.get(this.graph.valueAttr))),
         '</dd>'
       ].join(''));
       

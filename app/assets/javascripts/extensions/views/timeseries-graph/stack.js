@@ -22,7 +22,7 @@ function (Stack) {
     },
     
     yStack: function (model) {
-      return model.get('_count');
+      return model.get(this.graph.valueAttr);
     }
   });
   

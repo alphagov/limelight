@@ -25,7 +25,7 @@ function (Line) {
     },
     
     y: function (model, index) {
-      return this.scales.y(model.get('_count'));
+      return this.scales.y(model.get(this.graph.valueAttr));
     }
   });
   
