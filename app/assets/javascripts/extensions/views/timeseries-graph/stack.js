@@ -2,7 +2,7 @@ define([
   'extensions/views/graph/stack'
 ],
 function (Stack) {
-  var ApplicationsStack = Stack.extend({
+  var TimeseriesStack = Stack.extend({
     
     interactive: true,
     
@@ -26,5 +26,5 @@ function (Stack) {
     }
   });
   
-  return ApplicationsStack;
+  return TimeseriesStack;
 });

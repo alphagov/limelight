@@ -1,11 +1,11 @@
 define([
-  'licensing/views/applications-graph/applicationsperlicencegraph',
+  'extensions/views/timeseries-graph/multi-timeseries-graph',
   'extensions/collections/collection',
   'moment'
 ],
 function (Graph, Collection, moment) {
   
-  describe("Per Licence Applications Graph", function() {
+  describe("MultiTimeseriesGraph", function() {
     
     var collection, graph, el;
     beforeEach(function() {

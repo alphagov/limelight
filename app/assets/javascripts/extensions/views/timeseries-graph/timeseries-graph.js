@@ -8,7 +8,7 @@ define([
   './callout'
 ],
 function (require, Graph, XAxis, YAxis, Stack, Hover, Callout) {
-  var ApplicationsGraph = Graph.extend({
+  var TimeseriesGraph = Graph.extend({
     
     sharedComponents: {
       xaxis: XAxis,
@@ -72,5 +72,5 @@ function (require, Graph, XAxis, YAxis, Stack, Hover, Callout) {
     }
   });
   
-  return ApplicationsGraph;
+  return TimeseriesGraph;
 });

@@ -3,7 +3,7 @@ define([
 ],
 function (Axis) {
   
-  var ApplicationsYAxis = Axis.extend({
+  var TimeseriesYAxis = Axis.extend({
     position: 'left',
     classed: 'y-axis',
     ticks: 7,
@@ -16,5 +16,5 @@ function (Axis) {
     }
   });
   
-  return ApplicationsYAxis;
+  return TimeseriesYAxis;
 });

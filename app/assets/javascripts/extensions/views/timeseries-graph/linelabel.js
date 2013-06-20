@@ -2,7 +2,7 @@ define([
   'extensions/views/graph/linelabel'
 ],
 function (LineLabel) {
-  var ApplicationsLineLabel = LineLabel.extend({
+  var TimeseriesLineLabel = LineLabel.extend({
     
     showSquare: true,
     interactive: function (e) {
@@ -10,5 +10,5 @@ function (LineLabel) {
     }
   });
   
-  return ApplicationsLineLabel;
+  return TimeseriesLineLabel;
 });

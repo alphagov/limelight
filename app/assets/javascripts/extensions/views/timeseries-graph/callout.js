@@ -3,7 +3,7 @@ define([
 ],
 function (Callout) {
   
-  var ApplicationsCallout = Callout.extend({
+  var TimeseriesCallout = Callout.extend({
   
     horizontal: 'right',
     vertical: 'bottom',
@@ -72,5 +72,5 @@ function (Callout) {
     
   });
   
-  return ApplicationsCallout;
+  return TimeseriesCallout;
 });

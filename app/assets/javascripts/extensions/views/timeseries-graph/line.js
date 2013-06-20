@@ -3,7 +3,7 @@ define([
 ],
 function (Line) {
   
-  var ApplicationsLine = Line.extend({
+  var TimeseriesLine = Line.extend({
     
     interactive: function (e) {
       return e.slice % 3 !== 2;
@@ -29,5 +29,5 @@ function (Line) {
     }
   });
   
-  return ApplicationsLine;
+  return TimeseriesLine;
 });
