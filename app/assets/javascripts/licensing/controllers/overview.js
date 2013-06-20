@@ -18,6 +18,15 @@ define([
              VisitorsRealtimeCollection, VisitorsRealtimeView) {
   return function () {
 
+    var conversionCollection = new ConversionCollection();
+
+    var successRate = new SuccessRateView({
+      el: $('#applications-success-rate'),
+      collection: conversionCollection.collectionInstances[1],
+      startStep: "licensingUserJourney:downloadFormPage",
+      endStep: "licensingUserJourney:end"
+    });
+
     if (!$('.lte-ie8').length) {
       var applicationsCollection = new GraphCollection(null, {
         collections: [ApplicationsCollection]
@@ -44,23 +53,13 @@ define([
 
       applicationsCollection.query.set('period', 'week');
 
-      var conversionCollection = new ConversionCollection();
-
-      var successRate = new SuccessRateView({
-        el: $('#applications-success-rate'),
-        collection: conversionCollection.collectionInstances[1],
-        startStep: "licensingUserJourney:downloadFormPage",
-        endStep: "licensingUserJourney:end"
-      });
-
-
       var conversionGraph = new ConversionGraph({
         el: $('#applications-conversion-graph'),
         collection: conversionCollection
       });
-
-      conversionCollection.fetch();
     }
+
+    conversionCollection.fetch();
 
 
     var top5LicencesCollection = new Top5Collection([], {
