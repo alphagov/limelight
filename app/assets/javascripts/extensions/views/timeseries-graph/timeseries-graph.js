@@ -55,6 +55,8 @@ function (require, Graph, XAxis, YAxis, Stack, Hover, Callout) {
       
       return xScale;
     },
+
+    minYDomainExtent: 6,
     
     calcYScale: function () {
       var collection = this.collection;
@@ -67,7 +69,7 @@ function (require, Graph, XAxis, YAxis, Stack, Hover, Callout) {
       });
       
       var yScale = this.d3.scale.linear();
-      var tickValues = this.calculateLinearTicks([0, Math.max(max, 6)], 7);
+      var tickValues = this.calculateLinearTicks([0, Math.max(max, this.minYDomainExtent)], 7);
       yScale.domain(tickValues.extent);
       yScale.rangeRound([this.innerHeight, 0]);
       yScale.tickValues = tickValues.values;

@@ -29,7 +29,12 @@ define([
 
     if (!$('.lte-ie8').length) {
       var applicationsCollection = new GraphCollection(null, {
-        collections: [ApplicationsCollection]
+        collections: [ApplicationsCollection],
+        options: {
+          query: {
+            period: 'week'
+          }
+        }
       });
       var graphView = new ApplicationsGraph({
         el: $('#total-applications'),
@@ -51,7 +56,7 @@ define([
         model: applicationsCollection.query
       });
 
-      applicationsCollection.query.set('period', 'week');
+      applicationsCollection.fetch();
 
       var conversionGraph = new ConversionGraph({
         el: $('#applications-conversion-graph'),

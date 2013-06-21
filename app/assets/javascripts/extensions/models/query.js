@@ -28,13 +28,13 @@ function (Model) {
     periods: {
       week: {
         boundary: function (date) {
-          return date.utc().day(1).startOf('day');
+          return date.day(1).startOf('day');
         },
         duration: 9
       },
       month: {
         boundary: function (date) {
-          return date.utc().startOf('month');
+          return date.startOf('month');
         },
         duration: 12
       }
