@@ -4,7 +4,12 @@ class FixtureLoader
   end
 
   def load(file_name)
-    JSON.parse(File.read(dir_path() + file_name))
+    begin
+      JSON.parse(File.read(dir_path() + file_name))
+    rescue
+      p "Unable to find file #{file_name}"
+      nil
+    end
   end
 
   private

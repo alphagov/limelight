@@ -2,7 +2,7 @@ require_relative "../../features/backdrop_stub/backdrop_stub"
 require_relative "../../features/backdrop_stub/stub_config"
 require_relative "../../features/backdrop_stub/fixture_loader"
 
-describe 'Backdrop Stub' do
+describe 'Stubbing out backdrop responses from files' do
   it 'should return fixture files matching parameters' do
     backdrop = BackdropStub.new(
         FixtureLoader.new('features/backdrop_stub_responses'),
@@ -19,6 +19,22 @@ describe 'Backdrop Stub' do
             'anything_else_rails_may_add' => 'something...'
         }
     ).should == {'this' => 'is used in the stub backdrop spec'}
+  end
+
+  it 'should return nil for parameters that do not match anything' do
+    backdrop = BackdropStub.new(
+        FixtureLoader.new('features/backdrop_stub_responses'),
+        [StubConfig.new(
+             {'filter_by' => 'id:foo', 'sort_by' => 'id:descending'},
+             'fixture_for_spec.json')]
+    )
+
+    backdrop.response_for_params(
+        {
+            'method' => 'blah',
+            'anything_else_rails_may_add' => 'something...'
+        }
+    ).should == nil
   end
 end
 
@@ -91,6 +107,11 @@ describe 'Backdrop Stub' do
     it 'should treat trailing slashes as optional' do
       loader = FixtureLoader.new('features/backdrop_stub_responses/')
       loader.load('fixture_for_spec.json').should == {'this' => 'is used in the stub backdrop spec'}
+    end
+
+    it 'should return nil when there is a file missing' do
+      loader = FixtureLoader.new('features/backdrop_stub_responses/')
+      loader.load('does_not_exist').should == nil
     end
   end
 end

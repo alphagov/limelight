@@ -5,10 +5,16 @@ class BackdropStub
   end
 
   def response_for_params(params)
-    response_file = @stub_configs.find { |config|
+    fixture = @stub_configs.find { |config|
       config.matches_parameters?(params)
-    }.response
+    }
 
-    @fixture_loader.load(response_file)
+    response = nil
+
+    unless fixture.nil?
+      response = @fixture_loader.load(fixture.response)
+    end
+
+    response
   end
 end
