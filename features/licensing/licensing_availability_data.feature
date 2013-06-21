@@ -1,3 +1,4 @@
+@javascript
 @wip
 Feature: Pingdom data for licensing
   As a service manager
