@@ -12,7 +12,7 @@ function (Axis) {
       return this.scales.y;
     },
     tickFormat: function () {
-      return this.numberListFormatter([this.scales.y.domain()[1]]);
+      return this.numberListFormatter(this.scales.y.tickValues);
     }
   });
   
