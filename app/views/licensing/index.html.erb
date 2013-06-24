@@ -36,7 +36,7 @@
 </section>
 
 <% if Rails.application.config.feature_toggles[:show_licensing_overview_success_rate] %>
-  <section class="half-width">
+  <section class="half-width row-start">
     <h1>Completion rate</h1>
     <ul class="module-actions">
       <li class="info">
@@ -66,13 +66,13 @@
   <figure class="graph conversion-graph" id="applications-conversion-graph"></figure>
 </section>
 
-<section class="half-width" id="licensing-uptime-module">
+<section class="half-width row-start" id="licensing-uptime-module">
   <h1>Uptime</h1>
   <ul class="module-actions">
     <li class="info">
       <div>
         <p>Data sources: Pingdom</p>
-        <p>Uptime calculated as the time where the service was not returning error messages to users.</p>
+        <p>Uptime calculated as the time where the service did not return error messages to users.</p>
       </div>
     </li>
   </ul>
