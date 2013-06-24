@@ -4,6 +4,10 @@
     max-width: 954px;
     max-height: 200px;
 
+    &:hover {
+      max-height: 300px;
+    }
+
     .x-axis {
       .selected text {
         font-weight:bold;
@@ -147,7 +151,6 @@
   
   .half-width .conversion-graph {
     max-width: 954px;
-    max-height: 300px;
     .arrow {
       display:none;
     }
