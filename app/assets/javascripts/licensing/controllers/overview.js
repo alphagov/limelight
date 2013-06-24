@@ -9,8 +9,8 @@ define([
   'extensions/views/conversion-graph/conversion-graph',
   'extensions/views/tabs',
   'extensions/views/conversion-success-rate',
-  'licensing/collections/visitors-realtime',
-  'licensing/views/visitors-realtime',
+  'extensions/collections/visitors-realtime',
+  'extensions/views/visitors-realtime',
   'licensing/collections/licensing-availability-for-24-hours',
   'licensing/views/uptime'
 ], function (ApplicationsCollection, ApplicationsGraph, ApplicationsHeadlineView,
@@ -20,6 +20,15 @@ define([
              VisitorsRealtimeCollection, VisitorsRealtimeView,
              LicensingAvailabilityFor24Hours, UptimeView) {
   return function () {
+
+    var conversionCollection = new ConversionCollection();
+
+    var successRate = new SuccessRateView({
+      el: $('#applications-success-rate'),
+      collection: conversionCollection.collectionInstances[1],
+      startStep: "licensingUserJourney:downloadFormPage",
+      endStep: "licensingUserJourney:end"
+    });
 
     if (!$('.lte-ie8').length) {
       var applicationsCollection = new GraphCollection(null, {
@@ -47,23 +56,13 @@ define([
 
       applicationsCollection.query.set('period', 'week');
 
-      var conversionCollection = new ConversionCollection();
-
-      var successRate = new SuccessRateView({
-        el: $('#applications-success-rate'),
-        collection: conversionCollection.collectionInstances[1],
-        startStep: "licensingUserJourney:downloadFormPage",
-        endStep: "licensingUserJourney:end"
-      });
-
-
       var conversionGraph = new ConversionGraph({
         el: $('#applications-conversion-graph'),
         collection: conversionCollection
       });
-
-      conversionCollection.fetch();
     }
+
+    conversionCollection.fetch();
 
 
     var top5LicencesCollection = new Top5Collection([], {
@@ -93,7 +92,9 @@ define([
 
     if ($('#number-of-visitors-realtime').length) {
       var updateInterval = 120 * 1000;
-      var visitorsRealtimeCollection = new VisitorsRealtimeCollection();
+      var visitorsRealtimeCollection = new VisitorsRealtimeCollection([],{
+        serviceName: "licensing"
+      });
 
       var visitorsRealtimeView = new VisitorsRealtimeView({
         el: $('#number-of-visitors-realtime'),

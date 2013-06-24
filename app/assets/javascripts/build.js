@@ -8,7 +8,9 @@
     "licensing/controllers/licences",
     "licensing/controllers/overview",
     "licensing/controllers/per_authority",
-    "licensing/controllers/per_licence"
+    "licensing/controllers/per_licence",
+    "common/controllers/services",
+    "fco/controllers/overview"
   ],
 
   out: "production.js",

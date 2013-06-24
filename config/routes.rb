@@ -1,9 +1,7 @@
 Limelight::Application.routes.draw do
   match "/_status" => "healthcheck#index", via: :get
 
-  if Rails.application.config.feature_toggles[:show_services]
-    match "/performance/services" => "common#services", via: :get, as: "services"
-  end
+  match "/performance/services" => "common#services", via: :get, as: "services"
 
   if Rails.env.test? or Rails.env.development?
     match "/backdrop_stub/performance/:service/api/:api_name" => "backdrop_stub#serve_fixture", via: :get

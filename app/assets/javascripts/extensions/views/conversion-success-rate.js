@@ -18,8 +18,8 @@ function (View) {
         });
 
         var value = null;
-        if (start.length && end.length) {
-          value = end[0].get('uniqueEvents') / start[0].get('uniqueEvents') || null;
+        if (start.length && end.length && start[0].get('uniqueEvents') != 0) {
+          value = end[0].get('uniqueEvents') / start[0].get('uniqueEvents');
         }
 
         return value;
