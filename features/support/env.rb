@@ -18,10 +18,14 @@ Capybara.default_selector = :css
 
 Capybara.register_driver :poltergeist do |app|
   #TODO: this should really be true and the js layer should deal with any errors before they bubble up
-  Capybara::Poltergeist::Driver.new(app, {:js_errors => false})
+  Capybara::Poltergeist::Driver.new(app, {
+      :js_errors => false,
+      :debug => false
+  })
 end
 
 Capybara.javascript_driver = :poltergeist
+Capybara.default_wait_time = 5
 
 
 # By default, any exception happening in your Rails application will bubble up
