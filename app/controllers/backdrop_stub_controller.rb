@@ -11,7 +11,7 @@ class BackdropStubController < ApplicationController
     if @backdrop_stub.nil?
       @backdrop_stub = BackdropStub.new(
           FixtureLoader.new('features/backdrop_stub_responses/'),
-          [StubConfig.new({'filter_by' => 'foo:bar'}, 'fixture_for_spec.json')]
+          [StubConfig.new({'filter_by' => 'check:licensing'}, 'licensing_availability_response.json')]
       )
     end
     @backdrop_stub

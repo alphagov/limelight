@@ -6,7 +6,7 @@ Limelight::Application.routes.draw do
   end
 
   if Rails.env.test? or Rails.env.development?
-    match "/backdrop_stub" => "backdrop_stub#serve_fixture", via: :get
+    match "/backdrop_stub/performance/:service/api/:api_name" => "backdrop_stub#serve_fixture", via: :get
   end
 
   match "/performance/licensing/licences/:slug" => "licensing#per_licence", via: :get, as: "licence"

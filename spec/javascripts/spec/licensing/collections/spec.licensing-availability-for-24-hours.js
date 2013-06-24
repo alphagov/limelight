@@ -4,7 +4,7 @@ define([
 ],
   function (LicensingAvailabilityFor24HoursCollection, _) {
     describe('LicensingAvailabilityFor24HoursCollection', function () {
-      var availabilityData = [
+      var availabilityData = {"data":[
         {
           "uptime": 8,
           "downtime": 1,
@@ -15,7 +15,7 @@ define([
           "downtime": 0,
           "unmonitored": 1
         }
-      ];
+      ]};
 
       it("should be created with correct query parameters", function () {
         var collection = new LicensingAvailabilityFor24HoursCollection();
@@ -36,11 +36,11 @@ define([
 
       it("should provide percentage of uptime", function () {
         var collection =
-          new LicensingAvailabilityFor24HoursCollection([{
+          new LicensingAvailabilityFor24HoursCollection({"data": [{
             "uptime": 8,
             "downtime": 1,
             "unmonitored": 1
-          }]);
+          }]});
 
         var percentageOfUptime = collection.getPercentageOfUptime();
 
@@ -49,9 +49,9 @@ define([
 
       it("should provide total uptime", function () {
         var collection =
-          new LicensingAvailabilityFor24HoursCollection([{
+          new LicensingAvailabilityFor24HoursCollection({"data": [{
             "uptime": 5
-          }]);
+          }]});
 
         var totalUptime = collection._getTotalUptime();
 
@@ -60,11 +60,11 @@ define([
 
       it("should provide total uptime for all models", function () {
         var collection =
-          new LicensingAvailabilityFor24HoursCollection([{
+          new LicensingAvailabilityFor24HoursCollection({"data": [{
             "uptime": 5
           },{
             "uptime": 7
-          }]);
+          }]});
 
         var totalUptime = collection._getTotalUptime();
 
@@ -73,11 +73,11 @@ define([
 
       it("should provide total time", function () {
         var collection =
-          new LicensingAvailabilityFor24HoursCollection([{
+          new LicensingAvailabilityFor24HoursCollection({"data": [{
             "uptime": 1,
             "downtime": 2,
             "unmonitored": 3
-          }]);
+          }]});
 
         var totalTime = collection._getTotalTime();
 

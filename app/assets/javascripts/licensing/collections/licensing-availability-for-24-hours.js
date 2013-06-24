@@ -3,6 +3,10 @@ define([
 ],
 function (Collection) {
   var LicensingAvailabilityFor24HoursCollection = Collection.extend({
+
+    serviceName: 'licensing',
+    apiName: 'monitoring',
+
     queryParams: function () {
       return {
         filter_by: "check:licensing",
@@ -11,13 +15,21 @@ function (Collection) {
       };
     },
     _getTotalUptime: function () {
-      var listOfUptimes = this.pluck("uptime");
-      var total = _.reduce(listOfUptimes, function (sum, number) { return sum + number; }, 0);
+      var data = this.pluck('data')[0];
+      var total = 0;
+      for (var i = 0, len = data.length; i < len; i++) {
+        total += data[i]['uptime'];
+      }
       return total;
     },
     _getTotalTime: function () {
-      var listOfTimes = this.pluck("downtime").concat(this.pluck("unmonitored")).concat(this.pluck("uptime"));
-      var total = _.reduce(listOfTimes, function (sum, number) { return sum + number; }, 0);
+      var data = this.pluck('data')[0];
+      var total = 0;
+      for (var i = 0, len = data.length; i < len; i++) {
+        total += data[i]['downtime'];
+        total += data[i]['unmonitored'];
+        total += data[i]['uptime'];
+      }
       return total;
     },
     getPercentageOfUptime: function () {

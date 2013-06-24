@@ -26,7 +26,7 @@ end
 
 Then(/^the uptime module for licensing should display (.*)$/) do |uptime|
   page.all("#licensing-uptime-module").count.should == 1
-  page.find("#licensing-uptime-module p.impact-number").text.should == uptime
+  page.find("#licensing-uptime strong").should have_content(uptime)
 end
 
 Then(/^the response time module for licensing should display (.*)$/) do |response_time|
