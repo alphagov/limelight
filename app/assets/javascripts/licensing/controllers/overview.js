@@ -110,10 +110,15 @@ define([
     }
 
     var licensingAvailabilityCollection = new LicensingAvailabilityFor24Hours();
-    var licensingAvailabilityView = new SingleStatView({
+    var licensingAvailabilityUptimeView = new SingleStatView({
       collection: licensingAvailabilityCollection,
       el: $('#licensing-uptime'),
       getStatFunction: function (collection) { return collection.getPercentageOfUptime() + '%'; }
+    });
+    var licensingAvailabilityResponseTimeView = new SingleStatView({
+      collection: licensingAvailabilityCollection,
+      el: $('#licensing-response-time'),
+      getStatFunction: function (collection) { return collection.getAverageResponseTime() + 'ms'; }
     });
     licensingAvailabilityCollection.fetch();
   };
