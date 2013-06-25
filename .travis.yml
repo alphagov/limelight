@@ -11,7 +11,8 @@ env:
     - secure: "R5cu/q7tBqQYL1ElmM1uD1mrWpZY2fnoBFxJ+iFGcLhi17OudUWfrxRA7qwA\nkB8LhtT37Qkj4zluCFyqkwYW+G7fBg0fgkVIPI49vGyqEvBjdHhA4uZhwN3/\ndo3iYZYqweL2AOmTDkEsvjlFZKIKRRLGdm7jbaSs7mahOJyfmhc="
     - secure: "SKRXpNmYXrKLRn02+M8S1jDLVR9Jt3CCS4C9eqh+W7hh91fBvTaxoYdM/1I8\n1XbRbBHijtOb7QvEX2+WjsrCrxEBKdF3IhmNLM9d/I7ihvecY/hlDH+dxD66\n/g2UtyXDPoiGH/BwF63MCHSjWcX+EcyRZn3z6lRJMoGya95jDUk="
 before_script:
-  - curl https://gist.github.com/santiycr/5139565/raw/sauce_connect_setup.sh | bash
+  - curl https://gist.github.com/robyoung/5862004/raw/sauce_connect_setup.sh | bash
 script:
   - bundle exec rake test:all --trace
+  - ps -Alf | grep Sauce-Connect.jar
   - GOVUK_ASSET_HOST='https://static.production.alphagov.co.uk' BROWSER="windows xp,firefox" SAUCE_USER_NAME=$SAUCE_USERNAME SAUCE_API_KEY=$SAUCE_ACCESS_KEY bundle exec cucumber -p sauce
