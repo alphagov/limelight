@@ -17,8 +17,12 @@
  = require nav
  = require table
  = require graph
+ = require applications-graph
+ = require conversion-graph
  = require applicationstable
  = require top5table
  = require filteredlist
  = require tabs
+ = require module-actions
+ = require impact-number
  */

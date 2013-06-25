@@ -2,6 +2,8 @@
   name: "main",
 
   deps: [
+    "licensing/controllers/preprocessors/module_touch_actions",
+    "licensing/controllers/preprocessors/partial_experience_warning",
     "licensing/controllers/authorities",
     "licensing/controllers/licences",
     "licensing/controllers/overview",
