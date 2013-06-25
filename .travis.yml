@@ -8,11 +8,10 @@ matrix:
     - rvm: 2.0.0
 env:
   global:
-    - secure: "sC37m+vii9lUH/jQVQeuvCM7AMqqbdd81L4O/4bZUL78UdZtAeuDGJis0vpZ\nLjFXwHL35I8rT/fFzncq0VQmlrqE6ywibuET8l+7RWVxAPtZ5GoPS1F7uUTZ\n0IK/VOAaLYopHFNCkxVDZ3e6cnKrupQQNAK3lkQ8i97j6gfaTBo="
-    - secure: "K6jxuz3O2fN7bQhoTmQ/M+ERzEHgrf5CmK/6EV1WQI3XKuoJCMSyl917bHGB\nVGzrmDcqipPGYOxsiqOMQaD0EFBaLO8h/8UHNemEPwYGM4LzNI7B+sa9Y3Lo\n4ssSd2MMK7WWSJzRDgC0s9hZKBLq0TgCMj7I6hxK3R+hXyTXcHU="
+    - secure: "POCDb9nm0jgXCeRMqz2Ul+KPmZAQpve0IxFL0WQ1Ad9RxiK8rQzRkoHnc1RY\ntFDYN9x5EpQbIn1wmOPLEMZhMp0uibtlraSeYSYwoIVpbK2A5jZ1r83x5PEY\n/TzM2A8eun0nQWm/xwwC6cx2jiuhWZ/nw8ODCb0ln9QXKIhgPvc="
+    - secure: "GH6Kx/tbkr5VqWsOAJjdsDC+bwFr6A5yZ05hhJIbRLyNT+h4aGIkNXqMOSQ9\nxtXUM/2nxGEQ+YizUcawUGs9XlvhUTCyy9pl/XcaiZ5WCaNkviZfTJWmQ8pQ\nM2mS9NZcWt9G3ZT/yv1ZWEE/SCRHuvDfhSLApbGcNYLULrPRZwc="
 before_script:
   - curl https://gist.github.com/robyoung/5862004/raw/sauce_connect_setup.sh | bash
 script:
   - bundle exec rake test:all --trace
-  - ps -Alf | grep Sauce-Connect.jar
   - GOVUK_ASSET_HOST='https://static.production.alphagov.co.uk' BROWSER="windows xp,firefox" SAUCE_USER_NAME=$SAUCE_USERNAME SAUCE_API_KEY=$SAUCE_ACCESS_KEY bundle exec cucumber -p sauce
