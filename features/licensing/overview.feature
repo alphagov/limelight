@@ -8,7 +8,7 @@ Feature: Overview page
        When I go to /performance/licensing
        Then I should get back a status of 200
         And the category title should be "Services"
-        And the category title should link to "/performance"
+        And the category title should link to "/performance/services"
         And the page title should be "Licensing performance (licences and authorities on GOV.UK only)"
         And the 1st subtitle should be "Form submissions"
         And the 1st section description should be "Total form submissions per week over the last 9 weeks"
@@ -28,7 +28,7 @@ Feature: Overview page
        When I go to /performance/licensing
        Then I should get back a status of 200
         And the category title should be "Services"
-        And the category title should link to "/performance"
+        And the category title should link to "/performance/services"
         And the page title should be "Licensing performance (licences and authorities on GOV.UK only)"
         And the 4th subtitle should be "Top licences last week"
         And the 4th section description should be "Top licences by submission volume last week"
