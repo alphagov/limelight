@@ -36,7 +36,7 @@
 </section>
 
 <% if Rails.application.config.feature_toggles[:show_licensing_overview_success_rate] %>
-  <section class="half-width">
+  <section class="half-width row-start">
     <h1>Completion rate</h1>
     <ul class="module-actions">
       <li class="info">
@@ -64,6 +64,35 @@
   </ul>
   <h2>Percentages of unique visitors at common stages of licensing submissions <span class="group0">two weeks ago</span> compared with <span class="group1">last week</span></h2>
   <figure class="graph conversion-graph" id="applications-conversion-graph"></figure>
+</section>
+
+<section class="half-width row-start" id="licensing-uptime-module">
+  <h1>Uptime</h1>
+  <ul class="module-actions">
+    <li class="info">
+      <div>
+        <p>Data sources: Pingdom</p>
+        <p>Uptime calculated as the time where the service did not return error messages to users.</p>
+      </div>
+    </li>
+  </ul>
+  <h2>Service uptime for Licensing</h2>
+  <p id="licensing-uptime" class="impact-number"></p>
+  <p>Mean uptime for the last 24 hours</p>
+</section>
+
+<section class="half-width" id="licensing-response-time-module">
+  <h1>Response time</h1>
+  <ul class="module-actions">
+    <li class="info">
+      <div>
+        <p>Data sources: Pingdom</p>
+      </div>
+    </li>
+  </ul>
+  <h2>Response time for Licensing</h2>
+  <p id="licensing-response-time" class="impact-number"></p>
+  <p>Mean response time for the last 24 hours</p>
 </section>
 
 <section>
@@ -95,4 +124,3 @@
   <article class="top5-table-wrapper" id="top5-authorities-table"></article>
   <p><%= link_to "See all authorities", :action => "authorities" %></p>
 </section>
-

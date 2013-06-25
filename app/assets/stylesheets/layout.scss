@@ -42,10 +42,10 @@
 
     &.half-width {
       width:48.5%;
-      margin-left:0%;
+      margin-left:3%;
       clear:none;
-      & ~ .half-width {
-        margin-left:3%;
+      &.row-start {
+        margin-left:0%;
       }
 
       .lte-ie8 & {
