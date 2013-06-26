@@ -12,7 +12,7 @@ function (GraphCollection, Group) {
     initialize: function (models, options) {
       this.serviceName = options.serviceName;
       GraphCollection.prototype.initialize.apply(this, arguments);
-      this.query.set('period', 'week', {silent: true});
+      this.query.set('period', 'week', {silent: true, utc: false});
       delete this.query.attributes.period;
     },
 
