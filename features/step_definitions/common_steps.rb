@@ -2,6 +2,18 @@ Given(/^the flag (.+) is (not )?set$/) do |flag, status|
   Rails.application.config.feature_toggles[flag.to_sym] = !(status == 'not ')
 end
 
+Given(/^The (\w+) (\w+) bucket returns the response in "(.*?)"$/) do |service, bucket, fixture_file|
+  BackdropStubController.register(service, bucket, fixture_file)
+end
+
+Then(/^I should see the module "(.*?)" with content "(.*?)"$/) do |module_title, module_content|
+  section = page.find(:xpath, "//section[contains(h1, '#{module_title}')]")
+
+  section.should be_visible
+  section.should have_content(module_content)
+end
+
+
 When(/^I go to (.*)$/) do |url|
   visit url
 end
