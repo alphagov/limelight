@@ -6,11 +6,18 @@ Given(/^The (\w+) (\w+) bucket returns the response in "(.*?)"$/) do |service, b
   BackdropStubController.register(service, bucket, fixture_file)
 end
 
-Then(/^I should see the module "(.*?)" with content "(.*?)"$/) do |module_title, module_content|
-  section = page.find(:xpath, "//section[contains(h1, '#{module_title}')]")
+Then(/^I should see the module "(.*?)"$/) do |module_title|
+  @module = page.find(:xpath, "//section[contains(h1, '#{module_title}')]")
 
-  section.should be_visible
-  section.should have_content(module_content)
+  @module.should be_visible
+end
+
+Then /the module should contain a link to "(.*?)"/ do |url|
+  @module.should have_link(nil, href: url)
+end
+
+Then /the module should contain the text "(.*?)"/ do |text|
+  @module.should have_content(text)
 end
 
 
