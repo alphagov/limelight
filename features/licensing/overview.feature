@@ -19,6 +19,7 @@ Feature: Overview page
     When I go to /performance/licensing
     Then I should see the module "Form submissions"
      And the module should contain a graph
+     And the module should contain 2 tabs
 
   Scenario: completion rate module
     When I go to /performance/licensing

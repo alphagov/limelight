@@ -34,7 +34,6 @@ define([
       var applicationsCollection = new GraphCollection(null, {
         collections: [ApplicationsCollection]
       });
-      applicationsCollection.query.set('period', 'week');
       var graphView = new ApplicationsGraph({
         el: $('#total-applications'),
         collection: applicationsCollection
@@ -55,6 +54,7 @@ define([
         model: applicationsCollection.query
       });
 
+      applicationsCollection.query.set('period', 'week');
       applicationsCollection.fetch();
 
       var conversionGraph = new ConversionGraph({

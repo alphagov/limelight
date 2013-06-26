@@ -34,7 +34,7 @@ function (Model) {
       },
       month: {
         boundary: function (date) {
-          return date.startOf('month');
+          return date.utc().startOf('month');
         },
         duration: 12
       }

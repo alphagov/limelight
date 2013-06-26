@@ -24,6 +24,10 @@ Then /^the module should contain a graph$/ do
   @module.should have_xpath("./figure/*[name()='svg']")
 end
 
+Then /^the module should contain (\d+) tabs?$/ do |tab_count|
+  @module.should have_xpath("./nav//li[#{tab_count}]")
+end
+
 
 When(/^I go to (.*)$/) do |url|
   visit url
