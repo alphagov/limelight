@@ -12,12 +12,16 @@ Then(/^I should see the module "(.*?)"$/) do |module_title|
   @module.should be_visible
 end
 
-Then /the module should contain a link to "(.*?)"/ do |url|
+Then /^the module should contain a link to "(.*?)"$/ do |url|
   @module.should have_link(nil, href: url)
 end
 
-Then /the module should contain the text "(.*?)"/ do |text|
+Then /^the module should contain the text "(.*?)"$/ do |text|
   @module.should have_content(text)
+end
+
+Then /^the module should contain a graph$/ do
+  @module.should have_xpath("./figure/*[name()='svg']")
 end
 
 

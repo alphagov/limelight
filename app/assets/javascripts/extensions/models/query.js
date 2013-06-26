@@ -28,7 +28,7 @@ function (Model) {
     periods: {
       week: {
         boundary: function (date) {
-          return date.day(1).startOf('day');
+          return date.utc().day(1).startOf('day');
         },
         duration: 9
       },

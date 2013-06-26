@@ -18,6 +18,7 @@ Feature: Overview page
     Given The licensing applications bucket returns the response in "licensing_applications.json"
     When I go to /performance/licensing
     Then I should see the module "Form submissions"
+     And the module should contain a graph
 
   Scenario: completion rate module
     When I go to /performance/licensing

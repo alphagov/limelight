@@ -32,13 +32,9 @@ define([
 
     if (!$('.lte-ie8').length) {
       var applicationsCollection = new GraphCollection(null, {
-        collections: [ApplicationsCollection],
-        options: {
-          query: {
-            period: 'week'
-          }
-        }
+        collections: [ApplicationsCollection]
       });
+      applicationsCollection.query.set('period', 'week');
       var graphView = new ApplicationsGraph({
         el: $('#total-applications'),
         collection: applicationsCollection
