@@ -28,9 +28,6 @@ function (Model) {
       if (period) {
         var endAt = period.boundary(utc ? this.moment().utc() :  this.moment().local());
         var startAt = endAt.clone().subtract(period.duration, periodName + 's');
-
-        console.log(startAt, endAt);
-
         _.extend(attrs, {
           end_at: endAt,
           start_at: startAt
