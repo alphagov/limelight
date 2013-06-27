@@ -46,6 +46,7 @@
 #volumetrics-completion {
   .line0 { stroke: $data-colour-4; }
   .stack0 { fill: mix($data-colour-4, $white, 25%); }
+  .cursorLine.descender { stroke: none; }
 }
 
 #volumetrics-submissions-selected {

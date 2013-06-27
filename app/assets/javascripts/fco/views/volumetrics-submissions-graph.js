@@ -12,7 +12,10 @@ function (TimeseriesGraph) {
             ticks: 3
           }
         },
-        { view: this.sharedComponents.stack },
+        {
+          view: this.sharedComponents.stack,
+          options: { drawCursorLine: true }
+        },
         { view: this.sharedComponents.hover }
       ];
     }
