@@ -1,4 +1,5 @@
 @wip
+@javascript
 Feature: uptime and response time for fco transactions
   As a service manager
   I want to know the availability of my service
