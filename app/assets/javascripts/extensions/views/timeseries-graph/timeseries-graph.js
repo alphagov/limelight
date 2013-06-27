@@ -27,7 +27,11 @@ function (require, Graph, XAxis, YAxis, Stack, Hover, Callout) {
         { view: this.sharedComponents.hover }
       ];
     },
-    
+
+    yAxisInstance: function() {
+      return this.componentInstances[1];
+    },
+
     getConfigName: function () {
       return this.collection.query.get('period') || 'week';
     },
@@ -59,7 +63,6 @@ function (require, Graph, XAxis, YAxis, Stack, Hover, Callout) {
     minYDomainExtent: 6,
     
     calcYScale: function () {
-      var collection = this.collection;
       var d3 = this.d3;
       var valueAttr = this.valueAttr;
       var max = d3.max(this.collection.models, function (group) {
@@ -69,7 +72,8 @@ function (require, Graph, XAxis, YAxis, Stack, Hover, Callout) {
       });
       
       var yScale = this.d3.scale.linear();
-      var tickValues = this.calculateLinearTicks([0, Math.max(max, this.minYDomainExtent)], 7);
+      var minimumTickCount = this.yAxisInstance().ticks;
+      var tickValues = this.calculateLinearTicks([0, Math.max(max, this.minYDomainExtent)], minimumTickCount);
       yScale.domain(tickValues.extent);
       yScale.rangeRound([this.innerHeight, 0]);
       yScale.tickValues = tickValues.values;
