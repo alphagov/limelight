@@ -102,8 +102,8 @@ function (Query) {
           period: 'week'
         };
         query.set(attributes);
-        expect(query.get('end_at').format('YYYY-MM-DDTHH:mm:ssZ')).toEqual('2013-05-13T00:00:00+00:00');
-        expect(query.get('start_at').format('YYYY-MM-DDTHH:mm:ssZ')).toEqual('2013-03-11T00:00:00+00:00');
+        expect(query.get('end_at')).toBeMoment(moment('2013-05-13T00:00:00+00:00'));
+        expect(query.get('start_at')).toBeMoment(moment('2013-03-11T00:00:00+00:00'));
       });
 
       xit("should generate start_at and end_at as local timezone when configured to do so", function() {
@@ -113,8 +113,8 @@ function (Query) {
         };
         var options = { utc: false }
         query.set(attributes, options);
-        expect(query.get('end_at').format('YYYY-MM-DDTHH:mm:ssZ')).toEqual('2013-05-13T00:00:00+01:00');
-        expect(query.get('start_at').format('YYYY-MM-DDTHH:mm:ssZ')).toEqual('2013-03-11T00:00:00+00:00'); // no DST on this date
+        expect(query.get('end_at')).toBeMoment(moment('2013-05-13T00:00:00+01:00'));
+        expect(query.get('start_at')).toBeMoment(moment('2013-03-11T00:00:00+00:00')); // no DST on this date
       });
 
     });
