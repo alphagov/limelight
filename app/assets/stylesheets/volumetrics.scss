@@ -32,8 +32,15 @@
   }
 
   .graph {
-    margin-left:11em;
-    max-height:200px;
+    margin-left: 11em;
+    min-height: 120px;
+    max-height: 200px;
+  }
+
+  @media(max-width: 640px) {
+    .graph {
+      min-height: 90px;
+    }
   }
 }
 
