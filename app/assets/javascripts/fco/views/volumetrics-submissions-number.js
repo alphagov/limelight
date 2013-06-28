@@ -30,11 +30,16 @@ function (View) {
         var total = values.reduce(function (memo, model) {
           return memo + model.get('uniqueEvents');
         }, 0);
+        var count = values.filter(function (model) {
+          return model.get('_id');
+        }).length;
         content = [
           '<strong>',
-          this.formatNumericLabel(total),
+          this.formatNumericLabel(total / count),
           '</strong>',
-          ' over the last 9 weeks'
+          'average per week over the last ',
+          count,
+          ' weeks'
         ].join('');
       }
       this.$el.html(content);
