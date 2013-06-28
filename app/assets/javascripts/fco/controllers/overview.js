@@ -68,7 +68,7 @@ define([
       new SingleStatView({
         $el: $('#uptime'),
         collection: availabilityCollection,
-        getStatFunction: function (c) { return c.getPercentageOfUptime() + '%'; }
+        getStatFunction: function (c) { return Math.round(c.getPercentageOfUptime()) + '%'; }
       });
 
       availabilityCollection.fetch();
