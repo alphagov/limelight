@@ -106,7 +106,7 @@ function (Query) {
         expect(query.get('start_at')).toBeMoment(moment('2013-03-11T00:00:00+00:00'));
       });
 
-      xit("should generate start_at and end_at as local timezone when configured to do so", function() {
+      it("should generate start_at and end_at as GB timezone when configured to do so", function() {
         var query = new Query();
         var attributes = {
             period: 'week'

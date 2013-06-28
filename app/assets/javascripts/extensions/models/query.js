@@ -1,7 +1,8 @@
 define([
+  'common/timezones',
   'extensions/models/model'
 ],
-function (Model) {
+function (timezones, Model) {
   function getAndDelete(obj, property, defaultValue) {
     var value = defaultValue;
 
@@ -23,14 +24,15 @@ function (Model) {
       }
       options = options || {};
       var utc = getAndDelete(options, 'utc', true);
+      var timezone = utc ? timezones.utc : timezones.gb;
       var periodName = attrs['period'];
       var period = periodName ? this.periods[periodName] : null;
       if (period) {
-        var endAt = period.boundary(utc ? this.moment().utc() :  this.moment().local());
+        var endAt = period.boundary(this.moment().utc());
         var startAt = endAt.clone().subtract(period.duration, periodName + 's');
         _.extend(attrs, {
-          end_at: endAt,
-          start_at: startAt
+          end_at: timezone.applyOffset(endAt),
+          start_at: timezone.applyOffset(startAt)
         });
       }
       
