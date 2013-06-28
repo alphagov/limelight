@@ -79,14 +79,14 @@ function (Component) {
       if (modelSelected) {
         if (this.drawCursorLine) {
           this.componentWrapper.append('line').attr({
-            'class': 'selectedIndicator cursorLine line' + groupIndexSelected,
+            'class': 'selectedIndicator cursorLine',
             x1: this.x(modelSelected, indexSelected, groupSelected, groupIndexSelected),
             y1: -this.margin.top,
             x2: this.x(modelSelected, indexSelected, groupSelected, groupIndexSelected),
             y2: this.graph.innerHeight
           });
           this.componentWrapper.append('line').attr({
-            'class': 'selectedIndicator cursorLine descender line' + groupIndexSelected,
+            'class': 'selectedIndicator cursorLine descender',
             x1: this.x(modelSelected, indexSelected, groupSelected, groupIndexSelected),
             y1: this.graph.innerHeight,
             x2: this.x(modelSelected, indexSelected, groupSelected, groupIndexSelected),
