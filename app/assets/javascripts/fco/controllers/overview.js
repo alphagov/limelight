@@ -12,7 +12,14 @@ define([
   'fco/views/volumetrics-completion-number',
   'fco/collections/fco-availability-for-24-hours',
   'extensions/views/single-stat'
-], function (GraphCollection, ConversionCollection, ConversionGraph, SuccessRateView, VisitorsRealtimeCollection, VisitorsRealtimeView, VolumetricsCollection, VolumetricsSubmissionsGraph, VolumetricsSubmissionsNumberView, VolumetricsCompletionGraph, VolumetricsCompletionNumberView, FCO24HourAvailabilityCollection, SingleStatView) {
+], function (GraphCollection,
+             ConversionCollection, ConversionGraph,
+             SuccessRateView,
+             VisitorsRealtimeCollection, VisitorsRealtimeView,
+             VolumetricsCollection,
+             VolumetricsSubmissionsGraph, VolumetricsSubmissionsNumberView,
+             VolumetricsCompletionGraph, VolumetricsCompletionNumberView,
+             FCO24HourAvailabilityCollection, SingleStatView) {
   return function () {
 
     var serviceName = $("#wrapper").data("service-name");
