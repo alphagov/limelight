@@ -10,7 +10,7 @@ define([
   'fco/views/volumetrics-submissions-number',
   'fco/views/volumetrics-completion-graph',
   'fco/views/volumetrics-completion-number',
-  'fco/collections/fco-availability-for-24-hours',
+  'extensions/collections/availability-for-24-hours',
   'extensions/views/single-stat'
 ], function (GraphCollection,
              ConversionCollection, ConversionGraph,
