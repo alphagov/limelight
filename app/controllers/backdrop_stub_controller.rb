@@ -8,8 +8,9 @@ class BackdropStubController < ApplicationController
       [
           StubConfig.new({'filter_by' => 'check:licensing'}, 'licensing_availability_response.json'),
           StubConfig.new({'filter_by' => 'dataType:licensing_overview_journey'}, 'licensing_overview_journey.json'),
-          StubConfig.new({'service' => 'pay-legalisation-post', 'api_name' => 'journey'}, 'fco_overview_journey.json')
-      ])
+          StubConfig.new({'service' => 'pay-legalisation-post', 'api_name' => 'journey'}, 'fco_overview_journey.json'),
+          StubConfig.new({'filter_by' => 'check:pay-foreign-marriage-certificates'}, 'pay_foreign_marriage_availability.json')
+  ])
 
   def serve_fixture
     render :json => @@backdrop_stub.response_for_params(params)
