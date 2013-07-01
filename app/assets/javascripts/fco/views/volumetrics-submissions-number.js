@@ -37,7 +37,7 @@ function (View) {
           '<strong>',
           this.formatNumericLabel(total / count),
           '</strong>',
-          'average per week over the last ',
+          'mean over the last ',
           count,
           ' weeks'
         ].join('');
