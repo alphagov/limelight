@@ -123,7 +123,7 @@ define([
 
     volumetricsCollection.fetch();
 
-    if ($('#uptime').length) {
+    if ($('#uptime').length && $('#response-time').length) {
       var availabilityCollection = new FCO24HourAvailabilityCollection(null, {
         service:serviceName,
         checkName:serviceName
@@ -137,7 +137,14 @@ define([
         }
       });
 
+      new SingleStatView({
+        $el: $('#response-time'),
+        collection: availabilityCollection,
+        getStatFunction: function (c) { return Math.round(c.getAverageResponseTime()) + 'ms'; }
+      });
+
       availabilityCollection.fetch();
     }
+
   };
 });
