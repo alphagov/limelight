@@ -1,7 +1,8 @@
 # Add feature toggles with the format:
 # <feature_name>: off|dev|release
 show_licensing_overview_success_rate: release
-show_licensing_visitors_realtime: dev
-show_fco_visitors_realtime: dev
-lpa_dashboard: dev
-show_fco_availability: dev
+show_licensing_visitors_realtime: release
+show_fco_visitors_realtime: off
+fco_dashboards: off
+lpa_dashboard: off
+show_fco_availability: off
