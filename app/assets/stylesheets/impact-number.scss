@@ -5,8 +5,6 @@ p.impact-number {
   color:$primary-colour;
   & strong {
     @include bold-80;
-    font-size:120px;
-    font-size:12rem;
     font-family: nta, Arial, sans-serif;
     margin-bottom:-.1em;
     display:block
