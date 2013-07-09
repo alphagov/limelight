@@ -10,7 +10,8 @@ function (ApplicationsCollection, ApplicationsGraph) {
 
       var graphView = new ApplicationsGraph({
         el: $('#application-method-over-time'),
-        collection: applicationsCollection
+        collection: applicationsCollection,
+        YScaleFunction: "calcYSeriesSum"
       });
 
       applicationsCollection.fetch();

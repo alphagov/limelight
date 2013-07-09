@@ -43,20 +43,20 @@ function (ApplicationMethod) {
       var expected = [
         {
           "id": "digital",
-          "title": "digital",
+          "title": "Digital",
           "values": [{
             "_start_at": "2013-01-01T00:00:00+00:00",
             "_end_at": "2013-01-08T00:00:00+00:00",
-            "value": 122
+            "_count": 122
           }]
         },
         {
           "id": "non_digital",
-          "title": "non_digital",
+          "title": "Non-digital",
           "values": [{
             "_start_at": "2013-01-01T00:00:00+00:00",
             "_end_at": "2013-01-08T00:00:00+00:00",
-            "value": 971          
+            "_count": 971          
           }]
         }
       ];

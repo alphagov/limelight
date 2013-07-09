@@ -20,10 +20,10 @@ function (GraphCollection) {
           return;
         }
         if (items[applicationMethod][d.start_at]) {
-          items[applicationMethod][d.start_at].value += parseFloat(d.value);
+          items[applicationMethod][d.start_at]._count += parseFloat(d.value);
         } else {
           items[applicationMethod][d.start_at] = {
-            value: parseFloat(d.value),
+            _count: parseFloat(d.value),
             _start_at: this.moment(d.start_at).format(),
             _end_at: this.moment(d.end_at).format()
           };
@@ -32,12 +32,12 @@ function (GraphCollection) {
       return [
         {
           id: 'digital',
-          title: 'digital',
+          title: 'Digital',
           values: _.map(items.digital, function (v) { return v; })
         },
         {
           id: 'non_digital',
-          title: 'non_digital',
+          title: 'Non-digital',
           values: _.map(items.non_digital, function (v) { return v; })
         }
         
