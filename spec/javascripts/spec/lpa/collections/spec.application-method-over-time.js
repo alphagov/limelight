@@ -5,7 +5,7 @@ function (ApplicationMethod) {
 
   describe("Application method over time", function() {
     it("groups data into digital and non-digital", function() {
-      exampleJson = {
+      var exampleJson = {
         "data": [
           {
             "start_at": "2013-01-01", 
@@ -63,7 +63,14 @@ function (ApplicationMethod) {
         }
       ];
 
-      expect(ApplicationMethod.prototype.parse(exampleJson)).toEqual(expected);
+      var parsed = ApplicationMethod.prototype.parse(exampleJson);
+
+      _.each(parsed, function(group) {
+        group.values[0]._start_at = group.values[0]._start_at.format();
+        group.values[0]._end_at = group.values[0]._end_at.format();
+      });
+
+      expect(parsed).toEqual(expected);
 
     });
   });

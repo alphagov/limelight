@@ -24,8 +24,8 @@ function (GraphCollection) {
         } else {
           items[applicationMethod][d.start_at] = {
             _count: parseFloat(d.value),
-            _start_at: this.moment(d.start_at).format(),
-            _end_at: this.moment(d.end_at).format()
+            _start_at: this.moment(d.start_at),
+            _end_at: this.moment(d.end_at)
           };
         }
       }, this);
@@ -34,16 +34,22 @@ function (GraphCollection) {
         digitalItem['fraction'] = digitalItem._count / (digitalItem._count + nonDigitalItem._count);
         nonDigitalItem['fraction'] = 1 - digitalItem['fraction'];
       });
+      _.each(items, function(group, key, items) {
+        var sorted = _.sortBy(group, function(item) {
+          return +item._end_at * -1;
+        });
+        items[key] = sorted.slice(0,13);
+      });
       return [
         {
           id: 'digital',
           title: 'Digital applications',
-          values: _.map(items.digital, function (v) { return v; })
+          values: items.digital
         },
         {
           id: 'non_digital',
           title: 'Non-digital applications',
-          values: _.map(items.non_digital, function (v) { return v; })
+          values: items.non_digital
         }
         
       ];
