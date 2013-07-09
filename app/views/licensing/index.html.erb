@@ -3,7 +3,11 @@
 <% @js_config = { "controller" => "licensing/controllers/overview" } %>
 
 <header>
-  <h1>Licensing performance <span class="tagline">(licences and authorities on GOV.UK only)</span></h1>
+  <h1>
+      <span class="strapline">Service performance</span>
+      Licensing performance
+      <span class="tagline">(licences and authorities on GOV.UK only)</span>
+  </h1>
 </header>
 
 <% if Rails.application.config.feature_toggles[:show_licensing_visitors_realtime] %>
