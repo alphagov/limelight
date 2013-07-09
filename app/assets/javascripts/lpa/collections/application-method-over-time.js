@@ -29,15 +29,20 @@ function (GraphCollection) {
           };
         }
       }, this);
+      _.each(items.digital, function(digitalItem, key, list) {
+        var nonDigitalItem = items.non_digital[key];
+        digitalItem['fraction'] = digitalItem._count / (digitalItem._count + nonDigitalItem._count);
+        nonDigitalItem['fraction'] = 1 - digitalItem['fraction'];
+      });
       return [
         {
           id: 'digital',
-          title: 'Digital',
+          title: 'Digital applications',
           values: _.map(items.digital, function (v) { return v; })
         },
         {
           id: 'non_digital',
-          title: 'Non-digital',
+          title: 'Non-digital applications',
           values: _.map(items.non_digital, function (v) { return v; })
         }
         

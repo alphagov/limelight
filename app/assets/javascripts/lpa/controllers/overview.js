@@ -1,6 +1,6 @@
 define([
   'lpa/collections/application-method-over-time',
-  'extensions/views/timeseries-graph/timeseries-graph'
+  'lpa/views/timeseries-graph/timeseries-graph'
 ],
 function (ApplicationsCollection, ApplicationsGraph) {
   return function () {
@@ -10,8 +10,7 @@ function (ApplicationsCollection, ApplicationsGraph) {
 
       var graphView = new ApplicationsGraph({
         el: $('#application-method-over-time'),
-        collection: applicationsCollection,
-        YScaleFunction: "calcYSeriesSum"
+        collection: applicationsCollection
       });
 
       applicationsCollection.fetch();

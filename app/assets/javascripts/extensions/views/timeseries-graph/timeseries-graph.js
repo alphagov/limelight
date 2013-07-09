@@ -86,7 +86,7 @@ function (require, Graph, XAxis, YAxis, Stack, Hover, Callout) {
 
     calcYSeriesSum: function (valueAttr) {
       var sums = [];
-      for (i = 0; i < this.collection.at(0).get('values').length; i++) {
+      for (var i = 0; i < this.collection.at(0).get('values').length; i++) {
         sums.push(this.collection.reduce(function (memo, group) {
           return memo + group.get('values').at(i).get(valueAttr);
         }, 0));
