@@ -9,16 +9,19 @@ function (TimeseriesCallout) {
       
       var header = $('<h3>').html(this.getHeader.apply(this, arguments));
 
-      var line1 = $('<p>').html(group.get('title'));
-
-      var line2 = $('<p>').html([
+      var detail = $('<dl>').html([
+        '<dt>',
+        group.get('title'),
+        '</dt>',
+        '<dd>',
         this.formatNumericLabel(Math.floor(model.get(this.graph.valueAttr))),
         ' (',
         Math.round(model.get('fraction') * 100),
-        '%)'
+        '%)',
+        '</dd>'
       ].join(''));
-      
-      el.empty().append(header, line1, line2);
+
+      el.empty().append(header, detail);
     }
     
   });

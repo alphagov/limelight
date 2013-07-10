@@ -24,7 +24,7 @@ define([
       });
       callout.renderContent(el, group, 0, model, 0);
 
-      expect(el.html()).toEqual('<h3>test header</h3><p>test title</p><p>123 (12%)</p>');
+      expect(el.html()).toEqual('<h3>test header</h3><dl><dt>test title</dt><dd>123 (12%)</dd></dl>');
     });
   });
 });
