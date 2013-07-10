@@ -5,7 +5,7 @@ define([
 function (ApplicationsCollection, ApplicationsGraph) {
   return function () {
 
-    if (!$('.lte-ie8').length) {
+    if (!$('.lte-ie8').length && $('#application-method-over-time').length) {
       var applicationsCollection = new ApplicationsCollection();
 
       var graphView = new ApplicationsGraph({
