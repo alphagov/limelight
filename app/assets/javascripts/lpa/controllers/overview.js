@@ -14,10 +14,10 @@ define([
     el: $('#uptime'),
     getStatFunction: function (collection) { return Math.round(collection.getPercentageOfUptime()) + '%'; }
   });
-//  var licensingAvailabilityResponseTimeView = new SingleStatView({
-//    collection: licensingAvailabilityCollection,
-//    el: $('#licensing-response-time'),
-//    getStatFunction: function (collection) { return Math.round(collection.getAverageResponseTime()) + 'ms'; }
-//  });
+  var responseTimeView = new SingleStatView({
+    collection: availabilityCollection,
+    el: $('#response-time'),
+    getStatFunction: function (collection) { return Math.round(collection.getAverageResponseTime()) + 'ms'; }
+  });
   availabilityCollection.fetch();
 });
