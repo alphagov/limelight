@@ -25,7 +25,12 @@ Capybara.register_driver :poltergeist do |app|
 end
 
 Capybara.javascript_driver = :poltergeist
-Capybara.default_wait_time = 5
+Capybara.default_wait_time = (ENV['CAPYBARA_WAIT_TIME'] || 5).to_i
+
+
+puts
+puts "Capybara wait time: #{Capybara.default_wait_time.inspect}"
+puts
 
 
 # By default, any exception happening in your Rails application will bubble up
