@@ -8,10 +8,10 @@ Feature: uptime and response time for lpa dashboard
   Scenario: looking up the uptime
     Given The lasting-power-of-attorney monitoring bucket returns the response in "pay_foreign_marriage_availability.json"
     When I go to /performance/lasting-power-of-attorney
-    Then the uptime module for the fco transaction should display 85%
+    Then the uptime module should display 85%
 
   @wip
   Scenario: looking up the response time
     Given The lasting-power-of-attorney monitoring bucket returns the response in "pay_foreign_marriage_availability.json"
     When I go to /performance/lasting-power-of-attorney
-    Then the response time module for the fco transaction should display 150ms
+    Then the response module should display 150ms
