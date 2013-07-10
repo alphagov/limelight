@@ -36,8 +36,6 @@ function (require, Graph, XAxis, YAxis, Stack, Hover, Callout) {
       return this.collection.query.get('period') || 'week';
     },
 
-    valueAttr: '_count',
-    
     calcXScale: function () {
       var start, end, xScale;
       

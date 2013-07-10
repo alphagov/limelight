@@ -41,7 +41,7 @@ function (require, Line, Component) {
         .values(this.stackValues)
         .y(_.bind(this.yStack, this));
         
-      var layers = stack(this.collection.models);
+      var layers = stack(this.collection.models.slice().reverse());
       
       var groupStacks = this.componentWrapper.selectAll('g.stacks').data([0]);
       groupStacks.enter().append('g').attr('class', 'stacks');
@@ -71,10 +71,12 @@ function (require, Line, Component) {
       var line = d3.svg.line()
         .x(getX)
         .y(getY);
+
+      var maxGroupIndex = this.collection.length - 1;
       
       selectionStacks.enter().append("g").attr('class', 'group').append('path')
           .attr("class", function (group, index) {
-            return 'stack stack' + index + ' ' + group.get('id');
+            return 'stack stack' + (maxGroupIndex-index) + ' ' + group.get('id');
           });
       selectionStacks.select('path').attr("d", function(group, groupIndex) {
         return area(group.get('values').models);
@@ -82,7 +84,7 @@ function (require, Line, Component) {
 
       selectionLines.enter().append("g").attr('class', 'group').append('path')
           .attr("class", function (group, index) {
-            return 'line line' + index + ' ' + group.get('id');
+            return 'line line' + (maxGroupIndex-index) + ' ' + group.get('id');
           });
       selectionLines.select('path').attr("d", function(group, groupIndex) {
         return line(group.get('values').models);

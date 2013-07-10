@@ -42,16 +42,15 @@ function (GraphCollection) {
       });
       return [
         {
-          id: 'digital',
-          title: 'Digital applications',
-          values: items.digital
+          id: 'non_digital',
+          title: 'Non-digital',
+          values: items.non_digital
         },
         {
-          id: 'non_digital',
-          title: 'Non-digital applications',
-          values: items.non_digital
+          id: 'digital',
+          title: 'Digital',
+          values: items.digital
         }
-        
       ];
     },
 

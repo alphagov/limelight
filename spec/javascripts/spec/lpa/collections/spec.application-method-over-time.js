@@ -42,23 +42,23 @@ function (ApplicationMethod) {
 
       var expected = [
         {
-          "id": "digital",
-          "title": "Digital applications",
-          "values": [{
-            "_start_at": "2013-01-01T00:00:00+00:00",
-            "_end_at": "2013-01-08T00:00:00+00:00",
-            "_count": 122,
-            "fraction": 0.122
-          }]
-        },
-        {
           "id": "non_digital",
-          "title": "Non-digital applications",
+          "title": "Non-digital",
           "values": [{
             "_start_at": "2013-01-01T00:00:00+00:00",
             "_end_at": "2013-01-08T00:00:00+00:00",
             "_count": 878,
             "fraction": 0.878
+          }]
+        },
+        {
+          "id": "digital",
+          "title": "Digital",
+          "values": [{
+            "_start_at": "2013-01-01T00:00:00+00:00",
+            "_end_at": "2013-01-08T00:00:00+00:00",
+            "_count": 122,
+            "fraction": 0.122
           }]
         }
       ];
