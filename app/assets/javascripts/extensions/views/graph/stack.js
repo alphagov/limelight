@@ -87,6 +87,15 @@ function (require, Line, Component) {
       selectionLines.select('path').attr("d", function(group, groupIndex) {
         return line(group.get('values').models);
       });
+    },
+
+    onChangeSelected: function (groupSelected, groupIndexSelected, modelSelected, indexSelected) {
+      Line.prototype.onChangeSelected.apply(this, arguments);
+      this.collection.each(function (group, groupIndex) {
+        var selected = (groupIndexSelected === groupIndex);
+        var stack = this.componentWrapper.select('path.stack' + groupIndex);
+        stack.classed('selected', selected);
+      }, this);
     }
   });
 
