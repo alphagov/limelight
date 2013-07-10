@@ -12,4 +12,4 @@ Feature: uptime and response time for lpa dashboard
   Scenario: looking up the response time
     Given The lasting-power-of-attorney monitoring bucket returns the response in "pay_foreign_marriage_availability.json"
     When I go to /performance/lasting-power-of-attorney
-    Then the response module should display 150ms
+    Then the response time module should display 150ms

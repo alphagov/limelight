@@ -12,4 +12,4 @@ Feature: uptime and response time for fco transactions
   Scenario: looking up the response time on an fco dashboard
     Given The pay-foreign-marriage-certificates monitoring bucket returns the response in "pay_foreign_marriage_availability.json"
     When I go to /performance/pay-foreign-marriage-certificates
-    Then the response module should display 150ms
+    Then the response time module should display 150ms
