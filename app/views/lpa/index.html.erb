@@ -1,8 +1,27 @@
 <% content_for :title do %>Lasting Power of Attorney - Service performance - GOV.UK<% end %>
 
+<% @js_config = { "controller" => "lpa/controllers/overview" } %>
+
 <header>
   <h1>
       <span class="strapline">Service performance</span>
       Lasting Power of Attorney
   </h1>
 </header>
+
+<% if Rails.application.config.feature_toggles[:show_lpa_availability] %>
+    <section class="half-width row-start" id="uptime-module">
+        <h1>Uptime</h1>
+        <ul class="module-actions">
+            <li class="info">
+                <div>
+                    <p>Data sources: Pingdom</p>
+                    <p>Uptime measures the percentage of time that the service was observed to be available.</p>
+                </div>
+            </li>
+        </ul>
+        <h2>Service uptime</h2>
+        <p id="uptime" class="impact-number"></p>
+        <p>Mean uptime for the last 24 hours</p>
+    </section>
+<% end %>
