@@ -36,14 +36,18 @@ function(require, StackComponent) {
     getStrokeWidth: function (selection) {
       return this.graph.pxToValue($(selection.node()).css('stroke-width'));
     },
+
+    barWidth: function() {
+      throw "not implemented";
+    },
     
-    updateSegment: function (groupIndex, segment, model, i) {
+    updateSegment: function (groupIndex, segment, model, index) {
       var group = this.collection.at(groupIndex);
-      var x = this.x(model, i, group, groupIndex);
-      var y = this.y(model, i, group, groupIndex);
-      var y0 = this.y0(model, i, group, groupIndex);
-      var width = this.barWidth(model, i, group, groupIndex);
-      var blockWidth = _.isFunction(this.blockWidth) ? this.blockWidth(model, i, group, groupIndex) : width;
+      var x = this.graph.getXPos(groupIndex, index);
+      var y = this.graph.getYPos(groupIndex, index);
+      var y0 = this.graph.getY0Pos(groupIndex, index);
+      var width = this.barWidth(group, groupIndex, model, index);
+      var blockWidth = _.isFunction(this.blockWidth) ? this.blockWidth(group, groupIndex, model, index) : width;
 
       var xLeft = x;
       var align = this.align;
@@ -87,7 +91,7 @@ function(require, StackComponent) {
           'class': 'text' + groupIndex,
           x: xLeft + width / 2,
           y: y + this.offsetText
-        }).text(this.text(model, i));
+        }).text(this.text(model, index));
       }
     },
     onChangeSelected: function (groupSelected, groupIndexSelected, modelSelected, indexSelected) {

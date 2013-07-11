@@ -10,38 +10,15 @@ function (require, Line, Component) {
       return group.get('values').models;
     },
     
-    /**
-     * Calculates x position for model.
-     * Not implemented; override in configuration or subclass
-     */
-    x: function (model) {
-      throw('No x calculation defined.');
+    y0: function (group, groupIndex, model, index) {
+      var y0Pos = this.graph.getY0Pos(groupIndex, index);
+      return this.scales.y(y0Pos);
     },
-    
-    /**
-     * Accessor to retrieve value for y dimension from model.
-     * Not implemented; override in configuration or subclass
-     */
-    yStack: function (model) {
-      throw('No yStack calculation defined.');
-    },
-    
-    y0: function (model) {
-      return this.scales.y(model.y0);
-    },
-    
-    y: function(model) {
-      return this.scales.y(model.y0 + model.y);
-    },
-    
+
     render: function () {
       Component.prototype.render.apply(this, arguments);
 
-      var stack = this.d3.layout.stack()
-        .values(this.stackValues)
-        .y(_.bind(this.yStack, this));
-        
-      var layers = stack(this.collection.models.slice().reverse());
+      var layers = this.graph.layers;
       
       var groupStacks = this.componentWrapper.selectAll('g.stacks').data([0]);
       groupStacks.enter().append('g').attr('class', 'stacks');
@@ -61,19 +38,32 @@ function (require, Line, Component) {
     },
     
     renderContent: function (selectionStacks, selectionLines) {
-      var getX = _.bind(this.x, this);
-      var getY = _.bind(this.y, this);
+      var that = this;
+      var getX = function (model, index) {
+        return that.x.call(that, null, 0, model, index)
+      };
+
+      var yScale = this.scales.y;
+      var getY = function (model, index) {
+        return yScale(model.y + model.y0);
+      };
+
+      var getY0 = function (model, index) {
+        return yScale(model.y0);
+      };
+
       var area = d3.svg.area()
         .x(getX)
-        .y0(_.bind(this.y0, this))
+        .y0(getY0)
         .y1(getY);
         
       var line = d3.svg.line()
         .x(getX)
         .y(getY);
 
+      var graph = this.graph;
       var maxGroupIndex = this.collection.length - 1;
-      
+
       selectionStacks.enter().append("g").attr('class', 'group').append('path')
           .attr("class", function (group, index) {
             return 'stack stack' + (maxGroupIndex-index) + ' ' + group.get('id');

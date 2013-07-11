@@ -9,6 +9,8 @@ function (View, d3) {
     d3: d3,
     
     valueAttr: '_count',
+
+    numYTicks: 7,
     
     initialize: function (options) {
       View.prototype.initialize.apply(this, arguments);
@@ -76,9 +78,9 @@ function (View, d3) {
     calcYScale: function () {
       throw('No y scale defined.');
     },
-    
-    getConfigName: function () {
-      return null;
+
+    getConfigNames: function () {
+      return ['overlay'];
     },
 
     pxToValue: function (cssVal) {
@@ -132,6 +134,24 @@ function (View, d3) {
         ')'
       ].join(''));
     },
+
+    applyConfig: function (name) {
+      var config = this.configs[name];
+      if (!config) {
+        return;
+      }
+
+      if (config.initialize) {
+        config.initialize.call(this);
+      }
+
+      _.each(config, function (value, key) {
+        if (key === 'initialize') {
+          return;
+        }
+        this[key] = value;
+      }, this);
+    },
     
     /**
      * Calculates current scales, then renders components in defined order.
@@ -152,17 +172,125 @@ function (View, d3) {
         callout.removeClass('performance-hidden');
       }
 
+      
+      var configNames = this.getConfigNames();
+      if (_.isString(configNames)) {
+        configNames = [configNames];
+      }
+
+      _.each(configNames, function(configName) {
+        this.applyConfig(configName);
+      }, this);
+
       this.scales.x = this.calcXScale();
       this.scales.y = this.calcYScale();
       
-      var configName = this.getConfigName();
       
       _.each(this.componentInstances, function (component) {
-        if (configName) {
+        _.each(configNames, function(configName) {
           component.applyConfig(configName);
-        }
+        });
         component.render();
       }, this);
+    },
+
+    configs: {
+      week: {
+        getXPos: function(groupIndex, modelIndex) {
+          var group = this.collection.at(groupIndex);
+          var model = group.get('values').at(modelIndex);
+          return this.moment(model.get('_end_at')).subtract(1, 'days');
+        },
+        calcXScale: function () {
+          var start, end, xScale;
+          var total = this.collection.first().get('values');
+          // scale from first sunday to last sunday
+          start = moment(total.first().get('_end_at')).subtract(1, 'days');
+          end = moment(total.last().get('_end_at')).subtract(1, 'days');
+          xScale = this.d3.time.scale();
+          xScale.domain([start.toDate(), end.toDate()]);
+          xScale.range([0, this.innerWidth]);
+          return xScale;
+        }
+      },
+      month: {
+        getXPos: function(groupIndex, modelIndex) {
+          return modelIndex;
+        },
+        calcXScale: function () {
+          var start, end, xScale;
+          var total = this.collection.first().get('values');
+          xScale = this.d3.scale.linear();
+          xScale.domain([0, total.length - 1]);
+          xScale.range([0, this.innerWidth]);
+          return xScale;
+        },
+      },
+
+
+      overlay: {
+        getYPos: function (groupIndex, modelIndex) {
+          var group = this.collection.at(groupIndex);
+          var model = group.at(modelIndex);
+          return model.get(this.valueAttr);
+        },
+        calcYScale: function () {
+          var d3 = this.d3;
+          var valueAttr = this.valueAttr;
+          var max = d3.max(this.collection.models, function (group) {
+            return d3.max(group.get('values').models, function (value) {
+              return value.get(valueAttr);
+            });
+          });
+
+          var yScale = this.d3.scale.linear();
+          var minimumTickCount = this.yAxisInstance().ticks;
+          var tickValues = this.calculateLinearTicks([0, Math.max(max, this.minYDomainExtent)], minimumTickCount);
+          yScale.domain(tickValues.extent);
+          yScale.rangeRound([this.innerHeight, 0]);
+          yScale.tickValues = tickValues.values;
+          return yScale;
+        }
+      },
+
+      stack: {
+        initialize: function() {
+          var valueAttr = this.valueAttr;
+          var stack = this.d3.layout.stack()
+            .values(function (group) {
+              return group.get('values').models;
+            })
+            .y(function (model, index) {
+              return model.get(valueAttr);
+            });
+            
+          this.layers = stack(this.collection.models.slice().reverse());
+        },
+        getYPos: function (groupIndex, modelIndex) {
+          var model = this.layers[groupIndex].get('values').at(modelIndex);
+          return model.y0 + model.y;
+        },
+        getY0Pos: function (groupIndex, modelIndex) {
+          return this.layers[groupIndex].get('values').at(modelIndex).y0;
+        },
+        calcYScale: function () {
+          var d3 = this.d3;
+          var valueAttr = this.valueAttr;
+          var sums = [];
+          for (var i = 0; i < this.collection.at(0).get('values').length; i++) {
+            sums.push(this.collection.reduce(function (memo, group) {
+              return memo + group.get('values').at(i).get(valueAttr);
+            }, 0));
+          }
+          var max = d3.max(sums);
+          var yScale = this.d3.scale.linear();
+          var tickValues = this.calculateLinearTicks([0, Math.max(max, this.minYDomainExtent)], this.numYTicks);
+          yScale.domain(tickValues.extent);
+          yScale.rangeRound([this.innerHeight, 0]);
+          yScale.tickValues = tickValues.values;
+          return yScale;
+        }
+      }
     }
   });
 

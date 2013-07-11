@@ -5,7 +5,7 @@ function (GraphCollection) {
 
   var ApplicationMethodCollection = GraphCollection.extend({
 
-    serviceName: 'lasting-power-of-attorney',
+    serviceName: 'lpa', // omg don't commit this
     apiName: 'volumes',
 
     parse: function (response) {

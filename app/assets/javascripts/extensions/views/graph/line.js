@@ -6,16 +6,16 @@ function (Component) {
 
     drawCursorLine: false,
     
-    // Not implemented; override in configuration or subclass
-    x: function (model) {
-      throw('No x calculation defined.');
+    x: function (group, groupIndex, model, index) {
+      var xPos = this.graph.getXPos(groupIndex, index);
+      return this.scales.x(xPos);
     },
     
-    // Not implemented; override in configuration or subclass
-    y: function (model) {
-      throw('No y calculation defined.');
+    y: function (group, groupIndex, model, index) {
+      var yPos = this.graph.getYPos(groupIndex, index);
+      return this.scales.y(yPos);
     },
-    
+
     /**
      * Renders a line for each group in the collection.
      */
@@ -39,10 +39,10 @@ function (Component) {
         groups.push(groupSelection);
         var path = groupSelection.select('path');
         line.x(function (model, index) {
-          return that.x.call(that, model, index, group, groupIndex);
+          return that.x.call(that, group, groupIndex, model, index);
         });
         line.y(function (model, index) {
-          return that.y.call(that, model, index, group, groupIndex);
+          return that.y.call(that, group, groupIndex, model, index);
         });
         path.attr('d', line(group.get('values').models));
         path.attr('class', 'line line' + groupIndex + ' ' + group.get('id'));

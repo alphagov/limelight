@@ -20,7 +20,7 @@ function(require, StackedBar) {
       return this.scales.y(model.y);
     },
 
-    x: function (model, index, group, groupIndex) {
+    x: function (group, groupIndex, model, index) {
       var blockWidth = this.blockWidth.apply(this, arguments);
       var blockMargin = this.blockMarginFraction * blockWidth / 2;
 
@@ -33,7 +33,7 @@ function(require, StackedBar) {
       return blockMargin + blockWidth * index + barWidth * groupIndex;
     },
     
-    barWidth: function (model, index, group, groupIndex) {
+    barWidth: function (group, groupIndex, model, index) {
       var numGroups = this.collection.length;
       var numBarSpaces = numGroups - 1;
       var blockWidth = this.blockWidth.apply(this, arguments);
@@ -59,8 +59,8 @@ function(require, StackedBar) {
 
       this.collection.each(function (group, groupIndex) {
         group.get('values').each(function (model, index) {
-          var barX = this.x(model, index, group, groupIndex);
-          var barWidth = this.barWidth(model, index, group, groupIndex)
+          var barX = this.x(group, groupIndex, model, index);
+          var barWidth = this.barWidth(group, groupIndex, model, index)
           var barCentre = barX + barWidth / 2;
           var dist = Math.abs(barCentre - e.x);
           var isNewBest = dist < best.dist;
