@@ -6,15 +6,6 @@ define([
 function (require, Line, Component) {
   var Stack = Line.extend({
     
-    stackValues: function (group) {
-      return group.get('values').models;
-    },
-    
-    y0: function (group, groupIndex, model, index) {
-      var y0Pos = this.graph.getY0Pos(groupIndex, index);
-      return this.scales.y(y0Pos);
-    },
-
     render: function () {
       Component.prototype.render.apply(this, arguments);
 
@@ -25,7 +16,7 @@ function (require, Line, Component) {
 
       var groupLines = this.componentWrapper.selectAll('g.lines').data([0]);
       groupLines.enter().append('g').attr('class', 'lines');
-      
+
       var selectionStacks = groupStacks.selectAll('g.group')
           .data(layers);
       selectionStacks.exit().remove();

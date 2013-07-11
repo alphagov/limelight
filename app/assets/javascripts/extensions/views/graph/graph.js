@@ -231,7 +231,7 @@ function (View, d3) {
       overlay: {
         getYPos: function (groupIndex, modelIndex) {
           var group = this.collection.at(groupIndex);
-          var model = group.at(modelIndex);
+          var model = group.get('values').at(modelIndex);
           return model.get(this.valueAttr);
         },
         calcYScale: function () {
@@ -244,8 +244,7 @@ function (View, d3) {
           });
 
           var yScale = this.d3.scale.linear();
-          var minimumTickCount = this.yAxisInstance().ticks;
-          var tickValues = this.calculateLinearTicks([0, Math.max(max, this.minYDomainExtent)], minimumTickCount);
+          var tickValues = this.calculateLinearTicks([0, Math.max(max, this.minYDomainExtent)], this.numYTicks);
           yScale.domain(tickValues.extent);
           yScale.rangeRound([this.innerHeight, 0]);
           yScale.tickValues = tickValues.values;
@@ -267,11 +266,11 @@ function (View, d3) {
           this.layers = stack(this.collection.models.slice().reverse());
         },
         getYPos: function (groupIndex, modelIndex) {
-          var model = this.layers[groupIndex].get('values').at(modelIndex);
+          var model = this.collection.at(groupIndex).get('values').at(modelIndex);
           return model.y0 + model.y;
         },
         getY0Pos: function (groupIndex, modelIndex) {
-          return this.layers[groupIndex].get('values').at(modelIndex).y0;
+          return this.collection.at(groupIndex).get('values').at(modelIndex).y0;
         },
         calcYScale: function () {
           var d3 = this.d3;

@@ -58,7 +58,7 @@ function (Component) {
       
       // labels are positioned in relation to last data point
       var maxModelIndex = this.collection.at(0).get('values').length - 1;
-      
+
       // prepare 'positions' array
       var positions = [];
       var graph = this.graph;

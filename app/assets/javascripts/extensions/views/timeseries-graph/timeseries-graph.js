@@ -2,7 +2,7 @@ define([
   'require',
   'extensions/views/graph/graph',
   './xaxis',
-  './yaxis',
+  'extensions/views/graph/yaxis',
   './stack',
   'extensions/views/graph/hover',
   './callout'
@@ -26,10 +26,6 @@ function (require, Graph, XAxis, YAxis, Stack, Hover, Callout) {
         { view: this.sharedComponents.callout },
         { view: this.sharedComponents.hover }
       ];
-    },
-
-    yAxisInstance: function() {
-      return this.componentInstances[1];
     },
 
     getConfigNames: function () {

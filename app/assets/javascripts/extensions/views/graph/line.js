@@ -107,13 +107,13 @@ function (Component) {
      * Calculates the `distance` of a group to a given point, then picks the
      * closest point in the group.
      */
-    getDistanceAndClosestModel: function (group, point) {
+    getDistanceAndClosestModel: function (group, groupIndex, point) {
       var values = group.get('values');
       var leftIndex, rightIndex, left, right;
       
       right = values.find(function (model, index) {
         rightIndex = index;
-        return this.x(model, index) >= point.x;
+        return this.x(group, groupIndex, model, index) >= point.x;
       }, this);
       
       if (!right) {
@@ -127,11 +127,15 @@ function (Component) {
         left = values.at(leftIndex);
       }
       
-      var distLeft = Math.abs(point.x - this.x(left, leftIndex));
-      var distRight = Math.abs(this.x(right, rightIndex) - point.x);
+      var leftX = this.x(group, groupIndex, left, leftIndex);
+      var rightX = this.x(group, groupIndex, right, rightIndex);
+      var distLeft = Math.abs(point.x - leftX);
+      var distRight = Math.abs(rightX - point.x);
       var weight = distLeft / (distLeft + distRight);
       
-      var y = this.d3.interpolate(this.y(left, leftIndex), this.y(right, rightIndex))(weight);
+      var leftY = this.y(group, groupIndex, left, leftIndex);
+      var rightY = this.y(group, groupIndex, right, rightIndex);
+      var y = this.d3.interpolate(leftY, rightY)(weight);
       var dist = Math.abs(point.y - y);
       
       var bestIndex = values.indexOf(distLeft < distRight ? left : right);
@@ -168,7 +172,7 @@ function (Component) {
       
       // Find closest point of closest group
       this.collection.each(function (group, groupIndex) {
-        var result = this.getDistanceAndClosestModel(group, point)
+        var result = this.getDistanceAndClosestModel(group, groupIndex, point)
         if (result.dist < bestDist) {
           // found new best solution
           bestDist = result.dist;
