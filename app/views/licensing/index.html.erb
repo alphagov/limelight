@@ -1,9 +1,13 @@
-<% content_for :title do %>Licensing - Performance Platform - GOV.UK<% end %>
+<% content_for :title do %>Licensing - Service performance - GOV.UK<% end %>
 
 <% @js_config = { "controller" => "licensing/controllers/overview" } %>
 
 <header>
-  <h1>Licensing performance <span class="tagline">(licences and authorities on GOV.UK only)</span></h1>
+  <h1>
+      <span class="strapline">Service performance</span>
+      Licensing
+      <span class="tagline">(licences and authorities on GOV.UK only)</span>
+  </h1>
 </header>
 
 <% if Rails.application.config.feature_toggles[:show_licensing_visitors_realtime] %>
@@ -12,12 +16,13 @@
     <ul class="module-actions">
       <li class="info">
         <div>
+          <p>Data sources: Google Analytics</p>
           <p>Shows estimated number of users currently accessing licensing pages.</p>
         </div>
       </li>
     </ul>
     <h2>Users actively browsing licensing pages now</h2>
-    <p id="number-of-visitors-realtime" class="impact-number"></p>
+    <div id="number-of-visitors-realtime"></div>
   </section>
 <% end %>
 
@@ -67,35 +72,7 @@
   <figure class="graph conversion-graph" id="applications-conversion-graph"></figure>
 </section>
 
-<section class="half-width row-start" id="licensing-uptime-module">
-  <h1>Uptime</h1>
-  <ul class="module-actions">
-    <li class="info">
-      <div>
-        <p>Data sources: Pingdom</p>
-        <p>Uptime measures the percentage of time that the service was observed to be available.</p>
-      </div>
-    </li>
-  </ul>
-  <h2>Service uptime for Licensing</h2>
-  <p id="licensing-uptime" class="impact-number"></p>
-  <p>Mean uptime for the last 24 hours</p>
-</section>
-
-<section class="half-width" id="licensing-response-time-module">
-  <h1>Response time</h1>
-  <ul class="module-actions">
-    <li class="info">
-      <div>
-        <p>Data sources: Pingdom</p>
-        <p>Average time taken for the server to respond to a request.</p>
-      </div>
-    </li>
-  </ul>
-  <h2>Response time for Licensing</h2>
-  <p id="licensing-response-time" class="impact-number"></p>
-  <p>Mean response time for the last 24 hours</p>
-</section>
+<%= render(partial: "common/modules/monitoring") %>
 
 <section>
   <h1>Top licences last week</h1>
