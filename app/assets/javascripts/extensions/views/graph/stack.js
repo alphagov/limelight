@@ -98,7 +98,38 @@ function (require, Line, Component) {
         var stack = this.componentWrapper.select('path.stack' + groupIndex);
         stack.classed('selected', selected);
       }, this);
-    }
+    },
+
+    /**
+     * Selects the group the user is hovering over and the closest item in
+     * that group.
+     * When position is below the last area, the last area is selected.
+     * When position is above the first area, the first area is selected.
+     * @param {Object} e Hover event details
+     * @param {Number} e.x Hover x position
+     * @param {Number} e.y Hover y position
+     * @param {Boolean} [e.toggle=false] Unselect if the new selection is the current selection
+     */
+    onHover: function (e) {
+      var point = {
+        x: e.x,
+        y: e.y
+      };
+      
+      var selectedGroupIndex, selectedItemIndex;
+      for (var i = this.collection.models.length - 1; i >= 0; i--) {
+        var group = this.collection.models[i];
+        var distanceAndClosestModel = this.getDistanceAndClosestModel(group, point);
+
+        if (distanceAndClosestModel.diff > 0 || i === 0) {
+          selectedGroupIndex = i;
+          selectedItemIndex = distanceAndClosestModel.index;
+          break;
+        }
+      };
+
+      this.selectItem(selectedGroupIndex, selectedItemIndex, e.toggle);
+    },
   });
 
   return Stack;

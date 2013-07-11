@@ -129,15 +129,16 @@ function (Component) {
       
       var distLeft = Math.abs(point.x - this.x(left, leftIndex));
       var distRight = Math.abs(this.x(right, rightIndex) - point.x);
-      var weight = distLeft / (distLeft + distRight);
+      var weight = distLeft / (distLeft + distRight) || 0;
+      var bestIndex = values.indexOf(distLeft < distRight ? left : right);
       
       var y = this.d3.interpolate(this.y(left, leftIndex), this.y(right, rightIndex))(weight);
-      var dist = Math.abs(point.y - y);
-      
-      var bestIndex = values.indexOf(distLeft < distRight ? left : right);
+      var diff = point.y - y;
+      var dist = Math.abs(diff);
       
       return {
         dist: dist,
+        diff: diff,
         index: bestIndex
       };
     },
