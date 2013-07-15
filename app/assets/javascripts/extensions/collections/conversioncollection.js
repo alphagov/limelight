@@ -5,11 +5,7 @@ define([
 
     queryParams: function() {
       var weeksAgo = this.options.weeksAgo || 0;
-      var today = this.moment();
-      if (today.day() === 0) {
-        weeksAgo += 1;
-      }
-      var startOfWeek = today.day(1).startOf('day').subtract(weeksAgo, 'weeks');
+      var startOfWeek = this.moment().day(1).startOf('day').subtract(weeksAgo, 'weeks');
       
       return {
         start_at: startOfWeek.clone().subtract(1, 'weeks'),
