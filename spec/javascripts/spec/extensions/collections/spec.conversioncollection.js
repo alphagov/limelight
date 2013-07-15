@@ -71,7 +71,7 @@ define([
             expect(params.end_at.format('YYYY-MM-DDTHH:mm:ss')).toEqual('2013-07-15T00:00:00');
           });
 
-          it("should start the query 13 days before and finish 7 days before - for 1 week ago", function () {
+          it("should start the query 14 days before and finish 7 days before - for 1 week ago", function () {
             var conversionCollection = new TestCollection(null, {
               weeksAgo: 1
             });
@@ -93,7 +93,7 @@ define([
             expect(params.end_at.format('YYYY-MM-DDTHH:mm:ss')).toEqual('2013-07-08T00:00:00');
           });
 
-          it("should start the query 12 days before and finish 5 days before - for 1 week ago", function () {
+          it("should start the query 19 days before and finish 12 days before - for 1 week ago", function () {
             var conversionCollection = new TestCollection(null, {
               weeksAgo: 1
             });
