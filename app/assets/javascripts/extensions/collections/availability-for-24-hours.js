@@ -22,24 +22,25 @@ function (Collection) {
       };
     },
 
+    parse: function (response) {
+      var data = response.data;
+      _.each(data, function (d) {
+        d.total = d.downtime + d.unmonitored + d.uptime;
+        d.uptimeFraction = d.uptime / d.total;
+      });
+      return data;
+    },
+
     _getTotalUptime: function () {
-      var data = this.pluck('data')[0];
-      var total = 0;
-      for (var i = 0, len = data.length; i < len; i++) {
-        total += data[i]['uptime'];
-      }
-      return total;
+      return this.reduce(function (memo, model) {
+        return memo + model.get('uptime');
+      }, 0)
     },
 
     _getTotalTime: function () {
-      var data = this.pluck('data')[0];
-      var total = 0;
-      for (var i = 0, len = data.length; i < len; i++) {
-        total += data[i]['downtime'];
-        total += data[i]['unmonitored'];
-        total += data[i]['uptime'];
-      }
-      return total;
+      return this.reduce(function (memo, model) {
+        return memo + model.get('total');
+      }, 0)
     },
 
     getPercentageOfUptime: function () {
@@ -47,13 +48,10 @@ function (Collection) {
     },
 
     getAverageResponseTime: function () {
-      var data = this.pluck('data')[0];
-      var length = data.length;
-      var total = 0;
-      for (var i = 0; i < length; i++) {
-        total += data[i]['avgresponse'];
-      }
-      return (total / length);
+      var total = this.reduce(function (memo, model) {
+        return memo + model.get('avgresponse');
+      }, 0);
+      return total / this.length;
     }
 
   });

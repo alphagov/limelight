@@ -21,7 +21,8 @@ define([
 
       var options = {
         checkName: "anything",
-        serviceName: "anything"
+        serviceName: "anything",
+        parse: true
       };
 
       it("should use the specified service name in the url", function () {
