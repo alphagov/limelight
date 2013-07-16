@@ -46,8 +46,8 @@ group :test, :development do
   gem "brakeman", "1.9.1"
   gem 'cucumber-rails', :require => false
   gem "sauce-cucumber", :require => false
-  gem 'parallel_tests'
-  gem 'sauce-connect'
+  gem 'parallel_tests', "0.15.0"
+  gem 'sauce-connect', "3.0.0"
   
   gem "jasmine"
   gem "jasmine-phantom"
