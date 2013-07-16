@@ -1,22 +1,43 @@
 define([
   'lpa/collections/application-method-over-time',
   'lpa/views/timeseries-graph/timeseries-graph',
+  'extensions/collections/graphcollection',
+  'lpa/collections/conversion-series',
+  'extensions/views/conversion-graph/conversion-graph',
   'extensions/collections/availability-for-24-hours',
   'extensions/views/single-stat'
 ],
 function (ApplicationsCollection, ApplicationsGraph,
+          GraphCollection, ConversionSeries, ConversionGraph,
           AvailabilityFor24Hours, SingleStatView) {
   return function () {
 
-    if (!$('.lte-ie8').length && $('#application-method-over-time').length) {
-      var applicationsCollection = new ApplicationsCollection();
+    if (!$('.lte-ie8').length) {
 
-      var graphView = new ApplicationsGraph({
-        el: $('#application-method-over-time'),
-        collection: applicationsCollection
+      if ($('#application-method-over-time').length) {
+        var applicationsCollection = new ApplicationsCollection();
+
+        var graphView = new ApplicationsGraph({
+          el: $('#application-method-over-time'),
+          collection: applicationsCollection
+        });
+
+        applicationsCollection.fetch();
+      }
+
+      var conversionCollection = new GraphCollection(null, {
+        collections: [
+          {collection: ConversionSeries, options: {weeksAgo: 1}},
+          {collection: ConversionSeries, options: {weeksAgo: 0}}
+        ]
       });
 
-      applicationsCollection.fetch();
+      var conversionGraph = new ConversionGraph({
+        el: $('#lpa-conversion-graph'),
+        collection: conversionCollection
+      });
+
+      conversionCollection.fetch();
     }
 
     var availabilityCollection = new AvailabilityFor24Hours(null, {
