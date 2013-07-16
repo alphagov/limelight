@@ -1,14 +1,14 @@
 define([
   'lpa/collections/application-method-over-time',
   'lpa/views/timeseries-graph/timeseries-graph',
-  'extensions/collections/graphcollection',
+  'extensions/collections/multiconversioncollection',
   'lpa/collections/conversion-series',
   'extensions/views/conversion-graph/conversion-graph',
   'extensions/collections/availability-for-24-hours',
   'extensions/views/single-stat'
 ],
 function (ApplicationsCollection, ApplicationsGraph,
-          GraphCollection, ConversionSeries, ConversionGraph,
+          MultiConversionCollection, ConversionSeries, ConversionGraph,
           AvailabilityFor24Hours, SingleStatView) {
   return function () {
 
@@ -26,11 +26,8 @@ function (ApplicationsCollection, ApplicationsGraph,
       }
 
       if ($('#lpa-conversion-graph').length) {
-        var conversionCollection = new GraphCollection(null, {
-          collections: [
-            {collection: ConversionSeries, options: {weeksAgo: 1}},
-            {collection: ConversionSeries, options: {weeksAgo: 0}}
-          ]
+        var conversionCollection = new MultiConversionCollection(null, {
+          conversionCollection: ConversionSeries
         });
 
         var conversionGraph = new ConversionGraph({
