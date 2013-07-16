@@ -24,6 +24,7 @@
 </section>
 <% end %>
 
+<% if Rails.application.config.feature_toggles[:lpa_conversion_funnel] %>
 <section class="graph">
   <h1>Conversion funnel</h1>
   <ul class="module-actions">
@@ -36,5 +37,6 @@
   <h2>Percentages of unique visitors <span class="group0">two weeks ago</span> compared with <span class="group1">last week</span></h2>
   <figure class="graph conversion-graph" id="lpa-conversion-graph"></figure>
 </section>
+<% end %>
 
 <%= render(partial: "common/modules/monitoring") if Rails.application.config.feature_toggles[:show_lpa_availability] %>

@@ -25,19 +25,21 @@ function (ApplicationsCollection, ApplicationsGraph,
         applicationsCollection.fetch();
       }
 
-      var conversionCollection = new GraphCollection(null, {
-        collections: [
-          {collection: ConversionSeries, options: {weeksAgo: 1}},
-          {collection: ConversionSeries, options: {weeksAgo: 0}}
-        ]
-      });
+      if ($('#lpa-conversion-graph').length) {
+        var conversionCollection = new GraphCollection(null, {
+          collections: [
+            {collection: ConversionSeries, options: {weeksAgo: 1}},
+            {collection: ConversionSeries, options: {weeksAgo: 0}}
+          ]
+        });
 
-      var conversionGraph = new ConversionGraph({
-        el: $('#lpa-conversion-graph'),
-        collection: conversionCollection
-      });
+        var conversionGraph = new ConversionGraph({
+          el: $('#lpa-conversion-graph'),
+          collection: conversionCollection
+        });
 
-      conversionCollection.fetch();
+        conversionCollection.fetch();
+      }
     }
 
     var availabilityCollection = new AvailabilityFor24Hours(null, {
