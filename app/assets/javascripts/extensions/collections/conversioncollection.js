@@ -19,7 +19,7 @@ define([
       var data = _.map(this.steps, function (eventCategory) {
         return _.extend({
           title: titles[eventCategory],
-          eventCategory: eventCategory,
+          step: eventCategory,
           uniqueEvents: 0,
           uniqueEventsNormalised: 0
         }, _.find(response.data, function (responseStep) {
@@ -41,13 +41,13 @@ define([
     },
 
     comparator: function(step1, step2) {
-      var index1 = _.indexOf(this.steps, step1.get('eventCategory'));
-      var index2 = _.indexOf(this.steps, step2.get('eventCategory'));
+      var index1 = _.indexOf(this.steps, step1.get('step'));
+      var index2 = _.indexOf(this.steps, step2.get('step'));
 
       if (index1 == -1 && index2 == -1) {
         return this.compare(
-          step1.get('eventCategory').toLowerCase(),
-          step2.get('eventCategory').toLowerCase()
+          step1.get('step').toLowerCase(),
+          step2.get('step').toLowerCase()
         );
       } else if (index1 == -1) {
         return 1;

@@ -46,11 +46,11 @@ define([
           {eventCategory: "example:submitApplicationPage", uniqueEvents: 4321},
           {eventCategory: "example:end", uniqueEvents: 321}
         ];
-        var collection = new TestCollection(models, {});
+        var collection = new TestCollection(models, {parse: true});
 
-        expect(collection.at(0).get('eventCategory')).toEqual("example:downloadFormPage");
-        expect(collection.at(1).get('eventCategory')).toEqual("example:submitApplicationPage");
-        expect(collection.at(2).get('eventCategory')).toEqual("example:end");
+        expect(collection.at(0).get('step')).toEqual("example:downloadFormPage");
+        expect(collection.at(1).get('step')).toEqual("example:submitApplicationPage");
+        expect(collection.at(2).get('step')).toEqual("example:end");
       });
 
       it("should reorder according to a provided sort order", function() {
@@ -59,11 +59,11 @@ define([
           {eventCategory: "example:downloadFormPage", uniqueEvents: 54321},
           {eventCategory: "example:end", uniqueEvents: 321}
         ];
-        var collection = new TestCollection(models, {});
+        var collection = new TestCollection(models, {parse: true});
 
-        expect(collection.at(0).get('eventCategory')).toEqual("example:downloadFormPage");
-        expect(collection.at(1).get('eventCategory')).toEqual("example:submitApplicationPage");
-        expect(collection.at(2).get('eventCategory')).toEqual("example:end");
+        expect(collection.at(0).get('step')).toEqual("example:downloadFormPage");
+        expect(collection.at(1).get('step')).toEqual("example:submitApplicationPage");
+        expect(collection.at(2).get('step')).toEqual("example:end");
       });
 
       it("should not include unrecognised keys", function() {
@@ -73,13 +73,12 @@ define([
           {eventCategory: "example:submitApplicationPage", uniqueEvents: 321},
           {eventCategory: "example:end", uniqueEvents: 3211}
         ];
-        var collection = new TestCollection();
-        collection.reset(collection.parse({ data: models }));
+        var collection = new TestCollection(models, {parse: true});
 
         expect(collection.length).toEqual(3);
-        expect(collection.at(0).get('eventCategory')).toEqual("example:downloadFormPage");
-        expect(collection.at(1).get('eventCategory')).toEqual("example:submitApplicationPage");
-        expect(collection.at(2).get('eventCategory')).toEqual("example:end");
+        expect(collection.at(0).get('step')).toEqual("example:downloadFormPage");
+        expect(collection.at(1).get('step')).toEqual("example:submitApplicationPage");
+        expect(collection.at(2).get('step')).toEqual("example:end");
       });
 
     });
@@ -94,11 +93,11 @@ define([
         var collection = new TestCollection();
         collection.reset(collection.parse({ data: models }));
 
-        expect(collection.at(0).get('eventCategory')).toEqual("example:downloadFormPage");
+        expect(collection.at(0).get('step')).toEqual("example:downloadFormPage");
         expect(collection.at(0).get('uniqueEventsNormalised')).toEqual(1);
-        expect(collection.at(1).get('eventCategory')).toEqual("example:submitApplicationPage");
+        expect(collection.at(1).get('step')).toEqual("example:submitApplicationPage");
         expect(collection.at(1).get('uniqueEventsNormalised')).toEqual(0.5);
-        expect(collection.at(2).get('eventCategory')).toEqual("example:end");
+        expect(collection.at(2).get('step')).toEqual("example:end");
         expect(collection.at(2).get('uniqueEventsNormalised')).toEqual(0.2);
       });
 
@@ -108,13 +107,13 @@ define([
         collection.reset(collection.parse({ data: models }));
 
         expect(collection.length).toEqual(3);
-        expect(collection.at(0).get('eventCategory')).toEqual("example:downloadFormPage");
+        expect(collection.at(0).get('step')).toEqual("example:downloadFormPage");
         expect(collection.at(0).get('uniqueEvents')).toEqual(0);
         expect(collection.at(0).get('uniqueEventsNormalised')).toEqual(0);
-        expect(collection.at(1).get('eventCategory')).toEqual("example:submitApplicationPage");
+        expect(collection.at(1).get('step')).toEqual("example:submitApplicationPage");
         expect(collection.at(1).get('uniqueEvents')).toEqual(0);
         expect(collection.at(1).get('uniqueEventsNormalised')).toEqual(0);
-        expect(collection.at(2).get('eventCategory')).toEqual("example:end");
+        expect(collection.at(2).get('step')).toEqual("example:end");
         expect(collection.at(2).get('uniqueEvents')).toEqual(0);
         expect(collection.at(2).get('uniqueEventsNormalised')).toEqual(0);
       });
