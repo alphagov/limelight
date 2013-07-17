@@ -19,7 +19,7 @@
  = require graph
  = require timeseries-graph
  = require conversion-graph
- = require volumetrics
+ = require volumetrics-availability
  = require applicationstable
  = require top5table
  = require filteredlist

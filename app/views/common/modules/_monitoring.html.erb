@@ -1,29 +1,19 @@
-<section class="half-width row-start" id="uptime-module">
-    <h1>Uptime</h1>
-    <ul class="module-actions">
-        <li class="info">
-            <div>
-                <p>Data sources: Pingdom</p>
-                <p>Uptime measures the percentage of time that the service was observed to be available.</p>
-            </div>
-        </li>
-    </ul>
-    <h2>Service uptime</h2>
-    <p id="uptime" class="impact-number"></p>
-    <p>Mean uptime for the last 24 hours</p>
-</section>
-
-<section class="half-width" id="response-time-module">
-    <h1>Response time</h1>
-    <ul class="module-actions">
-        <li class="info">
-            <div>
-                <p>Data sources: Pingdom</p>
-                <p>Average time taken for the server to respond to a request.</p>
-            </div>
-        </li>
-    </ul>
-    <h2>Service response time in milliseconds</h2>
-    <p id="response-time" class="impact-number"></p>
-    <p>Mean response time for the last 24 hours</p>
+<section class="graph availability">
+  <h1>Service availability</h1>
+  <ul class="module-actions">
+    <li class="info">
+      <div>
+        <p>Data sources: Pingdom</p>
+        <p>Uptime measures the percentage of time that the service was observed to be available.</p>
+        <p>Response time is the average time in milliseconds taken for the server to respond to a request.</p>
+      </div>
+    </li>
+  </ul>
+  <h3>Uptime</h3>
+  <p id="uptime" class="impact-number"></p>
+  <figure class="graph timeseries-graph" id="uptime-graph"></figure>
+  <h3>Response time</h3>
+  <p id="response-time" class="impact-number"></p>
+  <figure class="graph timeseries-graph" id="response-time-graph"></figure>
+  <p class="graph-label" id="availability-selection"></p>
 </section>

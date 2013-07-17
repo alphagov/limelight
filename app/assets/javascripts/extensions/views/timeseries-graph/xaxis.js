@@ -6,6 +6,18 @@ function (XAxis) {
   var TimeseriesXAxis = XAxis.extend({
     
     configs: {
+      hour: {
+        getTick: function (model) {
+          return model.get('_start_at').toDate();
+        },
+        tickFormat: function () {
+          var moment = this.moment;
+          return function (d, index) {
+            var diff = +moment() - +moment(d) - 7200000;
+            return Math.round(moment.duration(diff).asHours()) + 'h ago'
+          }
+        }
+      },
       week: {
         getTick: function (model) {
           return moment(model.get('_end_at')).subtract(1, 'days').toDate();

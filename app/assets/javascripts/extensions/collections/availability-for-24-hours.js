@@ -1,15 +1,15 @@
 define([
-  'extensions/collections/collection'
+  'extensions/collections/graphcollection'
 ],
-function (Collection) {
-  var AvailabilityFor24HoursCollection = Collection.extend({
+function (GraphCollection) {
+  var AvailabilityFor24HoursCollection = GraphCollection.extend({
 
     initialize: function (models, options) {
       if (!_.isString(options.serviceName)) {
         throw "options argument has no serviceName property";
       }
       this.serviceName = options.serviceName;
-      Collection.prototype.initialize.apply(this, arguments);
+      GraphCollection.prototype.initialize.apply(this, arguments);
     },
 
     serviceName: undefined,
@@ -18,7 +18,7 @@ function (Collection) {
     queryParams: function () {
       return {
         sort_by: "_timestamp:descending",
-        limit: 24
+        limit: 25
       };
     },
 
@@ -27,18 +27,23 @@ function (Collection) {
       _.each(data, function (d) {
         d.total = d.downtime + d.unmonitored + d.uptime;
         d.uptimeFraction = d.uptime / d.total;
+        d._start_at = d._timestamp;
       });
-      return data;
+      return {
+        id: 'availability',
+        title: 'Availability',
+        values: data
+      };
     },
 
     _getTotalUptime: function () {
-      return this.reduce(function (memo, model) {
+      return this.at(0).get('values').reduce(function (memo, model) {
         return memo + model.get('uptime');
       }, 0)
     },
 
     _getTotalTime: function () {
-      return this.reduce(function (memo, model) {
+      return this.at(0).get('values').reduce(function (memo, model) {
         return memo + model.get('total');
       }, 0)
     },
@@ -48,10 +53,11 @@ function (Collection) {
     },
 
     getAverageResponseTime: function () {
-      var total = this.reduce(function (memo, model) {
+      var values = this.at(0).get('values');
+      var total = values.reduce(function (memo, model) {
         return memo + model.get('avgresponse');
       }, 0);
-      return total / this.length;
+      return total / values.length;
     }
 
   });

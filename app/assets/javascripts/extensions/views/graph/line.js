@@ -94,6 +94,7 @@ function (Component) {
             y2: this.graph.innerHeight + this.margin.bottom
           });
         }
+        
         this.componentWrapper.append('circle').attr({
           'class': 'selectedIndicator line' + groupIndexSelected,
           cx: x,
