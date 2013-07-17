@@ -1,132 +1,92 @@
 {"data":[
     {
-        "_updated_at":"2013-07-14T05:00:03.294000",
         "timeSpan":"week",
         "dataType":"lpa_journey",
         "eventCategory":"stageprompt.lpa",
         "eventAction":"page",
         "eventLabel":"step1",
         "_timestamp":"2013-06-30T23:00:00+00:00",
-        "_month_start_at":"2013-06-01T00:00:00",
-        "uniqueEvents":3990,
-        "_id":"bGljZW5zaW5nX292ZXJ2aWV3X2pvdXJuZXlfMjAxMzA2MzAyMzAwMDBfd2Vla19saWNlbnNpbmdVc2VySm91cm5leTpkb3dubG9hZEZvcm1QYWdl",
-        "_week_start_at":"2013-06-24T00:00:00"
+        "uniqueEvents":3990
     },
     {
-        "_updated_at":"2013-07-14T05:00:03.294000",
         "timeSpan":"week",
         "dataType":"lpa_journey",
         "eventCategory":"stageprompt.lpa",
         "eventAction":"page",
         "eventLabel":"step2",
         "_timestamp":"2013-06-30T23:00:00+00:00",
-        "_month_start_at":"2013-06-01T00:00:00",
-        "uniqueEvents":2500,
-        "_id":"bGljZW5zaW5nX292ZXJ2aWV3X2pvdXJuZXlfMjAxMzA2MzAyMzAwMDBfd2Vla19saWNlbnNpbmdVc2VySm91cm5leTpkb3dubG9hZEZvcm1QYWdl",
-        "_week_start_at":"2013-06-24T00:00:00"
+        "uniqueEvents":2500
     },
     {
-        "_updated_at":"2013-07-14T05:00:03.294000",
         "timeSpan":"week",
         "dataType":"lpa_journey",
         "eventCategory":"stageprompt.lpa",
         "eventAction":"page",
         "eventLabel":"step3",
         "_timestamp":"2013-06-30T23:00:00+00:00",
-        "_month_start_at":"2013-06-01T00:00:00",
-        "uniqueEvents":2123,
-        "_id":"bGljZW5zaW5nX292ZXJ2aWV3X2pvdXJuZXlfMjAxMzA2MzAyMzAwMDBfd2Vla19saWNlbnNpbmdVc2VySm91cm5leTpkb3dubG9hZEZvcm1QYWdl",
-        "_week_start_at":"2013-06-24T00:00:00"
+        "uniqueEvents":2123
     },
     {
-        "_updated_at":"2013-07-14T05:00:03.294000",
         "timeSpan":"week",
         "dataType":"lpa_journey",
         "eventCategory":"stageprompt.lpa",
         "eventAction":"page",
         "eventLabel":"step4",
         "_timestamp":"2013-06-30T23:00:00+00:00",
-        "_month_start_at":"2013-06-01T00:00:00",
-        "uniqueEvents":1987,
-        "_id":"bGljZW5zaW5nX292ZXJ2aWV3X2pvdXJuZXlfMjAxMzA2MzAyMzAwMDBfd2Vla19saWNlbnNpbmdVc2VySm91cm5leTpkb3dubG9hZEZvcm1QYWdl",
-        "_week_start_at":"2013-06-24T00:00:00"
+        "uniqueEvents":1987
     },
     {
-        "_updated_at":"2013-07-14T05:00:03.294000",
         "timeSpan":"week",
         "dataType":"lpa_journey",
         "eventCategory":"stageprompt.lpa",
         "eventAction":"page",
         "eventLabel":"step5",
         "_timestamp":"2013-06-30T23:00:00+00:00",
-        "_month_start_at":"2013-06-01T00:00:00",
-        "uniqueEvents":1845,
-        "_id":"bGljZW5zaW5nX292ZXJ2aWV3X2pvdXJuZXlfMjAxMzA2MzAyMzAwMDBfd2Vla19saWNlbnNpbmdVc2VySm91cm5leTpkb3dubG9hZEZvcm1QYWdl",
-        "_week_start_at":"2013-06-24T00:00:00"
+        "uniqueEvents":1845
     },
     {
-        "_updated_at":"2013-07-14T05:00:03.294000",
         "timeSpan":"week",
         "dataType":"lpa_journey",
         "eventCategory":"stageprompt.lpa",
         "eventAction":"page",
         "eventLabel":"step6",
         "_timestamp":"2013-06-30T23:00:00+00:00",
-        "_month_start_at":"2013-06-01T00:00:00",
-        "uniqueEvents":1634,
-        "_id":"bGljZW5zaW5nX292ZXJ2aWV3X2pvdXJuZXlfMjAxMzA2MzAyMzAwMDBfd2Vla19saWNlbnNpbmdVc2VySm91cm5leTpkb3dubG9hZEZvcm1QYWdl",
-        "_week_start_at":"2013-06-24T00:00:00"
+        "uniqueEvents":1634
     },
     {
-        "_updated_at":"2013-07-14T05:00:03.294000",
         "timeSpan":"week",
         "dataType":"lpa_journey",
         "eventCategory":"stageprompt.lpa",
         "eventAction":"page",
         "eventLabel":"step7",
         "_timestamp":"2013-06-30T23:00:00+00:00",
-        "_month_start_at":"2013-06-01T00:00:00",
-        "uniqueEvents":1456,
-        "_id":"bGljZW5zaW5nX292ZXJ2aWV3X2pvdXJuZXlfMjAxMzA2MzAyMzAwMDBfd2Vla19saWNlbnNpbmdVc2VySm91cm5leTpkb3dubG9hZEZvcm1QYWdl",
-        "_week_start_at":"2013-06-24T00:00:00"
+        "uniqueEvents":1456
     },
     {
-        "_updated_at":"2013-07-14T05:00:03.294000",
         "timeSpan":"week",
         "dataType":"lpa_journey",
         "eventCategory":"stageprompt.lpa",
         "eventAction":"page",
         "eventLabel":"step8",
         "_timestamp":"2013-06-30T23:00:00+00:00",
-        "_month_start_at":"2013-06-01T00:00:00",
-        "uniqueEvents":1245,
-        "_id":"bGljZW5zaW5nX292ZXJ2aWV3X2pvdXJuZXlfMjAxMzA2MzAyMzAwMDBfd2Vla19saWNlbnNpbmdVc2VySm91cm5leTpkb3dubG9hZEZvcm1QYWdl",
-        "_week_start_at":"2013-06-24T00:00:00"
+        "uniqueEvents":1245
     },
     {
-        "_updated_at":"2013-07-14T05:00:03.294000",
         "timeSpan":"week",
         "dataType":"lpa_journey",
         "eventCategory":"stageprompt.lpa",
         "eventAction":"page",
         "eventLabel":"step9",
         "_timestamp":"2013-06-30T23:00:00+00:00",
-        "_month_start_at":"2013-06-01T00:00:00",
-        "uniqueEvents":1005,
-        "_id":"bGljZW5zaW5nX292ZXJ2aWV3X2pvdXJuZXlfMjAxMzA2MzAyMzAwMDBfd2Vla19saWNlbnNpbmdVc2VySm91cm5leTpkb3dubG9hZEZvcm1QYWdl",
-        "_week_start_at":"2013-06-24T00:00:00"
+        "uniqueEvents":1005
     },
     {
-        "_updated_at":"2013-07-14T05:00:03.294000",
         "timeSpan":"week",
         "dataType":"lpa_journey",
         "eventCategory":"stageprompt.lpa",
         "eventAction":"page",
         "eventLabel":"step10",
         "_timestamp":"2013-06-30T23:00:00+00:00",
-        "_month_start_at":"2013-06-01T00:00:00",
-        "uniqueEvents":991,
-        "_id":"bGljZW5zaW5nX292ZXJ2aWV3X2pvdXJuZXlfMjAxMzA2MzAyMzAwMDBfd2Vla19saWNlbnNpbmdVc2VySm91cm5leTpkb3dubG9hZEZvcm1QYWdl",
-        "_week_start_at":"2013-06-24T00:00:00"
+        "uniqueEvents":991
     }
 ]}
