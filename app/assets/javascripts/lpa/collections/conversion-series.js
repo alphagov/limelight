@@ -1,42 +1,44 @@
 define([
-    'extensions/collections/conversioncollection'
-], function(ConversionCollection) {
-    var ConversionSeries = ConversionCollection.extend({
+  'extensions/collections/conversioncollection'
+], function (ConversionCollection) {
+  var ConversionSeries = ConversionCollection.extend({
 
-        serviceName: 'lasting-power-of-attorney',
-        apiName: 'journey',
+    serviceName:'lasting-power-of-attorney',
+    apiName:'journey',
 
-        queryId: 'lpa-conversion',
+    queryId:'lpa-conversion',
 
-        steps: [
-            'stageprompt.lpa:page:step1',
-            'stageprompt.lpa:page:step2',
-            'stageprompt.lpa:page:step3',
-            'stageprompt.lpa:page:step4',
-            'stageprompt.lpa:page:step5',
-            'stageprompt.lpa:page:step6',
-            'stageprompt.lpa:page:step7',
-            'stageprompt.lpa:page:step8',
-            'stageprompt.lpa:page:step9',
-            'stageprompt.lpa:page:step10'
+    steps:[
+      'step1',
+      'step2',
+      'step3',
+      'step4',
+      'step5',
+      'step6',
+      'step7',
+      'step8',
+      'step9',
+      'step10'
 
-        ],
+    ],
 
-        stepTitles: {
-            'stageprompt.lpa:page:step1'  : 'Step 1',
-            'stageprompt.lpa:page:step2'  : 'Step 2',
-            'stageprompt.lpa:page:step3'  : 'Step 3',
-            'stageprompt.lpa:page:step4'  : 'Step 4',
-            'stageprompt.lpa:page:step5'  : 'Step 5',
-            'stageprompt.lpa:page:step6'  : 'Step 6',
-            'stageprompt.lpa:page:step7'  : 'Step 7',
-            'stageprompt.lpa:page:step8'  : 'Step 8',
-            'stageprompt.lpa:page:step9'  : 'Step 9',
-            'stageprompt.lpa:page:step10' : 'Step 10'
-        }
+    stepTitles:{
+      'step1':'Step 1',
+      'step2':'Step 2',
+      'step3':'Step 3',
+      'step4':'Step 4',
+      'step5':'Step 5',
+      'step6':'Step 6',
+      'step7':'Step 7',
+      'step8':'Step 8',
+      'step9':'Step 9',
+      'step10':'Step 10'
+    },
 
+    getStep: function(d) {
+      return d.eventLabel;
+    }
+  });
 
-    });
-
-    return ConversionSeries;
+  return ConversionSeries;
 });
