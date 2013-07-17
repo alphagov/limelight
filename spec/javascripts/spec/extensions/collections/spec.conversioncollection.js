@@ -117,6 +117,22 @@ define([
         expect(collection.at(2).get('uniqueEvents')).toEqual(0);
         expect(collection.at(2).get('uniqueEventsNormalised')).toEqual(0);
       });
+
+      it("assigns step from a configurable property", function() {
+        var models = [
+          {customStep: "example:downloadFormPage", uniqueEvents: 50000},
+          {customStep: "example:submitApplicationPage", uniqueEvents: 25000},
+          {customStep: "example:end", uniqueEvents: 10000}
+        ];
+
+        var collection = new TestCollection(null, {
+          getStep: function(d) { return d.customStep; }
+        });
+        collection.reset(collection.parse({ data: models }));
+
+        expect(collection.at(0).get('step')).toEqual("example:downloadFormPage");
+        expect(collection.at(0).get('uniqueEvents')).toEqual(50000);
+      });
     });
   });
 });

@@ -3,6 +3,14 @@ define([
 ], function(Collection) {
   var ConversionCollection = Collection.extend({
 
+    initialize: function (models, options) {
+      options = options || {};
+      if (options.getStep) {
+        this.getStep = options.getStep;
+      }
+      Collection.prototype.initialize.apply(this, arguments);
+    },
+
     queryParams: function() {
       var weeksAgo = this.options.weeksAgo || 0;
       var startOfWeek = this.moment().day(1).startOf('day').subtract(weeksAgo, 'weeks');
@@ -15,17 +23,17 @@ define([
     
     parse: function (response) {
       var titles = this.stepTitles;
-      
-      var data = _.map(this.steps, function (eventCategory) {
+
+      var data = _.map(this.steps, function (stepName) {
         return _.extend({
-          title: titles[eventCategory],
-          step: eventCategory,
+          title: titles[stepName],
+          step: stepName,
           uniqueEvents: 0,
           uniqueEventsNormalised: 0
         }, _.find(response.data, function (responseStep) {
-          return responseStep.eventCategory === eventCategory;
-        }));
-      });
+          return this.getStep(responseStep) === stepName;
+        }, this));
+      }, this);
 
       var maxVal = _.reduce(data, function (memo, step) {
         return Math.max(memo, step. uniqueEvents);
@@ -38,6 +46,10 @@ define([
       }
 
       return data;
+    },
+
+    getStep: function(d) {
+      return d.eventCategory;
     },
 
     comparator: function(step1, step2) {
