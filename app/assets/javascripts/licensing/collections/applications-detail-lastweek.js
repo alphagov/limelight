@@ -27,11 +27,16 @@ function (require, Collection) {
     queryId: 'applications-detail-lastweek',
 
     queryParams: function () {
-      var start_of_day = this.moment().utc().day(1).startOf('day');
+      var today = this.moment().utc();
+      if (today.day() === 0) { // Sunday
+          today = today.subtract(1, 'day');
+      }
+
+      var end = today.day(1).startOf('day');
       
       var params = {
-        start_at: start_of_day.clone().subtract(1, 'weeks'),
-        end_at: start_of_day,
+        start_at: end.clone().subtract(1, 'weeks'),
+        end_at: end,
         group_by: this.groupBy
       };
       
