@@ -1,23 +1,21 @@
 define([
   'require',
+  'common/date-range',
   './all-entities'
 ],
-function (require, AllEntitiesCollection) {
+function (require, dateRange, AllEntitiesCollection) {
+
   var Top5Collection = AllEntitiesCollection.extend({
     
     queryId: 'applications-top5-lastweek',
 
     queryParams: function () {
       var params = AllEntitiesCollection.prototype.queryParams.apply(this, arguments);
-      var today = this.moment().utc();
-      if (today.day() === 0) { // Sunday
-          today = today.subtract(1, 'day');
-      }
-      
-      var end = today.day(1).startOf('day');
+      var lastWeek = dateRange.lastWeekDateRange(this.moment());
+
       return _.extend(params, {
-        start_at: end.clone().subtract(1, 'weeks'),
-        end_at: end,
+        start_at: lastWeek.start_at,
+        end_at: lastWeek.end_at,
         limit: 5,
         sort_by: '_count:descending'
       });

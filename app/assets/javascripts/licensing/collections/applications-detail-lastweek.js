@@ -1,8 +1,9 @@
 define([
   'require',
+  'common/date-range',
   'extensions/collections/collection'
 ],
-function (require, Collection) {
+function (require, dateRange, Collection) {
   /**
    * Retrieves data for a specific licence, grouped by authority,
    * for all authorities
@@ -27,16 +28,11 @@ function (require, Collection) {
     queryId: 'applications-detail-lastweek',
 
     queryParams: function () {
-      var today = this.moment().utc();
-      if (today.day() === 0) { // Sunday
-          today = today.subtract(1, 'day');
-      }
-
-      var end = today.day(1).startOf('day');
+      var lastWeek = dateRange.lastWeekDateRange(this.moment());
       
       var params = {
-        start_at: end.clone().subtract(1, 'weeks'),
-        end_at: end,
+        start_at: lastWeek.start_at,
+        end_at: lastWeek.end_at,
         group_by: this.groupBy
       };
       

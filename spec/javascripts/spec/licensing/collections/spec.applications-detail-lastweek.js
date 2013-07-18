@@ -48,17 +48,6 @@ function (Collection, Applications) {
         expect(params.end_at.format('YYYY-MM-DDTHH:mm:ssZZ')).toEqual('2013-05-13T00:00:00+0000');
       });
 
-      it("requests date for last week on Sunday", function() {
-        var collection = new Collection([], {
-           groupBy: 'authorityUrlSlug'
-        });
-
-        setupMoment('2013-03-17 06:45:00', collection);
-
-        var params = collection.queryParams();
-        expect(params.start_at.format('YYYY-MM-DDTHH:mm:ss')).toEqual('2013-03-04T00:00:00');
-        expect(params.end_at.format('YYYY-MM-DDTHH:mm:ss')).toEqual('2013-03-11T00:00:00');
-      });
     });
   });
 });
