@@ -28,7 +28,7 @@ function (require, dateRange, Collection) {
     queryId: 'applications-detail-lastweek',
 
     queryParams: function () {
-      var lastWeek = dateRange.lastWeekDateRange(this.moment());
+      var lastWeek = dateRange.lastWeekDateRange(this.moment().utc());
       
       var params = {
         start_at: lastWeek.start_at,

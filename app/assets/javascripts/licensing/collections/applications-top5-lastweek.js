@@ -11,7 +11,7 @@ function (require, dateRange, AllEntitiesCollection) {
 
     queryParams: function () {
       var params = AllEntitiesCollection.prototype.queryParams.apply(this, arguments);
-      var lastWeek = dateRange.lastWeekDateRange(this.moment());
+      var lastWeek = dateRange.lastWeekDateRange(this.moment().utc());
 
       return _.extend(params, {
         start_at: lastWeek.start_at,
