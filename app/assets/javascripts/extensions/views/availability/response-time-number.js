@@ -24,7 +24,7 @@ function (View) {
           start.format('ha'),
           ' to ',
           end.format('ha'),
-          '<br>',
+          ',<br>',
           start.format('D MMMM YYYY')
         ].join('');
       } else {
@@ -41,4 +41,3 @@ function (View) {
 
   return ResponeTimeNumberView;
 });
-
