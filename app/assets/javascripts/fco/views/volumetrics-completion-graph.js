@@ -32,7 +32,9 @@ function (require, VolumetricsSubmissionsGraph, Tooltip) {
               if (value !== 100) {
                 value = value.toFixed(0);
               }
-              return value + '%' + ' (x out of y started)';
+              var selection = this.collection.getCurrentSelection();
+              var finished = this.formatNumericLabel(selection.selectedModel.get('uniqueEvents'));
+              return value + '%' + ' (' + finished + ' out of y)';
             }
           }
         },
