@@ -1,8 +1,9 @@
 define([
+  'require',
   'extensions/views/timeseries-graph/timeseries-graph',
-  'extensions/views/graph/stackedbar'
+  './tooltip'
 ],
-function (TimeseriesGraph, StackedBar) {
+function (require, TimeseriesGraph, Tooltip) {
   var UptimeGraph = TimeseriesGraph.extend({
 
     getConfigName: function () {
@@ -41,6 +42,18 @@ function (TimeseriesGraph, StackedBar) {
             outStack: function (model, y0, y) {
               model.yUptime0 = y0;
               model.yUptime = y;
+            }
+          }
+        },
+        {
+          view: Tooltip,
+          options: {
+            getValue: function (group, groupIndex, model, index) {
+              var value = model.get(this.graph.valueAttr) * 100;
+              if (value !== 100) {
+                value = value.toFixed(3);
+              }
+              return value + '%';
             }
           }
         },

@@ -13,10 +13,11 @@ function (Component) {
     xOffset: 7,
     yOffset: 7,
     constrainToBounds: true,
+    classed: 'callout',
     
     render: function () {
       if (!this.calloutEl) {
-        this.calloutEl = $('<div></div>').addClass('callout performance-hidden').appendTo(this.$el);
+        this.calloutEl = $('<div></div>').addClass(this.classed + ' performance-hidden').appendTo(this.$el);
       }
     },
 

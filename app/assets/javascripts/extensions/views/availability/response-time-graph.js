@@ -1,7 +1,9 @@
 define([
-  'extensions/views/timeseries-graph/timeseries-graph'
+  'require',
+  'extensions/views/timeseries-graph/timeseries-graph',
+  './tooltip'
 ],
-function (TimeseriesGraph) {
+function (require, TimeseriesGraph, Tooltip) {
   var ResponseTimeGraph = TimeseriesGraph.extend({
 
     valueAttr: 'avgresponse',
@@ -31,6 +33,14 @@ function (TimeseriesGraph) {
         {
           view: this.sharedComponents.stack,
           options: { drawCursorLine: true }
+        },
+        {
+          view: Tooltip,
+          options: {
+            getValue: function (group, groupIndex, model, index) {
+              return model.get(this.graph.valueAttr) + 'ms';
+            }
+          }
         },
         { view: this.sharedComponents.hover }
       ];
