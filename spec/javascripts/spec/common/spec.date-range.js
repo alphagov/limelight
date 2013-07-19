@@ -14,7 +14,7 @@ function (dateRange) {
         });
 
         it("should return last week start and end date for Sunday", function() {
-          var today = moment('2013-03-17 06:45:00');
+          var today = moment('2013-03-17 06:45:00').utc();
 
           var lastWeek = dateRange.lastWeekDateRange(today, 0);
 
@@ -32,7 +32,7 @@ function (dateRange) {
         });
 
         it("should return 2 week ago start and end date for Sunday", function() {
-          var today = moment('2013-07-21 06:45:00');
+          var today = moment('2013-07-21 06:45:00').utc();
 
           var lastWeek = dateRange.lastWeekDateRange(today, 1);
 
@@ -40,7 +40,6 @@ function (dateRange) {
           expect(lastWeek.end_at.format('YYYY-MM-DDTHH:mm:ss')).toEqual('2013-07-08T00:00:00');
         });
 
-        // TODO: consider BST timezones / utc() ???
       });
     });
 }
