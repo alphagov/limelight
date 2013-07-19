@@ -1,7 +1,7 @@
 define([
   'common/date-range',
   'extensions/collections/collection'
-], function(Collection) {
+], function(dateRange, Collection) {
   var ConversionCollection = Collection.extend({
 
     queryParams: function() {
