@@ -25,10 +25,12 @@ function (View) {
           '<strong>',
           percentage + '%',
           '</strong> ',
-          'Uptime for the period<br>',
-          start.format('D MMM YYYY ha'),
+          start.format('ha'),
           ' to ',
-          end.format('ha')
+          end.format('ha'),
+          '<br>',
+          start.format('D MMMM YYYY')
+
         ].join('');
       } else {
         var percentage = this.collection.getPercentageOfUptime();
@@ -39,7 +41,7 @@ function (View) {
           '<strong>',
           percentage + '%',
           '</strong>',
-          'Uptime for the last 24 hours'
+          'for the last 24 hours'
         ].join('');
       }
       this.$el.html(content);

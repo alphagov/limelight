@@ -21,17 +21,18 @@ function (View) {
           '<strong>',
           model.get('avgresponse'),
           'ms</strong> ',
-          'Mean response time<br>',
-          start.format('D MMM YYYY ha'),
+          start.format('ha'),
           ' to ',
-          end.format('ha')
+          end.format('ha'),
+          '<br>',
+          start.format('D MMMM YYYY')
         ].join('');
       } else {
         content = [
           '<strong>',
           Math.round(this.collection.getAverageResponseTime()),
           'ms</strong>',
-          'Mean response time<br>for the last 24 hours'
+          'mean for the last 24 hours'
         ].join('');
       }
       this.$el.html(content);
@@ -40,3 +41,4 @@ function (View) {
 
   return ResponeTimeNumberView;
 });
+
