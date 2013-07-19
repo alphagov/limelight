@@ -22,8 +22,7 @@ function (TimeseriesGraph, Tooltip) {
           view: Tooltip,
           options: {
             getValue: function (group, groupIndex, model, index) {
-              var value = model.get(this.graph.valueAttr);
-              
+              var value = model.get(this.graph.valueAttr);     
               return value;
             }
           }
@@ -35,3 +34,4 @@ function (TimeseriesGraph, Tooltip) {
 
   return VolumetricsGraph;
 });
+

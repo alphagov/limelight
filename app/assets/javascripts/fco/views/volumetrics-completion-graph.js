@@ -32,7 +32,7 @@ function (require, VolumetricsSubmissionsGraph, Tooltip) {
               if (value !== 100) {
                 value = value.toFixed(0);
               }
-              return value + '%';
+              return value + '%' + ' (x out of y started)';
             }
           }
         },
