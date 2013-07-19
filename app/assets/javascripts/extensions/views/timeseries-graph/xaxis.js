@@ -11,7 +11,7 @@ function (XAxis) {
           return model.get('_start_at').toDate();
         },
         tickFormat: function () {
-          // var moment = this.moment;
+          var moment = this.moment;
           return function (d, index) {
             var date = moment(d);
             if (date.hours() === 0) {

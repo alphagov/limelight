@@ -29,6 +29,9 @@ function (TimeseriesGraph, StackedBar) {
           view: this.sharedComponents.stack,
           options: {
             drawCursorLine: true,
+            // use custom properties for stack calculation because
+            // ResponseTimeGraph and UptimeGraph are sharing the same
+            // Collection
             y: function(model) {
               return this.scales.y(model.yUptime0 + model.yUptime);
             },
