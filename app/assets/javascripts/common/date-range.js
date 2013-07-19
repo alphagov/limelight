@@ -1,13 +1,16 @@
 define(
 function () {
+    var MONDAY = 1,
+        SUNDAY = 0;
+
     var lastWeekDateRange = function(date, weeksAgo) {
         var weeksAgo = weeksAgo || 0;
-        var today = date;
-        if (today.day() === 0) { // Sunday
+
+        if (date.day() === SUNDAY) {
             weeksAgo += 1
         }
 
-        var end = today.day(1).startOf('day').subtract(weeksAgo, 'weeks');
+        var end = date.day(MONDAY).startOf('day').subtract(weeksAgo, 'weeks');
 
         return {
             start_at: end.clone().subtract(1, 'weeks'),
