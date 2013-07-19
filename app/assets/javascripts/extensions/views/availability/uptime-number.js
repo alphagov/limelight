@@ -17,21 +17,29 @@ function (View) {
         var start = model.get('_start_at');
         var end = moment(model.get('_start_at')).add(1, 'hours');
 
+        var percentage = model.get('uptimeFraction') * 100;
+        if (percentage !== 100) {
+          percentage = percentage.toFixed(3);
+        }
         content = [
           '<strong>',
-          Math.round(model.get('uptimeFraction') * 100) + '%',
+          percentage + '%',
           '</strong> ',
-          'uptime in the period ',
-          start.format('HH:mm'),
-          ' – ',
-          end.format('HH:mm')
+          'Uptime for the period<br>',
+          start.format('D MMM YYYY ha'),
+          ' to ',
+          end.format('ha')
         ].join('');
       } else {
+        var percentage = this.collection.getPercentageOfUptime();
+        if (percentage !== 100) {
+          percentage = percentage.toFixed(3);
+        }
         content = [
           '<strong>',
-          Math.round(this.collection.getPercentageOfUptime()) + '%',
+          percentage + '%',
           '</strong>',
-          'Mean uptime for the last 24 hours'
+          'Uptime for the last 24 hours'
         ].join('');
       }
       this.$el.html(content);

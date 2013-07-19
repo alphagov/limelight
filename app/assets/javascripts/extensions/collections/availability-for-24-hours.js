@@ -18,7 +18,7 @@ function (GraphCollection) {
     queryParams: function () {
       return {
         sort_by: "_timestamp:descending",
-        limit: 25
+        limit: 24
       };
     },
 

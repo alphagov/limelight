@@ -12,14 +12,14 @@ function (GraphCollection, FCO24HourAvailabilityCollection,
           SingleStatView, CurrentSelection, UptimeNumber, UptimeGraph,
           ResponseTimeNumber, ResponseTimeGraph) {
 
-  return function (serviceName) {
+  return function (serviceName, checkName) {
     if (!$('#uptime').length || !$('#response-time').length) {
       return;
     }
 
     var availabilityCollection = new FCO24HourAvailabilityCollection(null, {
       serviceName: serviceName,
-      checkName: serviceName
+      checkName: checkName
     });
 
     new UptimeNumber({

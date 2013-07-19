@@ -4,31 +4,34 @@ define([
 function (TimeseriesGraph) {
   var ResponseTimeGraph = TimeseriesGraph.extend({
 
+    valueAttr: 'avgresponse',
+
     getConfigName: function () {
       return 'hour';
     },
 
     components: function () {
       return [
+        { view: this.sharedComponents.xaxis },
         {
-          view: this.sharedComponents.xaxis,
+          view: this.sharedComponents.yaxis,
           options: {
-            tickValues: function () {
-              var count = this.collection.first().get('values').length;
-              var values = this.collection.first().get('values').filter(function (model, index) {
-                return (count - 1 - index) % 6 === 0;
-              });
-              return _.map(values, this.getTick);
+            ticks: 3,
+            tickFormat: function () {
+              return function (d) {
+                if (d >= 1000) {
+                  return Math.round(d / 1000) + 's';
+                } else {
+                  return d + 'ms';
+                }
+              };
             }
           }
         },
         {
-          view: this.sharedComponents.yaxis,
-          options: {
-            ticks: 5
-          }
+          view: this.sharedComponents.stack,
+          options: { drawCursorLine: true }
         },
-        { view: this.sharedComponents.line },
         { view: this.sharedComponents.hover }
       ];
     },
@@ -46,13 +49,7 @@ function (TimeseriesGraph) {
       xScale.range([0, this.innerWidth]);
 
       return xScale;
-    },
-
-    onChangeSelected: function () {
-
-    },
-
-    valueAttr: 'avgresponse'
+    }
 
   });
 

@@ -11,12 +11,9 @@ function (TimeseriesGraph, StackedBar) {
 
     minYDomainExtent: 1,
 
-    yAxisInstance: function() {
-      return this.componentInstances[0];
-    },
-
     components: function () {
       return [
+        { view: this.sharedComponents.xaxis },
         {
           view: this.sharedComponents.yaxis,
           options: {
@@ -28,7 +25,22 @@ function (TimeseriesGraph, StackedBar) {
             }
           }
         },
-        { view: this.sharedComponents.stack },
+        {
+          view: this.sharedComponents.stack,
+          options: {
+            drawCursorLine: true,
+            y: function(model) {
+              return this.scales.y(model.yUptime0 + model.yUptime);
+            },
+            y0: function (model) {
+              return this.scales.y(model.yUptime0);
+            },
+            outStack: function (model, y0, y) {
+              model.yUptime0 = y0;
+              model.yUptime = y;
+            }
+          }
+        },
         { view: this.sharedComponents.hover }
       ];
     },
