@@ -8,6 +8,7 @@ class CommonController < ApplicationController
         path: licensing_path
       }
     ]
+
     if Rails.application.config.feature_toggles[:fco_dashboards]
       all_services += [
         {
@@ -35,6 +36,13 @@ class CommonController < ApplicationController
           path: deposit_foreign_marriage_path
         }
       ]
+    end
+
+    if Rails.application.config.feature_toggles[:hmrc_dashboards]
+      all_services << {
+        name: 'HMRC (preview)',
+        path: hmrc_path
+      }
     end
 
     if Rails.application.config.feature_toggles[:lpa_dashboard]
