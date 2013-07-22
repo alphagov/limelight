@@ -33,8 +33,14 @@ function (require, VolumetricsSubmissionsGraph, Tooltip) {
                 value = value.toFixed(0);
               }
               var selection = this.collection.getCurrentSelection();
-              var finished = this.formatNumericLabel(selection.selectedModel.get('uniqueEvents'));
-              return value + '%' + ' (' + finished + ' out of y)';
+              var finished = selection.selectedModel.get('uniqueEvents');
+              
+              //TODO: really hacky way of finding no of started.
+              var started = finished / (value / 100);
+              started = started.toFixed(0);
+              
+
+              return value + '%' + ' (' + finished + ' out of ' + started + ')';
             }
           }
         },
