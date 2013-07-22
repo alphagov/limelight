@@ -1,19 +1,19 @@
 define([
-  'lpa/collections/application-method-over-time',
-  'lpa/views/timeseries-graph/timeseries-graph'
+  'hmrc/collections/contact-method-over-time',
+  'extensions/views/timeseries-graph/multi-timeseries-graph'
 ],
-function (ApplicationsCollection, ApplicationsGraph) {
+function (ContactCollection, ApplicationsGraph) {
   return function () {
 
     if (!$('.lte-ie8').length && $('#application-method-over-time').length) {
-      var applicationsCollection = new ApplicationsCollection();
+      var contactCollection = new ContactCollection();
 
       var graphView = new ApplicationsGraph({
         el: $('#application-method-over-time'),
-        collection: applicationsCollection
+        collection: contactCollection
       });
 
-      applicationsCollection.fetch();
+      contactCollection.fetch();
     }
 
   }

@@ -38,13 +38,6 @@ class CommonController < ApplicationController
       ]
     end
 
-    if Rails.application.config.feature_toggles[:hmrc_dashboards]
-      all_services << {
-        name: 'HMRC (preview)',
-        path: hmrc_path
-      }
-    end
-
     if Rails.application.config.feature_toggles[:lpa_dashboard]
       all_services << {
         name: 'Lasting Power of Attorney',
