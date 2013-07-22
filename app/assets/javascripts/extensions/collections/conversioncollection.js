@@ -1,12 +1,11 @@
 define([
-  'common/date-range',
   'extensions/collections/collection'
-], function(dateRange, Collection) {
+], function(Collection) {
   var ConversionCollection = Collection.extend({
 
     queryParams: function() {
       var weeksAgo = this.options.weeksAgo || 0;
-      return dateRange.lastWeekDateRange(this.moment(), weeksAgo);
+      return this.lastWeekDateRangeParams(this.moment(), weeksAgo);
     },
     
     parse: function (response) {
