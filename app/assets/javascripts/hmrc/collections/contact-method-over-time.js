@@ -39,7 +39,7 @@ function (GraphCollection) {
       return [
         {
           id: 'baseline',
-          title: 'Historical',
+          title: 'Past non-digital',
           values: items.baseline
         },
         {
