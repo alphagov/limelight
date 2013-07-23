@@ -15,7 +15,7 @@ function (View) {
       if (selection.selectedModel) {
         var model = selection.selectedModel;
         var start = model.get('_start_at');
-        var end = moment(model.get('_start_at')).add(1, 'hours');
+        var end = model.get('_end_at');
 
         content = [
           '<strong>',

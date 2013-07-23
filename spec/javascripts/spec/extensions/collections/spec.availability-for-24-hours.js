@@ -130,5 +130,26 @@ define([
           new AvailabilityFor24HoursCollection([], { checkName: "anything" });
         }).toThrow()
       });
+
+      it("should parse data with end_at with +1 hour after the timestamp", function() {
+         response = {
+           data: [
+             {
+               "uptime": 900, "downtime": 100,
+               "unmonitored": 0,
+               "avgresponse": 100,
+               "check": "anything",
+               "_id": "08",
+               "_timestamp": "2013-06-17T16:00:00+00:00"
+             }
+           ]
+         }
+         var collection =
+           new AvailabilityFor24HoursCollection(availabilityData, options);
+
+         data = collection.parse(response);
+
+         expect(data.values[0]._end_at).toEqual(moment("2013-06-17T17:00:00+00:00"));
+      });
     });
   });

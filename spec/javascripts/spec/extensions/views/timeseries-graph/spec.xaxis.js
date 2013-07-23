@@ -24,7 +24,7 @@ function (XAxis, Collection, moment) {
         var values = [];
         for (var date = start.clone(); +date < +end; date.add(1, 'hours')) {
           values.push({
-            _start_at: date.clone()
+            _end_at: date.clone()
           });
         }
 

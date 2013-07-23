@@ -8,7 +8,7 @@ function (XAxis) {
     configs: {
       hour: {
         getTick: function (model) {
-          return model.get('_start_at').toDate();
+          return model.get('_end_at').toDate();
         },
         tickFormat: function () {
           var moment = this.moment;
@@ -25,7 +25,7 @@ function (XAxis) {
         },
         tickValues: function () {
           var values = this.collection.first().get('values').filter(function (model, index) {
-            return model.get('_start_at').hours() % 6 === 0;
+            return model.get('_end_at').hours() % 6 === 0;
           });
           return _.map(values, this.getTick);
         }
