@@ -69,8 +69,12 @@
 
 
 @media (max-width: 640px) {
+  .performance-platform-outer {
+    padding-top: 1em;
+  }
+
   #content {
-    padding: 1em;
+    padding: 0 1em;
     
     section {
       float:none;
