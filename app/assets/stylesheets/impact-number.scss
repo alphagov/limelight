@@ -1,6 +1,8 @@
 @import 'typography';
 
 p.impact-number {
+  margin-bottom: 4px;
+
   strong {
     color: $primary-colour;
     @include bold-80;
@@ -8,4 +10,8 @@ p.impact-number {
     margin-bottom: -.1em;
     display: block;
   }
+}
+
+p.stat-description {
+  margin-top: 0.1em;
 }

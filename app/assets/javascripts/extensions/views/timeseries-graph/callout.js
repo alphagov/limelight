@@ -33,7 +33,7 @@ function (Callout) {
 
           return [
             start.format(start.month() === end.month() ? 'D' : 'D MMM'),
-            ' – ',
+            ' to ',
             end.format('D MMM YYYY')
           ].join('');
         }
@@ -55,7 +55,7 @@ function (Callout) {
 
       return [
         start.format(start.month() === end.month() ? 'D' : 'D MMM'),
-        ' – ',
+        ' to ',
         end.format('D MMM YYYY')
       ].join('');
     },
