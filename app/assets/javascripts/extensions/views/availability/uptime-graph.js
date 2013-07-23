@@ -51,7 +51,7 @@ function (require, TimeseriesGraph, Tooltip) {
             getValue: function (group, groupIndex, model, index) {
               var value = model.get(this.graph.valueAttr) * 100;
               if (value !== 100) {
-                value = value.toFixed(3);
+                value = value.toFixed(1);
               }
               return value + '%';
             }

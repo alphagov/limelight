@@ -19,7 +19,7 @@ function (View) {
 
         var percentage = model.get('uptimeFraction') * 100;
         if (percentage !== 100) {
-          percentage = percentage.toFixed(3);
+          percentage = percentage.toFixed(1);
         }
         content = [
           '<strong>',
@@ -35,7 +35,7 @@ function (View) {
       } else {
         var percentage = this.collection.getPercentageOfUptime();
         if (percentage !== 100) {
-          percentage = percentage.toFixed(3);
+          percentage = percentage.toFixed(1);
         }
         content = [
           '<strong>',
