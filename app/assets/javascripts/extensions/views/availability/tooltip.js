@@ -10,10 +10,14 @@ function (Callout) {
       return model.get(this.graph.valueAttr);
     },
 
+    svgText: function (value) {
+      return '<svg width="80" height="15"><g transform="translate(0,0)"><text class="tooltip-text" x="10" y="15">'
+      + value + '</text></g></svg>';
+    },
+
     renderContent: function (el, group, groupIndex, model, index) {
       var value = this.getValue(group, groupIndex, model, index);
-      var content = $('<p>').html(value);
-      el.empty().append(content);
+      el.empty().append($('<p>').html(this.svgText(value)));
     }
   });
 
