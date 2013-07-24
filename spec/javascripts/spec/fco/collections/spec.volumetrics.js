@@ -1,4 +1,4 @@
-define(['fco/collections/volumetrics_2'],
+define(['fco/collections/volumetrics'],
   function (VolumetricsCollection) {
     var someFakeFCOTransactionData = { data: [
       {
@@ -42,15 +42,15 @@ define(['fco/collections/volumetrics_2'],
       });
 
       it("should count the total number of people starting the transaction", function () {
-        expect(volumetricsCollection.numberOfJourneyStarts()).toEqual(21);
+        expect(volumetricsCollection.numberOfJourneyStarts(someFakeFCOTransactionData)).toEqual(21);
       });
 
       it("should count the total number of people completing the transaction", function () {
-        expect(volumetricsCollection.numberOfJourneyCompletions()).toEqual(10);
+        expect(volumetricsCollection.numberOfJourneyCompletions(someFakeFCOTransactionData)).toEqual(10);
       });
 
       it("should give the total completion rate as a percentage", function () {
-        expect(volumetricsCollection.completionRate()).toBeCloseTo(47.6, 0.01);
+        expect(volumetricsCollection.completionRate(someFakeFCOTransactionData)).toBeCloseTo(47.6, 0.01);
       });
     });
   }
