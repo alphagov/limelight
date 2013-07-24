@@ -6,21 +6,21 @@ function (View) {
     return function(model) {
       return !_.isUndefined(model.get(property));
     }
-  }
+  };
 
   var get = function(property) {
     return function(model) {
       return model.get(property);
     }
-  }
+  };
 
   var sum = function(a, b) {
     return a + b;
-  }
+  };
 
   var contentString = function(value, caption) {
     return [ '<strong>', value, '%</strong>', caption ].join('');
-  }
+  };
 
   var CompletionSelectedView = View.extend({
     initialize: function (attrs, options) {
