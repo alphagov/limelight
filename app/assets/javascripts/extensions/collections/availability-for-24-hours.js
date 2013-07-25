@@ -27,8 +27,8 @@ function (GraphCollection) {
       _.each(data, function (d) {
         d.total = d.downtime + d.unmonitored + d.uptime;
         d.uptimeFraction = d.uptime / d.total;
-        d._start_at = d._timestamp;
-        d._end_at = this.moment(d._timestamp).add(1, "hours");
+        d._end_at = this.moment(d._timestamp);
+        d._start_at = this.moment(d._timestamp).subtract(1, "hours");
       });
       return {
         id: 'availability',

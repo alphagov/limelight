@@ -131,7 +131,7 @@ define([
         }).toThrow()
       });
 
-      it("should parse data with end_at with +1 hour after the timestamp", function() {
+      it("should parse data with end_at as the timestamp and start at as an hour earlier", function() {
          response = {
            data: [
              {
@@ -149,7 +149,8 @@ define([
 
          data = collection.parse(response);
 
-         expect(data.values[0]._end_at).toEqual(moment("2013-06-17T17:00:00+00:00"));
+         expect(data.values[0]._start_at).toEqual(moment("2013-06-17T15:00:00+00:00"));
+         expect(data.values[0]._end_at).toEqual(moment("2013-06-17T16:00:00+00:00"));
       });
     });
   });
