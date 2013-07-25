@@ -3,6 +3,14 @@ define([
   'extensions/models/group'
 ],
 function (GraphCollection, Group) {
+  var START_STAGE_MATCHER = /start$/;
+  var DONE_STAGE_MATCHER = /done$/;
+
+  function filterByEventCategory(data, matcher) {
+    return _.filter(data, function (d) {
+      return d.eventCategory.match(matcher) !== null;
+    });
+  }
 
   var VolumetricsCollection = GraphCollection.extend({
     model: Group,
@@ -17,27 +25,50 @@ function (GraphCollection, Group) {
     },
 
     numberOfJourneyStarts: function (response) {
-      var endsWithStartMatcher = /start$/,
-          starts = _.map(response.data, function (d) {
-            return (d.eventCategory.match(endsWithStartMatcher) !== null) ?
-              d.uniqueEvents : 0;
-          });
-
-      return _.reduce(starts, function (mem, c) { return mem + c});
+      var startedEvents = filterByEventCategory(response.data, START_STAGE_MATCHER);
+      return _.reduce(startedEvents, function (mem, d) { return mem + d.uniqueEvents; }, 0);
     },
 
     numberOfJourneyCompletions: function (response) {
-      var endsWithDoneMatcher = /done$/,
-        dones = _.map(response.data, function (d) {
-          return (d.eventCategory.match(endsWithDoneMatcher) !== null) ?
-            d.uniqueEvents : 0;
-        });
-
-      return _.reduce(dones, function (mem, c) { return mem + c});
+      var completionEvents = filterByEventCategory(response.data, DONE_STAGE_MATCHER);
+      return _.reduce(completionEvents, function (mem, d) { return mem + d.uniqueEvents; }, 0);
     },
 
     completionRate: function (response) {
       return (this.numberOfJourneyCompletions(response) / this.numberOfJourneyStarts(response) * 100);
+    },
+
+    applicationsSeries: function () {
+      var data = this.pluck('data')[0];
+      var applicationEvents = filterByEventCategory(data, DONE_STAGE_MATCHER);
+      return {
+        id: "done",
+        title: "Done",
+        values: _.map(applicationEvents, function (d) { return {
+          _start_at: moment(d._timestamp).add(1, 'hours'),
+          _end_at: moment(d._timestamp).add(1, 'weeks').add(1, 'hours'),
+          uniqueEvents: d.uniqueEvents
+        }; })
+      };
+    },
+
+    completionSeries: function () {
+      var data = this.pluck('data')[0];
+      var startedApplicationEvents = filterByEventCategory(data, START_STAGE_MATCHER);
+      var completedApplicationEvents = filterByEventCategory(data, DONE_STAGE_MATCHER);
+      return {
+        id: "completion",
+        title: "Completion rate",
+        totalCompletion: this.completionRate({ data: data }),
+        values: _.map(startedApplicationEvents, function (d_started, i) {
+          var d_completed = completedApplicationEvents[i];
+          return {
+            _start_at: moment(d_started._timestamp).add(1, 'hours'),
+            _end_at: moment(d_completed._timestamp).add(1, 'weeks').add(1, 'hours'),
+            completion: (d_completed.uniqueEvents / d_started.uniqueEvents) * 100
+          };
+        })
+      };
     },
 
     parse: function (response) {
