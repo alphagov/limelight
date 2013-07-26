@@ -2,12 +2,6 @@ define([
   'extensions/views/view'
 ],
 function (View) {
-  var modelsWith = function(property) {
-    return function(model) {
-      return !_.isUndefined(model.get(property));
-    }
-  };
-
   var contentString = function(value, caption) {
     return [ '<strong>', value, '%</strong>', caption ].join('');
   };
