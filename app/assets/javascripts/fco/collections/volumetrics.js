@@ -13,6 +13,20 @@ function (GraphCollection, Group, dateFunctions) {
     });
   }
 
+  function findCompletion(existingStartedEvent, existingCompletedEvent) {
+    var completion = 0;
+    if (_.isObject(existingStartedEvent) && _.isObject(existingCompletedEvent)) {
+      completion = (existingCompletedEvent.uniqueEvents / existingStartedEvent.uniqueEvents) * 100;
+    }
+    return completion;
+  }
+
+  function getEventForTimestamp(events, timestamp) {
+    return _.find(events, function (d) {
+      return moment(d._timestamp).isSame(timestamp);
+    });
+  }
+
   var VolumetricsCollection = GraphCollection.extend({
     model: Group,
 
@@ -43,11 +57,11 @@ function (GraphCollection, Group, dateFunctions) {
       var data = this.pluck('data')[0];
       var applicationEvents = filterByEventCategory(data, DONE_STAGE_MATCHER);
 
-      var latestEventTimestamp = dateFunctions.latest(applicationEvents, function (d) { return moment(d._timestamp); });
+      var latestEventTimestamp = dateFunctions.latest(data, function (d) { return moment(d._timestamp); });
       var weekDates = dateFunctions.weeksFrom(latestEventTimestamp, 9);
 
       var values = _.map(weekDates, function (timestamp) {
-        var existingEvent = _.find(applicationEvents, function (d) { return moment(d._timestamp).isSame(timestamp); });
+        var existingEvent = getEventForTimestamp(applicationEvents, timestamp);
         return {
           _start_at: timestamp.clone().add(1, 'hours'),
           _end_at: timestamp.clone().add(1, 'hours').add(1, 'weeks'),
@@ -66,18 +80,25 @@ function (GraphCollection, Group, dateFunctions) {
       var data = this.pluck('data')[0];
       var startedApplicationEvents = filterByEventCategory(data, START_STAGE_MATCHER);
       var completedApplicationEvents = filterByEventCategory(data, DONE_STAGE_MATCHER);
+
+      var latestEventTimestamp = dateFunctions.latest(data, function (d) { return moment(d._timestamp); });
+      var weekDates = dateFunctions.weeksFrom(latestEventTimestamp, 9);
+
+      var values = _.map(weekDates, function (timestamp) {
+        var existingStartEvent = getEventForTimestamp(startedApplicationEvents, timestamp);
+        var existingCompletionEvent = getEventForTimestamp(completedApplicationEvents, timestamp);
+        return {
+          _start_at: timestamp.clone().add(1, 'hours'),
+          _end_at: timestamp.clone().add(1, 'hours').add(1, 'weeks'),
+          completion: findCompletion(existingStartEvent, existingCompletionEvent)
+        };
+      });
+
       return {
         id: "completion",
         title: "Completion rate",
         totalCompletion: this.completionRate({ data: data }),
-        values: _.map(startedApplicationEvents, function (d_started, i) {
-          var d_completed = completedApplicationEvents[i];
-          return {
-            _start_at: moment(d_started._timestamp).add(1, 'hours'),
-            _end_at: moment(d_completed._timestamp).add(1, 'weeks').add(1, 'hours'),
-            completion: (d_completed.uniqueEvents / d_started.uniqueEvents) * 100
-          };
-        })
+        values: values
       };
     },
 

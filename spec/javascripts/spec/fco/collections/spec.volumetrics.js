@@ -90,15 +90,15 @@ define(['fco/collections/volumetrics'],
       });
 
       it("should map completion rates to completion series", function () {
-        var firstValue = volumetricsCollection.completionSeries().values[0];
+        var firstValue = volumetricsCollection.completionSeries().values[6];
         expect(firstValue._start_at).toBeMoment(moment("2013-06-10T01:00:00+01:00"));
         expect(firstValue._end_at).toBeMoment(moment("2013-06-17T01:00:00+01:00"));
         expect(firstValue.completion).toBe(60);
-        var secondValue = volumetricsCollection.completionSeries().values[1];
+        var secondValue = volumetricsCollection.completionSeries().values[7];
         expect(secondValue._start_at).toBeMoment(moment("2013-06-17T01:00:00+01:00"));
         expect(secondValue._end_at).toBeMoment(moment("2013-06-24T01:00:00+01:00"));
         expect(secondValue.completion).toBeCloseTo(42.8, 0.1);
-        var thirdValue = volumetricsCollection.completionSeries().values[2];
+        var thirdValue = volumetricsCollection.completionSeries().values[8];
         expect(thirdValue._start_at).toBeMoment(moment("2013-06-24T01:00:00+01:00"));
         expect(thirdValue._end_at).toBeMoment(moment("2013-07-01T01:00:00+01:00"));
         expect(thirdValue.completion).toBeCloseTo(44.44, 0.1);
@@ -120,6 +120,34 @@ define(['fco/collections/volumetrics'],
         expect(paddedValue2._end_at).toBeMoment(moment("2013-06-03T01:00:00+01:00"));
         expect(paddedValue2.uniqueEvents).toBe(0);
       });
+
+      it("should query for 9 weeks of data for completion series", function () {
+        expect(volumetricsCollection.completionSeries().values.length).toBe(9);
+      });
+
+      it("should pad out missing data for completions series", function () {
+        var paddedValues = volumetricsCollection.completionSeries().values.splice(0,6);
+        var paddedValue = paddedValues.pop();
+        expect(paddedValue._start_at).toBeMoment(moment("2013-06-03T01:00:00+0100"));
+        expect(paddedValue._end_at).toBeMoment(moment("2013-06-10T01:00:00+01:00"));
+        expect(paddedValue.completion).toBe(0);
+      });
+
+      it("should have a completion rate of 0 when there's no done event for the timestamp", function () {
+        var events = { data: [
+          {
+            _timestamp: "2013-06-09T23:00:00+00:00",
+            eventCategory: "fco-transaction-name:start",
+            uniqueEvents: 5
+          }
+        ]};
+
+        var noDoneEventVolumetricsCollection = new VolumetricsCollection(events, {
+          serviceName: 'notARealFCOTransaction'
+        });
+
+        expect(noDoneEventVolumetricsCollection.completionSeries().values[8].completion).toBe(0);
+      })
     });
   }
 );
