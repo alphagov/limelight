@@ -1,8 +1,9 @@
 define([
   'extensions/collections/graphcollection',
-  'extensions/models/group'
+  'extensions/models/group',
+  'extensions/mixins/date-functions'
 ],
-function (GraphCollection, Group) {
+function (GraphCollection, Group, dateFunctions) {
   var START_STAGE_MATCHER = /start$/;
   var DONE_STAGE_MATCHER = /done$/;
 
@@ -41,14 +42,23 @@ function (GraphCollection, Group) {
     applicationsSeries: function () {
       var data = this.pluck('data')[0];
       var applicationEvents = filterByEventCategory(data, DONE_STAGE_MATCHER);
+
+      var latestEventTimestamp = dateFunctions.latest(applicationEvents, function (d) { return moment(d._timestamp); });
+      var weekDates = dateFunctions.weeksFrom(latestEventTimestamp, 9);
+
+      var values = _.map(weekDates, function (timestamp) {
+        var existingEvent = _.find(applicationEvents, function (d) { return moment(d._timestamp).isSame(timestamp); });
+        return {
+          _start_at: timestamp.clone().add(1, 'hours'),
+          _end_at: timestamp.clone().add(1, 'hours').add(1, 'weeks'),
+          uniqueEvents: _.isUndefined(existingEvent) ? 0 : existingEvent.uniqueEvents
+        };
+      });
+
       return {
         id: "done",
         title: "Done",
-        values: _.map(applicationEvents, function (d) { return {
-          _start_at: moment(d._timestamp).add(1, 'hours'),
-          _end_at: moment(d._timestamp).add(1, 'weeks').add(1, 'hours'),
-          uniqueEvents: d.uniqueEvents
-        }; })
+        values: values
       };
     },
 

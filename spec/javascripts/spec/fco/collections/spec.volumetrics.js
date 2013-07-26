@@ -63,7 +63,7 @@ define(['fco/collections/volumetrics'],
         var applicationsSeries = volumetricsCollection.applicationsSeries();
         expect(applicationsSeries.title).toBe("Done");
         expect(applicationsSeries.id).toBe("done");
-        expect(applicationsSeries.values.length).toBe(3);
+        expect(applicationsSeries.values).not.toBeUndefined();
       });
 
       it("should give a series for completion rate", function () {
@@ -71,19 +71,19 @@ define(['fco/collections/volumetrics'],
         expect(completionSeries.title).toBe("Completion rate");
         expect(completionSeries.id).toBe("completion");
         expect(completionSeries.totalCompletion).toBeCloseTo(47.6, 0.01);
-        expect(completionSeries.values.length).toBe(3);
+        expect(completionSeries.values.length).not.toBeUndefined();
       });
       
       it("should map applications to application series", function () {
-        var firstValue = volumetricsCollection.applicationsSeries().values[0];
+        var firstValue = volumetricsCollection.applicationsSeries().values[6];
         expect(firstValue._start_at).toBeMoment(moment("2013-06-10T01:00:00+01:00"));
         expect(firstValue._end_at).toBeMoment(moment("2013-06-17T01:00:00+01:00"));
         expect(firstValue.uniqueEvents).toBe(3);
-        var secondValue = volumetricsCollection.applicationsSeries().values[1];
+        var secondValue = volumetricsCollection.applicationsSeries().values[7];
         expect(secondValue._start_at).toBeMoment(moment("2013-06-17T01:00:00+01:00"));
         expect(secondValue._end_at).toBeMoment(moment("2013-06-24T01:00:00+01:00"));
         expect(secondValue.uniqueEvents).toBe(3);
-        var thirdValue = volumetricsCollection.applicationsSeries().values[2];
+        var thirdValue = volumetricsCollection.applicationsSeries().values[8];
         expect(thirdValue._start_at).toBeMoment(moment("2013-06-24T01:00:00+01:00"));
         expect(thirdValue._end_at).toBeMoment(moment("2013-07-01T01:00:00+01:00"));
         expect(thirdValue.uniqueEvents).toBe(4);
@@ -102,6 +102,23 @@ define(['fco/collections/volumetrics'],
         expect(thirdValue._start_at).toBeMoment(moment("2013-06-24T01:00:00+01:00"));
         expect(thirdValue._end_at).toBeMoment(moment("2013-07-01T01:00:00+01:00"));
         expect(thirdValue.completion).toBeCloseTo(44.44, 0.1);
+      });
+      
+      it("should query for 9 weeks of data for application series", function () {
+        expect(volumetricsCollection.applicationsSeries().values.length).toBe(9);
+      });
+
+      it("should pad out missing data for application series", function () {
+        var paddedValues = volumetricsCollection.applicationsSeries().values.splice(0,6);
+        var paddedValue = paddedValues.pop();
+        expect(paddedValue._start_at).toBeMoment(moment("2013-06-03T01:00:00+01:00"));
+        expect(paddedValue._end_at).toBeMoment(moment("2013-06-10T01:00:00+01:00"));
+        expect(paddedValue.uniqueEvents).toBe(0);
+
+        var paddedValue2 = paddedValues.pop();
+        expect(paddedValue2._start_at).toBeMoment(moment("2013-05-27T01:00:00+01:00"));
+        expect(paddedValue2._end_at).toBeMoment(moment("2013-06-03T01:00:00+01:00"));
+        expect(paddedValue2.uniqueEvents).toBe(0);
       });
     });
   }
