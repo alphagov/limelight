@@ -1,9 +1,9 @@
 define([
-  'extensions/collections/graphcollection',
+  'extensions/collections/collection',
   'extensions/models/group',
   'extensions/mixins/date-functions'
 ],
-function (GraphCollection, Group, dateFunctions) {
+function (Collection, Group, dateFunctions) {
   var START_STAGE_MATCHER = /start$/;
   var DONE_STAGE_MATCHER = /done$/;
 
@@ -27,14 +27,14 @@ function (GraphCollection, Group, dateFunctions) {
     });
   }
 
-  var VolumetricsCollection = GraphCollection.extend({
+  var VolumetricsCollection = Collection.extend({
     model: Group,
 
     apiName: 'journey',
 
     initialize: function (models, options) {
       this.serviceName = options.serviceName;
-      GraphCollection.prototype.initialize.apply(this, arguments);
+      Collection.prototype.initialize.apply(this, arguments);
       this.query.set('period', 'week', {silent: true, utc: false});
       delete this.query.attributes.period;
     },
