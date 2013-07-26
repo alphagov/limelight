@@ -63,6 +63,7 @@ define(['fco/collections/volumetrics'],
         var applicationsSeries = volumetricsCollection.applicationsSeries();
         expect(applicationsSeries.title).toBe("Done");
         expect(applicationsSeries.id).toBe("done");
+        expect(applicationsSeries.weeksWithData).toBe(3);
         expect(applicationsSeries.values).not.toBeUndefined();
       });
 
@@ -70,6 +71,7 @@ define(['fco/collections/volumetrics'],
         var completionSeries = volumetricsCollection.completionSeries();
         expect(completionSeries.title).toBe("Completion rate");
         expect(completionSeries.id).toBe("completion");
+        expect(completionSeries.weeksWithData).toBe(3);
         expect(completionSeries.totalCompletion).toBeCloseTo(47.6, 0.01);
         expect(completionSeries.values.length).not.toBeUndefined();
       });

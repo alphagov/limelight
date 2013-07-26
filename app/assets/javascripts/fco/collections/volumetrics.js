@@ -72,6 +72,7 @@ function (Collection, Group, dateFunctions) {
       return {
         id: "done",
         title: "Done",
+        weeksWithData: applicationEvents.length,
         values: new Collection(values)
       };
     },
@@ -97,6 +98,7 @@ function (Collection, Group, dateFunctions) {
       return {
         id: "completion",
         title: "Completion rate",
+        weeksWithData: completedApplicationEvents.length,
         totalCompletion: this.completionRate({ data: data }),
         values: new Collection(values)
       };
