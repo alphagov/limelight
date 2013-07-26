@@ -1,6 +1,6 @@
 define(['fco/collections/volumetrics'],
   function (VolumetricsCollection) {
-    var someFakeFCOTransactionData = { data: [
+    var someFakeFCOTransactionData = [
       {
         _timestamp: "2013-06-09T23:00:00+00:00",
         eventCategory: "fco-transaction-name:start",
@@ -31,13 +31,13 @@ define(['fco/collections/volumetrics'],
         eventCategory: "fco-transaction-name:done",
         uniqueEvents: 4
       }
-    ]};
+    ];
 
     describe("FCO volumetrics collections", function () {
       var volumetricsCollection = undefined;
 
       beforeEach(function () {
-        volumetricsCollection = new VolumetricsCollection(someFakeFCOTransactionData, {
+        volumetricsCollection = new VolumetricsCollection({ data: someFakeFCOTransactionData }, {
           serviceName: 'notARealFCOTransaction'
         });
       });
@@ -48,15 +48,15 @@ define(['fco/collections/volumetrics'],
       });
 
       it("should count the total number of people starting the transaction", function () {
-        expect(volumetricsCollection.numberOfJourneyStarts(someFakeFCOTransactionData)).toEqual(21);
+        expect(volumetricsCollection.numberOfJourneyStarts()).toEqual(21);
       });
 
       it("should count the total number of people completing the transaction", function () {
-        expect(volumetricsCollection.numberOfJourneyCompletions(someFakeFCOTransactionData)).toEqual(10);
+        expect(volumetricsCollection.numberOfJourneyCompletions()).toEqual(10);
       });
 
       it("should give the total completion rate as a percentage", function () {
-        expect(volumetricsCollection.completionRate(someFakeFCOTransactionData)).toBeCloseTo(47.6, 0.01);
+        expect(volumetricsCollection.completionRate()).toBeCloseTo(47.6, 0.01);
       });
 
       it("should give a series for applications", function () {

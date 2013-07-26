@@ -39,18 +39,20 @@ function (Collection, Group, dateFunctions) {
       delete this.query.attributes.period;
     },
 
-    numberOfJourneyStarts: function (response) {
-      var startedEvents = filterByEventCategory(response.data, START_STAGE_MATCHER);
+    numberOfJourneyStarts: function () {
+      var data = this.pluck('data')[0];
+      var startedEvents = filterByEventCategory(data, START_STAGE_MATCHER);
       return _.reduce(startedEvents, function (mem, d) { return mem + d.uniqueEvents; }, 0);
     },
 
-    numberOfJourneyCompletions: function (response) {
-      var completionEvents = filterByEventCategory(response.data, DONE_STAGE_MATCHER);
+    numberOfJourneyCompletions: function () {
+      var data = this.pluck('data')[0];
+      var completionEvents = filterByEventCategory(data, DONE_STAGE_MATCHER);
       return _.reduce(completionEvents, function (mem, d) { return mem + d.uniqueEvents; }, 0);
     },
 
-    completionRate: function (response) {
-      return (this.numberOfJourneyCompletions(response) / this.numberOfJourneyStarts(response) * 100);
+    completionRate: function () {
+      return (this.numberOfJourneyCompletions() / this.numberOfJourneyStarts() * 100);
     },
 
     applicationsSeries: function () {
@@ -73,7 +75,7 @@ function (Collection, Group, dateFunctions) {
         id: "done",
         title: "Done",
         weeksWithData: applicationEvents.length,
-        mean: this.numberOfJourneyCompletions({ data:data }) / applicationEvents.length,
+        mean: this.numberOfJourneyCompletions() / applicationEvents.length,
         values: new Collection(values)
       };
     },
@@ -100,7 +102,7 @@ function (Collection, Group, dateFunctions) {
         id: "completion",
         title: "Completion rate",
         weeksWithData: completedApplicationEvents.length,
-        totalCompletion: this.completionRate({ data: data }),
+        totalCompletion: this.completionRate(),
         values: new Collection(values)
       };
     }
