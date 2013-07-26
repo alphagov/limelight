@@ -35,10 +35,10 @@ function (View) {
         }).length;
         content = [
           '<strong>',
-          this.formatNumericLabel(total / count),
+          this.formatNumericLabel(this.collection.at(0).get('mean')),
           '</strong>',
           'mean per week over the last ',
-          count,
+          this.collection.at(0).get('weeksWithData'),
           ' weeks'
         ].join('');
       }
