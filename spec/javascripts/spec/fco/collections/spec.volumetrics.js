@@ -64,6 +64,7 @@ define(['fco/collections/volumetrics'],
         expect(applicationsSeries.title).toBe("Done");
         expect(applicationsSeries.id).toBe("done");
         expect(applicationsSeries.weeksWithData).toBe(3);
+        expect(applicationsSeries.mean).toBeCloseTo(3.33, 0.01);
         expect(applicationsSeries.values).not.toBeUndefined();
       });
 
@@ -95,15 +96,15 @@ define(['fco/collections/volumetrics'],
         var firstValue = volumetricsCollection.completionSeries().values.at(6);
         expect(firstValue.get('_start_at')).toBeMoment(moment("2013-06-10T01:00:00+01:00"));
         expect(firstValue.get('_end_at')).toBeMoment(moment("2013-06-17T01:00:00+01:00"));
-        expect(firstValue.get('completion')).toBe(60);
+        expect(firstValue.get('completion')).toBe(0.6);
         var secondValue = volumetricsCollection.completionSeries().values.at(7);
         expect(secondValue.get('_start_at')).toBeMoment(moment("2013-06-17T01:00:00+01:00"));
         expect(secondValue.get('_end_at')).toBeMoment(moment("2013-06-24T01:00:00+01:00"));
-        expect(secondValue.get('completion')).toBeCloseTo(42.8, 0.1);
+        expect(secondValue.get('completion')).toBeCloseTo(0.428, 0.001);
         var thirdValue = volumetricsCollection.completionSeries().values.at(8);
         expect(thirdValue.get('_start_at')).toBeMoment(moment("2013-06-24T01:00:00+01:00"));
         expect(thirdValue.get('_end_at')).toBeMoment(moment("2013-07-01T01:00:00+01:00"));
-        expect(thirdValue.get('completion')).toBeCloseTo(44.44, 0.1);
+        expect(thirdValue.get('completion')).toBeCloseTo(0.4444, 0.001);
       });
       
       it("should query for 9 weeks of data for application series", function () {

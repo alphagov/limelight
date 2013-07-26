@@ -16,7 +16,7 @@ function (Collection, Group, dateFunctions) {
   function findCompletion(existingStartedEvent, existingCompletedEvent) {
     var completion = 0;
     if (_.isObject(existingStartedEvent) && _.isObject(existingCompletedEvent)) {
-      completion = (existingCompletedEvent.uniqueEvents / existingStartedEvent.uniqueEvents) * 100;
+      completion = existingCompletedEvent.uniqueEvents / existingStartedEvent.uniqueEvents;
     }
     return completion;
   }
@@ -73,6 +73,7 @@ function (Collection, Group, dateFunctions) {
         id: "done",
         title: "Done",
         weeksWithData: applicationEvents.length,
+        mean: this.numberOfJourneyCompletions({ data:data }) / applicationEvents.length,
         values: new Collection(values)
       };
     },
