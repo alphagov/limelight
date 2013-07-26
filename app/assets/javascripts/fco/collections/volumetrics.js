@@ -72,7 +72,7 @@ function (Collection, Group, dateFunctions) {
       return {
         id: "done",
         title: "Done",
-        values: values
+        values: new Collection(values)
       };
     },
 
@@ -98,7 +98,7 @@ function (Collection, Group, dateFunctions) {
         id: "completion",
         title: "Completion rate",
         totalCompletion: this.completionRate({ data: data }),
-        values: values
+        values: new Collection(values)
       };
     },
 

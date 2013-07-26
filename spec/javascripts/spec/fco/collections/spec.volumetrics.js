@@ -75,33 +75,33 @@ define(['fco/collections/volumetrics'],
       });
       
       it("should map applications to application series", function () {
-        var firstValue = volumetricsCollection.applicationsSeries().values[6];
-        expect(firstValue._start_at).toBeMoment(moment("2013-06-10T01:00:00+01:00"));
-        expect(firstValue._end_at).toBeMoment(moment("2013-06-17T01:00:00+01:00"));
-        expect(firstValue.uniqueEvents).toBe(3);
-        var secondValue = volumetricsCollection.applicationsSeries().values[7];
-        expect(secondValue._start_at).toBeMoment(moment("2013-06-17T01:00:00+01:00"));
-        expect(secondValue._end_at).toBeMoment(moment("2013-06-24T01:00:00+01:00"));
-        expect(secondValue.uniqueEvents).toBe(3);
-        var thirdValue = volumetricsCollection.applicationsSeries().values[8];
-        expect(thirdValue._start_at).toBeMoment(moment("2013-06-24T01:00:00+01:00"));
-        expect(thirdValue._end_at).toBeMoment(moment("2013-07-01T01:00:00+01:00"));
-        expect(thirdValue.uniqueEvents).toBe(4);
+        var firstValue = volumetricsCollection.applicationsSeries().values.at(6);
+        expect(firstValue.get('_start_at')).toBeMoment(moment("2013-06-10T01:00:00+01:00"));
+        expect(firstValue.get('_end_at')).toBeMoment(moment("2013-06-17T01:00:00+01:00"));
+        expect(firstValue.get('uniqueEvents')).toBe(3);
+        var secondValue = volumetricsCollection.applicationsSeries().values.at(7);
+        expect(secondValue.get('_start_at')).toBeMoment(moment("2013-06-17T01:00:00+01:00"));
+        expect(secondValue.get('_end_at')).toBeMoment(moment("2013-06-24T01:00:00+01:00"));
+        expect(secondValue.get('uniqueEvents')).toBe(3);
+        var thirdValue = volumetricsCollection.applicationsSeries().values.at(8);
+        expect(thirdValue.get('_start_at')).toBeMoment(moment("2013-06-24T01:00:00+01:00"));
+        expect(thirdValue.get('_end_at')).toBeMoment(moment("2013-07-01T01:00:00+01:00"));
+        expect(thirdValue.get('uniqueEvents')).toBe(4);
       });
 
       it("should map completion rates to completion series", function () {
-        var firstValue = volumetricsCollection.completionSeries().values[6];
-        expect(firstValue._start_at).toBeMoment(moment("2013-06-10T01:00:00+01:00"));
-        expect(firstValue._end_at).toBeMoment(moment("2013-06-17T01:00:00+01:00"));
-        expect(firstValue.completion).toBe(60);
-        var secondValue = volumetricsCollection.completionSeries().values[7];
-        expect(secondValue._start_at).toBeMoment(moment("2013-06-17T01:00:00+01:00"));
-        expect(secondValue._end_at).toBeMoment(moment("2013-06-24T01:00:00+01:00"));
-        expect(secondValue.completion).toBeCloseTo(42.8, 0.1);
-        var thirdValue = volumetricsCollection.completionSeries().values[8];
-        expect(thirdValue._start_at).toBeMoment(moment("2013-06-24T01:00:00+01:00"));
-        expect(thirdValue._end_at).toBeMoment(moment("2013-07-01T01:00:00+01:00"));
-        expect(thirdValue.completion).toBeCloseTo(44.44, 0.1);
+        var firstValue = volumetricsCollection.completionSeries().values.at(6);
+        expect(firstValue.get('_start_at')).toBeMoment(moment("2013-06-10T01:00:00+01:00"));
+        expect(firstValue.get('_end_at')).toBeMoment(moment("2013-06-17T01:00:00+01:00"));
+        expect(firstValue.get('completion')).toBe(60);
+        var secondValue = volumetricsCollection.completionSeries().values.at(7);
+        expect(secondValue.get('_start_at')).toBeMoment(moment("2013-06-17T01:00:00+01:00"));
+        expect(secondValue.get('_end_at')).toBeMoment(moment("2013-06-24T01:00:00+01:00"));
+        expect(secondValue.get('completion')).toBeCloseTo(42.8, 0.1);
+        var thirdValue = volumetricsCollection.completionSeries().values.at(8);
+        expect(thirdValue.get('_start_at')).toBeMoment(moment("2013-06-24T01:00:00+01:00"));
+        expect(thirdValue.get('_end_at')).toBeMoment(moment("2013-07-01T01:00:00+01:00"));
+        expect(thirdValue.get('completion')).toBeCloseTo(44.44, 0.1);
       });
       
       it("should query for 9 weeks of data for application series", function () {
@@ -109,16 +109,16 @@ define(['fco/collections/volumetrics'],
       });
 
       it("should pad out missing data for application series", function () {
-        var paddedValues = volumetricsCollection.applicationsSeries().values.splice(0,6);
+        var paddedValues = volumetricsCollection.applicationsSeries().values.first(6);
         var paddedValue = paddedValues.pop();
-        expect(paddedValue._start_at).toBeMoment(moment("2013-06-03T01:00:00+01:00"));
-        expect(paddedValue._end_at).toBeMoment(moment("2013-06-10T01:00:00+01:00"));
-        expect(paddedValue.uniqueEvents).toBe(0);
+        expect(paddedValue.get('_start_at')).toBeMoment(moment("2013-06-03T01:00:00+01:00"));
+        expect(paddedValue.get('_end_at')).toBeMoment(moment("2013-06-10T01:00:00+01:00"));
+        expect(paddedValue.get('uniqueEvents')).toBe(0);
 
         var paddedValue2 = paddedValues.pop();
-        expect(paddedValue2._start_at).toBeMoment(moment("2013-05-27T01:00:00+01:00"));
-        expect(paddedValue2._end_at).toBeMoment(moment("2013-06-03T01:00:00+01:00"));
-        expect(paddedValue2.uniqueEvents).toBe(0);
+        expect(paddedValue2.get('_start_at')).toBeMoment(moment("2013-05-27T01:00:00+01:00"));
+        expect(paddedValue2.get('_end_at')).toBeMoment(moment("2013-06-03T01:00:00+01:00"));
+        expect(paddedValue2.get('uniqueEvents')).toBe(0);
       });
 
       it("should query for 9 weeks of data for completion series", function () {
@@ -126,11 +126,11 @@ define(['fco/collections/volumetrics'],
       });
 
       it("should pad out missing data for completions series", function () {
-        var paddedValues = volumetricsCollection.completionSeries().values.splice(0,6);
+        var paddedValues = volumetricsCollection.completionSeries().values.first(6);
         var paddedValue = paddedValues.pop();
-        expect(paddedValue._start_at).toBeMoment(moment("2013-06-03T01:00:00+0100"));
-        expect(paddedValue._end_at).toBeMoment(moment("2013-06-10T01:00:00+01:00"));
-        expect(paddedValue.completion).toBe(0);
+        expect(paddedValue.get('_start_at')).toBeMoment(moment("2013-06-03T01:00:00+0100"));
+        expect(paddedValue.get('_end_at')).toBeMoment(moment("2013-06-10T01:00:00+01:00"));
+        expect(paddedValue.get('completion')).toBe(0);
       });
 
       it("should have a completion rate of 0 when there's no done event for the timestamp", function () {
@@ -146,7 +146,7 @@ define(['fco/collections/volumetrics'],
           serviceName: 'notARealFCOTransaction'
         });
 
-        expect(noDoneEventVolumetricsCollection.completionSeries().values[8].completion).toBe(0);
+        expect(noDoneEventVolumetricsCollection.completionSeries().values.at(8).get('completion')).toBe(0);
       })
     });
   }
