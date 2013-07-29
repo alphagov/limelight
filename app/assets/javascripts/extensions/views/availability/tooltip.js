@@ -28,7 +28,7 @@ function (Component, Pivot) {
 
     onChangeSelected: function (group, groupIndex, model, index) {
       var unselected = model == null;
-      var selection = this.componentWrapper.selectAll('text.tooltip-text');
+      var selection = this.componentWrapper.selectAll('text');
 
       if (unselected) {
         selection.data([]).exit().remove();
@@ -37,9 +37,12 @@ function (Component, Pivot) {
 
       var value = this.getValue(group, groupIndex, model, index);
 
-      selection = selection.data([value])
+      selection = selection.data([value, value])
       selection.exit().remove()
-      selection.enter().append("text").attr('class', 'tooltip-text').attr('dy', this.textHeight)
+      selection.enter().append("text").attr('class', function (d, index) {
+        return index === 0 ? 'tooltip-stroke' : 'tooltip-text';
+      }).attr('dy', this.textHeight)
+
       selection.text(value);
 
       var basePos = {

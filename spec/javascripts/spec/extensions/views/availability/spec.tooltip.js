@@ -41,7 +41,9 @@ function (Tooltip, Model) {
         tooltip.onChangeSelected(null, null, model, 1);
 
         expect(wrapper.select('text.tooltip-text').text()).toEqual("Tooltip Text");
+        expect(wrapper.select('text.tooltip-stroke').text()).toEqual("Tooltip Text");
         expect(wrapper.select('text.tooltip-text').attr('transform')).toEqual("translate(17, 27)");
+        expect(wrapper.select('text.tooltip-stroke').attr('transform')).toEqual("translate(17, 27)");
       });
 
       it("hides the tooltip when unselected", function () {
@@ -49,9 +51,11 @@ function (Tooltip, Model) {
 
         tooltip.onChangeSelected(null, null, model, 1);
         expect(wrapper.select('text.tooltip-text')[0][0]).not.toBeFalsy();
+        expect(wrapper.select('text.tooltip-stroke')[0][0]).not.toBeFalsy();
 
         tooltip.onChangeSelected(null, null, null, null);
         expect(wrapper.select('text.tooltip-text')[0][0]).toBeFalsy();
+        expect(wrapper.select('text.tooltip-stroke')[0][0]).toBeFalsy();
       });
 
     });
