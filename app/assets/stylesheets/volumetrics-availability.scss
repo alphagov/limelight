@@ -36,12 +36,13 @@
   }
 
   .graph {
-    margin-left: 13em;
+    margin-left: 12.5em;
     min-height: 135px;
     max-height: 200px;
 
     margin-right:-30px;
     .inner {
+      left: 65px;
       right:30px;
     }
   }

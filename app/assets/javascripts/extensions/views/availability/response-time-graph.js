@@ -21,11 +21,7 @@ function (require, TimeseriesGraph, Tooltip) {
             ticks: 3,
             tickFormat: function () {
               return function (d) {
-                if (d >= 1000) {
-                  return Math.round(d / 1000) + 's';
-                } else {
-                  return d + 'ms';
-                }
+                return d + 'ms';
               };
             }
           }
