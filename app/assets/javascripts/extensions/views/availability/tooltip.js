@@ -7,11 +7,11 @@ function (Component, Pivot) {
 
     classed: 'tooltip',
     constrainToBounds: true,
-    horizontal: 'left',
-    vertical: 'top',
+    horizontal: 'right',
+    vertical: 'bottom',
     textHeight: 11,
-    xOffset: 7,
-    yOffset: 7,
+    xOffset: -7,
+    yOffset: -7,
 
     x: function (model, index) {
       var x = this.moment(model.get('_end_at'));
@@ -20,6 +20,10 @@ function (Component, Pivot) {
 
     y: function (model, index) {
       return this.scales.y(model.get(this.graph.valueAttr));
+    },
+
+    textWidth: function (selection) {
+      return selection.node().getBBox().width;
     },
 
     getValue: function (group, groupIndex, model, index) {
@@ -56,7 +60,7 @@ function (Component, Pivot) {
         xOffset: this.xOffset,
         yOffset: this.yOffset,
         constrainToBounds: this.constrainToBounds,
-        width: selection.node().getBBox().width,
+        width: this.textWidth(selection),
         height: this.textHeight
       }, {
         width: this.graph.innerWidth,

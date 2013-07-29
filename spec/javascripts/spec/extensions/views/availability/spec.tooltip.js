@@ -19,11 +19,15 @@ function (Tooltip, Model) {
           graph: {
             valueAttr: "modelValue"
           },
+          constrainToBounds: false,
           x: function (model, index) {
-            return 10;
+            return 110;
           },
           y: function (model, index) {
-            return 20;
+            return 120;
+          },
+          textWidth: function() {
+            return 100;
           }
         });
 
@@ -42,8 +46,8 @@ function (Tooltip, Model) {
 
         expect(wrapper.select('text.tooltip-text').text()).toEqual("Tooltip Text");
         expect(wrapper.select('text.tooltip-stroke').text()).toEqual("Tooltip Text");
-        expect(wrapper.select('text.tooltip-text').attr('transform')).toEqual("translate(17, 27)");
-        expect(wrapper.select('text.tooltip-stroke').attr('transform')).toEqual("translate(17, 27)");
+        expect(wrapper.select('text.tooltip-text').attr('transform')).toEqual("translate(3, 102)");
+        expect(wrapper.select('text.tooltip-stroke').attr('transform')).toEqual("translate(3, 102)");
       });
 
       it("hides the tooltip when unselected", function () {

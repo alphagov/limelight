@@ -10,7 +10,7 @@ function (Stack) {
       hour: {
         x: function (model, index) {
           var x = this.moment(model.get('_end_at'));
-          return this.scales.x(x.toDate());
+          return Math.floor(this.scales.x(x.toDate())) + 0.5;
         }
       },
       week: {
