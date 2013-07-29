@@ -27,16 +27,20 @@ function (Component, Pivot) {
     },
 
     onChangeSelected: function (group, groupIndex, model, index) {
+      var unselected = model == null;
+      var selection = this.componentWrapper.selectAll('text.tooltip-text');
+
+      if (unselected) {
+        selection.data([]).exit().remove();
+        return;
+      }
+
       var value = this.getValue(group, groupIndex, model, index);
 
-      var selection = this.componentWrapper.selectAll('text.tooltip-text')
-        .data([value]);
-      selection.exit().remove();
-      selection.enter().append("text").attr('class', 'tooltip-text')
-        .attr('dy', this.textHeight);
+      selection = selection.data([value])
+      selection.exit().remove()
+      selection.enter().append("text").attr('class', 'tooltip-text').attr('dy', this.textHeight)
       selection.text(value);
-
-      var textDimensions = selection.node().getBBox();
 
       var basePos = {
         x: this.x(model, index, group, groupIndex),
@@ -49,7 +53,7 @@ function (Component, Pivot) {
         xOffset: this.xOffset,
         yOffset: this.yOffset,
         constrainToBounds: this.constrainToBounds,
-        width: textDimensions.width,
+        width: selection.node().getBBox().width,
         height: this.textHeight
       }, {
         width: this.graph.innerWidth,
