@@ -1,25 +1,67 @@
 define([
-  'extensions/views/timeseries-graph/callout'
+  'extensions/views/graph/component',
+  'extensions/mixins/pivot'
 ],
-function (Callout) {
-  var Tooltip = Callout.extend({
+function (Component, Pivot) {
+  var Tooltip = Component.extend({
 
     classed: 'tooltip',
+    constrainToBounds: true,
+    horizontal: 'left',
+    vertical: 'top',
+    textHeight: 11,
+    xOffset: 7,
+    yOffset: 7,
+
+    x: function (model, index) {
+      var x = this.moment(model.get('_end_at'));
+      return this.scales.x(x.toDate());
+    },
+
+    y: function (model, index) {
+      return this.scales.y(model.get(this.graph.valueAttr));
+    },
 
     getValue: function (group, groupIndex, model, index) {
       return model.get(this.graph.valueAttr);
     },
 
-    svgText: function (value) {
-      return '<svg width="80" height="15"><g transform="translate(0,0)"><text class="tooltip-text" x="10" y="15">'
-      + value + '</text></g></svg>';
-    },
-
-    renderContent: function (el, group, groupIndex, model, index) {
+    onChangeSelected: function (group, groupIndex, model, index) {
       var value = this.getValue(group, groupIndex, model, index);
-      el.empty().append($('<p>').html(this.svgText(value)));
+
+      var selection = this.componentWrapper.selectAll('text.tooltip-text')
+        .data([value]);
+      selection.exit().remove();
+      selection.enter().append("text").attr('class', 'tooltip-text')
+        .attr('dy', this.textHeight);
+      selection.text(value);
+
+      var textDimensions = selection.node().getBBox();
+
+      var basePos = {
+        x: this.x(model, index, group, groupIndex),
+        y: this.y(model, index, group, groupIndex)
+      };
+
+      var pos = this.applyPivot(basePos, {
+        horizontal: this.horizontal,
+        vertical: this.vertical,
+        xOffset: this.xOffset,
+        yOffset: this.yOffset,
+        constrainToBounds: this.constrainToBounds,
+        width: textDimensions.width,
+        height: this.textHeight
+      }, {
+        width: this.graph.innerWidth,
+        height: this.graph.innerHeight
+      });
+
+      selection.attr('transform', 'translate(' + pos.x + ', ' + pos.y + ')');
     }
+
   });
+
+  _.extend(Tooltip.prototype, Pivot);
 
   return Tooltip;
 });

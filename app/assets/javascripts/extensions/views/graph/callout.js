@@ -50,7 +50,8 @@ function (Component, Pivot) {
         xOffset: this.xOffset,
         yOffset: this.yOffset,
         constrainToBounds: this.constrainToBounds,
-        el: pivotingEl
+        width: pivotingEl.width(),
+        height: pivotingEl.height()
       }, {
         width: this.graph.innerWidth * scaleFactor,
         height: this.graph.innerHeight * scaleFactor

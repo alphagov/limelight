@@ -28,7 +28,8 @@ define([
           var pivot = {
             horizontal: 'left',
             vertical: 'bottom',
-            el: calloutEl
+            width: 30,
+            height: 20
           };
           var pos = Pivot.applyPivot(basePos, pivot);
           expect(pos.x).toEqual(400);
@@ -39,7 +40,8 @@ define([
           var pivot = {
             horizontal: 'right',
             vertical: 'top',
-            el: calloutEl
+            width: 30,
+            height: 20
           };
           var pos = Pivot.applyPivot(basePos, pivot);
           expect(pos.x).toEqual(370);
@@ -52,7 +54,8 @@ define([
             vertical: 'bottom',
             xOffset: 13,
             yOffset: 12,
-            el: calloutEl
+            width: 30,
+            height: 20
           };
           var pos = Pivot.applyPivot(basePos, pivot);
           expect(pos.x).toEqual(413);
@@ -65,7 +68,8 @@ define([
             vertical: 'top',
             xOffset: 13,
             yOffset: 12,
-            el: calloutEl
+            width: 30,
+            height: 20
           };
           var pos = Pivot.applyPivot(basePos, pivot);
           expect(pos.x).toEqual(383);
@@ -81,7 +85,8 @@ define([
               xOffset: 13,
               yOffset: 12,
               constrainToBounds: true,
-              el: calloutEl
+              width: 30,
+              height: 20
             };
           });
 
@@ -170,29 +175,23 @@ define([
 
 
       describe("offsetFromTopLeft", function() {
-        var el;
         beforeEach(function() {
-
-          el = {
-            width: jasmine.createSpy().andReturn(400),
-            height: jasmine.createSpy().andReturn(300)
-          }
           spyOn(Pivot, "positionToFraction").andCallThrough();
         });
 
         it("returns the offset from the top left corner", function() {
-          var point = Pivot.offsetFromTopLeft(el, 'left', 'top');
+          var point = Pivot.offsetFromTopLeft(400, 300, 'left', 'top');
           expect(point.x).toEqual(0);
           expect(point.y).toEqual(0);
 
           expect(Pivot.positionToFraction).toHaveBeenCalledWith('left');
           expect(Pivot.positionToFraction).toHaveBeenCalledWith('top');
 
-          point = Pivot.offsetFromTopLeft(el, 'centre', 'centre');
+          point = Pivot.offsetFromTopLeft(400, 300, 'centre', 'centre');
           expect(point.x).toEqual(200);
           expect(point.y).toEqual(150);
 
-          point = Pivot.offsetFromTopLeft(el, 'right', 'bottom');
+          point = Pivot.offsetFromTopLeft(400, 300, 'right', 'bottom');
           expect(point.x).toEqual(400);
           expect(point.y).toEqual(300);
 

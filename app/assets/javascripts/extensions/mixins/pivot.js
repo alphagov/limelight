@@ -19,14 +19,15 @@ function () {
      * @param {Object} [bounds=null] Element whose bounding box the Callout should not overflow
      */
     applyPivot: function (basePos, pivot, bounds) {
-      var el = pivot.el;
       var horizontal = pivot.horizontal;
       var vertical = pivot.vertical;
       pivot.xOffset = pivot.xOffset || 0;
       pivot.yOffset = pivot.yOffset || 0;
 
       // first, move into direction that was requested
-      var pivotCorrection = this.offsetFromTopLeft(el, horizontal, vertical);
+      var pivotCorrection = this.offsetFromTopLeft(
+        pivot.width, pivot.height, horizontal, vertical
+      );
 
       var pos = {
         x: basePos.x + pivot.xOffset - pivotCorrection.x,
@@ -36,19 +37,21 @@ function () {
       if (pivot.constrainToBounds) {
         // reverse directions if there are overlaps
         var overlap = false;
-        if (pos.x < 0 || pos.x + el.width() > bounds.width) {
+        if (pos.x < 0 || pos.x + pivot.width > bounds.width) {
           horizontal = this.reversePositionToFraction(horizontal);
           pivot.xOffset *= -1;
           overlap = true;
         }
-        if (pos.y < 0 || pos.y + el.height() > bounds.height) {
+        if (pos.y < 0 || pos.y + pivot.height > bounds.height) {
           vertical = this.reversePositionToFraction(vertical);
           pivot.yOffset *= -1;
           overlap = true;
         }
 
         if (overlap) {
-          pivotCorrection = this.offsetFromTopLeft(el, horizontal, vertical);
+          pivotCorrection = this.offsetFromTopLeft(
+            pivot.width, pivot.height, horizontal, vertical
+          );
           pos = {
             x: basePos.x + pivot.xOffset - pivotCorrection.x,
             y: basePos.y + pivot.yOffset - pivotCorrection.y
@@ -93,9 +96,7 @@ function () {
       return null;
     },
 
-    offsetFromTopLeft: function (el, horizontal, vertical) {
-      var width = el.width();
-      var height = el.height();
+    offsetFromTopLeft: function (width, height, horizontal, vertical) {
       return {
         x: width * this.positionToFraction(horizontal),
         y: height * this.positionToFraction(vertical)
