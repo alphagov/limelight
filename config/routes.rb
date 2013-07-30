@@ -31,7 +31,7 @@ Limelight::Application.routes.draw do
   end
 
   if Rails.application.config.feature_toggles[:evl_dashboard]
-    match "/performance/electronic-vehicle-licensing" => "evl#index", via: :get, as: "evl"
+    get "/performance/:dashboard" => "dashboard#index", as: "dashboard"
   end
 
 end

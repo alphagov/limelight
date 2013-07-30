@@ -48,7 +48,7 @@ class CommonController < ApplicationController
     if Rails.application.config.feature_toggles[:evl_dashboard]
       all_services << {
           name: 'Electronic Vehicle Licensing',
-          path: evl_path
+          path: dashboard_path("electronic-vehicle-licensing")
       }
     end
 
