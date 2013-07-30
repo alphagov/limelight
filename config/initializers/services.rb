@@ -17,6 +17,6 @@ services_yaml_path = Rails.root.join("config", "services.yml")
 
 dashboards = YAML.load(File.read(services_yaml_path))["dashboards"]
 
-services = dashboards.map {|properties| Service.new(properties)}.select(&:toggled_on?).map {|service| [service.slug, service] }
+services = dashboards.map {|properties| Service.new(properties)}.select(&:toggled_on?)
 
-Limelight::Application.config.available_services = Hash[*services.flatten]
+Limelight::Application.config.available_services = services.index_by(&:slug)
