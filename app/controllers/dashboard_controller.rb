@@ -18,11 +18,11 @@ class DashboardController < ApplicationController
 
   def index
     respond_to do |format|
-      format.html { render :template => @@dashboards[params[:dashboard]] }
+      format.html { render :template => @@dashboards[params[:slug]] }
     end
   end
 
   def validate_dashboard_existence
-    redirect_to :status => 404 unless @@dashboards.key? params[:dashboard]
+    redirect_to :status => 404 unless @@dashboards.key? params[:slug]
   end
 end
