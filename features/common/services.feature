@@ -9,7 +9,7 @@ Feature: Services page
        Then I should get back a status of 200
         And the page title should be "Services"
         And the page subtitle should be "Services integrated with the Performance Platform"
-        And the "services" count should be 8
+        And the "services" count should be 9
 
   Scenario Outline: navigating to service
     When I go to /performance/services
@@ -21,6 +21,7 @@ Feature: Services page
     Examples:
       | Title                                                      | Path                                           |
       | Deposit foreign marriage or civil partnership certificates | /performance/deposit-foreign-marriage          |
+      | Electronic Vehicle Licensing                               | /performance/electronic-vehicle-licensing      |
       | Lasting Power of Attorney                                  | /performance/lasting-power-of-attorney         |
       | Licensing                                                  | /performance/licensing                         |  
       | Pay to get documents legalised by post                     | /performance/pay-legalisation-post             |  
