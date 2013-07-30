@@ -13,27 +13,27 @@ class CommonController < ApplicationController
       all_services += [
         {
           name: 'Pay to get documents legalised by post',
-          path: pay_legalisation_post_path
+          path: dashboard_path("pay-legalisation-post")
         },
         {
           name: 'Pay to legalise documents using the premium service',
-          path: pay_legalisation_drop_off_path
+          path: dashboard_path("pay-legalisation-drop-off")
         },
         {
           name: 'Payment to register a birth abroad in the UK',
-          path: pay_register_birth_abroad_path
+          path: dashboard_path("pay-register-birth-abroad")
         },
         {
           name: 'Payment to register a death abroad',
-          path: pay_register_death_abroad_path
+          path: dashboard_path("pay-register-death-abroad")
         },
         {
           name: 'Payment for certificates to get married abroad',
-          path: pay_foreign_marriage_certificates_path
+          path: dashboard_path("pay-foreign-marriage-certificates")
         },
         {
           name: 'Deposit foreign marriage or civil partnership certificates',
-          path: deposit_foreign_marriage_path
+          path: dashboard_path("deposit-foreign-marriage")
         }
       ]
     end
