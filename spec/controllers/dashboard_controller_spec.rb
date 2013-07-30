@@ -14,4 +14,5 @@ describe DashboardController do
 
     assert_response :not_found
   end
+
 end

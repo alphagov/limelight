@@ -1,0 +1,4 @@
+electronic-vehicle-licensing:
+ name: Electronic Vehicle Licensing
+# view: electronic-vehicle-licensing/index
+ feature_toggle: evl_dashboard
