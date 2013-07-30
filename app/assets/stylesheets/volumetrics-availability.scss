@@ -58,6 +58,7 @@
   
   @media(max-width: 640px) {
     .graph {
+      margin-right: 0;
       min-height: 110px;
       .y-axis .tick:nth-child(even) text {
         display:block;

@@ -1,19 +1,17 @@
 define([
   'extensions/collections/graphcollection',
+  'extensions/collections/multiconversioncollection',
   'fco/collections/conversion-series',
   'extensions/views/conversion-graph/conversion-graph',
   'extensions/views/conversion-success-rate'
 ],
-function (GraphCollection, ConversionCollection,
-          ConversionGraph, SuccessRateView) {
+function (GraphCollection, MultiConversionCollection,
+          ConversionCollection, ConversionGraph, SuccessRateView) {
 
   return function (serviceName) {
 
-    var conversionCollection = new GraphCollection(null, {
-      collections:[
-        {collection:ConversionCollection, options:{weeksAgo:1}},
-        {collection:ConversionCollection, options:{weeksAgo:0}}
-      ],
+    var conversionCollection = new MultiConversionCollection(null, {
+      conversionCollection: ConversionCollection,
       serviceName: serviceName
     });
 

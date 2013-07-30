@@ -2,25 +2,9 @@ define([
   'extensions/views/view'
 ],
 function (View) {
-  var modelsWith = function(property) {
-    return function(model) {
-      return !_.isUndefined(model.get(property));
-    }
-  }
-
-  var get = function(property) {
-    return function(model) {
-      return model.get(property);
-    }
-  }
-
-  var sum = function(a, b) {
-    return a + b;
-  }
-
   var contentString = function(value, caption) {
     return [ '<strong>', value, '%</strong>', caption ].join('');
-  }
+  };
 
   var CompletionSelectedView = View.extend({
     initialize: function (attrs, options) {
@@ -45,14 +29,12 @@ function (View) {
 
         var startLabel = start.format(start.month() === end.month() ? 'D' : 'D MMM');
         var endLabel = end.format('D MMM YYYY');
-        return contentString(percentage, startLabel + ' – ' + endLabel);
+        return contentString(percentage, startLabel + ' to ' + endLabel);
       } else {
-        var values = this.collection.at(0).get('values');
-        var availableWeeks = values.filter(modelsWith('_id'));
-        var total = availableWeeks.map(get('completion')).reduce(sum);
-        var percentage = Math.round(100 * total / availableWeeks.length);
+        var availableWeeks = this.collection.at(0).get('weeksWithData');
+        var totalCompletion = this.collection.at(0).get('totalCompletion');
 
-        return contentString(percentage, ' mean over the last ' + availableWeeks.length + ' weeks');
+        return contentString(Math.round(totalCompletion), ' last ' + availableWeeks + ' weeks');
       }
     }
   });
