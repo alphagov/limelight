@@ -41,7 +41,7 @@ class CommonController < ApplicationController
     if Rails.application.config.feature_toggles[:lpa_dashboard]
       all_services << {
         name: 'Lasting Power of Attorney',
-        path: lpa_path
+        path: dashboard_path("lasting-power-of-attorney")
       }
     end
 
