@@ -19,11 +19,12 @@ Feature: Services page
      And the page title should be "<Title>"
     
     Examples:
-      | Title                                                      | Path                                           |  
+      | Title                                                      | Path                                           |
+      | Deposit foreign marriage or civil partnership certificates | /performance/deposit-foreign-marriage          |
+      | Lasting Power of Attorney                                  | /performance/lasting-power-of-attorney         |
       | Licensing                                                  | /performance/licensing                         |  
       | Pay to get documents legalised by post                     | /performance/pay-legalisation-post             |  
       | Pay to legalise documents using the premium service        | /performance/pay-legalisation-drop-off         |  
       | Payment to register a birth abroad in the UK               | /performance/pay-register-birth-abroad         |  
       | Payment to register a death abroad                         | /performance/pay-register-death-abroad         |  
-      | Payment for certificates to get married abroad             | /performance/pay-foreign-marriage-certificates |  
-      | Deposit foreign marriage or civil partnership certificates | /performance/deposit-foreign-marriage          |  
+      | Payment for certificates to get married abroad             | /performance/pay-foreign-marriage-certificates |
