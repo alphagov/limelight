@@ -6,12 +6,7 @@ class Service
   def initialize(name, slug, excluded_from_list=false)
     @name = name
     @slug = slug
-    @view = view
     @excluded_from_list = excluded_from_list
-  end
-
-  def view
-    "#{slug}/index"
   end
 end
 

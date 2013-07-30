@@ -3,7 +3,7 @@ class DashboardController < ApplicationController
 
   def index
     respond_to do |format|
-      format.html { render :template => Limelight::Application.config.available_services[params[:slug]].view }
+      format.html { render :template => "#{params[:slug]}/index" }
     end
   end
 
