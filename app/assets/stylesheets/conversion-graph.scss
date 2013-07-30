@@ -3,6 +3,7 @@
 .conversion-graph {
     max-width: 954px;
     max-height: 200px;
+    min-height: 100px;
 
     &:hover {
       max-height: 300px;
@@ -148,14 +149,9 @@
 }
 
 @media (max-width: 640px) {
-  
   .half-width .conversion-graph {
     max-width: 954px;
-    .arrow {
-      display:none;
-    }
   }
-
 }
 
 

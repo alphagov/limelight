@@ -17,7 +17,7 @@ function(require, Component) {
     
     classed: 'bar',
 
-    x: function (groupIndex, index) {
+    x: function (group, groupIndex, model, index) {
       var blockWidth = this.blockWidth.apply(this, arguments);
       var blockMargin = this.blockMarginFraction * blockWidth / 2;
 
@@ -82,7 +82,7 @@ function(require, Component) {
       var width = this.barWidth(group, groupIndex, model, index);
       var blockWidth = _.isFunction(this.blockWidth) ? this.blockWidth(group, groupIndex, model, index) : width;
 
-      var x = this.x(groupIndex, index);
+      var x = this.x(group, groupIndex, model, index);
 
       var xLeft = x;
       var align = this.align;

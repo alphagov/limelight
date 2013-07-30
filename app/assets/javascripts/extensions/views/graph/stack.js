@@ -6,6 +6,11 @@ define([
 function (require, Line, Component) {
   var Stack = Line.extend({
     
+    y0: function (group, groupIndex, model, index) {
+      var yPos = this.graph.getY0Pos(groupIndex, index);
+      return this.scales.y(yPos);
+    },
+
     render: function () {
       Component.prototype.render.apply(this, arguments);
 
@@ -34,13 +39,16 @@ function (require, Line, Component) {
         return that.x.call(that, null, 0, model, index)
       };
 
+      var yProperty = this.graph.stackYProperty || 'y';
+      var y0Property = this.graph.stackY0Property || 'y0';
+
       var yScale = this.scales.y;
       var getY = function (model, index) {
-        return yScale(model.y + model.y0);
+        return yScale(model[yProperty] + model[y0Property]);
       };
 
       var getY0 = function (model, index) {
-        return yScale(model.y0);
+        return yScale(model[y0Property]);
       };
 
       var area = d3.svg.area()
@@ -79,7 +87,40 @@ function (require, Line, Component) {
         var stack = this.componentWrapper.select('path.stack' + groupIndex);
         stack.classed('selected', selected);
       }, this);
-    }
+    },
+
+    /**
+     * Selects the group the user is hovering over and the closest item in
+     * that group.
+     * When position is below the last area, the last area is selected.
+     * When position is above the first area, the first area is selected.
+     * @param {Object} e Hover event details
+     * @param {Number} e.x Hover x position
+     * @param {Number} e.y Hover y position
+     * @param {Boolean} [e.toggle=false] Unselect if the new selection is the current selection
+     */
+    onHover: function (e) {
+      var point = {
+        x: e.x,
+        y: e.y
+      };
+
+      var selectedGroupIndex, selectedItemIndex;
+      for (var i = this.collection.models.length - 1; i >= 0; i--) {
+        var group = this.collection.models[i];
+        var distanceAndClosestModel = this.getDistanceAndClosestModel(
+          group, i, point
+        );
+
+        if (distanceAndClosestModel.diff > 0 || i === 0) {
+          selectedGroupIndex = i;
+          selectedItemIndex = distanceAndClosestModel.index;
+          break;
+        }
+      };
+
+      this.selectItem(selectedGroupIndex, selectedItemIndex, e.toggle);
+    },
   });
 
   return Stack;

@@ -13,8 +13,8 @@ function (require, TimeseriesGraph, LineLabel, Callout) {
         { view: this.sharedComponents.yaxis },
         { view: this.sharedComponents.stack },
         { view: LineLabel },
-        // { view: Callout },
-        // { view: this.sharedComponents.hover }
+        { view: Callout },
+        { view: this.sharedComponents.hover }
       ];
     },
 

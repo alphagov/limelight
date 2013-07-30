@@ -8,7 +8,7 @@ function (Component) {
     
     x: function (group, groupIndex, model, index) {
       var xPos = this.graph.getXPos(groupIndex, index);
-      return this.scales.x(xPos);
+      return Math.floor(this.scales.x(xPos)) + 0.5;
     },
     
     y: function (group, groupIndex, model, index) {
@@ -77,32 +77,47 @@ function (Component) {
         }
       }, this);
       if (modelSelected) {
-        var x = this.x(modelSelected, indexSelected, groupSelected, groupIndexSelected);
+        var x = this.x(groupSelected, groupIndexSelected, modelSelected, indexSelected);
         if (this.drawCursorLine) {
-          this.componentWrapper.append('line').attr({
-            'class': 'selectedIndicator cursorLine',
-            x1: x,
-            y1: -this.margin.top,
-            x2: x,
-            y2: this.graph.innerHeight
-          });
-          this.componentWrapper.append('line').attr({
-            'class': 'selectedIndicator cursorLine descender',
-            x1: x,
-            y1: this.graph.innerHeight,
-            x2: x,
-            y2: this.graph.innerHeight + this.margin.bottom
-          });
+          this.renderCursorLine(x);
         }
         this.componentWrapper.append('circle').attr({
           'class': 'selectedIndicator line' + groupIndexSelected,
           cx: x,
-          cy: this.y(modelSelected, indexSelected, groupSelected, groupIndexSelected),
+          cy: this.y(groupSelected, groupIndexSelected, modelSelected, indexSelected),
           r: 4
         });
+
+        if (isNaN(this.y(groupSelected, groupIndexSelected, modelSelected, indexSelected))) {
+          console.log(groupSelected, groupIndexSelected, modelSelected, indexSelected);
+        }
       }
     },
-    
+
+    renderCursorLine: function (x) {
+      this.componentWrapper.append('line').attr({
+        'class': 'selectedIndicator cursorLine',
+        x1: x,
+        y1: 0,
+        x2: x,
+        y2: this.graph.innerHeight
+      });
+      this.componentWrapper.append('line').attr({
+        'class': 'selectedIndicator cursorLine ascender',
+        x1: x,
+        y1: -this.margin.top,
+        x2: x,
+        y2: 0
+      });
+      this.componentWrapper.append('line').attr({
+        'class': 'selectedIndicator cursorLine descender',
+        x1: x,
+        y1: this.graph.innerHeight,
+        x2: x,
+        y2: this.graph.innerHeight + this.margin.bottom
+      });
+    },
+
     /**
      * Calculates the `distance` of a group to a given point, then picks the
      * closest point in the group.
@@ -127,21 +142,22 @@ function (Component) {
         left = values.at(leftIndex);
       }
       
-      var leftX = this.x(group, groupIndex, left, leftIndex);
-      var rightX = this.x(group, groupIndex, right, rightIndex);
-      var distLeft = Math.abs(point.x - leftX);
-      var distRight = Math.abs(rightX - point.x);
-      var weight = distLeft / (distLeft + distRight);
-      
+      var distLeft = Math.abs(point.x - this.x(group, groupIndex, left, leftIndex));
+      var distRight = Math.abs(this.x(group, groupIndex, right, rightIndex) - point.x);
+      var weight = distLeft / (distLeft + distRight) || 0;
+      var bestIndex = values.indexOf(distLeft < distRight ? left : right);
+
       var leftY = this.y(group, groupIndex, left, leftIndex);
       var rightY = this.y(group, groupIndex, right, rightIndex);
       var y = this.d3.interpolate(leftY, rightY)(weight);
-      var dist = Math.abs(point.y - y);
-      
+      var diff = point.y - y;
+      var dist = Math.abs(diff);
+
       var bestIndex = values.indexOf(distLeft < distRight ? left : right);
-      
+
       return {
         dist: dist,
+        diff: diff,
         index: bestIndex
       };
     },
@@ -193,15 +209,6 @@ function (Component) {
         this.selectItem(selectedIndex, selectedModelIndex, e.toggle);
       } else {
         this.selectItem(bestGroupIndex, bestModelIndex, e.toggle);
-      }
-    },
-    
-    selectItem: function (groupIndex, index, toggle) {
-      if (toggle && groupIndex === this.collection.selectedIndex
-          && index === this.collection.selectedItem.get('values').selectedIndex) {
-        this.collection.selectItem(null, null);
-      } else {
-        this.collection.selectItem(groupIndex, index);
       }
     }
   });

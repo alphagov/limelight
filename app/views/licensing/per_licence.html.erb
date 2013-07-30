@@ -1,8 +1,12 @@
-<% content_for :title do %><%= @licence.name %> - Performance Platform - GOV.UK<% end %>
+<% content_for :title do %><%= @licence.name %> - Licensing performance - GOV.UK<% end %>
 <% @js_config = { "controller" => "licensing/controllers/per_licence", "licence-url-slug" => @licence.slug } %>
 
 <header>
-  <h1><%= @licence.name %> <span class="tagline">(submissions made through GOV.UK only)</span></h1>
+  <h1>
+      <span class="strapline">Licensing performance</span>
+      <%= @licence.name %>
+      <span class="tagline">(submissions made through GOV.UK only)</span>
+  </h1>
 </header>
 
 <section class="graph">
@@ -10,7 +14,7 @@
   <ul class="module-actions">
     <li class="info">
       <div>
-        <p>Data sources: GOV.UK licensing database</p>
+        <p>Data source: GOV.UK licensing database</p>
         <p>Top authorities are those with the highest number of form submissions for the licence in the period being shown.</p>
       </div>
     </li>
@@ -26,7 +30,7 @@
   <ul class="module-actions">
     <li class="info">
       <div>
-        <p>Data sources: GOV.UK licensing database</p>
+        <p>Data source: GOV.UK licensing database</p>
         <p>Table includes all authorities offering the licence that have had at least 1 submission since being offered on GOV.UK</p>
       </div>
     </li>

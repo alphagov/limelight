@@ -1,4 +1,4 @@
-<% content_for :title do %><%= @transaction_title %> - FCO - Performance Platform - GOV.UK<% end %>
+<% content_for :title do %><%= @transaction_title %> - FCO - Service performance - GOV.UK<% end %>
 
 <% @js_config = {
 	"controller"   => "fco/controllers/overview",
@@ -6,7 +6,13 @@
 } %>
 
 <header>
-  <h1><%= @transaction_title %></h1>
+  <h1>
+      <span class="strapline">Service performance</span>
+      <%= @transaction_title %>
+  </h1>
+  <% if @explanatory_copy %>
+    <p class="explanatory"><%= @explanatory_copy %></p>
+  <% end %>
 </header>
 
 <% if Rails.application.config.feature_toggles[:show_fco_visitors_realtime] %>
@@ -15,12 +21,13 @@
     <ul class="module-actions">
       <li class="info">
         <div>
+          <p>Data source: Google Analytics</p>
           <p>Shows estimated number of users currently accessing the transaction online.</p>
         </div>
       </li>
     </ul>
     <h2>Users currently browsing the service</h2>
-    <p id="number-of-visitors-realtime" class="impact-number"></p>
+    <div id="number-of-visitors-realtime"></div>
   </section>
 <% end %>
 
@@ -29,8 +36,9 @@
   <ul class="module-actions">
     <li class="info">
       <div>
-        <p>Data sources: Google Analytics (unique visitors numbers based on sampled data)</p>
-        <p>TBD</p>
+        <p>Data source: Google Analytics (unique visitor numbers based on sampled data)</p>
+        <p>Application counts based on unique visitors to the final page of the transaction.</p>
+        <p>Completion rate calculated as percentage of unique visitors who arrived at the final page of the transaction out of those who arrived at the start page.</p>
       </div>
     </li>
   </ul>
@@ -42,12 +50,12 @@
   <figure class="graph timeseries-graph" id="volumetrics-completion"></figure>
 </section>
 
-<section>
+<section class="graph">
   <h1>Submission drop-offs</h1>
   <ul class="module-actions">
     <li class="info">
       <div>
-        <p>Data sources: Google Analytics (unique visitors numbers based on sampled data)</p>
+        <p>Data source: Google Analytics (unique visitor numbers based on sampled data)</p>
         <p>Calculated as percentage of unique visitors who arrived at each stage out of those who started the transaction.</p>
       </div>
     </li>
@@ -56,34 +64,4 @@
   <figure class="graph conversion-graph" id="applications-conversion-graph"></figure>
 </section>
 
-<% if Rails.application.config.feature_toggles[:show_fco_availability] %>
-<section class="half-width row-start" id="uptime-module">
-  <h1>Uptime</h1>
-  <ul class="module-actions">
-    <li class="info">
-      <div>
-        <p>Data sources: Pingdom</p>
-        <p>Uptime measures the percentage of time that the service was observed to be available.</p>
-      </div>
-    </li>
-  </ul>
-  <h2>Service uptime</h2>
-  <p id="uptime" class="impact-number"></p>
-  <p>Mean uptime for the last 24 hours</p>
-</section>
-
-<section class="half-width" id="response-time-module">
-  <h1>Response time</h1>
-  <ul class="module-actions">
-    <li class="info">
-      <div>
-        <p>Data sources: Pingdom</p>
-        <p>Average time taken for the server to respond to a request.</p>
-      </div>
-    </li>
-  </ul>
-  <h2>Service response time in milliseconds</h2>
-  <p id="response-time" class="impact-number"></p>
-  <p>Mean response time for the last 24 hours</p>
-</section>
-<% end %>
+<%= render(partial: "common/modules/availability") if Rails.application.config.feature_toggles[:show_fco_availability] %>

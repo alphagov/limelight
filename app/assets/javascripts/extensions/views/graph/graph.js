@@ -55,7 +55,7 @@ function (View, d3) {
       this.innerEl = $('<div class="inner"></div>');
       this.innerEl.appendTo(this.$el);
       
-      var svg = this.svg = this.d3.select(this.el[0]).append('svg');
+      var svg = this.svg = this.d3.select(this.$el[0]).append('svg');
       
       this.wrapper = svg.append('g')
         .classed('wrapper', true);
@@ -98,10 +98,13 @@ function (View, d3) {
       // to this aspect ratio
       var maxWidth = this.pxToValue(this.$el.css('max-width'));
       var maxHeight = this.pxToValue(this.$el.css('max-height'));
-      var height;
+      var minHeight = this.pxToValue(this.$el.css('min-height'));
       if (maxWidth != null && maxHeight != null) {
         var aspectRatio = maxWidth / maxHeight;
         height = width / aspectRatio;
+        if (minHeight != null) {
+          height = Math.max(height, minHeight);
+        }
       } else {
         height = this.$el.height();
       }
@@ -195,6 +198,23 @@ function (View, d3) {
     },
 
     configs: {
+      hour: {
+        getXPos: function (groupIndex, modelIndex) {
+          var group = this.collection.at(groupIndex);
+          var model = group.get('values').at(modelIndex);
+          return this.moment(model.get('_timestamp'));
+        },
+        calcXScale: function () {
+          var values = this.collection.first().get('values');
+          var start = moment(values.first().get('_timestamp'));
+          var end = moment(values.last().get('_timestamp'));
+          
+          var xScale = this.d3.time.scale();
+          xScale.domain([start.toDate(), end.toDate()]);
+          xScale.range([0, this.innerWidth]);
+          return xScale;
+        }
+      },
       week: {
         getXPos: function(groupIndex, modelIndex) {
           var group = this.collection.at(groupIndex);
@@ -262,15 +282,22 @@ function (View, d3) {
             .y(function (model, index) {
               return model.get(valueAttr);
             });
+          if (this.outStack) {
+            stack.out(_.bind(this.outStack, this));
+          }
             
           this.layers = stack(this.collection.models.slice().reverse());
         },
         getYPos: function (groupIndex, modelIndex) {
           var model = this.collection.at(groupIndex).get('values').at(modelIndex);
-          return model.y0 + model.y;
+          var y0Property = this.stackY0Property || 'y0';
+          var yProperty = this.stackYProperty || 'y';
+          return model[y0Property] + model[yProperty];
         },
         getY0Pos: function (groupIndex, modelIndex) {
-          return this.collection.at(groupIndex).get('values').at(modelIndex).y0;
+          var y0Property = this.stackY0Property || 'y0';
+          var model = this.collection.at(groupIndex).get('values').at(modelIndex);
+          return model[y0Property];
         },
         calcYScale: function () {
           var d3 = this.d3;

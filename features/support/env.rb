@@ -25,7 +25,12 @@ Capybara.register_driver :poltergeist do |app|
 end
 
 Capybara.javascript_driver = :poltergeist
-Capybara.default_wait_time = 5
+Capybara.default_wait_time = (ENV['CAPYBARA_WAIT_TIME'] || 5).to_i
+
+
+puts
+puts "Capybara wait time: #{Capybara.default_wait_time.inspect}"
+puts
 
 
 # By default, any exception happening in your Rails application will bubble up
@@ -49,3 +54,8 @@ ActionController::Base.allow_rescue = false
 # The :transaction strategy is faster, but might give you threading problems.
 # See https://github.com/cucumber/cucumber-rails/blob/master/features/choose_javascript_database_strategy.feature
 Cucumber::Rails::Database.javascript_strategy = :truncation
+
+# Before each cucumber scenario
+Before do
+  BackdropStubController.reset
+end

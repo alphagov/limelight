@@ -5,23 +5,25 @@ define([
   'licensing/collections/applications-top5-lastweek',
   'licensing/views/top5table',
   'extensions/collections/graphcollection',
-  'licensing/collections/conversion',
+  'extensions/collections/multiconversioncollection',
+  'licensing/collections/conversion-series',
   'extensions/views/conversion-graph/conversion-graph',
   'extensions/views/tabs',
   'extensions/views/conversion-success-rate',
   'extensions/collections/visitors-realtime',
   'extensions/views/visitors-realtime',
-  'extensions/collections/availability-for-24-hours',
-  'extensions/views/single-stat'
+  'common/controllers/availability-module'
 ], function (ApplicationsCollection, ApplicationsGraph, ApplicationsHeadlineView,
              Top5Collection, Top5Table, GraphCollection,
-             ConversionCollection, ConversionGraph,
+             MultiConversionCollection, ConversionSeriesCollection, ConversionGraph,
              Tabs, SuccessRateView,
              VisitorsRealtimeCollection, VisitorsRealtimeView,
-             LicensingAvailabilityFor24Hours, SingleStatView) {
+             availabilityModule) {
   return function () {
 
-    var conversionCollection = new ConversionCollection();
+    var conversionCollection = new MultiConversionCollection(null, {
+      conversionCollection: ConversionSeriesCollection
+    });
 
     var successRate = new SuccessRateView({
       el: $('#applications-success-rate'),
@@ -113,20 +115,6 @@ define([
       }, updateInterval);
     }
 
-    var licensingAvailabilityCollection = new LicensingAvailabilityFor24Hours(null, {
-      serviceName: "licensing",
-      checkName: "licensing"
-    });
-    var licensingAvailabilityUptimeView = new SingleStatView({
-      collection: licensingAvailabilityCollection,
-      el: $('#licensing-uptime'),
-      getStatFunction: function (collection) { return Math.round(collection.getPercentageOfUptime()) + '%'; }
-    });
-    var licensingAvailabilityResponseTimeView = new SingleStatView({
-      collection: licensingAvailabilityCollection,
-      el: $('#licensing-response-time'),
-      getStatFunction: function (collection) { return Math.round(collection.getAverageResponseTime()) + 'ms'; }
-    });
-    licensingAvailabilityCollection.fetch();
+    availabilityModule('licensing', 'licensing');
   };
 });
