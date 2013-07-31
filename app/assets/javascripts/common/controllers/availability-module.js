@@ -7,7 +7,7 @@ define([
   'extensions/views/availability/response-time-number',
   'extensions/views/availability/response-time-graph'
 ],
-function (GraphCollection, FCO24HourAvailabilityCollection,
+function (GraphCollection, AvailabilityCollection,
           SingleStatView, UptimeNumber, UptimeGraph,
           ResponseTimeNumber, ResponseTimeGraph) {
 
@@ -16,7 +16,7 @@ function (GraphCollection, FCO24HourAvailabilityCollection,
       return;
     }
 
-    var availabilityCollection = new FCO24HourAvailabilityCollection(null, {
+    var availabilityCollection = new AvailabilityCollection(null, {
       serviceName: serviceName,
       checkName: checkName
     });

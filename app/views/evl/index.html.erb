@@ -1,5 +1,10 @@
 <% content_for :title do %>Electronic Vehicle Licensing - Service performance - GOV.UK<% end %>
 
+<% @js_config = {
+        "controller"   => "electronic-vehicle-licensing/controllers/overview",
+        "service-name" => "electronic-vehicle-licensing"
+} %>
+
 <header>
   <h1>
     <span class="strapline">Service performance</span>
@@ -7,3 +12,5 @@
   </h1>
   <p class="explanatory">Service to buy or renew your tax disc (vehicle licence) online, for your car, motorbike, lorry, bus or other vehicle that needs a tax disc.</p>
 </header>
+
+<%= render(partial: "common/modules/availability") %>
