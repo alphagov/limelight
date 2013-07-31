@@ -1,10 +1,10 @@
 define([
   'require',
-  'extensions/views/timeseries-graph/timeseries-graph',
+  'extensions/views/graph/graph',
   './tooltip'
 ],
-function (require, TimeseriesGraph, Tooltip) {
-  var ResponseTimeGraph = TimeseriesGraph.extend({
+function (require, Graph, Tooltip) {
+  var ResponseTimeGraph = Graph.extend({
 
     valueAttr: 'avgresponse',
     numYTicks: 3,

@@ -9,13 +9,13 @@ function (Component, Pivot) {
       'mousemove': 'onMouseMove'
     },
     
-    horizontal: 'left',
-    vertical: 'top',
-    xOffset: 7,
-    yOffset: 7,
+    horizontal: 'right',
+    vertical: 'bottom',
+    xOffset: -7,
+    yOffset: -7,
     constrainToBounds: true,
     classed: 'callout',
-    
+
     render: function () {
       if (!this.calloutEl) {
         this.calloutEl = $('<div></div>').addClass(this.classed + ' performance-hidden').appendTo(this.$el);
@@ -71,15 +71,46 @@ function (Component, Pivot) {
       return this.scales.y(this.graph.getYPos(groupIndex, index))
     },
     
-    // Not implemented; override in configuration or subclass
-    renderContent: function (el, group, groupIndex, model, index) {
-      throw("No content defined for Callout");
-    },
-    
     onMouseMove: function (e) {
       return false;
-    }
+    },
 
+    configs: {
+      week: {
+        getHeader: function (el, group, groupIndex, model, index) {
+          var start = model.get('_start_at');
+          var end = moment(model.get('_end_at')).subtract(1, 'days');
+
+          return [
+            start.format(start.month() === end.month() ? 'D' : 'D MMM'),
+            ' to ',
+            end.format('D MMM YYYY')
+          ].join('');
+        }
+      },
+      month: {
+        getHeader: function (el, group, groupIndex, model, index) {
+          var start = model.get('_start_at');
+          return start.format('MMMM YYYY');
+        }
+      }
+    },
+
+    renderContent: function (el, group, groupIndex, model, index) {
+      
+      var header = $('<h3>').html(this.getHeader.apply(this, arguments));
+      
+      var body = $('<dl>').html([
+        '<dt>',
+        group.get('title'),
+        '</dt>',
+        '<dd>',
+        this.formatNumericLabel(Math.floor(model.get(this.graph.valueAttr))),
+        '</dd>'
+      ].join(''));
+      
+      el.empty().append(header, body);
+    },
   });
 
   _.extend(Callout.prototype, Pivot);

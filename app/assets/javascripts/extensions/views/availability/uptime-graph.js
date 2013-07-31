@@ -1,10 +1,10 @@
 define([
   'require',
-  'extensions/views/timeseries-graph/timeseries-graph',
+  'extensions/views/graph/graph',
   './tooltip'
 ],
-function (require, TimeseriesGraph, Tooltip) {
-  var UptimeGraph = TimeseriesGraph.extend({
+function (require, Graph, Tooltip) {
+  var UptimeGraph = Graph.extend({
 
     getConfigNames: function () {
       return ['stack', 'hour'];

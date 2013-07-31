@@ -1,8 +1,16 @@
 define([
+  'require',
   'extensions/views/view',
-  'd3loader!'
+  'd3loader!',
+  './xaxis',
+  './yaxis',
+  './line',
+  './stack',
+  './linelabel',
+  './hover',
+  './callout'
 ],
-function (View, d3) {
+function (require, View, d3, XAxis, YAxis, Line, Stack, LineLabel, Hover, Callout) {
   
   var Graph = View.extend({
     
@@ -13,6 +21,16 @@ function (View, d3) {
     minYDomainExtent: 6,
     numYTicks: 7,
     
+    sharedComponents: {
+      xaxis: XAxis,
+      yaxis: YAxis,
+      line: Line,
+      stack: Stack,
+      linelabel: LineLabel,
+      callout: Callout,
+      hover: Hover
+    },
+
     initialize: function (options) {
       View.prototype.initialize.apply(this, arguments);
       

@@ -4,6 +4,8 @@ define([
 function (Component) {
   var Line = Component.extend({
 
+    interactive: true,
+    
     drawCursorLine: false,
     
     x: function (group, groupIndex, model, index) {

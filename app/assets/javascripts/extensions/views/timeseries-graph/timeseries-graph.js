@@ -1,24 +1,8 @@
 define([
-  'require',
-  'extensions/views/graph/graph',
-  './xaxis',
-  'extensions/views/graph/yaxis',
-  './line',
-  './stack',
-  'extensions/views/graph/hover',
-  './callout'
+  'extensions/views/graph/graph'
 ],
-function (require, Graph, XAxis, YAxis, Line, Stack, Hover, Callout) {
+function (Graph) {
   var TimeseriesGraph = Graph.extend({
-    
-    sharedComponents: {
-      xaxis: XAxis,
-      yaxis: YAxis,
-      line: Line,
-      stack: Stack,
-      callout: Callout,
-      hover: Hover
-    },
     
     components: function () {
       return [
@@ -31,7 +15,7 @@ function (require, Graph, XAxis, YAxis, Line, Stack, Hover, Callout) {
     },
 
     getConfigNames: function () {
-      return ['overlay', this.collection.query.get('period') || 'week'];
+      return ['stack', this.collection.query.get('period') || 'week'];
     }
   });
   

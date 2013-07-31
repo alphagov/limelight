@@ -64,6 +64,7 @@ function (Line, Collection) {
 
       it("renders paths for each group in the collection in reverse order with sections for each point in the timeseries", function() {
         var view = new Line({
+          interactive: false,
           wrapper: wrapper,
           collection: collection,
           x: function (group, groupIndex, model, index) {
@@ -82,6 +83,7 @@ function (Line, Collection) {
 
       it("highlights the current selection", function () {
         var view = new Line({
+          interactive: false,
           wrapper: wrapper,
           collection: collection,
           x: function (group, groupIndex, model, index) {
@@ -106,6 +108,7 @@ function (Line, Collection) {
       var view;
       beforeEach(function() {
         view = new Line({
+          interactive: false,
           wrapper: wrapper,
           collection: collection,
           x: function (group, groupIndex, model, index) {
@@ -143,6 +146,7 @@ function (Line, Collection) {
       var view;
       beforeEach(function() {
         view = new Line({
+          interactive: false,
           wrapper: wrapper,
           collection: collection,
           x: function (group, groupIndex, model, index) {
@@ -178,6 +182,7 @@ function (Line, Collection) {
       var view;
       beforeEach(function() {
         view = new Line({
+          interactive: false,
           wrapper: wrapper,
           collection: collection,
           x: function (group, groupIndex, model, index) {

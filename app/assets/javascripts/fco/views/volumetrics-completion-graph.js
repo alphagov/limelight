@@ -1,9 +1,8 @@
 define([
-  'require',
-  './volumetrics-submissions-graph'
+  'extensions/views/graph/graph'
 ],
-function (require, VolumetricsSubmissionsGraph) {
-  var VolumetricsCompletionGraph = VolumetricsSubmissionsGraph.extend({
+function (Graph) {
+  var VolumetricsCompletionGraph = Graph.extend({
 
     minYDomainExtent: 1,
     numYTicks: 3,

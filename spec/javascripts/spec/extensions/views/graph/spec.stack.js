@@ -47,6 +47,7 @@ function (Stack, Collection) {
       it("renders a stack consisting of a stroked path and a filled path for each item in the collection", function() {
         
         var view = new Stack({
+          interactive: false,
           wrapper: wrapper,
           collection: collection,
           scales: {
@@ -84,6 +85,7 @@ function (Stack, Collection) {
       var view;
       beforeEach(function() {
         view = new Stack({
+          interactive: false,
           wrapper: wrapper,
           collection: collection,
           scales: {

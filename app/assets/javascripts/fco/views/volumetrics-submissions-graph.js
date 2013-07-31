@@ -1,8 +1,8 @@
 define([
-  'extensions/views/timeseries-graph/timeseries-graph'
+  'extensions/views/graph/graph'
 ],
-function (TimeseriesGraph) {
-  var VolumetricsGraph = TimeseriesGraph.extend({
+function (Graph) {
+  var VolumetricsGraph = Graph.extend({
 
     numYTicks: 3,
 

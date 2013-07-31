@@ -5,12 +5,6 @@ define([
 function (Callout, Model) {
   describe("Callout Component", function () {
     
-    describe("render", function () {
-      it("renders the callout element", function () {
-        
-      });
-    });
-    
     describe("onChangeSelected", function () {
       
       var callout, model;
@@ -66,8 +60,8 @@ function (Callout, Model) {
         );
         expect(callout.calloutEl).not.toHaveClass('performance-hidden');
         expect(callout.calloutEl).toHaveText('foo');
-        expect(callout.calloutEl.css('left')).toEqual('37px'); // left margin + result of x() + offsetX
-        expect(callout.calloutEl.css('top')).toEqual('57px'); // right margin + result of y() + offsetY
+        expect(callout.calloutEl.css('left')).toEqual('23px'); // left margin + result of x() + offsetX
+        expect(callout.calloutEl.css('top')).toEqual('43px'); // right margin + result of y() + offsetY
       });
       
       it("renders a callout at the correct position when graph is scaled", function () {
@@ -78,8 +72,8 @@ function (Callout, Model) {
         );
         expect(callout.calloutEl).not.toHaveClass('performance-hidden');
         expect(callout.calloutEl).toHaveText('foo');
-        expect(callout.calloutEl.css('left')).toEqual('22px'); // (left margin + result of x()) * scaleFactor + offsetX
-        expect(callout.calloutEl.css('top')).toEqual('32px'); // (right margin + result of y()) * scaleFactor + offsetY
+        expect(callout.calloutEl.css('left')).toEqual('8px'); // (left margin + result of x()) * scaleFactor + offsetX
+        expect(callout.calloutEl.css('top')).toEqual('18px'); // (right margin + result of y()) * scaleFactor + offsetY
       });
     });
 
