@@ -8,12 +8,8 @@ Feature: Electronic Vehicle Licensing dashboard
     When I go to /performance/electronic-vehicle-licensing
     Then the page title should be "Electronic Vehicle Licensing"
 
-  Scenario: looking up the uptime module
+  Scenario: looking up the availability module
     Given The electronic-vehicle-licensing monitoring bucket returns the response in "availability.json"
     When I go to /performance/electronic-vehicle-licensing
     Then the uptime module should display 85.0%
-
-  Scenario: looking up the response time module
-    Given The electronic-vehicle-licensing monitoring bucket returns the response in "availability.json"
-    When I go to /performance/electronic-vehicle-licensing
-    Then the response time module should display 150ms
+     And the response time module should display 150ms
