@@ -6,5 +6,6 @@ define([
     var serviceName = $("#wrapper").data("service-name");
 
     availabilityModule(serviceName);
+    availabilityModule(serviceName, '#sorn-availability');
   };
 });

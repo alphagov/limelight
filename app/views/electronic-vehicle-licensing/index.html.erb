@@ -13,4 +13,6 @@
   <p class="explanatory">Service to buy or renew your tax disc (vehicle licence) online, for your car, motorbike, lorry, bus or other vehicle that needs a tax disc.</p>
 </header>
 
-<%= render(partial: "common/modules/availability") %>
+<%= render(partial: "common/modules/availability", locals: {title: "Tax disc service availability"}) %>
+
+<%= render(partial: "common/modules/availability", locals: {title: "SORN service availability", id: "sorn-availability"}) %>
