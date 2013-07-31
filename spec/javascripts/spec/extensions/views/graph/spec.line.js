@@ -66,10 +66,10 @@ function (Line, Collection) {
         var view = new Line({
           wrapper: wrapper,
           collection: collection,
-          x: function (model, index, group, groupIndex) {
+          x: function (group, groupIndex, model, index) {
             return model.get('a') + index;
           },
-          y: function (model, index, group, groupIndex) {
+          y: function (group, groupIndex, model, index) {
             var attr = group.get('testAttr');
             return model.get(attr) + index;
           }
@@ -84,10 +84,10 @@ function (Line, Collection) {
         var view = new Line({
           wrapper: wrapper,
           collection: collection,
-          x: function (model, index, group, groupIndex) {
+          x: function (group, groupIndex, model, index) {
             return model.get('a') + index;
           },
-          y: function (model, index, group, groupIndex) {
+          y: function (group, groupIndex, model, index) {
             var attr = group.get('testAttr');
             return model.get(attr) + index;
           }
@@ -108,10 +108,10 @@ function (Line, Collection) {
         view = new Line({
           wrapper: wrapper,
           collection: collection,
-          x: function (model, index, group, groupIndex) {
+          x: function (group, groupIndex, model, index) {
             return model.get('a') + index;
           },
-          y: function (model, index, group, groupIndex) {
+          y: function (group, groupIndex, model, index) {
             var attr = group.get('testAttr');
             return model.get(attr) + index;
           }
@@ -145,17 +145,17 @@ function (Line, Collection) {
         view = new Line({
           wrapper: wrapper,
           collection: collection,
-          x: function (model) {
+          x: function (group, groupIndex, model, index) {
             return model.get('a');
           },
-          y: function (model) {
+          y: function (group, groupIndex, model, index) {
             return model.get('b');
           }
         });
       });
 
       it("calculates distance to an interpolated position between points and picks closest model", function () {
-        var res = view.getDistanceAndClosestModel(collection.at(0), {
+        var res = view.getDistanceAndClosestModel(collection.at(0), 0, {
           x: 2.5,
           y: -3
         });
@@ -163,7 +163,7 @@ function (Line, Collection) {
         expect(res.diff).toEqual(-6.5);
         expect(res.index).toEqual(1);
 
-        var res = view.getDistanceAndClosestModel(collection.at(0), {
+        var res = view.getDistanceAndClosestModel(collection.at(0), 0, {
           x: 7,
           y: 8
         });
@@ -180,10 +180,10 @@ function (Line, Collection) {
         view = new Line({
           wrapper: wrapper,
           collection: collection,
-          x: function (model) {
+          x: function (group, groupIndex, model, index) {
             return model.get('a');
           },
-          y: function (model) {
+          y: function (group, groupIndex, model, index) {
             return model.get('b');
           }
         });

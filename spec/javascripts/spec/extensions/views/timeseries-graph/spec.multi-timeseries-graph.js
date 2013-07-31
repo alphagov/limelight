@@ -90,6 +90,8 @@ function (Graph, Collection, moment) {
         el: el,
         collection: collection
       });
+      graph.applyConfig('week');
+      graph.applyConfig('overlay');
       graph.innerWidth = 444;
       graph.innerHeight = 333;
     });

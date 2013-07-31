@@ -25,6 +25,7 @@ function (ResponseTimeGraph, Collection, moment) {
       graph = new ResponseTimeGraph({
         collection: collection
       });
+      graph.applyConfig('hour');
       graph.innerWidth = 444;
       graph.innerHeight = 333;
     });

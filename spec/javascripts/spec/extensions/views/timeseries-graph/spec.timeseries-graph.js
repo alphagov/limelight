@@ -63,6 +63,8 @@ function (Graph, Collection, moment) {
       graph = new Graph({
         collection: collection
       });
+      graph.applyConfig('week');
+      graph.applyConfig('overlay');
       graph.innerWidth = 444;
       graph.innerHeight = 333;
     });
@@ -104,13 +106,13 @@ function (Graph, Collection, moment) {
       });
       
       it("scales domain from 0 to nice value above maximum sum of point in time", function() {
-        graph.YScaleFunction = 'calcYSeriesSum';
+        graph.applyConfig('stack');
         expect(graph.calcYScale().domain()).toEqual([0, 2000]);
       });
 
       it("scales domain from 0 to nice value above maximum sum of point in time when an alternative value attribute is used", function () {
         graph.valueAttr = 'alternativeValue';
-        graph.YScaleFunction = 'calcYSeriesSum';
+        graph.applyConfig('stack');
         expect(graph.calcYScale().domain()).toEqual([0, 700]);
       });
       

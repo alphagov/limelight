@@ -24,17 +24,25 @@ function (Callout, Model) {
         callout = new Callout({
           collection: { on: jasmine.createSpy() },
           graph: {
-            scaleFactor: jasmine.createSpy()
+            scaleFactor: jasmine.createSpy(),
+            getXPos: function (groupIndex, modelIndex) {
+              return model.get('a');
+            },
+            getYPos: function (groupIndex, modelIndex) {
+              return model.get('b');
+            }
+          },
+          scales: {
+            x: function (v) {
+              return v;
+            },
+            y: function (v) {
+              return v;
+            }
           },
           margin: {
             left: 10,
             top: 20
-          },
-          x: function (model, index) {
-            return model.get('a');
-          },
-          y: function (model, index) {
-            return model.get('b');
           },
           renderContent: function (el, group, groupIndex, model, index) {
             el.html(model.get('c'));

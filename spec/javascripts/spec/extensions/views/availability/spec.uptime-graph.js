@@ -25,6 +25,7 @@ function (UptimeGraph, Collection, moment) {
       graph = new UptimeGraph({
         collection: collection
       });
+      graph.applyConfig('hour');
       graph.innerWidth = 444;
       graph.innerHeight = 333;
     });

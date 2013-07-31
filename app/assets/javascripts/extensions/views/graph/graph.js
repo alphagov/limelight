@@ -155,16 +155,12 @@ function (View, d3) {
         this[key] = value;
       }, this);
     },
-    
-    /**
-     * Calculates current scales, then renders components in defined order.
-     */
-    render: function () {
-      View.prototype.render.apply(this, arguments);
 
-      // hide callout during resize if present.
-      // works around bug in Webkit / iOS that incorrectly calculates height
-      // of inner element.
+    /**
+     * Hide callout during resize if present. Works around bug in iOS Webkit
+     * that incorrectly calculates height of inner element.
+     */
+    resizeWithCalloutHidden: function () {
       var callout = this.$el.find('.callout');
       var calloutHidden = callout.hasClass('performance-hidden');
       callout.addClass('performance-hidden');
@@ -174,8 +170,16 @@ function (View, d3) {
       if (!calloutHidden) {
         callout.removeClass('performance-hidden');
       }
+    },
+    
+    /**
+     * Applies current configuration, then renders components in defined order
+     */
+    render: function () {
+      View.prototype.render.apply(this, arguments);
 
-      
+      this.resizeWithCalloutHidden();
+
       var configNames = this.getConfigNames();
       if (_.isString(configNames)) {
         configNames = [configNames];
@@ -187,7 +191,6 @@ function (View, d3) {
 
       this.scales.x = this.calcXScale();
       this.scales.y = this.calcYScale();
-      
       
       _.each(this.componentInstances, function (component) {
         _.each(configNames, function(configName) {

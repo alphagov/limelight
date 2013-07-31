@@ -270,45 +270,52 @@ function (Graph, Collection, d3) {
         graph = new Graph({
           collection: new Collection()
         });
-        spyOn(graph, "resize");
+        spyOn(graph, "resizeWithCalloutHidden");
       });
 
       it("resizes the graph", function () {
         graph.calcXScale = jasmine.createSpy().andReturn('test x scale');
         graph.calcYScale = jasmine.createSpy().andReturn('test y scale');
         graph.render();
-        expect(graph.resize).toHaveBeenCalled();
+        expect(graph.resizeWithCalloutHidden).toHaveBeenCalled();
       });
 
-      it("requires an x scale implementation", function() {
-        graph.calcYScale = jasmine.createSpy().andReturn('test y scale');
-        expect(function () {
-          graph.render();
-        }).toThrow();
-      });
-      
-      it("requires a y scale implementation", function() {
-        graph.calcXScale = jasmine.createSpy().andReturn('test x scale');
-        expect(function () {
-          graph.render();
-        }).toThrow();
-      });
-      
-      it("calculates x scale", function() {
+      it("applies configurations to graph", function () {
+        spyOn(graph, "applyConfig");
+        spyOn(graph, "getConfigNames").andReturn(['foo', 'bar']);
         graph.calcXScale = jasmine.createSpy().andReturn('test x scale');
         graph.calcYScale = jasmine.createSpy().andReturn('test y scale');
         graph.render();
+        expect(graph.applyConfig).toHaveBeenCalledWith('foo');
+        expect(graph.applyConfig).toHaveBeenCalledWith('bar');
+      });
+
+      it("requires a configuration for the y dimension", function() {
+        expect(function () {
+          graph.render();
+        }).toThrow();
+      });
+      
+      it("requires x and y scale implementation s", function() {
+        graph.getConfigNames = function () {
+          return [];
+        };
+        expect(function () { graph.render(); }).toThrow();
+
+        graph.calcXScale = jasmine.createSpy().andReturn('test x scale');
+        expect(function () { graph.render(); }).toThrow();
+
+        graph.calcYScale = jasmine.createSpy().andReturn('test y scale');
+        expect(function () { graph.render(); }).not.toThrow();
+
         expect(graph.scales.x).toEqual('test x scale');
-      });
-      
-      it("calculates y scale", function() {
-        graph.calcXScale = jasmine.createSpy().andReturn('test x scale');
-        graph.calcYScale = jasmine.createSpy().andReturn('test y scale');
-        graph.render();
         expect(graph.scales.y).toEqual('test y scale');
       });
       
       it("renders component instances", function() {
+        graph.getConfigNames = function () {
+          return [];
+        };
         graph.calcXScale = jasmine.createSpy().andReturn('test x scale');
         graph.calcYScale = jasmine.createSpy().andReturn('test y scale');
         var component1 = {
@@ -358,5 +365,12 @@ function (Graph, Collection, d3) {
       });
     });
     
+    describe("configs", function () {
+      describe("stack", function () {
+        
+      });
+    });
+
+
   });
 });

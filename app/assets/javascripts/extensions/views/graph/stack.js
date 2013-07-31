@@ -19,12 +19,12 @@ function (require, Line, Component) {
       var groupStacks = this.componentWrapper.selectAll('g.stacks').data([0]);
       groupStacks.enter().append('g').attr('class', 'stacks');
 
-      var groupLines = this.componentWrapper.selectAll('g.lines').data([0]);
-      groupLines.enter().append('g').attr('class', 'lines');
-
       var selectionStacks = groupStacks.selectAll('g.group')
           .data(layers);
       selectionStacks.exit().remove();
+
+      var groupLines = this.componentWrapper.selectAll('g.lines').data([0]);
+      groupLines.enter().append('g').attr('class', 'lines');
 
       var selectionLines = groupLines.selectAll('g.group')
           .data(layers);
