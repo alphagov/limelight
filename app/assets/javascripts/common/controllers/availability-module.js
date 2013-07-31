@@ -11,14 +11,13 @@ function (GraphCollection, AvailabilityCollection,
           SingleStatView, UptimeNumber, UptimeGraph,
           ResponseTimeNumber, ResponseTimeGraph) {
 
-  return function (serviceName, checkName) {
+  return function (serviceName) {
     if (!$('#uptime').length || !$('#response-time').length) {
       return;
     }
 
     var availabilityCollection = new AvailabilityCollection(null, {
-      serviceName: serviceName,
-      checkName: checkName
+      serviceName: serviceName
     });
 
     new UptimeNumber({

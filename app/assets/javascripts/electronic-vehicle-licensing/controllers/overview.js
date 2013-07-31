@@ -5,6 +5,6 @@ define([
 
     var serviceName = $("#wrapper").data("service-name");
 
-    availabilityModule(serviceName, serviceName);
+    availabilityModule(serviceName);
   };
 });
