@@ -26,7 +26,7 @@ function (GraphCollection) {
       var data = response.data;
       _.each(data, function (d) {
         d.total = d.downtime + d.unmonitored + d.uptime;
-        d.uptimeFraction = d.uptime / d.total;
+        d.uptimeFraction = (d.uptime + d.unmonitored) / d.total;
         d._end_at = this.moment(d._timestamp);
         d._start_at = this.moment(d._timestamp).subtract(1, "hours");
       });
@@ -39,7 +39,7 @@ function (GraphCollection) {
 
     _getTotalUptime: function () {
       return this.at(0).get('values').reduce(function (memo, model) {
-        return memo + model.get('uptime');
+        return memo + model.get('uptime') + model.get('unmonitored');
       }, 0)
     },
 

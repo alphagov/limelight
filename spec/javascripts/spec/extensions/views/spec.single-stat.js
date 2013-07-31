@@ -30,7 +30,7 @@ define([
       });
     });
 
-    it("should display uptime percentage", function () {
+    it("should display uptime + unmonitored percentage", function () {
       var collection = new AvailabilityFor24HoursCollection(
         {"data": [{
           "uptime": 3,
@@ -44,7 +44,7 @@ define([
       });
 
       jasmine.renderView(view, function () {
-        expect(view.$el.html()).toEqual("<strong>30%</strong>");
+        expect(view.$el.html()).toEqual("<strong>90%</strong>");
       });
     });
 
