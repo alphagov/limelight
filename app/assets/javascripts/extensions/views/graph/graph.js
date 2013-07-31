@@ -10,6 +10,7 @@ function (View, d3) {
     
     valueAttr: '_count',
 
+    minYDomainExtent: 6,
     numYTicks: 7,
     
     initialize: function (options) {

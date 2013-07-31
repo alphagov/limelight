@@ -32,9 +32,7 @@ function (require, Graph, XAxis, YAxis, Line, Stack, Hover, Callout) {
 
     getConfigNames: function () {
       return ['overlay', this.collection.query.get('period') || 'week'];
-    },
-
-    minYDomainExtent: 6
+    }
   });
   
   return TimeseriesGraph;
