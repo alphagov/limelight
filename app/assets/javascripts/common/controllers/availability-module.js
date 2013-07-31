@@ -12,7 +12,7 @@ function (GraphCollection, AvailabilityCollection,
           ResponseTimeNumber, ResponseTimeGraph) {
 
   return function (serviceName) {
-    if (!$('#uptime').length || !$('#response-time').length) {
+    if (!$('#availability').length) {
       return;
     }
 
@@ -21,23 +21,23 @@ function (GraphCollection, AvailabilityCollection,
     });
 
     new UptimeNumber({
-      el: $('#uptime'),
+      el: $('#availability .uptime'),
       collection: availabilityCollection
     });
 
     new UptimeGraph({
-      el: $('#uptime-graph'),
+      el: $('#availability .uptime-graph'),
       collection: availabilityCollection
     });
 
     new ResponseTimeNumber({
-      el: $('#response-time'),
+      el: $('#availability .response-time'),
       collection: availabilityCollection,
       getStatFunction: function (c) { return Math.round(c.getAverageResponseTime()) + 'ms'; }
     });
 
     new ResponseTimeGraph({
-      el: $('#response-time-graph'),
+      el: $('#availability .response-time-graph'),
       collection: availabilityCollection
     });
 
