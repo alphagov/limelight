@@ -3,7 +3,7 @@ define([
   'extensions/collections/collection'
 ],
   function (StackedBar, Collection) {
-    xdescribe("StackedBarComponent", function () {
+    describe("StackedBarComponent", function () {
       
       describe("render", function () {
         var d3 = StackedBar.prototype.d3;
@@ -30,24 +30,31 @@ define([
               ])
             }
           ]);
+          var stack = StackedBar.prototype.d3.layout.stack()
+            .values(function (group) {
+              return group.get('values').models;
+            })
+            .y(function (model, index) {
+              return model.get('b');
+            });
+          layers = stack(collection.models.slice());
           view = new StackedBar({
             wrapper:wrapper,
             collection:collection,
             graph: {
+              layers: layers,
+              getXPos: function (groupIndex, modelIndex) {
+                var model = collection.at(groupIndex).get('values').at(modelIndex);
+                return model.get('a');
+              },
               getYPos: function (groupIndex, modelIndex) {
                 var model = collection.at(groupIndex).get('values').at(modelIndex);
-                return model.get('b') * 2;
+                return model.y0 + model.y;
               },
               getY0Pos: function (groupIndex, modelIndex) {
                 var model = collection.at(groupIndex).get('values').at(modelIndex);
-                return model.get('b');
+                return model.y0;
               }
-            },
-            x: function (model, i) {
-              return this.scales.x(model.get('a'));
-            },
-            yStack: function (model, i) {
-              return model.get('b');
             },
             barWidth: function(model, i) {
               return 10;
