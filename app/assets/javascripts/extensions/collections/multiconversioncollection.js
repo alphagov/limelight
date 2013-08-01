@@ -9,11 +9,11 @@ define([
       options.collections = [
         {
           collection: options.conversionCollection,
-          options: { weeksAgo: 1 }
+          options: { weeksAgo: 0 }
         },
         {
           collection: options.conversionCollection,
-          options: { weeksAgo: 0 }
+          options: { weeksAgo: 1 }
         }
       ];
 
