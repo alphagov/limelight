@@ -9,14 +9,14 @@ Feature: Electronic Vehicle Licensing dashboard
     Then the page title should be "Electronic Vehicle Licensing"
 
   Scenario: looking up the tax disc availability module
-    Given The electronic-vehicle-licensing monitoring bucket returns the response in "availability.json"
+    Given The tax-disc monitoring bucket returns the response in "availability.json"
     When I go to /performance/electronic-vehicle-licensing
     Then I should see the module "Tax disc service availability"
      And the module should display an uptime of 85.0%
      And the module should display a response time of 150ms
 
   Scenario: looking up the sorn availability module
-    Given The electronic-vehicle-licensing monitoring bucket returns the response in "availability.json"
+    Given The register-sorn-statutory-off-road-notification monitoring bucket returns the response in "availability.json"
     When I go to /performance/electronic-vehicle-licensing
     Then I should see the module "SORN service availability"
      And the module should display an uptime of 85.0%

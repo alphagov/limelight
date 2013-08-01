@@ -3,9 +3,7 @@ define([
 ], function (availabilityModule) {
   return function () {
 
-    var serviceName = $("#wrapper").data("service-name");
-
-    availabilityModule(serviceName);
-    availabilityModule(serviceName, '#sorn-availability');
+    availabilityModule('tax-disc');
+    availabilityModule('register-sorn-statutory-off-road-notification', '#sorn-availability');
   };
 });
