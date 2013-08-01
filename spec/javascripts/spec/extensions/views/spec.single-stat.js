@@ -1,13 +1,12 @@
 define([
   'extensions/views/single-stat',
-  'extensions/collections/availability-for-24-hours'
-], function (SingleStatView, AvailabilityFor24HoursCollection) {
+  'extensions/collections/collection'
+], function (SingleStatView, Collection) {
   describe("SingleStatView", function () {
 
     var collectionOptions = {
       checkName: "anything",
-      serviceName: "anything",
-      parse: true
+      serviceName: "anything"
     };
 
     describe("extracting the stat from the collection", function () {
@@ -31,36 +30,19 @@ define([
     });
 
     it("should display uptime + unmonitored percentage", function () {
-      var collection = new AvailabilityFor24HoursCollection(
-        {"data": [{
-          "uptime": 3,
-          "downtime": 1,
-          "unmonitored": 6
-        }]}, collectionOptions);
+      var collection = new Collection([{
+        "foo": 'bar'
+      }], collectionOptions);
 
       var view = new SingleStatView({
         collection: collection,
-        getStatFunction: function (collection) { return collection.getPercentageOfUptime() + '%'; }
+        getStatFunction: function (collection) {
+          return collection.first().get('foo');
+        }
       });
 
       jasmine.renderView(view, function () {
-        expect(view.$el.html()).toEqual("<strong>90%</strong>");
-      });
-    });
-
-    it("should display response time", function () {
-      var collection = new AvailabilityFor24HoursCollection(
-        {"data": [{
-          "avgresponse": 377
-        }]}, collectionOptions);
-
-      var view = new SingleStatView({
-        collection: collection,
-        getStatFunction: function (collection) { return collection.getAverageResponseTime() + 'ms'; }
-      });
-
-      jasmine.renderView(view, function () {
-        expect(view.$el.html()).toEqual("<strong>377ms</strong>");
+        expect(view.$el.html()).toEqual("<strong>bar</strong>");
       });
     });
   });
