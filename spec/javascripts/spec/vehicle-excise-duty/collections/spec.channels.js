@@ -41,8 +41,8 @@ function (Channels) {
         expect(channels.at(0).get('id')).toEqual('successful_agent');
         expect(channels.at(0).get('title')).toEqual('Agent');
         expect(channels.at(0).get('values').length).toEqual(2);
-        expect(channels.at(0).get('values').at(0).get('_start_at').format()).toEqual('2013-07-22T00:00:00+01:00');
-        expect(channels.at(0).get('values').at(0).get('_end_at').format()).toEqual('2013-07-29T00:00:00+01:00');
+        expect(channels.at(0).get('values').at(0).get('_start_at').utc().format()).toEqual('2013-07-21T23:00:00+00:00');
+        expect(channels.at(0).get('values').at(0).get('_end_at').utc().format()).toEqual('2013-07-28T23:00:00+00:00');
         expect(channels.at(0).get('values').at(0).get('_count')).toEqual(7636);
         expect(channels.at(0).get('values').at(1).get('_count')).toEqual(7273);
       });
