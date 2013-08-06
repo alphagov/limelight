@@ -4,7 +4,7 @@ define([
   'extensions/views/graph/linelabel'
 ],
 function (require, TimeseriesGraph, LineLabel, Callout) {
-  var ChannelsGraph = TimeseriesGraph.extend({
+  var VehicleExciseDutyGraph = TimeseriesGraph.extend({
     
     components: function () {
       return [
@@ -23,5 +23,5 @@ function (require, TimeseriesGraph, LineLabel, Callout) {
     
   });
   
-  return ChannelsGraph;
+  return VehicleExciseDutyGraph;
 });
