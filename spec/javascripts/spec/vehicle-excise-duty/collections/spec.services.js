@@ -9,25 +9,15 @@ function (Services) {
           "data": [
             {
               "_count": 2, 
-              "values": [
-                {
-                  "_end_at": "2013-08-05T00:00:00+00:00", 
-                  "_count": 2, 
-                  "_start_at": "2013-07-29T00:00:00+00:00"
-                }
-              ], 
+              "_end_at": "2013-08-05T00:00:00+00:00", 
+              "_start_at": "2013-07-29T00:00:00+00:00",
               "successful_tax_disc:sum": 151065,
               "successful_sorn:sum": 16718
             },
             {
               "_count": 2,
-              "values": [
-                {
-                  "_end_at": "2013-07-29T00:00:00+00:00",
-                  "_count": 2,
-                  "_start_at": "2013-07-22T00:00:00+00:00"
-                }
-              ],
+              "_end_at": "2013-07-29T00:00:00+00:00",
+              "_start_at": "2013-07-22T00:00:00+00:00",
               "successful_tax_disc:sum": 121065,
               "successful_sorn:sum": 26718
             }

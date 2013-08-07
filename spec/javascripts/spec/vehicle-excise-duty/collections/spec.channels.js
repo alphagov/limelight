@@ -9,26 +9,16 @@ function (Channels) {
           "data": [
             {
               "_count": 7.0, 
-              "values": [
-                {
-                  "_end_at": "2013-07-29T00:00:00+01:00", 
-                  "_count": 7.0, 
-                  "_start_at": "2013-07-22T00:00:00+01:00"
-                }
-              ], 
+              "_end_at": "2013-07-29T00:00:00+01:00", 
+              "_start_at": "2013-07-22T00:00:00+01:00",
               "successful_agent:sum": 7636.0,
               "successful_ivr:sum": 131501.0,
               "successful_web:sum": 708121.0
             },
             {
               "_count": 7.0, 
-              "values": [
-                {
-                  "_end_at": "2013-08-05T00:00:00+01:00", 
-                  "_count": 7.0, 
-                  "_start_at": "2013-07-29T00:00:00+01:00"
-                }
-              ], 
+              "_end_at": "2013-08-05T00:00:00+01:00", 
+              "_start_at": "2013-07-29T00:00:00+01:00",
               "successful_agent:sum": 7273.0,
               "successful_ivr:sum": 139895.0,
               "successful_web:sum": 715274.0
