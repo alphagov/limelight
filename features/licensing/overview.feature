@@ -25,9 +25,9 @@ Feature: Overview page
     When I go to /performance/licensing
     Then I should see the module "Completion rate"
 
-  Scenario: submission drop-offs module
+  Scenario: journey stages module
     When I go to /performance/licensing
-    Then I should see the module "Submission drop-offs"
+    Then I should see the module "Submission stages"
 
   Scenario: top licences module
     When I go to /performance/licensing
