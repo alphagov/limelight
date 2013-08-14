@@ -5,17 +5,6 @@
     display: none;
 }
 
-// Reset a few global header styles to make them easier to work with
-#global-header.with-proposition .header-wrapper .header-proposition .content {
-  margin:0;
-}
-#global-header.with-proposition .header-wrapper .header-global .header-logo {
-  margin-left:-15px;
-}
-#global-header .header-wrapper {
-  padding: 0.5em 30px;
-}
-
 .performance-hidden {
   display:none;
 }
@@ -85,10 +74,6 @@ main#content {
 
 
 @media (max-width: 640px) {
-
-  #global-header .header-wrapper {
-    padding: 0.5em 15px;
-  }
 
   .performance-platform-outer {
     margin-left:15px;

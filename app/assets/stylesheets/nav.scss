@@ -39,9 +39,10 @@ a:hover span.alpha-tag {
 nav.performance-nav {
   margin: -1.5em 0em 2em 0em;
   border-bottom: 1px solid $border-colour;
+  padding-right:15px;
 
   ul {
-    padding:0;
+    padding:0 0 0 15px;
     list-style:none;
     margin: 0 0 0.5em 33.33%;
 
@@ -71,13 +72,10 @@ nav.performance-nav {
 
 
 @media (max-width: 768px) {
-  #global-header .header-proposition #proposition-links li {
-    width:100%;
-  }
-
   nav.performance-nav {
     ul {
-      margin-left:0
+      margin-left:0;
+      padding-left:0;
     }
   }
 }
