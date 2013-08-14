@@ -38,30 +38,33 @@ a:hover span.alpha-tag {
 
 nav.performance-nav {
   margin: -1.5em 0em 2em 0em;
-
   border-bottom: 1px solid $border-colour;
-  padding:0 15px;
 
   ul {
+    padding:0;
     list-style:none;
-    padding: 0 0 0 33.33%;
-    margin: 0 0 0.5em 0.3em;
+    margin: 0 0 0.5em 33.33%;
 
     li {
-      display:inline-block;
-      margin-right:1em;
+      display:inline;
     }
   }
   
   a {
     color:$text-colour;
     text-decoration:none;
+    margin-right:1em;
 
     &.active {
-        border-bottom:1px solid $text-colour;
+      color:$text-colour;
+      text-decoration:underline;
+    }
+    &:visited {
+      color:$text-colour;
     }
     &:hover {
-        border-bottom:1px solid $text-colour;
+      text-decoration:underline;
+      color:$text-colour;
     }
   }
 }
@@ -74,7 +77,7 @@ nav.performance-nav {
 
   nav.performance-nav {
     ul {
-      padding: 0;
+      margin-left:0
     }
   }
 }

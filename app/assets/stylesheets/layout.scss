@@ -5,13 +5,23 @@
     display: none;
 }
 
+// Reset a few global header styles to make them easier to work with
+#global-header.with-proposition .header-wrapper .header-proposition .content {
+  margin:0;
+}
+#global-header.with-proposition .header-wrapper .header-global .header-logo {
+  margin-left:-15px;
+}
+#global-header .header-wrapper {
+  padding: 0.5em 30px;
+}
+
 .performance-hidden {
   display:none;
 }
 
 .performance-platform-outer {
-  border-top: 10px solid $primary-colour;
-  padding-top: 2em;
+  margin:0 30px;
 }
 
 #wrapper {
@@ -25,10 +35,12 @@
           box-sizing: border-box;
 }
 
-#content {
+main#content {
+  max-width:1050px;
   background-color: #FFFFFF;
-  padding: 0 2em 1em 2em;
-  
+  padding: 2em 0 1em 0;
+  border-top: 10px solid $primary-colour;
+
   header {
     border-bottom: 5px solid $primary-colour;
     padding-bottom: 2em;
@@ -73,12 +85,18 @@
 
 
 @media (max-width: 640px) {
-  .performance-platform-outer {
-    padding-top: 1em;
+
+  #global-header .header-wrapper {
+    padding: 0.5em 15px;
   }
 
-  #content {
-    padding: 0 1em;
+  .performance-platform-outer {
+    margin-left:15px;
+    margin-right:15px;
+  }
+
+  main#content {
+    padding: 1em 0 0;
     
     section {
       float:none;
