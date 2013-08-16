@@ -49,5 +49,11 @@ Feature: Vehicle excise duty dashboard
   Scenario: looking at the tax disc application volume graph
     Given The vehicle-excise-duty channels bucket returns the response in "vehicle_excise_duty_services.json"
      When I go to /performance/vehicle-excise-duty
-     Then I should see the module "Tax disc applications by service"
+     Then I should see the module "Tax disc applications"
+      And the module should contain a graph
+
+  Scenario: looking at the SORN application volume graph
+    Given The vehicle-excise-duty channels bucket returns the response in "vehicle_excise_duty_services.json"
+     When I go to /performance/vehicle-excise-duty
+     Then I should see the module "SORN applications"
       And the module should contain a graph

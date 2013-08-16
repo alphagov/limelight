@@ -31,6 +31,7 @@ define([
     });
 
     volumesModule('#tax-disc-volumes', 'successful_tax_disc', 'Tax disc');
+    volumesModule('#sorn-volumes', 'successful_sorn', 'SORN');
 
     failuresModule('#tax-disc-failures', 'tax-disc');
     failuresModule('#sorn-failures', 'sorn');
