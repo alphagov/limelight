@@ -3,17 +3,18 @@ define([
   'vehicle-excise-duty/collections/services',
   'vehicle-excise-duty/collections/channels',
   'vehicle-excise-duty/views/timeseries-graph',
+  'extensions/views/timeseries-graph/timeseries-graph',
   './failures-module',
   'common/controllers/availability-module'
 ], function (require,
-  ServicesCollection, ChannelsCollection, TimeseriesGraph,
-  failuresModule, availabilityModule) {
+  ServicesCollection, ChannelsCollection, ServicesTimeseriesGraph,
+  TimeseriesGraph, failuresModule, availabilityModule) {
 
   return function () {
 
     var servicesCollection = new ServicesCollection([], {});
     servicesCollection.fetch();
-    new TimeseriesGraph({
+    new ServicesTimeseriesGraph({
       el: $('#vehicle-excise-duty-services'),
       collection: servicesCollection
     });
@@ -29,7 +30,7 @@ define([
 
     var channelsCollection = new ChannelsCollection([], {});
     channelsCollection.fetch();
-    new TimeseriesGraph({
+    new ServicesTimeseriesGraph({
       el: $('#vehicle-excise-duty-channels'),
       collection: channelsCollection
     });
