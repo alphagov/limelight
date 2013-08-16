@@ -1,8 +1,8 @@
 dashboards:
   - slug: licensing
     name: Licensing
-  - slug: vehicle-excise-duty
-    name: Vehicle excise duty
+  - slug: vehicle-licensing
+    name: Vehicle licensing
     feature_toggle: evl_dashboard
   - slug: hmrc
     name: HMRC

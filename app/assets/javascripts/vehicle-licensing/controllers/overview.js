@@ -1,8 +1,8 @@
 define([
   'require',
-  'vehicle-excise-duty/collections/services',
-  'vehicle-excise-duty/collections/channels',
-  'vehicle-excise-duty/views/timeseries-graph'
+  'vehicle-licensing/collections/services',
+  'vehicle-licensing/collections/channels',
+  'vehicle-licensing/views/timeseries-graph'
 ], function (require,
   ServicesCollection, ChannelsCollection, TimeseriesGraph) {
 
@@ -10,14 +10,14 @@ define([
 
     var servicesCollection = new ServicesCollection();
     var servicesGraph = new TimeseriesGraph({
-      el: $('#vehicle-excise-duty-services'),
+      el: $('#vehicle-licensing-services'),
       collection: servicesCollection
     });
     servicesCollection.fetch();
     
     var channelsCollection = new ChannelsCollection();
     var channelsGraph = new TimeseriesGraph({
-      el: $('#vehicle-excise-duty-channels'),
+      el: $('#vehicle-licensing-channels'),
       collection: channelsCollection
     });
     channelsCollection.fetch();

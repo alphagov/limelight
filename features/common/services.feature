@@ -21,7 +21,7 @@ Feature: Services page
     Examples:
       | Title                                                      | Path                                           |
       | Deposit foreign marriage or civil partnership certificates | /performance/deposit-foreign-marriage          |
-      | Vehicle excise duty                                        | /performance/vehicle-excise-duty               |
+      | Vehicle licensing                                          | /performance/vehicle-licensing                 |
       | Lasting Power of Attorney                                  | /performance/lasting-power-of-attorney         |
       | Licensing                                                  | /performance/licensing                         |  
       | Pay to get documents legalised by post                     | /performance/pay-legalisation-post             |  
