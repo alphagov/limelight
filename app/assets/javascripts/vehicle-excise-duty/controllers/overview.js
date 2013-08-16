@@ -7,10 +7,12 @@ define([
   'extensions/views/tabs',
   'extensions/views/graph/headline',
   './failures-module',
-  'common/controllers/availability-module'
+  'common/controllers/availability-module',
+  './vehicle-license-volumes-module'
 ], function (require,
   ServicesCollection, ChannelsCollection, ServicesTimeseriesGraph,
-  TimeseriesGraph, Tabs, Headline, failuresModule, availabilityModule) {
+  TimeseriesGraph, Tabs, Headline, failuresModule, availabilityModule,
+  volumesModule) {
 
   return function () {
 
@@ -21,40 +23,14 @@ define([
       collection: servicesCollection
     });
 
-
-    var taxDiscCollection = new ServicesCollection([], {
-      seriesList: [{ id: 'successful_tax_disc', title: 'Tax-disc' }]
-    });
-    taxDiscCollection.query.set('period', 'week');
-    taxDiscCollection.fetch();
-    new TimeseriesGraph({
-      el: $('#tax-disc-volumes'),
-      collection: taxDiscCollection
-    });
-    var tabs = new Tabs({
-      el: $("#tax-disc-volumes-nav"),
-      model: taxDiscCollection.query,
-      attr: 'period',
-      tabs: [
-        {id: "month", name: "Monthly"},
-        {id: "week", name: "Weekly"}
-      ]
-    });
-    tabs.render();
-    var headline = new Headline({
-      el: $('#tax-disc-volumes-headline'),
-      model: taxDiscCollection.query,
-      prefix: 'Tax disc applications'
-    });
-    headline.render();
-
-
     var channelsCollection = new ChannelsCollection([], {});
     channelsCollection.fetch();
     new ServicesTimeseriesGraph({
       el: $('#vehicle-excise-duty-channels'),
       collection: channelsCollection
     });
+
+    volumesModule('#tax-disc-volumes', 'successful_tax_disc', 'Tax disc');
 
     failuresModule('#tax-disc-failures', 'tax-disc');
     failuresModule('#sorn-failures', 'sorn');
