@@ -1,5 +1,5 @@
 define([
-  'vehicle-excise-duty/collections/services',
+  'vehicle-licensing/collections/services',
   'extensions/views/timeseries-graph/timeseries-graph',
   'extensions/views/tabs',
   'extensions/views/graph/headline',

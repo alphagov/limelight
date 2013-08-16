@@ -1,8 +1,8 @@
 define([
-  'vehicle-excise-duty/collections/services'
+  'vehicle-licensing/collections/services'
 ],
 function (Services) {
-  describe("Vehicle Excise Duty Services Collection", function () {
+  describe("Vehicle Licensing Services Collection", function () {
     describe("parse", function () {
 
       it("parses response for both sorn and tax-disc", function () {
