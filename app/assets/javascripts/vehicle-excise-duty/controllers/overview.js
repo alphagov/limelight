@@ -4,11 +4,12 @@ define([
   'vehicle-excise-duty/collections/channels',
   'vehicle-excise-duty/views/timeseries-graph',
   'extensions/views/timeseries-graph/timeseries-graph',
+  'extensions/views/tabs',
   './failures-module',
   'common/controllers/availability-module'
 ], function (require,
   ServicesCollection, ChannelsCollection, ServicesTimeseriesGraph,
-  TimeseriesGraph, failuresModule, availabilityModule) {
+  TimeseriesGraph, Tabs, failuresModule, availabilityModule) {
 
   return function () {
 
@@ -19,14 +20,27 @@ define([
       collection: servicesCollection
     });
 
+
     var taxDiscCollection = new ServicesCollection([], {
       seriesList: [{ id: 'successful_tax_disc', title: 'Tax-disc' }]
     });
+    taxDiscCollection.query.set('period', 'week');
     taxDiscCollection.fetch();
     new TimeseriesGraph({
       el: $('#tax-disc-volumes'),
       collection: taxDiscCollection
     });
+    var tabs = new Tabs({
+      el: $("#tax-disc-volumes-nav"),
+      model: taxDiscCollection.query,
+      attr: 'period',
+      tabs: [
+        {id: "month", name: "Monthly"},
+        {id: "week", name: "Weekly"}
+      ]
+    });
+    tabs.render();
+
 
     var channelsCollection = new ChannelsCollection([], {});
     channelsCollection.fetch();

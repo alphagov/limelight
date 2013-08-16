@@ -6,6 +6,7 @@ function (GraphCollection) {
 
     serviceName: 'vehicle-excise-duty',
     apiName: 'services',
+    defaultPeriod: 'week',
 
     baseSeriesList: [
       { id: 'successful_sorn', title: 'SORN' },
@@ -19,7 +20,7 @@ function (GraphCollection) {
 
     queryParams: function () {
       return {
-        period: 'week',
+        period: this.defaultPeriod,
         collect: _.map(this.seriesList, function (s) {
           return s.id + ':sum';
         })
