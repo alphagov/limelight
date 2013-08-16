@@ -37,16 +37,3 @@
   <h2>Applications per week broken down by channel over the last 9 weeks</h2>
   <figure class="graph timeseries-graph" id="vehicle-excise-duty-channels"></figure>
 </section>
-
-
-<%= render(partial: "vehicle-excise-duty/failures", locals: {title: "Tax disc application failures", id: "tax-disc-failures"}) %>
-
-<% if Rails.application.config.feature_toggles[:evl_availability_modules] %>
-<%= render(partial: "common/modules/availability", locals: {title: "Tax disc service availability", id: "tax-disc-availability"}) %>
-<% end %>
-
-<%= render(partial: "vehicle-excise-duty/failures", locals: {title: "SORN application failures", id: "sorn-failures"}) %>
-
-<% if Rails.application.config.feature_toggles[:evl_availability_modules] %>
-<%= render(partial: "common/modules/availability", locals: {title: "SORN service availability", id: "sorn-availability"}) %>
-<% end %>
