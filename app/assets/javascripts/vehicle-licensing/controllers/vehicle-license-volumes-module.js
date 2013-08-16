@@ -31,7 +31,7 @@ define([
       var headline = new Headline({
         el: $(selector + '-headline'),
         model: serviceCollection.query,
-        prefix: type + ' applications'
+        prefix: 'Applications submissions'
       });
       headline.render();
     };
