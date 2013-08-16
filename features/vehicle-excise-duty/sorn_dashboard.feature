@@ -5,7 +5,7 @@ Feature: SORN dashboard
   So that I can take data driven decisions
 
    Scenario: looking at the SORN failures module
-     Given The vehicle-excise-duty failures bucket returns the response in "vehicle_excise_duty_failures.json"
+     Given The vehicle-licensing failures bucket returns the response in "vehicle_licensing_failures.json"
      When I go to /performance/sorn
      Then I should see the module "SORN application failures"
       And the module should contain a table
