@@ -5,18 +5,10 @@
     "service-name" => params[:slug],
 } %>
 
-<header>
-  <h1>
-    <span class="strapline">Service Performance</span>
-    <%= transaction_title %>
-  </h1>
-  <% if explanatory_copy %>
-    <p class="explanatory"><%= explanatory_copy %></p>
-  <% end %>
-</header>
+<%= render(partial: "common/copy/dashboard_header", locals: {title: transaction_title, copy: explanatory_copy}) %>
 
-<%= render(partial: "vehicle-excise-duty/failures", locals: {title: "#{transaction_title} application failures", id: "failures"}) %>
+<%= render(partial: "vehicle-excise-duty/failures", locals: {title: "#{transaction_title} application failures", id: "#{params[:slug]}-failures"}) %>
 
 <% if Rails.application.config.feature_toggles[:evl_availability_modules] %>
-    <%= render(partial: "common/modules/availability", locals: {title: "#{transaction_title} service availability", id: "availability_module"}) %>
+    <%= render(partial: "common/modules/availability", locals: {title: "#{transaction_title} service availability", id: "#{params[:slug]}-availability"}) %>
 <% end %>
