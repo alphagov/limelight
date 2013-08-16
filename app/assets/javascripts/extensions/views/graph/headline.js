@@ -8,18 +8,18 @@ define([
         this.model.on('change', this.render, this);
       },
 
+      prefix: 'Total form submissions',
       postfix: '',
 
+      headliner: function (period, duration) {
+        return [this.prefix, 'per', period, 'over the last',
+          duration, period + 's', this.postfix].join(' ');
+      },
+
       render: function () {
-        var period = this.model.get('period');
-        this.$el.html([
-          'Total form submissions per',
-          period,
-          'over the last',
-          this.model.periods[this.model.get('period')].duration,
-          period + 's',
-          this.postfix
-        ].join(' '));
+        var period = this.model.get('period')
+        var headline = this.headliner(period, this.model.periods[this.model.get('period')].duration);
+        this.$el.html(headline);
       }
     });
 

@@ -43,7 +43,8 @@ define([
     tabs.render();
     var headline = new Headline({
       el: $('#tax-disc-volumes-headline'),
-      model: taxDiscCollection.query
+      model: taxDiscCollection.query,
+      prefix: 'Tax disc applications'
     });
     headline.render();
 
