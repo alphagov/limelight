@@ -7,10 +7,15 @@ function (GraphCollection) {
     serviceName: 'vehicle-excise-duty',
     apiName: 'services',
 
-    seriesList: [
+    baseSeriesList: [
       { id: 'successful_sorn', title: 'SORN' },
       { id: 'successful_tax_disc', title: 'Tax-disc' }
     ],
+
+    initialize: function (model, options) {
+      this.seriesList = options.seriesList || this.baseSeriesList;
+      GraphCollection.prototype.initialize.apply(this, arguments);
+    },
 
     queryParams: function () {
       return {
