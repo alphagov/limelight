@@ -5,11 +5,12 @@ define([
   'vehicle-excise-duty/views/timeseries-graph',
   'extensions/views/timeseries-graph/timeseries-graph',
   'extensions/views/tabs',
+  'extensions/views/graph/headline',
   './failures-module',
   'common/controllers/availability-module'
 ], function (require,
   ServicesCollection, ChannelsCollection, ServicesTimeseriesGraph,
-  TimeseriesGraph, Tabs, failuresModule, availabilityModule) {
+  TimeseriesGraph, Tabs, Headline, failuresModule, availabilityModule) {
 
   return function () {
 
@@ -40,6 +41,11 @@ define([
       ]
     });
     tabs.render();
+    var headline = new Headline({
+      el: $('#tax-disc-volumes-headline'),
+      model: taxDiscCollection.query
+    });
+    headline.render();
 
 
     var channelsCollection = new ChannelsCollection([], {});
