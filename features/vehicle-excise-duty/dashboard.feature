@@ -9,13 +9,13 @@ Feature: Vehicle licensing dashboard
     Then the page title should be "Vehicle licensing"
 
   Scenario: looking at the application types graph
-    Given The vehicle-excise-duty channels bucket returns the response in "vehicle_excise_duty_services.json"
+    Given The vehicle-licensing channels bucket returns the response in "vehicle_licensing_services.json"
     When I go to /performance/vehicle-licensing
     Then I should see the module "Applications by service"
      And the module should contain a graph
 
   Scenario: looking at the application channels graph
-    Given The vehicle-excise-duty channels bucket returns the response in "vehicle_excise_duty_channels.json"
+    Given The vehicle-licensing channels bucket returns the response in "vehicle_licensing_channels.json"
     When I go to /performance/vehicle-licensing
     Then I should see the module "Application channels"
      And the module should contain a graph

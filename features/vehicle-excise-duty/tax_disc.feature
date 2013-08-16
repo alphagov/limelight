@@ -11,7 +11,7 @@ Feature: Tax disc dashboard
     And the module should contain a graph
 
   Scenario: looking at the tax disc failures module
-    Given The vehicle-excise-duty failures bucket returns the response in "vehicle_excise_duty_failures.json"
+    Given The vehicle-licensing failures bucket returns the response in "vehicle_licensing_failures.json"
     When I go to /performance/tax-disc
     Then I should see the module "Tax disc application failures"
      And the module should contain a table
