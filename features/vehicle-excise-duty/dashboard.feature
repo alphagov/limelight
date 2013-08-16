@@ -45,3 +45,9 @@ Feature: Vehicle excise duty dashboard
     Then I should see the module "SORN service availability"
      And the module should display an uptime of 85.0%
      And the module should display a response time of 150ms
+
+  Scenario: looking at the tax disc application volume graph
+    Given The vehicle-excise-duty channels bucket returns the response in "vehicle_excise_duty_services.json"
+     When I go to /performance/vehicle-excise-duty
+     Then I should see the module "Tax disc applications by service"
+      And the module should contain a graph

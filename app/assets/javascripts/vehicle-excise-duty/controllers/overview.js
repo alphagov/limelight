@@ -12,19 +12,28 @@ define([
   return function () {
 
     var servicesCollection = new ServicesCollection([], {});
-    var servicesGraph = new TimeseriesGraph({
+    servicesCollection.fetch();
+    new TimeseriesGraph({
       el: $('#vehicle-excise-duty-services'),
       collection: servicesCollection
     });
-    servicesCollection.fetch();
+
+    var taxDiscCollection = new ServicesCollection([], {
+      seriesList: [{ id: 'successful_tax_disc', title: 'Tax-disc' }]
+    });
+    taxDiscCollection.fetch();
+    new TimeseriesGraph({
+      el: $('#tax-disc-volumes'),
+      collection: taxDiscCollection
+    });
 
     var channelsCollection = new ChannelsCollection([], {});
-    var channelsGraph = new TimeseriesGraph({
+    channelsCollection.fetch();
+    new TimeseriesGraph({
       el: $('#vehicle-excise-duty-channels'),
       collection: channelsCollection
     });
-    channelsCollection.fetch();
-    
+
     failuresModule('#tax-disc-failures', 'tax-disc');
     failuresModule('#sorn-failures', 'sorn');
 
