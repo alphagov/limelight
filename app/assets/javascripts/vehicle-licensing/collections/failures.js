@@ -4,7 +4,7 @@ define([
   './failures-week'
 ],
 function (require, Collection, FailuresWeek) {
-  var Failures =  Collection.extend({
+  var Failures = Collection.extend({
     collections: [
       {
         collection: FailuresWeek,

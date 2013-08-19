@@ -4,7 +4,7 @@ define([
 function (Collection) {
   var FailuresWeek = Collection.extend({
 
-    serviceName: 'vehicle-excise-duty',
+    serviceName: 'vehicle-licensing',
     apiName: 'failures',
 
     queryParams: function () {

@@ -1,5 +1,5 @@
 define([
-  'vehicle-excise-duty/collections/failures',
+  'vehicle-licensing/collections/failures',
   'extensions/collections/collection'
 ],
 function (Failures, Collection) {

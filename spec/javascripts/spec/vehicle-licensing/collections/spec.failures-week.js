@@ -1,5 +1,5 @@
 define([
-  'vehicle-excise-duty/collections/failures-week',
+  'vehicle-licensing/collections/failures-week',
   'extensions/models/query'
 ],
 function (Collection, Query) {
