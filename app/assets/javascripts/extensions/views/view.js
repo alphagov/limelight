@@ -131,6 +131,14 @@ function (Backbone, moment) {
         }
         return roundedValue.toString();
       },
+
+      formatPercentage: function (fraction, numDecimals) {
+        if (isNaN(fraction) || !_.isNumber(fraction)) {
+          return fraction;
+        }
+        numDecimals = numDecimals || 0;
+        return (100 * fraction).toFixed(numDecimals) + '%';
+      },
       
       /**
        * Convenience method, gets object property or method result. The method
