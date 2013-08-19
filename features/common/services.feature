@@ -10,7 +10,7 @@ Feature: Services page
         And the page title should be "Services"
         And the page subtitle should be "Services integrated with the Performance Platform"
         And the "services" count should be 10
-        And the "service groups" count should be 1
+        And the "service-groups" count should be 1
 
   Scenario Outline: navigating to service
     When I go to /performance/services
