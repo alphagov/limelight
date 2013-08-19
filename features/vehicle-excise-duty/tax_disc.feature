@@ -16,3 +16,7 @@ Feature: Tax disc dashboard
     Then I should see the module "Tax disc service availability"
      And the module should display an uptime of 85.0%
      And the module should display a response time of 150ms
+
+  Scenario: Navigating to related pages
+    Given I am on this page
+    Then I should be able to navigate to related pages

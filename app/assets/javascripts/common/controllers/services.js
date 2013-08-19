@@ -13,14 +13,15 @@ define([
       })
     );
 
-    var view = new Filter({
+    var view = new CompositeFilter({
       el: $('#filter-wrapper'),
-      listEl: $('#services-list dl'),
-      countEl: $('#services-list .count'),
+      listEl: [$('#services-list dl')],
+      countEl: [$('#services-list .count')],
       label: 'Find a service named:',
       placeholder: 'Example: Licensing',
-      collection: collection
+      collection: [collection]
     });
+
     view.render();
   };
 });

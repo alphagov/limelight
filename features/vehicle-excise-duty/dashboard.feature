@@ -19,3 +19,7 @@ Feature: Vehicle licensing dashboard
     When I go to /performance/vehicle-licensing
     Then I should see the module "Application channels"
      And the module should contain a graph
+
+  Scenario: Navigating to related pages
+    Given I am on this page
+    Then I should be able to navigate to related pages
