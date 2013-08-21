@@ -15,6 +15,11 @@ function (Collection) {
       Collection.prototype.initialize.apply(this, arguments);
 
       this.serviceName = options.serviceName;
+
+      if(options.apiName) {
+        this.apiName = options.apiName;
+      }
+
     },
 
     parse: function (response) {
