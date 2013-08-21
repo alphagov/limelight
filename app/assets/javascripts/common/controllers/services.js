@@ -3,7 +3,9 @@ define([
   'extensions/views/filter'
 ], function(Collection, Filter) {
   return function() {
-    var collection = new Collection(
+    var filterTerm new FilterTerm();
+
+    var servicesCollection = new Collection(
       $.map($('#services-list li'), function (li) {
         var $li = $(li);
         return {
@@ -12,24 +14,46 @@ define([
         };
       })
     );
+    var serviceGroupsCollection = new Collection(
+      $.map($('#service-groups-list li'), function (li) {
+        var $li = $(li);
+        return {
+          title: $li.text(),
+          el: $li
+        };
+      })
+    );
 
-    var view = new Filter({
+    var views = [];
+    views[0] = var filter new FilterView( 
       el: $('#filter-wrapper'),
-      listEl: $('#services-list dl'),
-      countEl: $('#services-list .count'),
       label: 'Find a service named:',
       placeholder: 'Example: Licensing',
-      collection: collection
+      filterTerm: filterTerm
+    );
+    views[1] = var servicesCount new CollectionCounter({
+      countEl: $('#services-list .count'),
+      collection: servicesCollection,
+      filterTerm: filterTerm
     });
-    /*var view = new compositefilter({*/
-    /*el: $('#filter-wrapper'),*/
-    /*listel: [$('#services-list dl')],*/
-    /*countel: [$('#services-list .count')],*/
-    /*label: 'find a service named:',*/
-    /*placeholder: 'example: licensing',*/
-    /*collection: [collection]*/
-    /*});*/
+    views[2] = var serviceGroupsCount new CollectionCounter({
+      countEl: $('#service-groups-list .count'),
+      collection: serviceGroupsCollection,
+      filterTerm: filterTerm
+    });
+    views[3] = var filteredServiceGroups new FilteredCollection({
+      listEl: $('#services-list dl'),
+      collection: servicesCollection,
+      filterTerm: filterTerm
+    });
+    views[4] = var filteredServices new FilteredCollection({
+      listEl: $('#services-groups-list dl'),
+      collection: serviceGroupsCollection,
+      filterTerm: filterTerm
+    });
 
-    view.render();
+    _.each(views, function(view) {
+      view.render();
+    });
   };
 });
