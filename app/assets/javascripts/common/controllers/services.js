@@ -35,20 +35,22 @@ define([
       model: filterTerm
     });
     var servicesCount = new CollectionCounter({
-      countEl: $('#services-list .count'),
+      el: $('#services-list .count'),
       collection: servicesCollection.filtered
     });
     var serviceGroupsCount = new CollectionCounter({
-      countEl: $('#service-groups-list .count'),
-      collection: serviceGroupsCollection
+      el: $('#service-groups-list .count'),
+      collection: serviceGroupsCollection.filtered
     });
     var filteredServiceGroups = new FilteredCollection({
-      listEl: $('#services-list dl'),
-      collection: servicesCollection.filtered
+      el: $('#services-list dl'),
+      collection: servicesCollection
     });
     var filteredServices = new FilteredCollection({
-      listEl: $('#services-groups-list dl'),
+      el: $('#services-groups-list dl'),
       collection: serviceGroupsCollection
     });
+
+    filter.render();
   };
 });
