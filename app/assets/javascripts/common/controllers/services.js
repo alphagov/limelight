@@ -13,14 +13,22 @@ define([
       })
     );
 
-    var view = new CompositeFilter({
+    var view = new Filter({
       el: $('#filter-wrapper'),
-      listEl: [$('#services-list dl')],
-      countEl: [$('#services-list .count')],
+      listEl: $('#services-list dl'),
+      countEl: $('#services-list .count'),
       label: 'Find a service named:',
       placeholder: 'Example: Licensing',
-      collection: [collection]
+      collection: collection
     });
+    /*var view = new compositefilter({*/
+    /*el: $('#filter-wrapper'),*/
+    /*listel: [$('#services-list dl')],*/
+    /*countel: [$('#services-list .count')],*/
+    /*label: 'find a service named:',*/
+    /*placeholder: 'example: licensing',*/
+    /*collection: [collection]*/
+    /*});*/
 
     view.render();
   };
