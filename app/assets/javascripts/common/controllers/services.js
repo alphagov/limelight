@@ -1,9 +1,12 @@
 define([
   'extensions/collections/filteredcollection',
-  'extensions/views/filter'
-], function(Collection, Filter) {
+  'extensions/models/model',
+  'extensions/views/filter-view',
+  'extensions/views/collection-counter',
+  'extensions/views/collection-filter'
+], function(Collection, Model, Filter, CollectionCounter, FilteredCollection) {
   return function() {
-    var filterTerm new FilterTerm();
+    var filterTerm = new Model();
 
     var servicesCollection = new Collection(
       $.map($('#services-list li'), function (li) {
@@ -12,8 +15,9 @@ define([
           title: $li.text(),
           el: $li
         };
-      })
+      }), {filterTerm: filterTerm}
     );
+
     var serviceGroupsCollection = new Collection(
       $.map($('#service-groups-list li'), function (li) {
         var $li = $(li);
@@ -21,39 +25,30 @@ define([
           title: $li.text(),
           el: $li
         };
-      })
-    );
+      }), {filterTerm: filterTerm}
+    ); 
 
-    var views = [];
-    views[0] = var filter new FilterView( 
+    var filter = new Filter({ 
       el: $('#filter-wrapper'),
       label: 'Find a service named:',
       placeholder: 'Example: Licensing',
-      filterTerm: filterTerm
-    );
-    views[1] = var servicesCount new CollectionCounter({
+      model: filterTerm
+    });
+    var servicesCount = new CollectionCounter({
       countEl: $('#services-list .count'),
-      collection: servicesCollection,
-      filterTerm: filterTerm
+      collection: servicesCollection.filtered
     });
-    views[2] = var serviceGroupsCount new CollectionCounter({
+    var serviceGroupsCount = new CollectionCounter({
       countEl: $('#service-groups-list .count'),
-      collection: serviceGroupsCollection,
-      filterTerm: filterTerm
+      collection: serviceGroupsCollection
     });
-    views[3] = var filteredServiceGroups new FilteredCollection({
+    var filteredServiceGroups = new FilteredCollection({
       listEl: $('#services-list dl'),
-      collection: servicesCollection,
-      filterTerm: filterTerm
+      collection: servicesCollection.filtered
     });
-    views[4] = var filteredServices new FilteredCollection({
+    var filteredServices = new FilteredCollection({
       listEl: $('#services-groups-list dl'),
-      collection: serviceGroupsCollection,
-      filterTerm: filterTerm
-    });
-
-    _.each(views, function(view) {
-      view.render();
+      collection: serviceGroupsCollection
     });
   };
 });
