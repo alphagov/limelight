@@ -12,7 +12,7 @@ define([
       }
 
       var serviceName = {
-        'sorn': 'SORN',
+        'sorn': 'SORN (Statutory Off Road Notification)',
         'tax-disc': 'Tax disc'
       };
 
