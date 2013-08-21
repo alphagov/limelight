@@ -8,12 +8,12 @@
 
 
 
-<%= render(partial: "common/modules/volumetrics", locals: {title: "#{transaction_title} applications",
+<%= render(partial: "common/modules/volumetrics", locals: {title: "Applications",
                                                            description: "#{transaction_title} applications per week broken down by service over the last 9 weeks",
                                                            id: "#{params[:slug]}-volumes"}) %>
 
-<%= render(partial: "vehicle-licensing/failures", locals: {title: "#{transaction_title} application failures", id: "#{params[:slug]}-failures"}) %>
+<%= render(partial: "vehicle-licensing/failures", locals: {title: "Application failures", id: "#{params[:slug]}-failures"}) %>
 
 <% if Rails.application.config.feature_toggles[:evl_availability_modules] %>
-    <%= render(partial: "common/modules/availability", locals: {title: "#{transaction_title} service availability", id: "#{params[:slug]}-availability"}) %>
+    <%= render(partial: "common/modules/availability", locals: {title: "Service availability", id: "#{params[:slug]}-availability"}) %>
 <% end %>
