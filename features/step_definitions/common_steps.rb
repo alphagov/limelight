@@ -99,3 +99,7 @@ end
 Then(/^I see a link to "(.*?)"$/) do |url|
   page.all("#content a[href=\"#{url}\"]").count.should >= 1
 end
+
+Then(/^show me the page$/) do
+  puts page.html
+end
