@@ -19,7 +19,7 @@ define([
       var serviceCollection = new ServicesCollection([], {
         seriesList: [{ id: id, title: serviceName[type] }]
       });
-      serviceCollection.query.set('period', 'week');
+      serviceCollection.query.set('period', 'month');
       serviceCollection.fetch();
 
       new TimeseriesGraph({
@@ -36,7 +36,6 @@ define([
           {id: "week", name: "Weekly"}
         ]
       });
-      tabs.model.set(tabs.attr, "month"); // Default to monthly tab
       tabs.render();
 
       var headline = new Headline({
