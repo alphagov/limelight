@@ -27,4 +27,4 @@ Feature: SORN dashboard
     Given The vehicle-licensing customer-satisfaction bucket returns the response in "vehicle_licensing_customer_satisfaction.json"
      When I go to /performance/sorn
      Then I should see the module "Customer satisfaction"
-      And the module should contain the text "89.1%"
+      And the module should contain the text "89.1% August 2013"

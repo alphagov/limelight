@@ -24,8 +24,14 @@ define([
         return this.formatNumericLabel(value * 100) + '%';
       },
 
+      getCurrentDate: function() {
+        var value = this.collection.last().get('_timestamp');
+        return value.format('MMMM YYYY');
+      },
+
       render: function () {
         this.$el.find('.current-value').html("<strong>" + this.getCurrentValue() + "</strong>");
+        this.$el.find('.current-date').html(this.getCurrentDate());
       }
     });
     return CustomerSatisfactionView;

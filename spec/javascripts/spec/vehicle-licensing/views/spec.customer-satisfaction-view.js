@@ -3,70 +3,87 @@ define([
   'vehicle-licensing/collections/customer-satisfaction'
 ],
 function (View, Collection) {
-  describe("getCurrentValue", function () {
-    it('should return SORN satisfaction as a percentage', function() {
-      var collection = buildCollection([
-        { "satisfaction_sorn": 1.6 }
-      ]);
+  describe("Customer Satisfaction view", function() {
+    describe("getCurrentValue", function () {
+      it('should return SORN satisfaction as a percentage', function() {
+        var collection = buildCollection([
+          { "satisfaction_sorn": 1.6 }
+        ]);
 
-      var view = new View({
-        collection: collection,
-        service: 'sorn'
+        var view = new View({
+          collection: collection,
+          service: 'sorn'
+        });
+
+        expect(view.getCurrentValue()).toEqual("85%")
       });
 
-      expect(view.getCurrentValue()).toEqual("85%")
+      it('should return Tax Disc satisfaction as a percentage', function() {
+        var collection = buildCollection([
+          { "satisfaction_tax_disc": 1.4 }
+        ]);
+
+        var view = new View({
+          collection: collection,
+          service: 'tax-disc'
+        });
+
+        expect(view.getCurrentValue()).toEqual("90%")
+      });
+
+      it('should return rounded the percentage', function() {
+        var collection = buildCollection([
+          { "satisfaction_sorn": 1.99 }
+        ]);
+
+        var view = new View({
+          collection: collection,
+          service: 'sorn'
+        });
+
+        expect(view.getCurrentValue()).toEqual("75.3%")
+      });
+
+      it('should round to 2 decimal digits values below 10', function() {
+        var collection = buildCollection([
+          { "satisfaction_sorn": 4.65 }
+        ]);
+
+        var view = new View({
+          collection: collection,
+          service: 'sorn'
+        });
+
+        expect(view.getCurrentValue()).toEqual("8.75%")
+      });
+
+      it('should not round 100%', function() {
+        var collection = buildCollection([
+          { "satisfaction_sorn": 1 }
+        ]);
+
+        var view = new View({
+          collection: collection,
+          service: 'sorn'
+        });
+
+        expect(view.getCurrentValue()).toEqual("100%")
+      });
     });
 
-    it('should return Tax Disc satisfaction as a percentage', function() {
-      var collection = buildCollection([
-        { "satisfaction_tax_disc": 1.4 }
-      ]);
+    describe("getCurrentDate", function () {
+      it('should display current date as month and year', function() {
+        var collection = buildCollection([
+          { "_timestamp": "2013-03-01T00:00:00+00:00" }
+        ]);
 
-      var view = new View({
-        collection: collection,
-        service: 'tax-disc'
+        var view = new View({
+          collection: collection,
+          service: 'sorn'
+        });
+
+        expect(view.getCurrentDate()).toEqual("March 2013");
       });
-
-      expect(view.getCurrentValue()).toEqual("90%")
-    });
-
-    it('should return rounded the percentage', function() {
-      var collection = buildCollection([
-        { "satisfaction_sorn": 1.99 }
-      ]);
-
-      var view = new View({
-        collection: collection,
-        service: 'sorn'
-      });
-
-      expect(view.getCurrentValue()).toEqual("75.3%")
-    });
-
-    it('should round to 2 decimal digits values below 10', function() {
-      var collection = buildCollection([
-        { "satisfaction_sorn": 4.65 }
-      ]);
-
-      var view = new View({
-        collection: collection,
-        service: 'sorn'
-      });
-
-      expect(view.getCurrentValue()).toEqual("8.75%")
-    });
-
-    it('should not round 100%', function() {
-      var collection = buildCollection([
-        { "satisfaction_sorn": 1 }
-      ]);
-
-      var view = new View({
-        collection: collection,
-        service: 'sorn'
-      });
-
-      expect(view.getCurrentValue()).toEqual("100%")
     });
   });
 
