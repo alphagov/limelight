@@ -20,6 +20,16 @@ Feature: Vehicle licensing dashboard
     Then I should see the module "Application channels"
      And the module should contain a graph
 
-  Scenario: Navigating to related pages
-    Given I am on this page
-    Then I should be able to navigate to related pages
+  Scenario Outline: Navigating to related pages
+    Given The vehicle-licensing channels bucket returns the response in "vehicle_licensing_channels.json"
+    When I go to /performance/vehicle-licensing
+    Then show me the page
+     And I click on "<Title>"
+    Then I should get back a status of 200
+     And I should be at <Path>
+     And the page title should be "<Title>"
+    
+    Examples:
+      | Title                                                      | Path                                           |
+      | Tax disc                                                   | /performance/tax-disc                          |
+      | SORN                                                       | /performance/sorn                              |
