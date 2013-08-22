@@ -12,19 +12,19 @@
     <li class="info">
       <div>
         <p>Data source: Google Analytics</p>
-        <p>Shows estimated number of users currently accessing licensing pages.</p>
+        <p>Shows the estimated number of users on the GOV.UK launch page for <%=transaction_title%>. Users on this page have not started the transaction at this point.
+</p>
       </div>
     </li>
   </ul>
-  <h2>Users actively browsing licensing pages now</h2>
+  <h2>Users on the GOV.UK launch page for <%=transaction_title%> now</h2>
   <div id="<%= "#{params[:slug]}-realtime" %>"></div>
 </section>
 
 
-<%= render(partial: "common/modules/volumetrics", locals: {title: "Applications", description: "",
-                                                           id: "#{params[:slug]}-volumes"}) %>
+<%= render(partial: "common/modules/volumetrics", locals: {title: "Applications", description: "", id: "#{params[:slug]}-volumes", transaction_title:transaction_title}) %>
 
-<%= render(partial: "vehicle-licensing/failures", locals: {title: "Application failures", id: "#{params[:slug]}-failures"}) %>
+<%= render(partial: "vehicle-licensing/failures", locals: {title: "Application failures", id: "#{params[:slug]}-failures",  transaction_title:transaction_title}) %>
 
 <% if Rails.application.config.feature_toggles[:evl_availability_modules] %>
     <%= render(partial: "common/modules/availability", locals: {title: "Service availability", id: "#{params[:slug]}-availability"}) %>
