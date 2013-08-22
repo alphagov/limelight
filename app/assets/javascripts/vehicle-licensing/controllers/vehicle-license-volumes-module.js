@@ -36,6 +36,7 @@ define([
           {id: "week", name: "Weekly"}
         ]
       });
+      tabs.model.set(tabs.attr, "month"); // Default to monthly tab
       tabs.render();
 
       var headline = new Headline({
