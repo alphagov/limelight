@@ -12,23 +12,23 @@ define([
         serviceNames = {
           'sorn': 'register-sorn-statutory-off-road-notification',
           'tax-disc': 'tax-disc'
-        };
+        },
+      serviceName = serviceNames[service];
 
     volumesModule('#' + service + '-volumes', 'successful_' + service.replace("-", "_"), service);
 
     failuresModule('#' + service + '-failures', service);
 
-    availabilityModule(serviceNames[service], '#' + service + '-availability');
+    availabilityModule(serviceName, '#' + service + '-availability');
 
     var updateInterval = 120*1000;
 
     var realtimeCollection = new RealtimeCollection([],{
-      serviceName: "vehicle-licensing",
-      apiName: "sorn-realtime"
+      serviceName: serviceName
     });
 
     var realtimeView = new RealtimeView({
-      el: $('#sorn-realtime'),
+      el: $('#' + service + '-realtime'),
       collection: realtimeCollection,
       collectionUpdateInterval: updateInterval
     });

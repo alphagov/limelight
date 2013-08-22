@@ -17,7 +17,7 @@
     </li>
   </ul>
   <h2>Users actively browsing licensing pages now</h2>
-  <div id="sorn-realtime"></div>
+  <div id="<%= "#{params[:slug]}-realtime" %>"></div>
 </section>
 
 <%= render(partial: "common/modules/volumetrics", locals: {title: "#{transaction_title} applications",
