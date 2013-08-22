@@ -12,8 +12,8 @@ define([
       }
 
       var serviceName = {
-        'sorn': 'SORN (Statutory Off Road Notification)',
-        'tax-disc': 'Tax disc'
+        'sorn': 'Applications',
+        'tax-disc': 'Applications'
       };
 
       var serviceCollection = new ServicesCollection([], {
