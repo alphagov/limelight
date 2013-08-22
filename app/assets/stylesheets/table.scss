@@ -109,23 +109,6 @@ article table {
     }
 
     td {
-
-        .increase:before,
-        .decrease:before {
-            display: inline-block;
-            padding-right:0.2em;
-        }
-
-        .increase:before {
-            content: "\25B2";
-            color: rgb(226, 44, 57);
-        }
-
-        .decrease:before {
-            content: "\25BC";
-            color: rgb(114, 185, 80);
-        }
-
         &:last-child {
             border-right:0;
         }
