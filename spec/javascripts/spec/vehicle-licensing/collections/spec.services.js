@@ -28,6 +28,7 @@ function (Services) {
         expect(services.length).toEqual(2);
         expect(services.at(0).get('id')).toEqual('successful_sorn');
         expect(services.at(0).get('title')).toEqual('SORN');
+        expect(services.at(0).get('href')).toEqual('/performance/sorn');
         expect(services.at(0).get('values').length).toEqual(2);
         expect(services.at(0).get('values').at(0).get('_start_at').utc().format()).toEqual('2013-07-22T00:00:00+00:00');
         expect(services.at(0).get('values').at(0).get('_end_at').utc().format()).toEqual('2013-07-29T00:00:00+00:00');
@@ -35,6 +36,7 @@ function (Services) {
         expect(services.at(0).get('values').at(1).get('_count')).toEqual(16718);
         expect(services.at(1).get('id')).toEqual('successful_tax_disc');
         expect(services.at(1).get('title')).toEqual('Tax-disc');
+        expect(services.at(1).get('href')).toEqual('/performance/tax-disc');
         expect(services.at(1).get('values').length).toEqual(2);
       });
     });

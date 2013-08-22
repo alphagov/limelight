@@ -8,8 +8,16 @@ function (GraphCollection) {
     apiName: 'services',
 
     seriesList: [
-      { id: 'successful_sorn', title: 'SORN' },
-      { id: 'successful_tax_disc', title: 'Tax-disc' }
+      {
+        id: 'successful_sorn',
+        title: 'SORN',
+        href: '/performance/sorn'
+      },
+      {
+        id: 'successful_tax_disc',
+        title: 'Tax-disc',
+        href: '/performance/tax-disc'
+      }
     ],
 
     queryParams: function () {
@@ -26,6 +34,7 @@ function (GraphCollection) {
         return {
           id: series.id,
           title: series.title,
+          href: series.href,
           values: _.map(response.data, function (d) {
             return {
               _start_at: d._start_at,
