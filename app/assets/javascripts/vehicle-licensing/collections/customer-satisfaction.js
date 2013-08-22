@@ -10,6 +10,9 @@ function (Collection) {
 
   var CustomerSatisfaction = Collection.extend({
 
+    serviceName: "vehicle-licensing",
+    apiName: "customer-satisfaction",
+
     parse: function(response) {
       return _.map(response.data, function(entry) {
         return _.extend(entry, {
