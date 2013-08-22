@@ -19,3 +19,9 @@
 .decline:before {
   color: rgb(226, 44, 57);
 }
+
+.no-change:before {
+  content: "\25CF";
+  color: silver;
+  margin-right: 5px;
+}

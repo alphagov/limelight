@@ -28,4 +28,4 @@ Feature: SORN dashboard
      When I go to /performance/sorn
      Then I should see the module "Customer satisfaction"
       And the module should contain the text "89.1% August 2013"
-      And the module should contain the text " +2% July 2013"
+      And the module should contain the text " -3.61% July 2013"
