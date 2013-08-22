@@ -3,29 +3,25 @@ define([
   'extensions/models/model',
   'extensions/views/filter-view',
   'extensions/views/collection-counter',
-  'extensions/views/collection-filter'
-], function(Collection, Model, Filter, CollectionCounter, FilteredCollection) {
+  'extensions/views/filtered-list'
+], function(Collection, Model, Filter, CollectionCounter, FilteredList) {
   return function() {
     var filterTerm = new Model();
 
+    var parseList = function (li) {
+      var $li = $(li);
+      return {
+        title: $li.text(),
+        el: $li
+      };
+    };
+
     var servicesCollection = new Collection(
-      $.map($('#services-list li'), function (li) {
-        var $li = $(li);
-        return {
-          title: $li.text(),
-          el: $li
-        };
-      }), {filterTerm: filterTerm}
+      $.map($('#services-list li'), parseList), {filterTerm: filterTerm}
     );
 
     var serviceGroupsCollection = new Collection(
-      $.map($('#service-groups-list li'), function (li) {
-        var $li = $(li);
-        return {
-          title: $li.text(),
-          el: $li
-        };
-      }), {filterTerm: filterTerm}
+      $.map($('#service-groups-list li'), parseList), {filterTerm: filterTerm}
     ); 
 
     var filter = new Filter({ 
@@ -42,11 +38,11 @@ define([
       el: $('#service-groups-list .count'),
       collection: serviceGroupsCollection.filtered
     });
-    var filteredServiceGroups = new FilteredCollection({
+    var filteredService = new FilteredList({
       el: $('#services-list dl'),
       collection: servicesCollection
     });
-    var filteredServices = new FilteredCollection({
+    var filteredServicesGroups = new FilteredList({
       el: $('#services-groups-list dl'),
       collection: serviceGroupsCollection
     });

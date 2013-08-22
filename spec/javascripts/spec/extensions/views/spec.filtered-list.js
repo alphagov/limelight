@@ -1,6 +1,6 @@
 define([
   'extensions/collections/filteredcollection',
-  'extensions/views/collection-filter'
+  'extensions/views/filtered-list'
 ],
 function (Collection, Filter) {
   describe("CollectionFilter", function () {
