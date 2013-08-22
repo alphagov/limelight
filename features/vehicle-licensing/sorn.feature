@@ -26,6 +26,6 @@ Feature: SORN dashboard
      And the page title should be "<Title>"
     
     Examples:
-      | Title                                                      | Path                                           |
-      | Tax disc                                                   | /performance/tax-disc                          |
-      | Vehicle licensing                                          | /performance/sorn                              |
+      | Title              | Path                           |
+      | Tax disc           | /performance/tax-disc          |
+      | Vehicle licensing  | /performance/vehicle-licensing |

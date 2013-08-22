@@ -38,7 +38,7 @@ When(/^I go to (.*)$/) do |url|
 end
 
 When(/^I click on "(.*?)"$/) do |name|
-  find(:xpath, "//a[text()='#{name}']").click
+  find(:xpath, "//a[contains(text(),'#{name}')]").click
 end
 
 Then(/^I should be at (.*)$/) do |path|
