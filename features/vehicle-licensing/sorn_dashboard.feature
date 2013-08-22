@@ -22,3 +22,9 @@ Feature: SORN dashboard
     Then I should see the module "SORN service availability"
      And the module should display an uptime of 85.0%
      And the module should display a response time of 150ms
+
+  @wip
+  Scenario: customer satisfaction module
+    Given The vehicle-licensing customer-satisfaction bucket returns the response in "vehicle_licensing_customer_satisfaction.json"
+     When I go to /performance/sorn
+     Then I should see the module "Customer satisfaction"
