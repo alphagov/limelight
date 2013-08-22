@@ -43,7 +43,7 @@ define([
       collection: servicesCollection
     });
     var filteredServicesGroups = new FilteredList({
-      el: $('#services-groups-list dl'),
+      el: $('#service-groups-list dl'),
       collection: serviceGroupsCollection
     });
 
