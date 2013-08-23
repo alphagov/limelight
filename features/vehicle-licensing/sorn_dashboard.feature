@@ -27,8 +27,8 @@ Feature: SORN dashboard
     Given The vehicle-licensing customer-satisfaction bucket returns the response in "vehicle_licensing_customer_satisfaction.json"
      When I go to /performance/sorn
      Then I should see the module "Customer satisfaction"
-      And the module should contain the text "89.1% August 2013"
-      And the module should contain the text " -3.61% July 2013"
+      And the module should contain the text "92.5% August 2013"
+      And the module should contain the text "0% July 2013"
 
   Scenario: looking for live users
     Given The register-sorn-statutory-off-road-notification realtime bucket returns the response in "licensing_realtime.json"
