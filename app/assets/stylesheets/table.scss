@@ -1,3 +1,5 @@
+@import 'colours';
+
 article {
     th, td {
         font-family: ntatabularnumbers, nta, Arial, sans-serif;
@@ -109,6 +111,22 @@ article table {
     }
 
     td {
+        .increase:after,
+        .decrease:after {
+            display: inline-block;
+            padding-left: 0.2em;
+        }
+
+        .increase:after {
+            content: "\25B2";
+            color: $negative-colour;
+        }
+
+        .decrease:after {
+            content: "\25BC";
+            color: $positive-colour;
+        }
+
         &:last-child {
             border-right:0;
         }

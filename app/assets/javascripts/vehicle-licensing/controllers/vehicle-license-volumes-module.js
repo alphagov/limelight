@@ -12,14 +12,14 @@ define([
       }
 
       var serviceName = {
-        'sorn': 'SORN',
-        'tax-disc': 'Tax disc'
+        'sorn': 'Applications',
+        'tax-disc': 'Applications'
       };
 
       var serviceCollection = new ServicesCollection([], {
         seriesList: [{ id: id, title: serviceName[type] }]
       });
-      serviceCollection.query.set('period', 'week');
+      serviceCollection.query.set('period', 'month');
       serviceCollection.fetch();
 
       new TimeseriesGraph({
