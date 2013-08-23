@@ -17,9 +17,9 @@ function (Backbone, moment) {
       },
       
       magnitudes: {
-          million:  {value: 1e6, suffix:"m"},
-          thousand: {value: 1e3, suffix:"k"},
-          unit:     {value: 1, suffix:""}
+          million:  {value: 1e6, threshold: 1e6 / 2, suffix:"m"},
+          thousand: {value: 1e3, threshold: 1e3 / 2, suffix:"k"},
+          unit:     {value: 1,   threshold: 0,       suffix:"", trimDecimals: true}
       },
       
       magnitudeFor: function (value) {
@@ -107,26 +107,36 @@ function (Backbone, moment) {
         if (value == 0) return "0";
         
         var magnitudes = View.prototype.magnitudes;
-        var magnitude = function(num, n) {
-              return Math.pow(10, n - Math.ceil(Math.log(Math.abs(num)) / Math.LN10));
+
+        var magnitude = function(num) {
+              return Math.ceil(Math.log(Math.abs(num)) / Math.LN10);
             },
             roundToSignificantFigures = function(num, n) {
-              return Math.round(num * magnitude(num, n)) / magnitude(num, n);
+              var mag = Math.max(magnitude(num), 0); // ignore negative magnitude
+              var factor = Math.pow(10, n - mag);
+              return Math.round(num * factor) / factor;
             },
-            thresholds = [ magnitudes.million, magnitudes.thousand ],
+            thresholds = [ magnitudes.million, magnitudes.thousand, magnitudes.unit ],
             roundedValue = roundToSignificantFigures(value, 3),
             significantFigures = null;
 
+        var trimDecimals = function(string) {
+            if (string.indexOf('.') === -1) return string;
+            return string.replace(/0+$/, '').replace(/\.$/, '');
+        };
+
         for (var i = 0; i < thresholds.length; i++) {
-          if (roundedValue >= (thresholds[i].value / 2)) {
-            if (roundedValue < thresholds[i].value) {
+          if (Math.abs(roundedValue) >= (thresholds[i].threshold)) {
+            if (Math.abs(roundedValue) < thresholds[i].value) {
               significantFigures = 2;
             } else {
               significantFigures = 3;
               value = roundedValue;
             }
             value = roundToSignificantFigures(value, significantFigures) / thresholds[i].value;
-            return value.toPrecision(value < 1 ? 2 : 3) + thresholds[i].suffix;
+            var valueString = value.toPrecision(Math.abs(value) < 1 ? 2 : 3);
+            if (thresholds[i].trimDecimals) valueString = trimDecimals(valueString);
+            return valueString + thresholds[i].suffix;
           }
         }
         return roundedValue.toString();
