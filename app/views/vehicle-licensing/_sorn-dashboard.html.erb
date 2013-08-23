@@ -1,0 +1,38 @@
+<% content_for :title do %><%= transaction_title %> - Vehicle licensing - Service performance - GOV.UK<% end %>
+
+<% @js_config = {
+    "controller" => "vehicle-licensing/controllers/vehicle-licensing-service",
+    "service-name" => params[:slug]
+} %>
+<%= render(partial: "common/copy/dashboard_header", locals: {
+    title: transaction_shortname + ' ('+transaction_title+')', copy: explanatory_copy}) %>
+
+<%= render(partial: "vehicle-licensing/active-users", locals: {
+  title: "Users on start page",
+  data_source: "Google Analytics",
+  description: "Shows the estimated number of users currently accessing the GOV.UK start page for the #{transaction_shortname} transaction.", 
+  id: "#{params[:slug]}-volumes",
+  transaction_shortname:transaction_shortname,
+  transaction_title: transaction_title
+}) %>
+
+<%= render(partial: "common/modules/volumetrics", locals: {
+  title: "Applications", 
+  description: "", 
+  id: "#{params[:slug]}-volumes",
+  info_text: "Shows the number of SORNs received by the DVLA in the period shown.",
+  transaction_title:transaction_title,
+  transaction_shortname:transaction_shortname
+}) %>
+
+<%= render(partial: "vehicle-licensing/failures", 
+  locals: {
+    title: "Application failures", 
+    id: "#{params[:slug]}-failures",  
+    transaction_title:transaction_title,
+    transaction_shortname:transaction_shortname
+}) %>
+
+<% if Rails.application.config.feature_toggles[:evl_availability_modules] %>
+    <%= render(partial: "common/modules/availability", locals: {title: "Service availability", id: "#{params[:slug]}-availability"}) %>
+<% end %>
