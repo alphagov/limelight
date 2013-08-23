@@ -18,7 +18,10 @@ class BackdropStubController < ApplicationController
           StubConfig.new({'service' => 'vehicle-licensing', 'api_name' => 'services'}, 'vehicle_licensing_services.json'),
           StubConfig.new({'service' => 'vehicle-licensing', 'api_name' => 'channels'}, 'vehicle_licensing_channels.json'),
           StubConfig.new({'service' => 'register-sorn-statutory-off-road-notification', 'api_name' => 'realtime'}, 'licensing_realtime.json'),
-          StubConfig.new({'service' => 'tax-disc', 'api_name' => 'realtime'}, 'licensing_realtime.json')
+          StubConfig.new({'service' => 'tax-disc', 'api_name' => 'realtime'}, 'licensing_realtime.json'),
+          # RALPH: TODO: may change from 'digital uptake' when backdrop is updated
+          StubConfig.new({'service' => 'register-sorn-statutory-off-road-notification', 'api_name' => 'digital-uptake'}, 'digital_uptake.json'),
+          StubConfig.new({'service' => 'tax-disc', 'api_name' => 'digital-uptake'}, 'digital_uptake.json')
       ])
 
   def serve_fixture

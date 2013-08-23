@@ -1,0 +1,10 @@
+{
+    "data":[
+        {
+            "number_transactions_manual":30,
+            "number_transactions_digital":60,
+            "number_transactions_assisted_digital":10,
+            "number_transactions_total":100
+        }
+    ]
+}
