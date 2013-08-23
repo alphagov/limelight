@@ -1,11 +1,14 @@
 define([
-  'extensions/views/view'
+  'extensions/views/view',
+  'common/numbers'
 ],
-  function (View) {
+  function (View, numbers) {
 
     var toAttributeName = function(service) {
       return 'satisfaction_' + service.replace('-', '_');
     };
+
+    var CHANGE_PRECISION = 4; // 4 decimal digits, that become 2 when formatted as percentage: 0.2345 => 23.45%
 
     var CustomerSatisfactionView = View.extend({
 
@@ -31,7 +34,7 @@ define([
 
       getChange: function () {
         var entries = this.collection.last(2);
-        return this.getSatisfaction(entries[1]) - this.getSatisfaction(entries[0]);
+        return numbers.roundHalfUp(this.getSatisfaction(entries[1]) - this.getSatisfaction(entries[0]), CHANGE_PRECISION);
       },
 
       getChangeString: function() {
@@ -43,9 +46,9 @@ define([
 
       getChangeClasses: function () {
         var change = this.getChange();
+        if (numbers.areClose(change, 0, CHANGE_PRECISION)) return "no-change"
         if (change > 0) return "increase improvement";
         if (change < 0) return "decrease decline";
-        return "no-change";
       },
 
       getPreviousDate: function () {

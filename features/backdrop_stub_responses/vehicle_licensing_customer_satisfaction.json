@@ -1003,7 +1003,7 @@
       "_updated_at": "2013-08-21T16:00:35.334000",
       "satisfaction_tax_disc": 1.1952519048346273,
       "_timestamp": "2013-07-01T00:00:00+00:00",
-      "satisfaction_sorn": 1.29266473411264,
+      "satisfaction_sorn": 1.30001,
       "_month_start_at": "2013-07-01T00:00:00",
       "_id": "2013-07-01",
       "_week_start_at": "2013-07-01T00:00:00"
@@ -1012,7 +1012,7 @@
       "_updated_at": "2013-08-21T16:00:35.335000",
       "satisfaction_tax_disc": 1.2487024060928635,
       "_timestamp": "2013-08-01T00:00:00+00:00",
-      "satisfaction_sorn": 1.4370298628996634,
+      "satisfaction_sorn": 1.30000,
       "_month_start_at": "2013-08-01T00:00:00",
       "_id": "2013-08-01",
       "_week_start_at": "2013-07-29T00:00:00"

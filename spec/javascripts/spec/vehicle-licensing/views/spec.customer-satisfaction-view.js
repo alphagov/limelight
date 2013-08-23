@@ -146,7 +146,7 @@ function (View, Collection) {
         expect(view.getChangeString()).toEqual("0%")
       });
 
-      xit("should round change to 0", function() {
+      it("should round change to 0", function() {
         var collection = buildCollection([
           { "_timestamp": "2013-02-01T00:00:00+00:00", "satisfaction_sorn": 1.9999999 },
           { "_timestamp": "2013-03-01T00:00:00+00:00", "satisfaction_sorn": 2 }
@@ -204,7 +204,7 @@ function (View, Collection) {
         expect(view.getChangeClasses()).toEqual("no-change");
       });
 
-      xit("should return classes for no change when change is rounded to 0", function() {
+      it("should return classes for no change when change is rounded to 0", function() {
         var collection = buildCollection([
           { "_timestamp": "2013-02-01T00:00:00+00:00", "satisfaction_sorn": 1.9999999 },
           { "_timestamp": "2013-03-01T00:00:00+00:00", "satisfaction_sorn": 2 }
