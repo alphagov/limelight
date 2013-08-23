@@ -17,11 +17,11 @@ function (Backbone, moment) {
       },
       
       magnitudes: {
-          million:  {value: 1e6, threshold: 1e6 / 2, suffix:"m"},
-          thousand: {value: 1e3, threshold: 1e3 / 2, suffix:"k"},
-          unit:     {value: 1,   threshold: 0,       suffix:"", trimDecimals: true}
+          million:  {value: 1e6, threshold: 499500, suffix:"m"},
+          thousand: {value: 1e3, threshold: 499.5,  suffix:"k"},
+          unit:     {value: 1,   threshold: 0,      suffix:""}
       },
-      
+
       magnitudeFor: function (value) {
           if (value >= 1e6) return this.magnitudes.million;
           if (value >= 1e3) return this.magnitudes.thousand;
@@ -98,48 +98,57 @@ function (Backbone, moment) {
       },
 
       /**
-       * Format a number to be displayed with abbreviated suffixes.
-       * This function is more complicated than one would think it need be,
-       * this is due to lack of predictability in Number.toPrecision, Number.toFixed
-       * and some rounding issues.
+       * Format a number according to its magnitude.
+       *
+       * Numbers are rendered with a suffix indicating the magnitude
+       * and with at least 3 total digits.
+       *
+       * Examples:
+       *
+       * formatNumericLabel(    123) -> 123
+       * formatNumericLabel(   1234) -> 1.23k
+       * formatNumericLabel(  12345) -> 12.3k
+       * formatNumericLabel( 123456) -> 123k
+       * formatNumericLabel(1234567) -> 1.23m
+       *
+       * This function is more complicated than one would think it need be for
+       * two reasons:
+       * - numbers in javascript are represented as IEEE 745 floating point, and
+       *   therefore they have approximation issues that make unpredictable the
+       *   rounding of limit numbers; this could be ignored, making the algorithm
+       *   simpler, if that level of accuracy is not required
+       * - numbers below 1000 show only meaningful decimal digits, while numbers
+       *   above 1000 always show the decimal digits; ex: 1 -> 1; 1000 -> 1.00k
+       *
+       * If we can relax these two reasons, the algorithm can become much simpler.
+       * See for example View.prototype.format for a simpler alternative.
        */
       formatNumericLabel: function(value) {
-        if (value == 0) return "0";
-        
-        var magnitudes = View.prototype.magnitudes;
+        if (value === 0) return "0";
 
-        var magnitude = function(num) {
-              return Math.ceil(Math.log(Math.abs(num)) / Math.LN10);
-            },
-            roundToSignificantFigures = function(num, n) {
-              var mag = Math.max(magnitude(num), 0); // ignore negative magnitude
-              var factor = Math.pow(10, n - mag);
-              return Math.round(num * factor) / factor;
-            },
-            thresholds = [ magnitudes.million, magnitudes.thousand, magnitudes.unit ],
-            roundedValue = roundToSignificantFigures(value, 3),
-            significantFigures = null;
-
-        var trimDecimals = function(string) {
-            if (string.indexOf('.') === -1) return string;
-            return string.replace(/0+$/, '').replace(/\.$/, '');
-        };
-
-        for (var i = 0; i < thresholds.length; i++) {
-          if (Math.abs(roundedValue) >= (thresholds[i].threshold)) {
-            if (Math.abs(roundedValue) < thresholds[i].value) {
-              significantFigures = 2;
-            } else {
-              significantFigures = 3;
-              value = roundedValue;
-            }
-            value = roundToSignificantFigures(value, significantFigures) / thresholds[i].value;
-            var valueString = value.toPrecision(Math.abs(value) < 1 ? 2 : 3);
-            if (thresholds[i].trimDecimals) valueString = trimDecimals(valueString);
-            return valueString + thresholds[i].suffix;
-          }
+        var magnitudeOf = function(number) {
+          if (Math.abs(number) >= 499500) return View.prototype.magnitudes.million;
+          if (Math.abs(number) >= 499.5) return View.prototype.magnitudes.thousand;
+          return View.prototype.magnitudes.unit;
         }
-        return roundedValue.toString();
+
+        var decimalDigits = function(number, magnitude) {
+          if (Math.abs(number) < magnitude.value * 10) return 2
+          if (Math.abs(number) < magnitude.value * 100) return 1
+          return 0;
+        }
+
+        var magnitude = magnitudeOf(value);
+        var digits = decimalDigits(value, magnitude);
+        var roundingFactor = Math.pow(10, digits);
+
+        var roundedValue = Math.round(value * roundingFactor / magnitude.value) / roundingFactor;
+
+        if (magnitude === View.prototype.magnitudes.unit) {
+          // Why are we formatting decimal digits differently for numbers below 1000?
+          return roundedValue.toString() + magnitude.suffix;
+        }
+        return roundedValue.toFixed(digits) + magnitude.suffix;
       },
 
       formatPercentage: function (fraction, numDecimals) {
