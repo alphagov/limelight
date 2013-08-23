@@ -1,0 +1,6 @@
+{
+  "data": [
+    {"_timestamp": "2013-08-01T00:00:00+00:00", "_id": "2013-08-01", "channel": "fully-digital", "service": "tax-disc", "transaction": "V-V890 Another transaction", "volume" : 123456},
+    {"_timestamp": "2007-07-01T00:00:00+00:00", "_id": "2007-07-01", "channel": "assisted-digital", "service": "sorn", "transaction": "V-V11 Some transaction", "volume": 987654}
+  ]
+}
