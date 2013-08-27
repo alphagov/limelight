@@ -1,5 +1,5 @@
 define([
-  'extensions/views/availability/tooltip',
+  'extensions/views/graph/tooltip',
   'extensions/models/model'
 ],
 function (Tooltip, Model) {
