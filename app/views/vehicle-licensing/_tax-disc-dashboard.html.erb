@@ -15,6 +15,24 @@
   transaction_title: transaction_title
 }) %>
 
+<section id="customer-satisfaction" class="half-width">
+  <h1>Customer satisfaction</h1>
+  <ul class="module-actions">
+    <li class="info">
+      <div>
+        <p>Data source: TBD</p>
+      </div>
+    </li>
+  </ul>
+  <h2>Average score of satisfied responses</h2>
+  <p class="impact-number current-value"></p>
+  <p class="stat-description current-date"></p>
+  <div class="previous-month">
+    <p class="impact-number change"></p>
+    <p class="stat-description previous-date"></p>
+  </div>
+</section>
+
 <%= render(partial: "common/modules/volumetrics", locals: {
   title: "Applications", 
   description: "", 
