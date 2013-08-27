@@ -1,0 +1,58 @@
+{
+  "data": [
+    {
+      "_timestamp": "2013-08-01T00:00:00+00:00",
+      "_id": "2013-08-01T00:00:00+00:00_sorn-fully-digital",
+      "_week_start_at": "2013-07-29T00:00:00+00:00",
+      "channel": "fully-digital",
+      "service": "sorn",
+      "transaction": "V-V890 Another transaction",
+      "volume": 123456
+    },
+    {
+      "_timestamp": "2013-08-02T00:00:00+00:00",
+      "_id": "2013-08-02T00:00:00+00:00_sorn-fully-digital",
+      "_week_start_at": "2013-07-29T00:00:00+00:00",
+      "channel": "fully-digital",
+      "service": "sorn",
+      "transaction": "V-V890 Another transaction",
+      "volume": 142193
+    },
+    {
+      "_timestamp": "2013-08-01T00:00:00+00:00",
+      "_id": "2013-08-01T00:00:00+00:00_sorn-assisted-digital",
+      "_week_start_at": "2013-07-29T00:00:00+00:00",
+      "channel": "assisted-digital",
+      "service": "sorn",
+      "transaction": "V-V890 Another transaction",
+      "volume": 1356
+    },
+    {
+      "_timestamp": "2013-08-02T00:00:00+00:00",
+      "_id": "2013-08-02T00:00:00+00:00_sorn-assisted-digital",
+      "_week_start_at": "2013-07-29T00:00:00+00:00",
+      "channel": "assisted-digital",
+      "service": "sorn",
+      "transaction": "V-V890 Another transaction",
+      "volume": 1193
+    },
+    {
+      "_timestamp": "2013-08-01T00:00:00+00:00",
+      "_id": "2013-08-01T00:00:00+00:00_sorn-manual",
+      "_week_start_at": "2013-07-29T00:00:00+00:00",
+      "channel": "manual",
+      "service": "sorn",
+      "transaction": "V-V890 Another transaction",
+      "volume": 20156
+    },
+    {
+      "_timestamp": "2013-08-02T00:00:00+00:00",
+      "_id": "2013-08-02T00:00:00+00:00_sorn-manual",
+      "_week_start_at": "2013-07-29T00:00:00+00:00",
+      "channel": "manual",
+      "service": "sorn",
+      "transaction": "V-V890 Another transaction",
+      "volume": 30193
+    }
+  ]
+}
