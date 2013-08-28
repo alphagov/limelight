@@ -12,6 +12,7 @@ function (Table) {
       },
       {
         id: 'count',
+        className: 'count numeric',
         title: 'Occurrences last week',
         sortable: true,
         defaultDescending: true,
@@ -21,6 +22,7 @@ function (Table) {
       },
       {
         id: 'fraction',
+        className: 'fraction numeric',
         title: 'Percentage of total errors',
         sortable: true,
         defaultDescending: true,
@@ -30,6 +32,7 @@ function (Table) {
       },
       {
         id: 'change',
+        className: 'change numeric',
         title: 'Difference from week before',
         sortable: true,
         defaultDescending: true,
@@ -41,9 +44,9 @@ function (Table) {
 
           var displayValue = this.formatNumericLabel(Math.abs(change));
           if (change > 0) {
-            return '<span class="increase">+' + displayValue + '</span>';
+            return '<span class="increase decline">+' + displayValue + '</span>';
           } else if (change < 0) {
-            return '<span class="decrease">&minus;' + displayValue + '</span>';
+            return '<span class="decrease improvement">&minus;' + displayValue + '</span>';
           } else {
             return '0';
           }

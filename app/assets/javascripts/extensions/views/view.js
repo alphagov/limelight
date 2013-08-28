@@ -1,12 +1,14 @@
 define([
     'backbone',
-    'moment'
+    'moment',
+    'modernizr'
 ],
-function (Backbone, moment) {
+function (Backbone, moment, Modernizr) {
     var View = Backbone.View.extend({
       
       moment: moment,
-      
+      modernizr: Modernizr,
+    
       initialize: function (options) {
         _.extend(this, options);
         Backbone.View.prototype.initialize.apply(this, arguments);
@@ -17,11 +19,11 @@ function (Backbone, moment) {
       },
       
       magnitudes: {
-          million:  {value: 1e6, suffix:"m"},
-          thousand: {value: 1e3, suffix:"k"},
-          unit:     {value: 1, suffix:""}
+          million:  {value: 1e6, threshold: 499500, suffix:"m"},
+          thousand: {value: 1e3, threshold: 499.5,  suffix:"k"},
+          unit:     {value: 1,   threshold: 0,      suffix:""}
       },
-      
+
       magnitudeFor: function (value) {
           if (value >= 1e6) return this.magnitudes.million;
           if (value >= 1e3) return this.magnitudes.thousand;
@@ -98,38 +100,75 @@ function (Backbone, moment) {
       },
 
       /**
-       * Format a number to be displayed with abbreviated suffixes.
-       * This function is more complicated than one would think it need be,
-       * this is due to lack of predictability in Number.toPrecision, Number.toFixed
-       * and some rounding issues.
+       * Format a number according to its magnitude.
+       *
+       * Numbers are rendered with a suffix indicating the magnitude
+       * and with at least 3 total digits.
+       *
+       * Examples:
+       *
+       * formatNumericLabel(    123) -> 123
+       * formatNumericLabel(   1234) -> 1.23k
+       * formatNumericLabel(  12345) -> 12.3k
+       * formatNumericLabel( 123456) -> 123k
+       * formatNumericLabel(1234567) -> 1.23m
+       *
+       * This function is more complicated than one would think it need be for
+       * two reasons:
+       * - numbers in javascript are represented as IEEE 745 floating point, and
+       *   therefore they have approximation issues that make unpredictable the
+       *   rounding of limit numbers; this could be ignored, making the algorithm
+       *   simpler, if that level of accuracy is not required
+       * - numbers below 1000 show only meaningful decimal digits, while numbers
+       *   above 1000 always show the decimal digits; ex: 1 -> 1; 1000 -> 1.00k
+       *
+       * If we can relax these two reasons, the algorithm can become much simpler.
+       * See for example View.prototype.format for a simpler alternative.
        */
       formatNumericLabel: function(value) {
-        if (value == 0) return "0";
-        
-        var magnitudes = View.prototype.magnitudes;
-        var magnitude = function(num, n) {
-              return Math.pow(10, n - Math.ceil(Math.log(Math.abs(num)) / Math.LN10));
-            },
-            roundToSignificantFigures = function(num, n) {
-              return Math.round(num * magnitude(num, n)) / magnitude(num, n);
-            },
-            thresholds = [ magnitudes.million, magnitudes.thousand ],
-            roundedValue = roundToSignificantFigures(value, 3),
-            significantFigures = null;
+        if (value === 0) return "0";
 
-        for (var i = 0; i < thresholds.length; i++) {
-          if (roundedValue >= (thresholds[i].value / 2)) {
-            if (roundedValue < thresholds[i].value) {
-              significantFigures = 2;
-            } else {
-              significantFigures = 3;
-              value = roundedValue;
-            }
-            value = roundToSignificantFigures(value, significantFigures) / thresholds[i].value;
-            return value.toPrecision(value < 1 ? 2 : 3) + thresholds[i].suffix;
-          }
+        /*
+         * Return the appropriate magnitude (m, k, unit) for rounding a number.
+         *
+         * Thresholds are picked so that number are formatted with the closest
+         * magnitude. So for example magnitudeOf(500,000) returns magnitudes.million,
+         * and not magnitudes.thousand, so that it is formatted as 0.50m rather
+         * than 500k. The actual threshold is 499,500, because digits after the
+         * 3rd most significant are rounded; this means that 499,499 will be
+         * rounded to 499,000 and formatted as 499k; 499,500 will be rounded
+         * as 500,000 and formatted as 0.50m.
+         */
+        var magnitudeOf = function(number) {
+          if (Math.abs(number) >= 499500) return View.prototype.magnitudes.million;
+          if (Math.abs(number) >= 499.5) return View.prototype.magnitudes.thousand;
+          return View.prototype.magnitudes.unit;
         }
-        return roundedValue.toString();
+
+        /*
+         * Numbers less than  10 times the magnitude -> 2 decimal digits: N.NNx
+         * Numbers less than 100 times the magnitude -> 1 decimal digits: NN.Nx
+         * Numbers 100 times the magnitude or more   -> no decimal digits: NNNx
+         */
+        var decimalDigits = function(number, magnitude) {
+          if (Math.abs(number) < magnitude.value * 10) return 2
+          if (Math.abs(number) < magnitude.value * 100) return 1
+          return 0;
+        }
+
+        var magnitude = magnitudeOf(value);
+        var digits = decimalDigits(value, magnitude);
+        var roundingFactor = Math.pow(10, digits);
+
+        var roundedValue = Math.round(value * roundingFactor / magnitude.value) / roundingFactor;
+
+        if (magnitude === View.prototype.magnitudes.unit) {
+          // Render only significant decimal digits: 1.5 -> 1.5
+          // NOTE: Why are we formatting decimal digits differently for numbers below 1000?
+          return roundedValue.toString() + magnitude.suffix;
+        }
+        // Render a fixed number of decimal digits: 1,500 -> 1.50k
+        return roundedValue.toFixed(digits) + magnitude.suffix;
       },
 
       formatPercentage: function (fraction, numDecimals) {

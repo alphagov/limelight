@@ -1,3 +1,5 @@
+@import 'colours';
+
 article {
     th, td {
         font-family: ntatabularnumbers, nta, Arial, sans-serif;
@@ -38,12 +40,24 @@ article table {
     }
     
     tbody {
+      td.first-child {
+          border-left:0;
+      }
+
       td:first-child {
           border-left:0;
       }
 
+      tr.first-child td {
+          border-top:0;
+      }
+
       tr:first-child td {
           border-top:0;
+      }
+
+      tr.last-child td {
+          border-bottom:0;
       }
 
       tr:last-child td {
@@ -67,18 +81,33 @@ article table {
         text-align:right;
     }
 
+    th,
+    td {
+        &.numeric {
+            text-align: right;
+        }
+        &.last-child {
+            border-right:0;
+            padding-right: 1em;
+        }
+        &:last-child {
+            border-right:0;
+            padding-right: 1em;
+        }
+    }
+
     th {
         border-top:0;
         border-bottom:0;
         white-space:nowrap;
         word-wrap:break-word;
         
-        &:first-child {
+        &.first-child {
             border-left:0;
         }
 
-        &:last-child {
-            border-right:0;
+        &:first-child {
+            border-left:0;
         }
 
         &.sortable {
@@ -105,29 +134,6 @@ article table {
             padding-left: 5px;
             vertical-align: top;
             content: " \25BC";
-        }
-    }
-
-    td {
-
-        .increase:before,
-        .decrease:before {
-            display: inline-block;
-            padding-right:0.2em;
-        }
-
-        .increase:before {
-            content: "\25B2";
-            color: rgb(226, 44, 57);
-        }
-
-        .decrease:before {
-            content: "\25BC";
-            color: rgb(114, 185, 80);
-        }
-
-        &:last-child {
-            border-right:0;
         }
     }
 }
