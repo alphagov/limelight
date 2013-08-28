@@ -20,7 +20,7 @@ Feature: SORN dashboard
     Given The register-sorn-statutory-off-road-notification monitoring bucket returns the response in "availability.json"
     When I go to /performance/sorn
     Then I should see the module "Service availability"
-     And the module should display an uptime of 85.0%
+     And the module should display an uptime of 85%
      And the module should display a response time of 150ms
 
   Scenario: customer satisfaction module

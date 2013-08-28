@@ -20,7 +20,7 @@ Feature: Tax disc dashboard
     Given The tax-disc monitoring bucket returns the response in "availability.json"
     When I go to /performance/tax-disc
     Then I should see the module "Service availability"
-     And the module should display an uptime of 85.0%
+     And the module should display an uptime of 85%
      And the module should display a response time of 150ms
 
   Scenario: customer satisfaction module
