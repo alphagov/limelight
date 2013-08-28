@@ -2,7 +2,7 @@ define([
   'extensions/collections/graphcollection'
 ],
 function (GraphCollection) {
-  var DigitalUptakeCollection = GraphCollection.extend({
+  var DigitalTakeupCollection = GraphCollection.extend({
 
     serviceName: 'vehicle-licensing',
     apiName: 'volumetrics',
@@ -45,5 +45,5 @@ function (GraphCollection) {
 
   });
 
-  return DigitalUptakeCollection;
+  return DigitalTakeupCollection;
 });

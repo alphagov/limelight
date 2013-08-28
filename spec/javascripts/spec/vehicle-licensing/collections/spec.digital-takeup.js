@@ -1,8 +1,8 @@
 define([
-  'vehicle-licensing/collections/digital-uptake'
+  'vehicle-licensing/collections/digital-takeup'
 ],
-function (DigitalUptakeCollection) {
-  describe("DigitalUptakeCollection", function () {
+function (DigitalTakeupCollection) {
+  describe("DigitalTakeupCollection", function () {
     var response = {
       "data": [
         {
@@ -79,7 +79,7 @@ function (DigitalUptakeCollection) {
 
 
     describe("parse", function () {
-      var parsed = DigitalUptakeCollection.prototype.parse(response);
+      var parsed = DigitalTakeupCollection.prototype.parse(response);
       _.each(parsed, function(group) {
         group.values[0]._start_at = group.values[0]._start_at.utc().format();
         group.values[0]._end_at = group.values[0]._end_at.utc().format();

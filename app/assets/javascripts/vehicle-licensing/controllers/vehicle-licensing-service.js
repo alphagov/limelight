@@ -3,10 +3,11 @@ define([
   './failures-module',
   'common/controllers/availability-module',
   './vehicle-license-volumes-module',
+  './digital-takeup-module',
   'extensions/collections/visitors-realtime',
   'extensions/views/visitors-realtime',
   './customer-satisfaction-module'
-], function (require, failuresModule, availabilityModule, volumesModule, RealtimeCollection, RealtimeView, consumerSatisfactionModule) {
+], function (require, failuresModule, availabilityModule, volumesModule, takeupModule, RealtimeCollection, RealtimeView, consumerSatisfactionModule) {
   return function () {
     var service = $('#wrapper').data('service-name'),
         serviceNames = {
@@ -16,6 +17,8 @@ define([
       serviceName = serviceNames[service];
 
     volumesModule('#' + service + '-volumes', 'successful_' + service.replace("-", "_"), service);
+
+    takeupModule('#' + service + '-takeup', service);
 
     failuresModule('#' + service + '-failures', service);
 
