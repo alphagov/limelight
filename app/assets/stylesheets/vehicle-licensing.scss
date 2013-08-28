@@ -1,3 +1,5 @@
+@import 'typography';
+
 #vehicle-licensing-channels,
 #vehicle-licensing-services {
   .inner {
@@ -43,10 +45,14 @@
     position: absolute;
     bottom: 0;
     left: 16em;
+
+    @media (max-width: 640px) {
+      left: 10em;
+    }
   }
 
   .change {
-    font-size: 24px;
+    @include core-24($tabular-numbers: true) ;
   }
 
 }
