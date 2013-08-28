@@ -128,12 +128,28 @@ function (Backbone, moment, Modernizr) {
       formatNumericLabel: function(value) {
         if (value === 0) return "0";
 
+        /*
+         * Return the appropriate magnitude (m, k, unit) for rounding a number.
+         *
+         * Thresholds are picked so that number are formatted with the closest
+         * magnitude. So for example magnitudeOf(500,000) returns magnitudes.million,
+         * and not magnitudes.thousand, so that it is formatted as 0.50m rather
+         * than 500k. The actual threshold is 499,500, because digits after the
+         * 3rd most significant are rounded; this means that 499,499 will be
+         * rounded to 499,000 and formatted as 499k; 499,500 will be rounded
+         * as 500,000 and formatted as 0.50m.
+         */
         var magnitudeOf = function(number) {
           if (Math.abs(number) >= 499500) return View.prototype.magnitudes.million;
           if (Math.abs(number) >= 499.5) return View.prototype.magnitudes.thousand;
           return View.prototype.magnitudes.unit;
         }
 
+        /*
+         * Numbers less than  10 times the magnitude -> 2 decimal digits: N.NNx
+         * Numbers less than 100 times the magnitude -> 1 decimal digits: NN.Nx
+         * Numbers 100 times the magnitude or more   -> no decimal digits: NNNx
+         */
         var decimalDigits = function(number, magnitude) {
           if (Math.abs(number) < magnitude.value * 10) return 2
           if (Math.abs(number) < magnitude.value * 100) return 1
@@ -147,9 +163,11 @@ function (Backbone, moment, Modernizr) {
         var roundedValue = Math.round(value * roundingFactor / magnitude.value) / roundingFactor;
 
         if (magnitude === View.prototype.magnitudes.unit) {
-          // Why are we formatting decimal digits differently for numbers below 1000?
+          // Render only significant decimal digits: 1.5 -> 1.5
+          // NOTE: Why are we formatting decimal digits differently for numbers below 1000?
           return roundedValue.toString() + magnitude.suffix;
         }
+        // Render a fixed number of decimal digits: 1,500 -> 1.50k
         return roundedValue.toFixed(digits) + magnitude.suffix;
       },
 
