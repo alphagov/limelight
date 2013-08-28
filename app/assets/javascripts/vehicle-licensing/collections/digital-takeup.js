@@ -14,7 +14,9 @@ function (GraphCollection) {
     },
 
     parse: function (response) {
-      var itemsByWeek = {};
+      var itemsByWeek = {},
+          sumTotal = 0,
+          sumDigital = 0;
       _.each(response.data, function(d) {
         if (!itemsByWeek[d._week_start_at]) {
           itemsByWeek[d._week_start_at] = {
@@ -26,14 +28,17 @@ function (GraphCollection) {
         }
         var item = itemsByWeek[d._week_start_at];
         item.total += d.volume;
+        sumTotal += d.volume;
         if (d.channel === 'fully-digital') {
           item.digital += d.volume;
+          sumDigital += d.volume;
         }
       }, this);
 
       return [{
         id: 'digital',
         title: 'Digital',
+        fraction: sumDigital / sumTotal,
         values: _.map(itemsByWeek, function (d) {
           if (d.total) {
             d.fraction = d.digital / d.total;

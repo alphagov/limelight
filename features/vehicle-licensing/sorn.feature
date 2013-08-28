@@ -41,6 +41,7 @@ Feature: SORN dashboard
      When I go to /performance/sorn
      Then I should see the module "Digital take-up"
       And the module should contain a graph
+      And the module should contain the text "83% last 1 week"
 
   Scenario Outline: Navigating to related pages
     Given The vehicle-licensing channels bucket returns the response in "vehicle_licensing_channels.json"

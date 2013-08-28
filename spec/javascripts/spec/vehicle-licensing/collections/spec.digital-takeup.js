@@ -66,6 +66,7 @@ function (DigitalTakeupCollection) {
       {
         "id": "digital",
         "title": "Digital",
+        "fraction": 0.35,
         "values": [{
           "_start_at": "2013-07-29T00:00:00+00:00",
           "_end_at": "2013-08-05T00:00:00+00:00",
