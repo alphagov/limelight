@@ -1,9 +1,7 @@
 define([
-  'require',
-  'extensions/views/graph/graph',
-  './tooltip'
+  'extensions/views/graph/graph'
 ],
-function (require, Graph, Tooltip) {
+function (Graph) {
   var ResponseTimeGraph = Graph.extend({
 
     valueAttr: 'avgresponse',
@@ -29,7 +27,7 @@ function (require, Graph, Tooltip) {
           options: { drawCursorLine: true }
         },
         {
-          view: Tooltip,
+          view: this.sharedComponents.tooltip,
           options: {
             getValue: function (group, groupIndex, model, index) {
               return model.get(this.graph.valueAttr) + 'ms';
