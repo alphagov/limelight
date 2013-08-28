@@ -1,13 +1,13 @@
 <% id ||= "failures" %>
-<% title ||= "Application failures (web)" %>
+<% title ||= "Error codes (web)" %>
 <section id="<%= id %>" class="failures">
   <h1><%= title %></h1>
   <ul class="module-actions">
     <li class="info">
       <div>
         <p>Data source: <abbr title="Driver and Vehicle Licensing Agency">DVLA</abbr> database</p>
-        <p>Application failures track transactions that were not completed and the reason (if known).</p>
-        <p>The user will not have been able to progess past this point. Therefore only the first failure reason that the user encounters can be tracked.</p>
+        <p>Shows errors that have been logged in the web transaction. This may occur for several reasons (eg: if a user's response was invalid, a data lookup failed, or the user abandoned the transaction).</p>
+        <p>Users may later correct the reason for the error, such that more than one error code may be logged per user.</p>
       </div>
     </li>
   </ul>
