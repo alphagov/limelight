@@ -9,12 +9,7 @@ define([
   './customer-satisfaction-module'
 ], function (require, failuresModule, availabilityModule, volumesModule, takeupModule, RealtimeCollection, RealtimeView, consumerSatisfactionModule) {
   return function () {
-    var service = $('#wrapper').data('service-name'),
-        serviceNames = {
-          'sorn': 'register-sorn-statutory-off-road-notification',
-          'tax-disc': 'tax-disc'
-        },
-      serviceName = serviceNames[service];
+    var service = $('#wrapper').data('service-name');
 
     volumesModule('#' + service + '-volumes', 'successful_' + service.replace("-", "_"), service);
 
@@ -22,14 +17,14 @@ define([
 
     failuresModule('#' + service + '-failures', service);
 
-    availabilityModule(serviceName, '#' + service + '-availability');
+    availabilityModule(service, '#' + service + '-availability');
 
     consumerSatisfactionModule("#customer-satisfaction", service);
 
     var updateInterval = 120*1000;
 
     var realtimeCollection = new RealtimeCollection([],{
-      serviceName: serviceName
+      serviceName: service
     });
 
     var realtimeView = new RealtimeView({
