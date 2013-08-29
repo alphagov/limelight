@@ -1,0 +1,76 @@
+{
+  "data": [
+    {
+      "_count": 4, 
+      "_end_at": "2013-08-05T00:00:00+00:00", 
+      "_start_at": "2013-07-29T00:00:00+00:00",
+      "agent:sum": 4000,
+      "ivr:sum": 4088,
+      "post_office:sum": 1000,
+      "other:sum": 671
+    },
+    {
+      "_count": 2,
+      "_end_at": "2013-07-29T00:00:00+00:00",
+      "_start_at": "2013-07-22T00:00:00+00:00",
+      "agent:sum": 4000,
+      "ivr:sum": 4088,
+      "post_office:sum": 1000,
+      "other:sum": 9864
+    },
+    {
+      "_count": 2,
+      "_end_at": "2013-07-22T00:00:00+00:00",
+      "_start_at": "2013-07-15T00:00:00+00:00",
+      "agent:sum": 4000,
+      "ivr:sum": 4088,
+      "post_office:sum": 1000,
+      "other:sum": 324
+    },
+    {
+      "_count": 2,
+      "_end_at": "2013-07-15T00:00:00+00:00",
+      "_start_at": "2013-07-08T00:00:00+00:00",
+      "agent:sum": 4000,
+      "ivr:sum": 4088,
+      "post_office:sum": 1000,
+      "other:sum": 2999
+    },
+    {
+      "_count": 2,
+      "_end_at": "2013-07-08T00:00:00+00:00",
+      "_start_at": "2013-07-01T00:00:00+00:00",
+      "agent:sum": 4000,
+      "ivr:sum": 8374,
+      "post_office:sum": 1000,
+      "other:sum": 671
+    },
+    {
+      "_count": 2,
+      "_end_at": "2013-07-01T00:00:00+00:00",
+      "_start_at": "2013-06-24T00:00:00+00:00",
+      "agent:sum": 4000,
+      "ivr:sum": 8374,
+      "post_office:sum": 1000,
+      "other:sum": 671
+    },
+    {
+      "_count": 2,
+      "_end_at": "2013-06-24T00:00:00+00:00",
+      "_start_at": "2013-06-17T00:00:00+00:00",
+      "agent:sum": 4000,
+      "ivr:sum": 8374,
+      "post_office:sum": 3689,
+      "other:sum": 1000
+    },
+    {
+      "_count": 2,
+      "_end_at": "2013-06-17T00:00:00+00:00",
+      "_start_at": "2013-06-10T00:00:00+00:00",
+      "agent:sum": 4000,
+      "ivr:sum": 8374,
+      "post_office:sum": 1760,
+      "other:sum": 671
+    }
+  ]
+}
