@@ -58,6 +58,9 @@
     }
     .previous-month {
       left: 11em;
+      .impact-number {
+        @include core-19($tabular-numbers: true);
+      }
     }
   }
 
