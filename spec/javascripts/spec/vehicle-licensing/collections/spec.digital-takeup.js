@@ -4,76 +4,75 @@ define([
 function (DigitalTakeupCollection) {
   describe("DigitalTakeupCollection", function () {
     var response = {
-      "data": [
+  "data": [
+    {
+      "volume:sum": 5, 
+      "values": [
         {
-          "_timestamp": "2013-08-01T00:00:00+00:00",
-          "_week_start_at": "2013-07-29T00:00:00+00:00",
-          "_id": "2013-08-01T00:00:00+00:00_tax-disc-fully-digital",
-          "channel": "fully-digital",
-          "service": "tax-disc",
-          "transaction": "V-V890 Another transaction",
-          "volume": 2
-        },
+          "_end_at": "2012-09-01T00:00:00+00:00", 
+          "volume:sum": 3,
+          "_start_at": "2012-08-01T00:00:00+00:00"
+        }, 
         {
-          "_timestamp": "2013-08-02T00:00:00+00:00",
-          "_week_start_at": "2013-07-29T00:00:00+00:00",
-          "_id": "2013-08-02T00:00:00+00:00_tax-disc-fully-digital",
-          "channel": "fully-digital",
-          "service": "tax-disc",
-          "transaction": "V-V890 Another transaction",
-          "volume": 5
-        },
-        {
-          "_timestamp": "2013-08-01T00:00:00+00:00",
-          "_week_start_at": "2013-07-29T00:00:00+00:00",
-          "_id": "2013-08-01T00:00:00+00:00_tax-disc-assisted-digital",
-          "channel": "assisted-digital",
-          "service": "tax-disc",
-          "transaction": "V-V890 Another transaction",
-          "volume": 2
-        },
-        {
-          "_timestamp": "2013-08-02T00:00:00+00:00",
-          "_week_start_at": "2013-07-29T00:00:00+00:00",
-          "_id": "2013-08-02T00:00:00+00:00_tax-disc-assisted-digital",
-          "channel": "assisted-digital",
-          "service": "tax-disc",
-          "transaction": "V-V890 Another transaction",
-          "volume": 3
-        },
-        {
-          "_timestamp": "2013-08-01T00:00:00+00:00",
-          "_week_start_at": "2013-07-29T00:00:00+00:00",
-          "_id": "2013-08-01T00:00:00+00:00_tax-disc-manual",
-          "channel": "manual",
-          "service": "tax-disc",
-          "transaction": "V-V890 Another transaction",
-          "volume": 4
-        },
-        {
-          "_timestamp": "2013-08-02T00:00:00+00:00",
-          "_week_start_at": "2013-07-29T00:00:00+00:00",
-          "_id": "2013-08-02T00:00:00+00:00_tax-disc-manual",
-          "channel": "manual",
-          "service": "tax-disc",
-          "transaction": "V-V890 Another transaction",
-          "volume": 4
+          "_end_at": "2012-10-01T00:00:00+00:00", 
+          "volume:sum": 2,
+          "_start_at": "2012-09-01T00:00:00+00:00"
         }
-      ]
-    };
+      ], 
+      "channel": "manual"
+    }, 
+    {
+      "volume:sum": 7, 
+      "values": [
+        {
+          "_end_at": "2012-09-01T00:00:00+00:00", 
+          "volume:sum": 3,
+          "_start_at": "2012-08-01T00:00:00+00:00"
+        }, 
+        {
+          "_end_at": "2012-10-01T00:00:00+00:00", 
+          "volume:sum": 4,
+          "_start_at": "2012-09-01T00:00:00+00:00"
+        }
+      ], 
+      "channel": "fully-digital"
+    }, 
+    {
+      "volume:sum": 16, 
+      "values": [
+        {
+          "_end_at": "2012-09-01T00:00:00+00:00", 
+          "volume:sum": 6,
+          "_start_at": "2012-08-01T00:00:00+00:00"
+        }, 
+        {
+          "_end_at": "2012-10-01T00:00:00+00:00", 
+          "volume:sum": 10,
+          "_start_at": "2012-09-01T00:00:00+00:00"
+        }
+      ], 
+      "channel": "assisted-digital"
+    }
+  ]
+};
 
     var expected = [
       {
         "id": "digital",
         "title": "Digital",
-        "fraction": 0.35,
-        "values": [{
-          "_start_at": "2013-07-29T00:00:00+00:00",
-          "_end_at": "2013-08-05T00:00:00+00:00",
-          "digital": 7,
-          "total": 20,
-          "fraction": 0.35
-        }]
+        "fraction": 0.25,
+        "values": [
+          {
+            "_start_at": "2012-08-01T00:00:00+00:00",
+            "_end_at": "2012-09-01T00:00:00+00:00",
+            "fraction": 0.25
+          },
+          {
+            "_start_at": "2012-09-01T00:00:00+00:00",
+            "_end_at": "2012-10-01T00:00:00+00:00",
+            "fraction": 0.25
+          }
+        ]
       }
     ];
 
@@ -81,11 +80,6 @@ function (DigitalTakeupCollection) {
 
     describe("parse", function () {
       var parsed = DigitalTakeupCollection.prototype.parse(response);
-      _.each(parsed, function(group) {
-        group.values[0]._start_at = group.values[0]._start_at.utc().format();
-        group.values[0]._end_at = group.values[0]._end_at.utc().format();
-      });
-
       expect(parsed).toEqual(expected);
     });
   });

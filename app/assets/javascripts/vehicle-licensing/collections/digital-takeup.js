@@ -9,42 +9,42 @@ function (GraphCollection) {
 
     queryParams: function () {
       return {
+        period: 'month',
+        group_by: 'channel',
         filter_by: 'service:' + this.options.type
       }
     },
 
     parse: function (response) {
-      var itemsByWeek = {},
-          sumTotal = 0,
-          sumDigital = 0;
-      _.each(response.data, function(d) {
-        if (!itemsByWeek[d._week_start_at]) {
-          itemsByWeek[d._week_start_at] = {
-            total: 0,
-            digital: 0,
-            _start_at: this.moment(d._week_start_at),
-            _end_at: this.moment(d._week_start_at).add(1, 'weeks')
-          }
-        }
-        var item = itemsByWeek[d._week_start_at];
-        item.total += d.volume;
-        sumTotal += d.volume;
-        if (d.channel === 'fully-digital') {
-          item.digital += d.volume;
-          sumDigital += d.volume;
-        }
-      }, this);
+      var data = response.data;
+
+      var sumTotal = 0;
+      var channels = {};
+      _.each(data, function (series) {
+        channels[series.channel] = series;
+        sumTotal += series['volume:sum']
+      });
+
+      var getFraction = function (index) {
+        var digital = channels['fully-digital'].values[index]['volume:sum'];
+        var assisted = channels['assisted-digital'].values[index]['volume:sum'];
+        var manual = channels['manual'].values[index]['volume:sum'];
+        return digital / (digital + assisted + manual);
+      };
+
+      var values = _.map(channels['fully-digital'].values, function (d, index) {
+        return {
+          _start_at: d._start_at,
+          _end_at: d._end_at,
+          fraction: getFraction(index)
+        };
+      });
 
       return [{
         id: 'digital',
         title: 'Digital',
-        fraction: sumDigital / sumTotal,
-        values: _.map(itemsByWeek, function (d) {
-          if (d.total) {
-            d.fraction = d.digital / d.total;
-          }
-          return d;
-        })
+        fraction: channels['fully-digital']['volume:sum'] / sumTotal,
+        values: values
       }];
     }
 
