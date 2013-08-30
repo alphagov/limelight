@@ -6,7 +6,7 @@ function (require, Graph) {
   var PercentageGraph = Graph.extend({
 
     getConfigNames: function () {
-      return ['stack', 'week'];
+      return ['stack', this.collection.query.get('period') || 'week'];
     },
 
     minYDomainExtent: 1,
