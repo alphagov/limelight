@@ -110,6 +110,21 @@ function (Component) {
         });
     },
 
+    configs: {
+      'overlay': {
+        getYIdeal: function (groupIndex, index) {
+          return this.graph.getYPos(groupIndex, index);
+        }
+      },
+      'stack': {
+        getYIdeal: function (groupIndex, index) {
+          var y = this.graph.getYPos(groupIndex, index);
+          var y0 = this.graph.getY0Pos(groupIndex, index);
+          return (y + y0) / 2;
+        }
+      }
+    },
+
     /**
      * Positions labels as close as possible to y position of last data point
      * @param {Selection} selection d3 selection to operate on
@@ -121,10 +136,10 @@ function (Component) {
 
       // prepare 'positions' array
       var positions = [];
-      var graph = this.graph;
       var scale = this.scales.y;
+      var that = this;
       selection.each(function (group, groupIndex) {
-        var y = scale(graph.getYPos.call(graph, groupIndex, maxModelIndex));
+        var y = scale(that.getYIdeal.call(that, groupIndex, maxModelIndex));
         var size = d3.select(this).select('text').node().getBBox().height;
         
         positions.push({

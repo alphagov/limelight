@@ -251,6 +251,13 @@ function (LineLabel, Collection) {
           innerHeight: 100,
           getYPos: function (groupIndex, modelIndex) {
             return collection.at(groupIndex).get('values').at(modelIndex).get(graph.valueAttr);
+          },
+          getY0Pos: function (groupIndex, modelIndex) {
+            if (groupIndex > 0) {
+              return collection.at(groupIndex - 1).get('values').at(modelIndex).get(graph.valueAttr);
+            } else {
+              return 0;
+            }
           }
         };
         lineLabel = new LineLabel({
@@ -276,6 +283,7 @@ function (LineLabel, Collection) {
       });
 
       it("positions labels vertically so they do not collide and snaps to half pixels to avoid antialiasing", function() {
+        lineLabel.applyConfig('overlay');
         wrapper.selectAll('text').each(function (metaModel) {
           spyOn(this, "getBBox").andReturn({
             height: 20
@@ -297,6 +305,37 @@ function (LineLabel, Collection) {
         expect(lineLabel.scales.y).toHaveBeenCalledWith(8);
         expect(startPositions[1]).toEqual({
           ideal: 64, // yScale was applied to '_count' attribute of last element in line 'b'
+          size: 20,
+          id: 'b'
+        });
+
+        expect(wrapper.select('g:nth-child(1)').attr('transform')).toEqual('translate(0, 20.5)');
+        expect(wrapper.select('g:nth-child(2)').attr('transform')).toEqual('translate(0, 30.5)');
+      });
+
+      it("positions labels closest to the centre of the area in stack configuration", function() {
+        lineLabel.applyConfig('stack');
+        wrapper.selectAll('text').each(function (metaModel) {
+          spyOn(this, "getBBox").andReturn({
+            height: 20
+          });
+        });
+        spyOn(lineLabel, "calcPositions").andReturn([
+          { min: 20 },
+          { min: 30 }
+        ]);
+        lineLabel.setLabelPositions(wrapper.selectAll('g'));
+        expect(lineLabel.calcPositions).toHaveBeenCalled();
+        var startPositions = lineLabel.calcPositions.argsForCall[0][0];
+        expect(lineLabel.scales.y).toHaveBeenCalledWith(3.5);
+        expect(startPositions[0]).toEqual({
+          ideal: 12.25, // centre of first area
+          size: 20,
+          id: 'a'
+        });
+        expect(lineLabel.scales.y).toHaveBeenCalledWith(7.5);
+        expect(startPositions[1]).toEqual({
+          ideal: 56.25, // centre of second area
           size: 20,
           id: 'b'
         });
