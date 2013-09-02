@@ -12,7 +12,7 @@ function (VolumetricsCollection, TimeseriesGraph, Tabs, Headline) {
     }
 
     var volumetricsCollection = new VolumetricsCollection([], {
-      // type: type
+      type: type
     });
     volumetricsCollection.fetch();
 
