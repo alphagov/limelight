@@ -1,80 +1,89 @@
 define([
   'vehicle-licensing/collections/services'
 ],
-function (Services) {
-  describe("Vehicle Licensing Services Collection", function () {
+function (ServicesCollection) {
+  describe("ServicesCollection", function () {
+    var response = {
+  "data": [
+    {
+      "volume:sum": 5, 
+      "values": [
+        {
+          "_end_at": "2012-09-01T00:00:00+00:00", 
+          "volume:sum": 3,
+          "_start_at": "2012-08-01T00:00:00+00:00"
+        }, 
+        {
+          "_end_at": "2012-10-01T00:00:00+00:00", 
+          "volume:sum": 2,
+          "_start_at": "2012-09-01T00:00:00+00:00"
+        }
+      ], 
+      "service": "tax-disc"
+    }, 
+    {
+      "volume:sum": 7, 
+      "values": [
+        {
+          "_end_at": "2012-09-01T00:00:00+00:00", 
+          "volume:sum": 3,
+          "_start_at": "2012-08-01T00:00:00+00:00"
+        }, 
+        {
+          "_end_at": "2012-10-01T00:00:00+00:00", 
+          "volume:sum": 4,
+          "_start_at": "2012-09-01T00:00:00+00:00"
+        }
+      ], 
+      "service": "sorn"
+    }
+  ]
+};
+
+    var expected = [
+      {
+        "id": "sorn",
+        "title": "SORN",
+        "href": "/performance/sorn",
+        "values": [
+          {
+            "_end_at": "2012-09-01T00:00:00+00:00", 
+            "volume:sum": 3,
+            "_start_at": "2012-08-01T00:00:00+00:00"
+          }, 
+          {
+            "_end_at": "2012-10-01T00:00:00+00:00", 
+            "volume:sum": 4,
+            "_start_at": "2012-09-01T00:00:00+00:00"
+          }
+        ]
+      },
+      {
+        "id": "tax-disc",
+        "title": "Tax disc",
+        "href": "/performance/tax-disc",
+        "values": [
+          {
+            "_end_at": "2012-09-01T00:00:00+00:00", 
+            "volume:sum": 3,
+            "_start_at": "2012-08-01T00:00:00+00:00"
+          }, 
+          {
+            "_end_at": "2012-10-01T00:00:00+00:00", 
+            "volume:sum": 2,
+            "_start_at": "2012-09-01T00:00:00+00:00"
+          }
+        ]
+      }
+    ];
+
+
+
     describe("parse", function () {
-
-      it("parses response for both sorn and tax-disc", function () {
-        var response = {
-          "data": [
-            {
-              "_count": 2,
-              "_end_at": "2013-08-05T00:00:00+00:00",
-              "_start_at": "2013-07-29T00:00:00+00:00",
-              "successful_tax_disc:sum": 151065,
-              "successful_sorn:sum": 16718
-            },
-            {
-              "_count": 2,
-              "_end_at": "2013-07-29T00:00:00+00:00",
-              "_start_at": "2013-07-22T00:00:00+00:00",
-              "successful_tax_disc:sum": 121065,
-              "successful_sorn:sum": 26718
-            }
-          ]
-        };
-
-        var services = new Services(response, {
-          parse: true
-        });
-
-        expect(services.length).toEqual(2);
-        expect(services.at(0).get('id')).toEqual('successful_sorn');
-        expect(services.at(0).get('title')).toEqual('SORN');
-        expect(services.at(0).get('href')).toEqual('/performance/sorn');
-        expect(services.at(0).get('values').length).toEqual(2);
-        expect(services.at(0).get('values').at(0).get('_start_at').utc().format()).toEqual('2013-07-22T00:00:00+00:00');
-        expect(services.at(0).get('values').at(0).get('_end_at').utc().format()).toEqual('2013-07-29T00:00:00+00:00');
-        expect(services.at(0).get('values').at(0).get('_count')).toEqual(26718);
-        expect(services.at(0).get('values').at(1).get('_count')).toEqual(16718);
-        expect(services.at(1).get('id')).toEqual('successful_tax_disc');
-        expect(services.at(1).get('title')).toEqual('Tax disc');
-        expect(services.at(1).get('href')).toEqual('/performance/tax-disc');
-        expect(services.at(1).get('values').length).toEqual(2);
+      it("parses the response", function () {
+        var parsed = ServicesCollection.prototype.parse(response);
+        expect(parsed).toEqualProperties(expected);
       });
-
-      it("parses response for tax-disc", function () {
-        var response = {
-          "data": [
-            {
-              "_count": 2,
-              "_end_at": "2013-08-05T00:00:00+00:00",
-              "_start_at": "2013-07-29T00:00:00+00:00",
-              "successful_tax_disc:sum": 151065,
-              "successful_sorn:sum": 16718
-            },
-            {
-              "_count": 2,
-              "_end_at": "2013-07-29T00:00:00+00:00",
-              "_start_at": "2013-07-22T00:00:00+00:00",
-              "successful_tax_disc:sum": 121065,
-              "successful_sorn:sum": 26718
-            }
-          ]
-        };
-
-        var services = new Services(response, {
-          parse: true,
-          seriesList: [{ id: 'successful_tax_disc', title: 'Tax-disc' }]
-        });
-
-        expect(services.length).toEqual(1);
-        expect(services.at(0).get('id')).toEqual('successful_tax_disc');
-        expect(services.at(0).get('title')).toEqual('Tax-disc');
-        expect(services.at(0).get('values').length).toEqual(2);
-      });
-
     });
   });
 });

@@ -2,56 +2,49 @@ define([
   'extensions/collections/graphcollection'
 ],
 function (GraphCollection) {
-  var Services = GraphCollection.extend({
+  var ServicesCollection = GraphCollection.extend({
 
     serviceName: 'vehicle-licensing',
-    apiName: 'services',
-    defaultPeriod: 'week',
+    apiName: 'volumetrics',
 
-    baseSeriesList: [
+    queryParams: function () {
+      return {
+        collect: 'volume:sum',
+        period: 'month',
+        group_by: 'service',
+        filter_by: this.options.type ? ['channel:' + this.options.type] : []
+      }
+    },
+
+    seriesList: [
       {
-        id: 'successful_sorn',
+        id: 'sorn',
         title: 'SORN',
         href: '/performance/sorn'
       },
       {
-        id: 'successful_tax_disc',
+        id: 'tax-disc',
         title: 'Tax disc',
         href: '/performance/tax-disc'
       }
     ],
 
-    initialize: function (model, options) {
-      this.seriesList = options.seriesList || this.baseSeriesList;
-      GraphCollection.prototype.initialize.apply(this, arguments);
-    },
-
-    queryParams: function () {
-      return {
-        period: this.defaultPeriod,
-        collect: _.map(this.seriesList, function (s) {
-          return s.id + ':sum';
-        })
-      };
-    },
-
     parse: function (response) {
+      console.log(response);
+      var data = response.data;
+
       return _.map(this.seriesList, function (series) {
-        return {
-          id: series.id,
-          title: series.title,
-          href: series.href,
-          values: _.map(response.data, function (d) {
-            return {
-              _start_at: d._start_at,
-              _end_at: d._end_at,
-              _count: d[series.id + ':sum'] || 0
-            };
-          })
-        };
+        var dataSeries = _.find(data, function (d) {
+          return d.service === series.id;
+        });
+
+        return _.extend({}, series, {
+          values: dataSeries.values
+        });
       });
     }
+
   });
 
-  return Services;
+  return ServicesCollection;
 });

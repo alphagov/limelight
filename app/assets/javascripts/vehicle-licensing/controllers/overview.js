@@ -13,6 +13,7 @@ define([
       var servicesGraph = new TimeseriesGraph({
         el: $('#vehicle-licensing-services'),
         collection: servicesCollection,
+        valueAttr: 'volume:sum',
         lineLabelLinks: true
       });
       servicesCollection.fetch();
