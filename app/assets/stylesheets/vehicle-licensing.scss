@@ -80,7 +80,6 @@
     position: absolute;
     bottom: 0;
     left: 16em;
-
   }
 
   .change {
@@ -93,6 +92,10 @@
     }
     .previous-month {
       left: 11em;
+
+      .change {
+        @include core-19($tabular-numbers: true);
+      }
     }
   }
 
@@ -103,8 +106,15 @@
       // for small screens.
       @include bold-80($tabular-numbers: true);
     }
-    .previous-month p {
-      margin-bottom: 0;
+
+    .previous-month {
+      p {
+        margin-bottom: 0;
+      }
+
+      .change {
+        @include core-24($tabular-numbers: true);
+      }
     }
   }
 

@@ -11,7 +11,7 @@
     <span class="strapline">Service group performance</span>
       Vehicle licensing
   </h1>
-  <p class="explanatory">Service group relating to Vehicle Licensing: Tax disc relicensing, and SORN (Statutory Off Road Notification).</p>
+  <p class="explanatory">A group of services provided by the <abbr title="Driver and Vehicle Licensing Agency">DVLA</abbr> relating to vehicle licensing: Tax disc relicensing, and SORN (Statutory Off Road Notification). Does not include first registrations.</p>
 </header>
 
 <section class="graph">
@@ -19,18 +19,18 @@
   <ul class="module-actions">
     <li class="info">
       <div>
-        <p>Data source: Driver and Vehicle Licensing Agency database</p>
-        <p>The number of successful applications for a tax disc/SORN by users by service.</p>
+        <p>Data source: <abbr title="Driver and Vehicle Licensing Agency">DVLA</abbr> database</p>
+        <p>Shows the weekly number of successful applications to renew a tax disc and the number of <abbr title="Statutory Off Road Notification">SORN</abbr>'s received.</p>
       </div>
     </li>
   </ul>
-  <h2>Applications per month broken down by service over the last 12 months</h2>
+  <h2>Vehicle licensing applications per month broken down by service</h2>
   <figure class="graph timeseries-graph" id="vehicle-licensing-services"></figure>
 </section>
 
 <%= render(partial: "vehicle-licensing/volumetrics", locals: {
   title: "Application channels", 
-  description: "Applications per month broken down by channel over the last 12 months", 
-  id: "vehicle-licensing-channels", 
-  info_text: "Shows the number of successful applications received by the DVLA broken down by channel."
+  description: "Vehicle licensing applications per month broken down by channel", 
+  id: "vehicle-licensing-channels",
+  info_text: 'The number of successful applications for a tax disc and <abbr title="Statutory Off Road Notification">SORN</abbr>, broken by channel.'
 }) %>
