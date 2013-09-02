@@ -1,10 +1,10 @@
 define([
   'require',
   'vehicle-licensing/collections/services',
-  'vehicle-licensing/collections/channels',
-  'vehicle-licensing/views/timeseries-graph'
+  'vehicle-licensing/views/timeseries-graph',
+  './vehicle-license-volumes-module'
 ], function (require,
-  ServicesCollection, ChannelsCollection, TimeseriesGraph) {
+  ServicesCollection, TimeseriesGraph, volumesModule) {
 
   return function () {
 
@@ -16,14 +16,8 @@ define([
         lineLabelLinks: true
       });
       servicesCollection.fetch();
-      
-      var channelsCollection = new ChannelsCollection([], {});
-      var channelsGraph = new TimeseriesGraph({
-        el: $('#vehicle-licensing-channels'),
-        collection: channelsCollection
-      });
-      channelsCollection.fetch();
     }
 
+    volumesModule('#vehicle-licensing-channels');
   };
 });

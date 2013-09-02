@@ -28,16 +28,9 @@
   <figure class="graph timeseries-graph" id="vehicle-licensing-services"></figure>
 </section>
 
-<section class="graph">
-  <h1>Application channels</h1>
-  <ul class="module-actions">
-    <li class="info">
-      <div>
-        <p>Data source: Driver and Vehicle Licensing Agency database</p>
-        <p>The number of successful applications for a tax disc/SORN by users by channel.</p>
-      </div>
-    </li>
-  </ul>
-  <h2>Applications per week broken down by channel over the last 9 weeks</h2>
-  <figure class="graph timeseries-graph" id="vehicle-licensing-channels"></figure>
-</section>
+<%= render(partial: "vehicle-licensing/volumetrics", locals: {
+  title: "Applications by channel", 
+  description: "Applications per month broken down by channel over the last 12 weeks", 
+  id: "vehicle-licensing-channels", 
+  info_text: "Shows the number of successful applications received by the DVLA broken down by channel."
+}) %>

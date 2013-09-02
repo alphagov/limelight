@@ -11,7 +11,7 @@ define([
   return function () {
     var service = $('#wrapper').data('service-name');
 
-    volumesModule('#' + service + '-volumes', 'successful_' + service.replace("-", "_"), service);
+    volumesModule('#vehicle-licensing-channels', service);
 
     takeupModule('#' + service + '-takeup', service);
 

@@ -1,11 +1,11 @@
 define([
   'vehicle-licensing/collections/volumetrics',
-  'extensions/views/timeseries-graph/timeseries-graph',
+  'vehicle-licensing/views/timeseries-graph',
   'extensions/views/tabs',
   'extensions/views/graph/headline',
 ],
 function (VolumetricsCollection, TimeseriesGraph, Tabs, Headline) {
-  return function (selector, id, type) {
+  return function (selector, type) {
     if ($('.lte-ie8').length) {
       // do not attempt to show graphs in legacy IE
       return;
