@@ -30,7 +30,6 @@ function (GraphCollection) {
     ],
 
     parse: function (response) {
-      console.log(response);
       var data = response.data;
 
       return _.map(this.seriesList, function (series) {

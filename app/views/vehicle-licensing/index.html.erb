@@ -24,13 +24,13 @@
       </div>
     </li>
   </ul>
-  <h2>Applications per week broken down by service over the last 9 weeks</h2>
+  <h2>Applications per month broken down by service over the last 12 months</h2>
   <figure class="graph timeseries-graph" id="vehicle-licensing-services"></figure>
 </section>
 
 <%= render(partial: "vehicle-licensing/volumetrics", locals: {
-  title: "Applications by channel", 
-  description: "Applications per month broken down by channel over the last 12 weeks", 
+  title: "Application channels", 
+  description: "Applications per month broken down by channel over the last 12 months", 
   id: "vehicle-licensing-channels", 
   info_text: "Shows the number of successful applications received by the DVLA broken down by channel."
 }) %>

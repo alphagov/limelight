@@ -37,7 +37,7 @@ Feature: Tax disc dashboard
       And the tax-disc realtime module should display a user count of 11
 
   Scenario: looking at the tax disc digital take-up module
-    Given The vehicle-licensing volumetrics bucket returns the response in "vehicle_licensing_service_takeup.json"
+    Given The vehicle-licensing volumetrics bucket returns the response in "vehicle_licensing_volumetrics.json"
      When I go to /performance/tax-disc
      Then I should see the module "Digital take-up"
       And the module should contain a graph

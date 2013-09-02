@@ -37,7 +37,7 @@ Feature: SORN dashboard
       And the sorn realtime module should display a user count of 11
 
   Scenario: looking at the SORN digital take-up module
-    Given The vehicle-licensing volumetrics bucket returns the response in "vehicle_licensing_service_takeup.json"
+    Given The vehicle-licensing volumetrics bucket returns the response in "vehicle_licensing_volumetrics.json"
      When I go to /performance/sorn
      Then I should see the module "Digital take-up"
       And the module should contain a graph
