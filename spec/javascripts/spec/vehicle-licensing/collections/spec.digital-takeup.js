@@ -76,11 +76,11 @@ function (DigitalTakeupCollection) {
       }
     ];
 
-
-
     describe("parse", function () {
-      var parsed = DigitalTakeupCollection.prototype.parse(response);
-      expect(parsed).toEqual(expected);
+      it("parses the response", function () {
+        var parsed = DigitalTakeupCollection.prototype.parse(response);
+        expect(parsed).toEqual(expected);
+      });
     });
   });
 });

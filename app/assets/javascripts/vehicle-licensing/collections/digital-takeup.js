@@ -9,6 +9,7 @@ function (GraphCollection) {
 
     queryParams: function () {
       return {
+        collect: 'volume:sum',
         period: 'month',
         group_by: 'channel',
         filter_by: 'service:' + this.options.type
