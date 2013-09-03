@@ -34,14 +34,23 @@ function (require, Collection, Group) {
       });
     },
     
-    selectItem: function (selectGroupIndex, selectIndex) {
+    /**
+     * Chooses an item in the collection as `selected` and notifies listeners.
+     * @param {Number} groupIndex Index of group to select, or `null` to unselect
+     * @param {Number} index Index of item in group to select, or `null` to unselect
+     * @param {Object} [options={}] Options
+     * @param {Boolean} [options.silent=false] Suppress `change:selected` event
+     */
+    selectItem: function (selectGroupIndex, selectIndex, options) {
       if (_.isUndefined(selectIndex)) {
         selectIndex = null;
       }
+
+      this.selectedSlice = null;
       
       this.each(function (group, groupIndex) {
         var values = group.get('values');
-        if (groupIndex === selectGroupIndex) {
+        if (selectGroupIndex == null || groupIndex === selectGroupIndex) {
           values.selectItem(selectIndex, { silent: true });
         } else {
           values.selectItem(null, { silent: true });
@@ -50,13 +59,22 @@ function (require, Collection, Group) {
       
       var selectGroup = this.at(selectGroupIndex) || null;
       var selectModel = null;
-      if (selectGroup && selectIndex != null) {
-        selectModel = selectGroup.get('values').at(selectIndex);
+      if (selectIndex != null) {
+        if (selectGroup) {
+          selectModel = selectGroup.get('values').at(selectIndex);
+        } else {
+          selectModel = this.map(function (group) {
+            return group.get('values').at(selectIndex);
+          });
+          this.selectedSlice = selectIndex;
+        }
       }
       
       Collection.prototype.selectItem.call(this, selectGroupIndex, { silent: true });
       
-      this.trigger('change:selected', selectGroup, selectGroupIndex, selectModel, selectIndex);
+      if (!options || !options.silent) {
+        this.trigger('change:selected', selectGroup, selectGroupIndex, selectModel, selectIndex);
+      }
     },
 
     getCurrentSelection: function () {
@@ -74,6 +92,16 @@ function (require, Collection, Group) {
             selectedModelIndex: groupValues.selectedIndex,
             selectedModel: groupValues.selectedItem
           });
+        }
+      } else if (this.selectedSlice != null) {
+        var selectedSlice = this.selectedSlice;
+        return {
+          selectedGroupIndex: null,
+          selectedGroup: null,
+          selectedModelIndex: selectedSlice,
+          selectedModel: this.map(function (group) {
+            return group.get('values').at(selectedSlice);
+          })
         }
       }
 

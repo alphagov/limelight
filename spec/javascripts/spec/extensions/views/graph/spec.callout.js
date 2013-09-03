@@ -52,6 +52,12 @@ function (Callout, Model) {
         expect(callout.renderContent).not.toHaveBeenCalled();
       });
       
+      it("hides when all items at a specific position are selected", function () {
+        callout.onChangeSelected(null, null, 'model', 1);
+        expect(callout.calloutEl).toHaveClass('performance-hidden');
+        expect(callout.renderContent).not.toHaveBeenCalled();
+      });
+      
       it("renders a callout at the correct position when graph is not scaled", function () {
         callout.graph.scaleFactor.andReturn(1);
         callout.onChangeSelected('group', 1, model, 2);

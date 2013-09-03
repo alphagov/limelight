@@ -108,7 +108,7 @@ function (GraphCollection, Collection, Group) {
           expect(spy).toHaveBeenCalledWith(collection.at(1), 1, null, null);
         });
         
-        it("selects an item in a group and unselects all other groups", function () {
+        it("selects an item in a group and the group and unselects all other groups", function () {
           collection.selectItem(1, 1);
           expect(collection.selectedItem).toBe(collection.at(1));
           expect(collection.selectedIndex).toEqual(1);
@@ -122,6 +122,28 @@ function (GraphCollection, Collection, Group) {
           expect(collection.at(0).get('values').selectedItem).toBe(collection.at(0).get('values').at(0));
           expect(collection.at(1).get('values').selectedItem).toBeFalsy();
           expect(spy).toHaveBeenCalledWith(collection.at(0), 0, collection.at(0).get('values').at(0), 0);
+        });
+        
+        it("selects an item in all groups", function () {
+          collection.selectItem(null, 1);
+          expect(collection.selectedItem).toBeFalsy();
+          expect(collection.selectedIndex).toBeFalsy();
+          expect(collection.at(0).get('values').selectedItem).toBe(collection.at(0).get('values').at(1));
+          expect(collection.at(1).get('values').selectedItem).toBe(collection.at(1).get('values').at(1));
+          expect(spy).toHaveBeenCalledWith(null, null, [
+            collection.at(0).get('values').at(1),
+            collection.at(1).get('values').at(1)
+          ], 1);
+          
+          collection.selectItem(null, 0);
+          expect(collection.selectedItem).toBeFalsy();
+          expect(collection.selectedIndex).toBeFalsy();
+          expect(collection.at(0).get('values').selectedItem).toBe(collection.at(0).get('values').at(0));
+          expect(collection.at(1).get('values').selectedItem).toBe(collection.at(1).get('values').at(0));
+          expect(spy).toHaveBeenCalledWith(null, null, [
+            collection.at(0).get('values').at(0),
+            collection.at(1).get('values').at(0)
+          ], 0);
         });
         
         it("unselects group and item", function () {
@@ -142,6 +164,11 @@ function (GraphCollection, Collection, Group) {
           expect(collection.at(0).get('values').selectedItem).toBeFalsy();
           expect(collection.at(1).get('values').selectedItem).toBeFalsy();
           expect(spy).toHaveBeenCalledWith(collection.at(1), 1, null, null);
+        });
+
+        it("allows suppressing the change:selected event", function () {
+          collection.selectItem(1, 1, { silent: true });
+          expect(spy).not.toHaveBeenCalled();
         });
         
       });
@@ -172,6 +199,18 @@ function (GraphCollection, Collection, Group) {
           expect(currentSelection.selectedGroup).toBe(collection.at(1));
           expect(currentSelection.selectedGroupIndex).toBe(1);
           expect(currentSelection.selectedModel).toBe(collection.at(1).get('values').at(1));
+          expect(currentSelection.selectedModelIndex).toBe(1);
+        });
+
+        it("retrieves an object with the currently selected items", function () {
+          collection.selectItem(null, 1);
+          var currentSelection = collection.getCurrentSelection();
+          expect(currentSelection.selectedGroup).toBe(null);
+          expect(currentSelection.selectedGroupIndex).toBe(null);
+          expect(currentSelection.selectedModel).toEqual([
+            collection.at(0).get('values').at(1),
+            collection.at(1).get('values').at(1)
+          ]);
           expect(currentSelection.selectedModelIndex).toBe(1);
         });
       });

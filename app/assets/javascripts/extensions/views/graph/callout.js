@@ -28,7 +28,7 @@ function (Component, Pivot) {
 
     onChangeSelected: function (group, groupIndex, model, index) {
       var el = this.calloutEl;
-      if (!model) {
+      if (!group || !model) {
         el.addClass('performance-hidden');
         return;
       }
