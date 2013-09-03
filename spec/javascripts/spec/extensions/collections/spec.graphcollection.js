@@ -175,7 +175,88 @@ function (GraphCollection, Collection, Group) {
           expect(currentSelection.selectedModelIndex).toBe(1);
         });
       });
-
     });
+
+    describe("at", function () {
+      var collection;
+      beforeEach(function() {
+        collection = new GraphCollection([
+          { id: 'first' }, { id: 'second' }
+        ]);
+        collection.at(0).set('values', new Collection([
+          { a: 1, b: 2 },
+          { a: 3, b: 4 }
+        ]))
+        collection.at(1).set('values', new Collection([
+          { a: 5, b: 6 },
+          { a: 7, b: null }
+        ]))
+      });
+
+      it("retrieves a group", function () {
+        expect(collection.at(1).get('id')).toEqual('second');
+      });
+
+      it("retrieves an item in a group", function () {
+        expect(collection.at(1, 1).get('a')).toEqual(7);
+        expect(collection.at(1, 1).get('b')).toBe(null);
+      });
+    });
+
+    describe("aggregates", function () {
+
+      var collection;
+      beforeEach(function() {
+        collection = new GraphCollection([{}, {}]);
+        collection.at(0).set('values', new Collection([
+          { a: 1, b: 2 },
+          { a: 3, b: 4 }
+        ]))
+        collection.at(1).set('values', new Collection([
+          { a: 5, b: 6 },
+          { a: 7, b: null }
+        ]))
+      });
+      
+      describe("sum", function () {
+        it("sums a given attribute for all items in all groups", function () {
+          expect(collection.sum('a')).toEqual(16);
+          expect(collection.sum('b')).toEqual(12);
+        });
+
+        it("sums a given attribute for all items in a specific group", function () {
+          expect(collection.sum('a', 1)).toEqual(12);
+          expect(collection.sum('b', 1)).toEqual(6);
+        });
+
+        it("sums a given attribute for a specific item in all groups", function () {
+          expect(collection.sum('a', null, 1)).toEqual(10);
+          expect(collection.sum('b', null, 1)).toEqual(4);
+        });
+      });
+
+      describe("fraction", function () {
+        it("always returns 1 when applied to all groups and items", function () {
+          expect(collection.fraction('a')).toEqual(1);
+          expect(collection.fraction('b')).toEqual(1);
+        });
+
+        it("calculates the fraction for a given attribute for all items in a specific group", function () {
+          expect(collection.fraction('a', 1)).toBeCloseTo(0.75, 0.01);
+          expect(collection.fraction('b', 1)).toBeCloseTo(0.60, 0.01);
+        });
+
+        it("calculates the fraction for a given attribute for a specific item in all groups", function () {
+          expect(collection.fraction('a', null, 1)).toBeCloseTo(0.625, 0.01);
+          expect(collection.fraction('b', null, 1)).toBeCloseTo(0.33, 0.01);
+        });
+
+        it("calculates the fraction for a given attribute for a specific item in a specific group", function () {
+          expect(collection.fraction('a', 1, 1)).toBeCloseTo(0.70, 0.01);
+          expect(collection.fraction('b', 1, 1)).toEqual(0);
+        });
+      });
+    });
+
   });
 });
