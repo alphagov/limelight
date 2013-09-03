@@ -12,6 +12,8 @@ function (Component) {
     overlapLabelBottom: 20,
     
     showSquare: true,
+    showValues: false,
+    showValuesPercentage: false,
     squareSize: 11,
     squarePadding: 4,
     
@@ -182,38 +184,51 @@ function (Component) {
      * @param {Selection} selection d3 selection to operate on
      */
     update: function (selection) {
-      var that = this;
-      var collection = this.collection;
       var xOffset = 0;
       if (this.showSquare) {
         xOffset += this.squareSize + this.squarePadding;
       }
 
-      selection.each(function (model, i) {
-        var selection = d3.select(this)
-        selection.selectAll("text.title")
-            .text(_.unescape(model.get('title')))
-            .attr('transform', 'translate(' + xOffset + ', 6)');
-        if (that.showValues) {
-          var attr = that.graph.valueAttr;
-          var value = model.get('values').reduce(function (memo, d) {
-            return memo + d.get(attr);
-          }, 0);
-          var text = selection.selectAll("text.value");
-          text.text(that.formatNumericLabel.call(that, value))
-            .attr('transform', 'translate(' + xOffset + ', 22)');
-
-          if (that.showValuesPercentage) {
-            var percentage = that.formatPercentage(collection.fraction(attr, i));
-            text.append('tspan')
-              .text(' (' + percentage + ')')
-              .attr('class', 'percentage');
-          }
-        }
+      var that = this;
+      selection.each(function (group, groupIndex) {
+        that.updateLabelContent.call(
+          that, d3.select(this), group, groupIndex, xOffset
+        );
       });
 
       var truncateWidth = this.margin.right - this.offset - xOffset;
       this.truncateWithEllipsis(selection, truncateWidth);
+    },
+
+    updateLabelContent: function (selection, group, groupIndex, xOffset) {
+      selection.selectAll("text.title")
+          .text(_.unescape(group.get('title')))
+          .attr('transform', 'translate(' + xOffset + ', 6)');
+
+      if (!this.showValues) {
+        return;
+      }
+
+      var attr = this.graph.valueAttr;
+
+      var selected = this.collection.getCurrentSelection();
+      var value;
+      if (selected.selectedModel) {
+        value = this.collection.at(groupIndex, selected.selectedModelIndex).get(attr);
+      } else {
+        value = this.collection.sum(attr, groupIndex);
+      }
+
+      var text = selection.selectAll("text.value");
+      text.text(this.formatNumericLabel(value))
+        .attr('transform', 'translate(' + xOffset + ', 22)');
+
+      if (this.showValuesPercentage) {
+        var fraction = this.collection.fraction(attr, groupIndex, selected.selectedModelIndex);
+        text.append('tspan')
+          .text(' (' + this.formatPercentage(fraction) + ')')
+          .attr('class', 'percentage');
+      }
     },
     
     updateSquares: function (selection) {
@@ -286,6 +301,7 @@ function (Component) {
     },
     
     onChangeSelected: function (groupSelected, groupIndexSelected, modelSelected, indexSelected) {
+      this.render();
       var labels = this.componentWrapper.selectAll('g.label');
       labels.classed('selected', function (group, groupIndex) {
         return groupIndexSelected === groupIndex;

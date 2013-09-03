@@ -229,7 +229,6 @@ function (LineLabel, Collection) {
             expect(collection.selectedIndex).toBe(null);
           });
         });
-
       });
 
       describe("onChangeSelected", function () {
@@ -245,6 +244,29 @@ function (LineLabel, Collection) {
           lineLabel.onChangeSelected(null, null);
           expect(labels.select('g:nth-child(1)').attr('class').indexOf('selected')).toBe(-1);
           expect(labels.select('g:nth-child(2)').attr('class').indexOf('selected')).toBe(-1);
+        });
+
+        it("displays the values for the current selection", function () {
+          lineLabel.showValues = true;
+          lineLabel.showValuesPercentage = true;
+          lineLabel.render();
+
+          var labels = wrapper.select('.labels');
+          var label1 = labels.select('g:nth-child(1)');
+          var label2 = labels.select('g:nth-child(2)');
+
+          var models = collection.map(function (group) {
+            return group.get('values').at(1);
+          });
+          collection.selectItem(null, 2, { silent: true });
+          lineLabel.onChangeSelected(null, null, models, 2);
+          expect(label1.select('text.value').text()).toEqual('30 (27%)');
+          expect(label2.select('text.value').text()).toEqual('80 (73%)');
+
+          collection.selectItem(null, null, { silent: true });
+          lineLabel.onChangeSelected(null, null, null, null);
+          expect(label1.select('text.value').text()).toEqual('60 (22%)');
+          expect(label2.select('text.value').text()).toEqual('210 (78%)');
         });
       });
 
