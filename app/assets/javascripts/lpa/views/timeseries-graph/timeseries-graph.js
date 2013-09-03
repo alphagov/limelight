@@ -11,8 +11,20 @@ function (require, TimeseriesGraph, LineLabel, Callout) {
       return [
         { view: this.sharedComponents.xaxis },
         { view: this.sharedComponents.yaxis },
-        { view: this.sharedComponents.stack },
-        { view: LineLabel },
+        {
+          view: this.sharedComponents.stack,
+          options: {
+            selectGroup: false,
+            drawCursorLine: true
+          }
+        },
+        {
+          view: this.sharedComponents.linelabel,
+          options: {
+            showValues: true,
+            showValuesPercentage: true
+          }
+        },
         { view: Callout },
         { view: this.sharedComponents.hover }
       ];
