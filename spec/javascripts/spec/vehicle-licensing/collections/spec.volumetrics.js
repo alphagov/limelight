@@ -15,7 +15,6 @@ function (VolumetricsCollection) {
         }, 
         {
           "_end_at": "2012-10-01T00:00:00+00:00", 
-          "volume:sum": 2,
           "_start_at": "2012-09-01T00:00:00+00:00"
         }
       ], 
@@ -68,7 +67,7 @@ function (VolumetricsCollection) {
           }, 
           {
             "_end_at": "2012-10-01T00:00:00+00:00", 
-            "volume:sum": 2,
+            "volume:sum": 0,
             "_start_at": "2012-09-01T00:00:00+00:00"
           }
         ]

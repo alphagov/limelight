@@ -23,14 +23,18 @@ function (GraphCollection) {
       var channels = {};
       _.each(data, function (series) {
         channels[series.channel] = series;
-        sumTotal += series['volume:sum']
+        sumTotal += series['volume:sum'] || 0
       });
 
       var getFraction = function (index) {
-        var digital = channels['fully-digital'].values[index]['volume:sum'];
-        var assisted = channels['assisted-digital'].values[index]['volume:sum'];
-        var manual = channels['manual'].values[index]['volume:sum'];
-        return digital / (digital + assisted + manual);
+        var digital = channels['fully-digital'].values[index]['volume:sum'] || 0;
+        var assisted = channels['assisted-digital'].values[index]['volume:sum'] || 0;
+        var manual = channels['manual'].values[index]['volume:sum'] || 0;
+        var fraction = digital / (digital + assisted + manual);
+        if (isNaN(fraction)) {
+          fraction = 0;
+        }
+        return fraction;
       };
 
       var values = _.map(channels['fully-digital'].values, function (d, index) {

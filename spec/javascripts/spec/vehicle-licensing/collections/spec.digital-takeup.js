@@ -6,11 +6,11 @@ function (DigitalTakeupCollection) {
     var response = {
   "data": [
     {
-      "volume:sum": 5, 
+      "volume:sum": 11, 
       "values": [
         {
           "_end_at": "2012-09-01T00:00:00+00:00", 
-          "volume:sum": 3,
+          "volume:sum": 9,
           "_start_at": "2012-08-01T00:00:00+00:00"
         }, 
         {
@@ -38,11 +38,10 @@ function (DigitalTakeupCollection) {
       "channel": "fully-digital"
     }, 
     {
-      "volume:sum": 16, 
+      "volume:sum": 10, 
       "values": [
         {
           "_end_at": "2012-09-01T00:00:00+00:00", 
-          "volume:sum": 6,
           "_start_at": "2012-08-01T00:00:00+00:00"
         }, 
         {
@@ -79,7 +78,7 @@ function (DigitalTakeupCollection) {
     describe("parse", function () {
       it("parses the response", function () {
         var parsed = DigitalTakeupCollection.prototype.parse(response);
-        expect(parsed).toEqual(expected);
+        expect(parsed).toEqualProperties(expected);
       });
     });
   });
