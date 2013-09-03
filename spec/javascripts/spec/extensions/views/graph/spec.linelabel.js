@@ -1,6 +1,6 @@
 define([
   'extensions/views/graph/linelabel',
-  'extensions/collections/collection'
+  'extensions/collections/graphcollection'
 ],
 function (LineLabel, Collection) {
   
@@ -9,10 +9,15 @@ function (LineLabel, Collection) {
 
       var el, wrapper, lineLabel, collection;
       beforeEach(function() {
-        collection = new Collection([
-          { y: 30, yLabel: 30, title: 'Title 1', id: 'id1', href: '/link1' },
-          { y: 80, yLabel: 80, title: 'Title 2', id: 'id2', href: '/link2' }
-        ]);
+        collection = new Collection();
+        collection.reset([
+          { y: 30, yLabel: 30, title: 'Title 1', id: 'id1', href: '/link1', values: [
+            { _count: 10 }, { _count: 20 }, { _count: 30 }
+          ] },
+          { y: 80, yLabel: 80, title: 'Title 2', id: 'id2', href: '/link2', values: [
+            { _count: 60 }, { _count: 70 }, { _count: 80 }
+          ] }
+        ], {parse: true});
 
         el = $('<div></div>').appendTo($('body'));
         wrapper = LineLabel.prototype.d3.select(el[0]).append('svg').append('g');
@@ -27,7 +32,8 @@ function (LineLabel, Collection) {
         lineLabel.linePaddingInner = 20;
         lineLabel.linePaddingOuter = 30;
         lineLabel.graph = {
-          innerWidth: 400
+          innerWidth: 400,
+          valueAttr: '_count'
         };
         lineLabel.margin = {
           top: 100,
@@ -115,15 +121,62 @@ function (LineLabel, Collection) {
           expect(links.eq(1).prop('style').width).toEqual('200px');
           expect(links.eq(1).attr('href')).toEqual('/link2');
         });
+
+        it("renders a label with additional value text when enabled", function () {
+          lineLabel.showValues = true;
+          lineLabel.render();
+
+          var labels = wrapper.select('.labels');
+          expect(labels.attr('transform')).toEqual('translate(500, 0)');
+          var label1 = labels.select('g:nth-child(1)');
+          var label2 = labels.select('g:nth-child(2)');
+          expect(label1.select('line').length).toEqual(1);
+          expect(label1.select('text.title').attr('transform')).toEqual('translate(0, 6)');
+          expect(label1.select('text.title').text()).toEqual('Title 1');
+          expect(label1.select('text.value').attr('transform')).toEqual('translate(0, 22)');
+          expect(label1.select('text.value').text()).toEqual('60');
+          expect(label2.select('line').length).toEqual(1);
+          expect(label2.select('text.title').attr('transform')).toEqual('translate(0, 6)');
+          expect(label2.select('text.title').text()).toEqual('Title 2');
+          expect(label2.select('text.value').attr('transform')).toEqual('translate(0, 22)');
+          expect(label2.select('text.value').text()).toEqual('210');
+        });
+
+        it("renders a label with additional value text and percentage when enabled", function () {
+          lineLabel.showValues = true;
+          lineLabel.showValuesPercentage = true;
+          lineLabel.render();
+
+          var labels = wrapper.select('.labels');
+          expect(labels.attr('transform')).toEqual('translate(500, 0)');
+          var label1 = labels.select('g:nth-child(1)');
+          var label2 = labels.select('g:nth-child(2)');
+          expect(label1.select('line').length).toEqual(1);
+          expect(label1.select('text.title').attr('transform')).toEqual('translate(0, 6)');
+          expect(label1.select('text.title').text()).toEqual('Title 1');
+          expect(label1.select('text.value').attr('transform')).toEqual('translate(0, 22)');
+          expect(label1.select('text.value').text()).toEqual('60 (22%)');
+          expect(label2.select('line').length).toEqual(1);
+          expect(label2.select('text.title').attr('transform')).toEqual('translate(0, 6)');
+          expect(label2.select('text.title').text()).toEqual('Title 2');
+          expect(label2.select('text.value').attr('transform')).toEqual('translate(0, 22)');
+          expect(label2.select('text.value').text()).toEqual('210 (78%)');
+        });
+
       });
 
       describe("event handling", function () {
         var el, wrapper, lineLabel, collection, options;
         beforeEach(function() {
-          collection = new Collection([
-            { y: 30, yLabel: 30, title: 'Title 1', id: 'id1', href: '/link1' },
-            { y: 80, yLabel: 80, title: 'Title 2', id: 'id2', href: '/link2' }
-          ]);
+          collection = new Collection();
+          collection.reset([
+            { y: 30, yLabel: 30, title: 'Title 1', id: 'id1', href: '/link1', values: [
+              { _count: 10 }, { _count: 20 }, { _count: 30 }
+            ] },
+            { y: 80, yLabel: 80, title: 'Title 2', id: 'id2', href: '/link2', values: [
+              { _count: 60 }, { _count: 70 }, { _count: 80 }
+            ] }
+          ], {parse: true});
 
           el = $('<div></div>').appendTo($('body'));
           wrapper = LineLabel.prototype.d3.select(el[0]).append('svg').append('g');
@@ -284,7 +337,7 @@ function (LineLabel, Collection) {
 
       it("positions labels vertically so they do not collide and snaps to half pixels to avoid antialiasing", function() {
         lineLabel.applyConfig('overlay');
-        wrapper.selectAll('text').each(function (metaModel) {
+        wrapper.selectAll('g').each(function (metaModel) {
           spyOn(this, "getBBox").andReturn({
             height: 20
           });
@@ -315,7 +368,7 @@ function (LineLabel, Collection) {
 
       it("positions labels closest to the centre of the area in stack configuration", function() {
         lineLabel.applyConfig('stack');
-        wrapper.selectAll('text').each(function (metaModel) {
+        wrapper.selectAll('g').each(function (metaModel) {
           spyOn(this, "getBBox").andReturn({
             height: 20
           });

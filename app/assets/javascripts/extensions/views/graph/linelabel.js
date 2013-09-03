@@ -140,7 +140,7 @@ function (Component) {
       var that = this;
       selection.each(function (group, groupIndex) {
         var y = scale(that.getYIdeal.call(that, groupIndex, maxModelIndex));
-        var size = d3.select(this).select('text').node().getBBox().height;
+        var size = this.getBBox().height;
         
         positions.push({
           ideal: y,
@@ -170,8 +170,11 @@ function (Component) {
      */
     enter: function (selection) {
       selection.each(function (model) {
-        d3.select(this).append('text');
+        d3.select(this).append('text').attr('class', 'title');
       });
+      if (this.showValues) {
+        selection.append('text').attr('class', 'value');
+      }
     },
     
     /**
@@ -179,16 +182,34 @@ function (Component) {
      * @param {Selection} selection d3 selection to operate on
      */
     update: function (selection) {
-      var showSquare = this.showSquare;
+      var that = this;
+      var collection = this.collection;
       var xOffset = 0;
-      if (showSquare) {
+      if (this.showSquare) {
         xOffset += this.squareSize + this.squarePadding;
       }
+
       selection.each(function (model, i) {
         var selection = d3.select(this)
-        selection.selectAll("text")
+        selection.selectAll("text.title")
             .text(_.unescape(model.get('title')))
             .attr('transform', 'translate(' + xOffset + ', 6)');
+        if (that.showValues) {
+          var attr = that.graph.valueAttr;
+          var value = model.get('values').reduce(function (memo, d) {
+            return memo + d.get(attr);
+          }, 0);
+          var text = selection.selectAll("text.value");
+          text.text(that.formatNumericLabel.call(that, value))
+            .attr('transform', 'translate(' + xOffset + ', 22)');
+
+          if (that.showValuesPercentage) {
+            var percentage = that.formatPercentage(collection.fraction(attr, i));
+            text.append('tspan')
+              .text(' (' + percentage + ')')
+              .attr('class', 'percentage');
+          }
+        }
       });
 
       var truncateWidth = this.margin.right - this.offset - xOffset;
