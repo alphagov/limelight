@@ -4,12 +4,12 @@ source "https://BnrJb6FZyzspBboNJzYZ@gem.fury.io/govuk/"
 gem 'rails', '3.2.13'
 gem "unicorn", "4.6.3"
 
-gem "slimmer", "3.15.0"
+gem "slimmer", "3.19.0"
 gem "songkick-transport", "1.0.1", :git => "git://github.com/songkick/transport.git"
 gem "httparty", "0.10.2"
 gem "multi_xml", "0.5.3"
-gem "plek", "1.3.1"
-gem "govuk_frontend_toolkit", "0.33.0"
+gem "plek", "1.4.0"
+gem "govuk_frontend_toolkit", "0.35.0"
 
 
 # Bundle edge Rails instead:
