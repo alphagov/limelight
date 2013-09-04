@@ -23,7 +23,7 @@ group :assets do
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   # gem 'therubyracer', :platforms => :ruby
 
-  gem 'uglifier', '1.3.0'
+  gem "uglifier", "2.2.1"
 end
 
 # To use ActiveModel has_secure_password
@@ -42,9 +42,9 @@ end
 # gem 'debugger'
 
 group :test, :development do
-  gem "rspec-rails", "2.12.2"
+  gem "rspec-rails", "2.14.0"
   
-  gem "brakeman", "1.9.1"
+  gem "brakeman", "2.1.1"
 
   gem "cucumber-rails", "1.4.0", :require => false
   gem "poltergeist", "1.4.0"
