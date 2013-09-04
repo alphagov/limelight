@@ -13,11 +13,15 @@ function (Graph) {
           showValues: true,
           showValuesPercentage: true,
           showSummary: true,
-          showTimePeriod: true
+          showTimePeriod: true,
+          attachLinks: this.options.lineLabelLinks
         };
         stackOptions = {
           selectGroup: false,
-          drawCursorLine: true
+          drawCursorLine: true,
+          interactive: function (e) {
+            return e.slice % 3 !== 2;
+          }
         };
       } else {
         labelComponent = this.sharedComponents.callout;
