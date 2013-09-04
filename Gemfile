@@ -45,9 +45,9 @@ group :test, :development do
   gem "rspec-rails", "2.12.2"
   
   gem "brakeman", "1.9.1"
-  gem 'cucumber-rails', "1.3.0", :require => false
-  gem 'poltergeist', "1.1.2"
-  
+
+  gem "cucumber-rails", "1.4.0", :require => false
+  gem "poltergeist", "1.4.0"
   gem "jasmine", "1.3.2"
   gem "jasmine-phantom", "0.0.9"
 
