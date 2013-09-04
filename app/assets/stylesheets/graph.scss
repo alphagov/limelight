@@ -128,7 +128,7 @@
     }
 
     tspan.percentage {
-      font-size: 85%;
+      font-size: 14px;
       fill: $grey-1;
     }
     
@@ -157,6 +157,24 @@
         &.square3 { stroke: darken($data-colour-4, 10%); }
         &.square4 { stroke: darken($data-colour-5, 10%); }
         &.square5 { stroke: darken($data-colour-6, 10%); }
+      }
+    }
+
+    .summary {
+      .value {
+        font-size: 21px;
+        font-weight: bold;
+        baseline-shift:-5px;
+        .percentage {
+          baseline-shift:-5px;
+          font-weight: normal;
+        }
+      }
+
+      .divider {
+        stroke: $grey-2;
+        stroke-width: 1px;
+        shape-rendering: crispEdges;
       }
     }
   }

@@ -163,6 +163,35 @@ function (LineLabel, Collection) {
           expect(label2.select('text.value').text()).toEqual('210 (78%)');
         });
 
+
+        it("renders a summary label when enabled", function () {
+          lineLabel.showSummary = true;
+          lineLabel.showValues = true;
+          lineLabel.showValuesPercentage = true;
+          lineLabel.render();
+
+          var labels = wrapper.select('.labels');
+          var label1 = labels.select('g:nth-child(1)');
+          var label2 = labels.select('g:nth-child(2)');
+          var label3 = labels.select('g:nth-child(3)');
+          expect(label1.attr('class')).toContain('summary');
+          expect(label1.select('line').length).toEqual(1);
+          expect(label1.select('text.title').attr('transform')).toEqual('translate(0, 6)');
+          expect(label1.select('text.title').text()).toEqual('Total');
+          expect(label1.select('text.value').attr('transform')).toEqual('translate(0, 22)');
+          expect(label1.select('text.value').text()).toEqual('270 (100%)');
+          expect(label2.select('line').length).toEqual(1);
+          expect(label2.select('text.title').attr('transform')).toEqual('translate(0, 6)');
+          expect(label2.select('text.title').text()).toEqual('Title 1');
+          expect(label2.select('text.value').attr('transform')).toEqual('translate(0, 22)');
+          expect(label2.select('text.value').text()).toEqual('60 (22%)');
+          expect(label3.select('line').length).toEqual(1);
+          expect(label3.select('text.title').attr('transform')).toEqual('translate(0, 6)');
+          expect(label3.select('text.title').text()).toEqual('Title 2');
+          expect(label3.select('text.value').attr('transform')).toEqual('translate(0, 22)');
+          expect(label3.select('text.value').text()).toEqual('210 (78%)');
+        });
+
       });
 
       describe("event handling", function () {
@@ -249,22 +278,26 @@ function (LineLabel, Collection) {
         it("displays the values for the current selection", function () {
           lineLabel.showValues = true;
           lineLabel.showValuesPercentage = true;
+          lineLabel.showSummary = true;
           lineLabel.render();
 
           var labels = wrapper.select('.labels');
-          var label1 = labels.select('g:nth-child(1)');
-          var label2 = labels.select('g:nth-child(2)');
+          var summary = labels.select('g:nth-child(1)');
+          var label1 = labels.select('g:nth-child(2)');
+          var label2 = labels.select('g:nth-child(3)');
 
           var models = collection.map(function (group) {
             return group.get('values').at(1);
           });
           collection.selectItem(null, 2, { silent: true });
           lineLabel.onChangeSelected(null, null, models, 2);
+          expect(summary.select('text.value').text()).toEqual('110 (100%)');
           expect(label1.select('text.value').text()).toEqual('30 (27%)');
           expect(label2.select('text.value').text()).toEqual('80 (73%)');
 
           collection.selectItem(null, null, { silent: true });
           lineLabel.onChangeSelected(null, null, null, null);
+          expect(summary.select('text.value').text()).toEqual('270 (100%)');
           expect(label1.select('text.value').text()).toEqual('60 (22%)');
           expect(label2.select('text.value').text()).toEqual('210 (78%)');
         });

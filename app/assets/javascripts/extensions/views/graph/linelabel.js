@@ -10,12 +10,15 @@ function (Component) {
     linePaddingOuter: 4,
     overlapLabelTop: 0,
     overlapLabelBottom: 20,
+    labelOffset: 6,
     
     showSquare: true,
     showValues: false,
     showValuesPercentage: false,
+    showSummary: false,
     squareSize: 11,
     squarePadding: 4,
+    summaryPadding: 6,
     
     classed: 'labels',
 
@@ -33,6 +36,8 @@ function (Component) {
       this.componentWrapper
         .classed(this.classed, true)
         .attr('transform', 'translate(' + left + ', 0)');
+
+      this.renderSummary();
       
       var selection = this.componentWrapper.selectAll('g.label')
           .data(this.collection.models);
@@ -84,6 +89,55 @@ function (Component) {
       };
 
       return events;
+    },
+
+    renderSummary: function () {
+
+      this.summaryHeight = 0;
+
+      if (!this.showSummary) {
+        return;
+      }
+
+      var d = {
+        title: 'Total'
+      };
+
+      if (this.showValues) {
+        var attr = this.graph.valueAttr;
+
+        var selected = this.collection.getCurrentSelection();
+        if (selected.selectedModel) {
+          d.value = this.collection.sum(attr, null, selected.selectedModelIndex);
+        } else {
+          d.value = this.collection.sum(attr);
+        }
+
+        if (this.showValuesPercentage) {
+          d.fraction = 1;
+        }
+      }
+
+      var selection = this.componentWrapper.selectAll('g.summary')
+          .data([d]);
+      selection.exit().remove();
+      var enterSelection = selection.enter().append('g').attr('class', 'summary');
+      this.enter(enterSelection);
+
+      this.updateLabelContent(selection, d);
+      selection.attr('transform', 'translate(0,' + this.overlapLabelTop + ")");
+
+      var bbox = selection.node().getBBox();
+      var y = bbox.y + bbox.height;
+      enterSelection.append('line').attr({
+        'class': 'divider',
+        x1: 0,
+        x2: this.margin.right,
+        y1: y,
+        y2: y
+      });
+
+      this.summaryHeight = y + this.labelOffset + this.summaryPadding;
     },
 
     renderLinks: function () {
@@ -153,7 +207,7 @@ function (Component) {
       
       // optimise positions
       positions = this.positions = this.calcPositions(positions, {
-        min: this.overlapLabelTop,
+        min: this.overlapLabelTop + this.summaryHeight,
         max: this.graph.innerHeight + this.overlapLabelBottom
       });
       
@@ -184,51 +238,67 @@ function (Component) {
      * @param {Selection} selection d3 selection to operate on
      */
     update: function (selection) {
+      var that = this;
+
+      var getLabelData = function (group, groupIndex) {
+        var d = {
+          title: group.get('title')
+        };
+
+        if (this.showValues) {
+          var attr = this.graph.valueAttr;
+
+          var selected = this.collection.getCurrentSelection();
+          if (selected.selectedModel) {
+            d.value = this.collection.at(
+              groupIndex, selected.selectedModelIndex
+            ).get(attr);
+          } else {
+            d.value = this.collection.sum(attr, groupIndex);
+          }
+
+          if (this.showValuesPercentage) {
+            d.fraction = this.collection.fraction(
+              attr, groupIndex, selected.selectedModelIndex
+            );
+          }
+        }
+
+        return d;
+      }
+
+      selection.each(function (group, groupIndex) {
+        var d = getLabelData.call(that, group, groupIndex);
+        that.updateLabelContent.call(that, d3.select(this), d);
+      });
+    },
+
+    updateLabelContent: function (selection, d) {
       var xOffset = 0;
       if (this.showSquare) {
         xOffset += this.squareSize + this.squarePadding;
       }
 
-      var that = this;
-      selection.each(function (group, groupIndex) {
-        that.updateLabelContent.call(
-          that, d3.select(this), group, groupIndex, xOffset
-        );
-      });
-
-      var truncateWidth = this.margin.right - this.offset - xOffset;
-      this.truncateWithEllipsis(selection, truncateWidth);
-    },
-
-    updateLabelContent: function (selection, group, groupIndex, xOffset) {
       selection.selectAll("text.title")
-          .text(_.unescape(group.get('title')))
-          .attr('transform', 'translate(' + xOffset + ', 6)');
+        .text(_.unescape(d.title))
+        .attr('transform', 'translate(' + xOffset + ', ' + this.labelOffset + ')');
 
-      if (!this.showValues) {
+      if (d.value == null) {
         return;
       }
 
-      var attr = this.graph.valueAttr;
-
-      var selected = this.collection.getCurrentSelection();
-      var value;
-      if (selected.selectedModel) {
-        value = this.collection.at(groupIndex, selected.selectedModelIndex).get(attr);
-      } else {
-        value = this.collection.sum(attr, groupIndex);
-      }
-
       var text = selection.selectAll("text.value");
-      text.text(this.formatNumericLabel(value))
+      text.text(this.formatNumericLabel(d.value))
         .attr('transform', 'translate(' + xOffset + ', 22)');
 
       if (this.showValuesPercentage) {
-        var fraction = this.collection.fraction(attr, groupIndex, selected.selectedModelIndex);
         text.append('tspan')
-          .text(' (' + this.formatPercentage(fraction) + ')')
+          .text(' (' + this.formatPercentage(d.fraction) + ')')
           .attr('class', 'percentage');
       }
+
+      var truncateWidth = this.margin.right - this.offset - xOffset;
+      this.truncateWithEllipsis(selection, truncateWidth);
     },
     
     updateSquares: function (selection) {

@@ -22,7 +22,8 @@ function (require, TimeseriesGraph, LineLabel, Callout) {
           view: this.sharedComponents.linelabel,
           options: {
             showValues: true,
-            showValuesPercentage: true
+            showValuesPercentage: true,
+            showSummary: true
           }
         },
         { view: Callout },
