@@ -1,10 +1,7 @@
 define([
-  'require',
-  'extensions/views/timeseries-graph/timeseries-graph',
-  'extensions/views/graph/linelabel',
-  './callout'
+  'extensions/views/timeseries-graph/timeseries-graph'
 ],
-function (require, TimeseriesGraph, LineLabel, Callout) {
+function (TimeseriesGraph) {
   var LPATimeseriesGraph = TimeseriesGraph.extend({
     
     components: function () {
@@ -27,7 +24,12 @@ function (require, TimeseriesGraph, LineLabel, Callout) {
             showTimePeriod: true
           }
         },
-        { view: Callout },
+        {
+          view: this.sharedComponents.callout,
+          options: {
+            showPercentage: true
+          }
+        },
         { view: this.sharedComponents.hover }
       ];
     },
