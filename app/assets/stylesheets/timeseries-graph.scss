@@ -21,23 +21,33 @@
 }
 
 #applications-by-licence .inner,
-#applications-by-authority .inner,
-#application-method-over-time .inner {
+#applications-by-authority .inner {
   right: 200px
 }
 
-#application-method-over-time {
-  .selected {
-    &.stack0 { fill: mix($data-colour-1, $white, 40%); }
-    &.stack1 { fill: mix($data-colour-2, $white, 40%); }
-  }
-}
 
 @media (max-width: 780px) {
   #applications-by-licence,
   #applications-by-authority {
     .x-axis .tick:nth-child(even) text {
       display:none;
+    }
+  }
+}
+
+section.application-method-over-time {
+  ul.module-actions {
+    margin-top:-36px;
+    margin-bottom: 44px;
+  }
+
+  figure {
+    .inner {
+      right: 200px;
+    }
+    .selected {
+      &.stack0 { fill: mix($data-colour-1, $white, 40%); }
+      &.stack1 { fill: mix($data-colour-2, $white, 40%); }
     }
   }
 }

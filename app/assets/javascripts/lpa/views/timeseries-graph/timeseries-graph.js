@@ -23,7 +23,8 @@ function (require, TimeseriesGraph, LineLabel, Callout) {
           options: {
             showValues: true,
             showValuesPercentage: true,
-            showSummary: true
+            showSummary: true,
+            showTimePeriod: true
           }
         },
         { view: Callout },
