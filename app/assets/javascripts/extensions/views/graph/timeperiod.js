@@ -8,7 +8,7 @@ function (SingleStatView) {
     valueTag: '',
 
     getPeriod: function () {
-      return this.period || this.collection.query.get('period');
+      return this.period || this.collection.query.get('period') || 'week';
     },
 
     getValue: function () {

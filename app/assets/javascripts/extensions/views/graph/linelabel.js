@@ -173,14 +173,17 @@ function (require, Component, TimePeriod) {
     },
 
     renderTimePeriod: function () {
+      if (!this.showTimePeriod) {
+        return;
+      }
+      
       if (!this.timePeriod) {
         var el = $('<figcaption class="timeperiod">').appendTo(this.$el);
-        this.timePeriod = new TimePeriod({
+        var timePeriod = this.timePeriod = new TimePeriod({
           el: el,
-          collection: this.collection,
-          period: 'week'
+          collection: this.collection
         });
-        this.timePeriod.render();
+        timePeriod.render();
       }
 
       this.timePeriod.$el.width(
@@ -218,15 +221,17 @@ function (require, Component, TimePeriod) {
       var that = this;
       selection.each(function (group, groupIndex) {
         var y = scale(that.getYIdeal.call(that, groupIndex, maxModelIndex));
+        d3.select(this).selectAll('line').style('display', 'none');
         var size = this.getBBox().height;
-        
+        d3.select(this).selectAll('line').style('display', null);
+
         positions.push({
           ideal: y,
           size: size,
           id: group.get('id')
         });
       });
-      
+
       // optimise positions
       positions = this.positions = this.calcPositions(positions, {
         min: this.overlapLabelTop + this.summaryHeight,
@@ -304,25 +309,22 @@ function (require, Component, TimePeriod) {
     },
 
     updateLabelContent: function (selection, d) {
-
       var xOffset = this.getXOffset();
 
       selection.selectAll("text.title")
         .text(_.unescape(d.title))
         .attr('transform', 'translate(' + xOffset + ', ' + this.labelOffset + ')');
 
-      if (d.value == null) {
-        return;
-      }
+      if (d.value != null) {
+        var text = selection.selectAll("text.value");
+        text.text(this.formatNumericLabel(d.value))
+          .attr('transform', 'translate(' + xOffset + ', 22)');
 
-      var text = selection.selectAll("text.value");
-      text.text(this.formatNumericLabel(d.value))
-        .attr('transform', 'translate(' + xOffset + ', 22)');
-
-      if (this.showValuesPercentage) {
-        text.append('tspan')
-          .text(' (' + this.formatPercentage(d.fraction) + ')')
-          .attr('class', 'percentage');
+        if (this.showValuesPercentage && d.value) {
+          text.append('tspan')
+            .text(' (' + this.formatPercentage(d.fraction) + ')')
+            .attr('class', 'percentage');
+        }
       }
 
       var truncateWidth = this.margin.right - this.offset - xOffset;
@@ -373,7 +375,7 @@ function (require, Component, TimePeriod) {
      */
     truncateWithEllipsis: function (selection, maxWidth, ellipsis) {
       ellipsis = ellipsis || '…';
-      
+
       selection.selectAll('text').each(function (metaModel) {
         var text = d3.select(this);
         if (this.getBBox().width <= maxWidth) {

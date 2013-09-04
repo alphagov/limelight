@@ -192,6 +192,11 @@ function (LineLabel, Collection) {
           expect(label3.select('text.value').text()).toEqual('210 (78%)');
         });
 
+        it("does not render a time period label by default", function () {
+          lineLabel.render();
+          expect(lineLabel.$el.find('figcaption.timeperiod').length).toEqual(0);
+        });
+
         it("renders a time period label when enabled", function () {
           lineLabel.showTimePeriod = true;
           lineLabel.render();
@@ -277,7 +282,7 @@ function (LineLabel, Collection) {
           lineLabel.showValues = true;
           lineLabel.showValuesPercentage = true;
           lineLabel.showSummary = true;
-          // lineLabel.showTimePeriod = true;
+          lineLabel.showTimePeriod = true;
           lineLabel.render();
 
           var labels = wrapper.select('.labels');
