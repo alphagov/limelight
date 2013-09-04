@@ -1,7 +1,9 @@
 define([
-  'extensions/views/graph/component'
+  'require',
+  'extensions/views/graph/component',
+  './timeperiod'
 ],
-function (Component) {
+function (require, Component, TimePeriod) {
 
   var LineLabel = Component.extend({
     
@@ -16,6 +18,8 @@ function (Component) {
     showValues: false,
     showValuesPercentage: false,
     showSummary: false,
+    showTimePeriod: false,
+    attachLinks: false,
     squareSize: 11,
     squarePadding: 4,
     summaryPadding: 6,
@@ -58,6 +62,7 @@ function (Component) {
       }
 
       this.renderLinks();
+      this.renderTimePeriod();
     },
 
     /**
@@ -125,7 +130,8 @@ function (Component) {
       this.enter(enterSelection);
 
       this.updateLabelContent(selection, d);
-      selection.attr('transform', 'translate(0,' + this.overlapLabelTop + ")");
+      var translateY = this.overlapLabelTop - this.margin.top + this.labelOffset;
+      selection.attr('transform', 'translate(0,' + translateY + ")");
 
       var bbox = selection.node().getBBox();
       var y = bbox.y + bbox.height;
@@ -166,6 +172,22 @@ function (Component) {
         });
     },
 
+    renderTimePeriod: function () {
+      if (!this.timePeriod) {
+        var el = $('<figcaption class="timeperiod">').appendTo(this.$el);
+        this.timePeriod = new TimePeriod({
+          el: el,
+          collection: this.collection,
+          period: 'week'
+        });
+        this.timePeriod.render();
+      }
+
+      this.timePeriod.$el.width(
+        this.margin.right - this.getXOffset() - this.offset
+      );
+    },
+    
     configs: {
       'overlay': {
         getYIdeal: function (groupIndex, index) {
@@ -219,7 +241,7 @@ function (Component) {
         return "translate(" + x + ", " + yLabel + ")";
       });
     },
-    
+
     /**
      * Creates label content elements.
      * @param {Selection} selection d3 selection to operate on
@@ -273,11 +295,17 @@ function (Component) {
       });
     },
 
-    updateLabelContent: function (selection, d) {
-      var xOffset = 0;
+    getXOffset: function () {
       if (this.showSquare) {
-        xOffset += this.squareSize + this.squarePadding;
+        return this.squareSize + this.squarePadding;
+      } else {
+        return 0;
       }
+    },
+
+    updateLabelContent: function (selection, d) {
+
+      var xOffset = this.getXOffset();
 
       selection.selectAll("text.title")
         .text(_.unescape(d.title))

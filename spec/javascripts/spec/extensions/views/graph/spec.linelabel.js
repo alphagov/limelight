@@ -12,10 +12,10 @@ function (LineLabel, Collection) {
         collection = new Collection();
         collection.reset([
           { y: 30, yLabel: 30, title: 'Title 1', id: 'id1', href: '/link1', values: [
-            { _count: 10 }, { _count: 20 }, { _count: 30 }
+            { _count: 10 }, { _count: 20 }, { _count: 30, _start_at: moment('2013-08-26'), _end_at: moment('2013-09-02') }
           ] },
           { y: 80, yLabel: 80, title: 'Title 2', id: 'id2', href: '/link2', values: [
-            { _count: 60 }, { _count: 70 }, { _count: 80 }
+            { _count: 60 }, { _count: 70 }, { _count: 80, _start_at: moment('2013-08-26'), _end_at: moment('2013-09-02') }
           ] }
         ], {parse: true});
 
@@ -192,20 +192,18 @@ function (LineLabel, Collection) {
           expect(label3.select('text.value').text()).toEqual('210 (78%)');
         });
 
+        it("renders a time period label when enabled", function () {
+          lineLabel.showTimePeriod = true;
+          lineLabel.render();
+          expect(lineLabel.$el.find('figcaption.timeperiod').length).toEqual(1);
+          expect(lineLabel.$el.find('figcaption.timeperiod')).toHaveHtml('Last 3 weeks')
+        });
+
       });
 
       describe("event handling", function () {
-        var el, wrapper, lineLabel, collection, options;
+        var el, wrapper, lineLabel, options;
         beforeEach(function() {
-          collection = new Collection();
-          collection.reset([
-            { y: 30, yLabel: 30, title: 'Title 1', id: 'id1', href: '/link1', values: [
-              { _count: 10 }, { _count: 20 }, { _count: 30 }
-            ] },
-            { y: 80, yLabel: 80, title: 'Title 2', id: 'id2', href: '/link2', values: [
-              { _count: 60 }, { _count: 70 }, { _count: 80 }
-            ] }
-          ], {parse: true});
 
           el = $('<div></div>').appendTo($('body'));
           wrapper = LineLabel.prototype.d3.select(el[0]).append('svg').append('g');
@@ -279,6 +277,7 @@ function (LineLabel, Collection) {
           lineLabel.showValues = true;
           lineLabel.showValuesPercentage = true;
           lineLabel.showSummary = true;
+          // lineLabel.showTimePeriod = true;
           lineLabel.render();
 
           var labels = wrapper.select('.labels');
@@ -289,17 +288,17 @@ function (LineLabel, Collection) {
           var models = collection.map(function (group) {
             return group.get('values').at(1);
           });
-          collection.selectItem(null, 2, { silent: true });
-          lineLabel.onChangeSelected(null, null, models, 2);
+          collection.selectItem(null, 2);
           expect(summary.select('text.value').text()).toEqual('110 (100%)');
           expect(label1.select('text.value').text()).toEqual('30 (27%)');
           expect(label2.select('text.value').text()).toEqual('80 (73%)');
+          expect(lineLabel.$el.find('figcaption.timeperiod')).toHaveHtml('26 Aug to 1 Sep 2013')
 
-          collection.selectItem(null, null, { silent: true });
-          lineLabel.onChangeSelected(null, null, null, null);
+          collection.selectItem(null, null);
           expect(summary.select('text.value').text()).toEqual('270 (100%)');
           expect(label1.select('text.value').text()).toEqual('60 (22%)');
           expect(label2.select('text.value').text()).toEqual('210 (78%)');
+          expect(lineLabel.$el.find('figcaption.timeperiod')).toHaveHtml('Last 3 weeks')
         });
       });
 

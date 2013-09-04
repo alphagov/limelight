@@ -234,6 +234,24 @@
       }
     }
   }
+
+  .cursorLine.ascender,
+  .cursorLine.descender {
+    display: none;
+  }
+
+
+  .timeperiod {
+    position:absolute;
+    @include core-16($tabular-numbers: true);
+    top:-24px;
+    right:0;
+
+    @media (max-width: 640px) {
+      top:-20px;
+    }
+  }
+
 }
 
 @media (max-width: 640px) {
