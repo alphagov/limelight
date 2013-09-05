@@ -59,5 +59,5 @@ Run the tests:
 - `BROWSER`: platform,browser(,version) see their [list of browsers](https://saucelabs.com/docs/platforms)
 
 ```shell
-GOVUK_ASSET_HOST='https://static.production.alphagov.co.uk' BROWSER="windows xp,firefox" SAUCE_USER_NAME=your-sauce-user-name SAUCE_API_KEY=your-sauce-key bundle exec cucumber -p sauce
+GOVUK_ASSET_HOST='https://static.production.alphagov.co.uk' BROWSER="windows xp,firefox" SAUCE_USERNAME=your-sauce-user-name SAUCE_ACCESS_KEY=your-sauce-key bundle exec cucumber -p sauce
 ```
