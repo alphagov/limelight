@@ -18,6 +18,7 @@ if ENV["CUCUMBER_PROFILE"] == 'sauce'
   Sauce.config do |c|
 
     if ENV['USE_TUNNEL']
+      c[:start_tunnel] = true
       start_tunnel_for_parallel_tests(c)
     end
 
