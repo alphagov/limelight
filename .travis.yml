@@ -10,8 +10,10 @@ env:
   global:
     - secure: "POCDb9nm0jgXCeRMqz2Ul+KPmZAQpve0IxFL0WQ1Ad9RxiK8rQzRkoHnc1RY\ntFDYN9x5EpQbIn1wmOPLEMZhMp0uibtlraSeYSYwoIVpbK2A5jZ1r83x5PEY\n/TzM2A8eun0nQWm/xwwC6cx2jiuhWZ/nw8ODCb0ln9QXKIhgPvc="
     - secure: "GH6Kx/tbkr5VqWsOAJjdsDC+bwFr6A5yZ05hhJIbRLyNT+h4aGIkNXqMOSQ9\nxtXUM/2nxGEQ+YizUcawUGs9XlvhUTCyy9pl/XcaiZ5WCaNkviZfTJWmQ8pQ\nM2mS9NZcWt9G3ZT/yv1ZWEE/SCRHuvDfhSLApbGcNYLULrPRZwc="
-before_script:
-  - curl https://gist.github.com/robyoung/5862004/raw/sauce_connect_setup.sh | bash
+    - GOVUK_ASSET_HOST='https://static.production.alphagov.co.uk'
+    - BROWSER='windows xp,firefox'
+    - USE_TUNNEL=1
+    - CAPYBARA_WAIT_TIME=30
 script:
   - bundle exec rake test:all --trace
-  - GOVUK_ASSET_HOST='https://static.production.alphagov.co.uk' BROWSER="windows xp,firefox" SAUCE_USER_NAME=$SAUCE_USERNAME SAUCE_API_KEY=$SAUCE_ACCESS_KEY bundle exec cucumber -p sauce
+  - bundle exec cucumber -p sauce
