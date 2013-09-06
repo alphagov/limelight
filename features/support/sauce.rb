@@ -1,6 +1,8 @@
 if ENV["CUCUMBER_PROFILE"] == 'sauce'
+  puts "Using sauce"
 
-  require 'sauce/cucumber'
+  require 'sauce/utilities'
+  require 'sauce/capybara'
   require 'sauce/parallel'
 
   Capybara.default_driver = :sauce
@@ -15,11 +17,24 @@ if ENV["CUCUMBER_PROFILE"] == 'sauce'
     Capybara.server_port = 49221
   end
 
-  Sauce.config do |c|
+  # We are using Open Sauce accounts which require all tests to be public.
+  # The sauce/cucumber gem does not allow configuring jobs as public.
+  # As a workaround, reopen Sauce::Job initialize method and force job
+  # to be public.
+  Sauce::Job.class_eval do
+    def initialize(options)
+      options["public"] = true
+      build!(options)
+      @client = Sauce::Client.new
+    end
+  end
 
+  Sauce.config do |c|
     if ENV['USE_TUNNEL']
       c[:start_tunnel] = true
       start_tunnel_for_parallel_tests(c)
+    else
+      c[:start_tunnel] = false
     end
 
     platform, name, version = ENV["BROWSER"].split(',')
@@ -27,8 +42,16 @@ if ENV["CUCUMBER_PROFILE"] == 'sauce'
     c[:browsers] = [[platform, name, version]]
   end
 
+  Before do
+    Sauce::Capybara::Cucumber.before_hook
+  end
+
   Around do |scenario, block|
     Sauce::Capybara::Cucumber.around_hook scenario, block
+  end
+
+  at_exit do
+    Sauce::Utilities::Connect.close
   end
 
 end
