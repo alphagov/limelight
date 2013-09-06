@@ -207,6 +207,9 @@ GEM
       selenium-webdriver (>= 0.1.2)
     sauce-connect (3.1.0)
       sauce (~> 3.1)
+    sauce-cucumber (3.1.1)
+      cucumber (>= 1.2.0)
+      sauce (~> 3.1.1)
     sauce_whisk (0.0.10)
       rest-client
     selenium-webdriver (2.35.1)
@@ -271,7 +274,9 @@ DEPENDENCIES
   rails (= 3.2.14)
   rspec-rails (= 2.14.0)
   sass-rails (= 3.2.5)
+  sauce
   sauce-connect (= 3.1.0)
+  sauce-cucumber (= 3.1.1)
   slimmer (= 3.19.0)
   songkick-transport (= 1.0.1)!
   uglifier (= 2.2.1)
