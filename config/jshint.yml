@@ -54,6 +54,7 @@ passfail: false     # true if the scan should stop on first error (per file)
 # following are relevant only if undef = true
 predef:             # Names of predefined global variables - comma-separated string or a YAML array
   - $
+  - _
   - define
 browser:  true      # true if the standard browser globals should be predefined
 rhino:    false     # true if the Rhino environment globals should be predefined
