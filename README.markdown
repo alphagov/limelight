@@ -48,3 +48,8 @@ To run Javascript tests:
 * In the browser: `bundle exec rake jasmine`
 * In CI: `bundle exec rake jasmine:phantomjs:ci`
 * With code coverage: `bundle exec rake jasmine:blanketjs`
+
+To run Javascript style checks:
+
+`bundle exec rake jshint`
+
