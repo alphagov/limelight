@@ -1,41 +1,43 @@
 class CommonController < ApplicationController
 
   def services
+    all_services = get_all_included_services
+    services_list = extract_and_sort_services(all_services)
+    service_groups_list = extract_and_sort_service_groups(all_services)
 
-    all_services = [
-      {
-        name: 'Licensing',
-        path: licensing_path
-      },
-      {
-        name: 'Pay to get documents legalised by post',
-        path: pay_legalisation_post_path
-      },
-      {
-        name: 'Pay to legalise documents using the premium service',
-        path: pay_legalisation_drop_off_path
-      },
-      {
-        name: 'Payment to register a birth abroad in the UK',
-        path: pay_register_birth_abroad_path
-      },
-      {
-        name: 'Payment to register a death abroad',
-        path: pay_register_death_abroad_path
-      },
-      {
-        name: 'Payment for certificates to get married abroad',
-        path: pay_foreign_marriage_certificates_path
-      },
-      {
-        name: 'Deposit foreign marriage or civil partnership certificates',
-        path: deposit_foreign_marriage_path
-      }
-    ].sort_by { |k| k[:name] }
+    @services = group_by_initial(services_list)
+    @num_services = services_list.length
 
-    @services = all_services.group_by{ |service| service[:name][0].downcase }
-    @num_services = all_services.length
+    @service_groups = group_by_initial(service_groups_list)
+    @num_service_groups = service_groups_list.length
+  end
 
+  private
+
+  def get_all_included_services
+    Limelight::Application.config.available_services.values.reject(&:excluded_from_list)
+  end
+
+  def extract_and_sort_service_groups(service_array)
+    extract_and_sort_when_group_is(:present?, service_array)
+  end
+
+  def extract_and_sort_services(service_array)
+    extract_and_sort_when_group_is(:blank?, service_array)
+  end
+
+  def extract_and_sort_when_group_is(grouped_or_not, service_array)
+    service_array
+      .select { |service| service.is_group.send(grouped_or_not)}
+      .sort_by!(&:name)
+  end
+
+  def group_by_initial(array)
+    array.group_by { |service| initial_letter_of(service.name) }
+  end
+
+  def initial_letter_of(name)
+    name[0].upcase
   end
 
 end

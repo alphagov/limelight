@@ -1,22 +1,36 @@
 define([
   'licensing/collections/applications-total-weekly',
-  'licensing/views/applications-graph/applicationsgraph',
-  'licensing/views/applications-graph/headline',
+  'extensions/views/timeseries-graph/stacked-graph',
+  'extensions/views/graph/headline',
   'licensing/collections/applications-top5-lastweek',
   'licensing/views/top5table',
   'extensions/collections/graphcollection',
-  'licensing/collections/conversion',
+  'extensions/collections/multiconversioncollection',
+  'licensing/collections/conversion-series',
   'extensions/views/conversion-graph/conversion-graph',
   'extensions/views/tabs',
   'extensions/views/conversion-success-rate',
-  'licensing/collections/visitors-realtime',
-  'licensing/views/visitors-realtime'
+  'extensions/collections/visitors-realtime',
+  'extensions/views/visitors-realtime',
+  'common/controllers/availability-module'
 ], function (ApplicationsCollection, ApplicationsGraph, ApplicationsHeadlineView,
              Top5Collection, Top5Table, GraphCollection,
-             ConversionCollection, ConversionGraph,
+             MultiConversionCollection, ConversionSeriesCollection, ConversionGraph,
              Tabs, SuccessRateView,
-             VisitorsRealtimeCollection, VisitorsRealtimeView) {
+             VisitorsRealtimeCollection, VisitorsRealtimeView,
+             availabilityModule) {
   return function () {
+
+    var conversionCollection = new MultiConversionCollection(null, {
+      conversionCollection: ConversionSeriesCollection
+    });
+
+    var successRate = new SuccessRateView({
+      el: $('#applications-success-rate'),
+      collection: conversionCollection.collectionInstances[1],
+      startStep: "licensingUserJourney:downloadFormPage",
+      endStep: "licensingUserJourney:end"
+    });
 
     if (!$('.lte-ie8').length) {
       var applicationsCollection = new GraphCollection(null, {
@@ -24,7 +38,10 @@ define([
       });
       var graphView = new ApplicationsGraph({
         el: $('#total-applications'),
-        collection: applicationsCollection
+        collection: applicationsCollection,
+        getConfigNames: function () {
+          return ['stack', this.collection.query.get('period') || 'week'];
+        }
       });
 
       var graphNav = new Tabs({
@@ -43,24 +60,15 @@ define([
       });
 
       applicationsCollection.query.set('period', 'week');
-
-      var conversionCollection = new ConversionCollection();
-
-      var successRate = new SuccessRateView({
-        el: $('#applications-success-rate'),
-        collection: conversionCollection.collectionInstances[1],
-        startStep: "licensingUserJourney:downloadFormPage",
-        endStep: "licensingUserJourney:end"
-      });
-
+      applicationsCollection.fetch();
 
       var conversionGraph = new ConversionGraph({
         el: $('#applications-conversion-graph'),
         collection: conversionCollection
       });
-
-      conversionCollection.fetch();
     }
+
+    conversionCollection.fetch();
 
 
     var top5LicencesCollection = new Top5Collection([], {
@@ -90,7 +98,9 @@ define([
 
     if ($('#number-of-visitors-realtime').length) {
       var updateInterval = 120 * 1000;
-      var visitorsRealtimeCollection = new VisitorsRealtimeCollection();
+      var visitorsRealtimeCollection = new VisitorsRealtimeCollection([],{
+        serviceName: "licensing"
+      });
 
       var visitorsRealtimeView = new VisitorsRealtimeView({
         el: $('#number-of-visitors-realtime'),
@@ -104,5 +114,7 @@ define([
         visitorsRealtimeCollection.fetch();
       }, updateInterval);
     }
+
+    availabilityModule('licensing');
   };
 });

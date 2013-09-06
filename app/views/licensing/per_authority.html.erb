@@ -1,17 +1,19 @@
-<% content_for :title do %><%= @authority.name %> - Performance Platform - GOV.UK <% end %>
+<% content_for :title do %><%= @authority.name %> - Licensing performance - GOV.UK <% end %>
 <% @js_config = { "controller" => "licensing/controllers/per_authority", "authority-url-slug" => @authority.slug } %>
 
 <header>
-  <p class="category-title"><%= link_to "Authorities", :action => "authorities" %></p>
-  <h1><%= @authority.name %></h1>
+  <h1>
+      <span class="strapline">Licensing performance</span>
+      <%= @authority.name %>
+  </h1>
 </header>
 
-<section class="graph">
+<section class="graph graph-with-labels">
   <h1>Form submissions</h1>
   <ul class="module-actions">
     <li class="info">
       <div>
-        <p>Data sources: GOV.UK licensing database</p>
+        <p>Data source: GOV.UK licensing database</p>
         <p>Top licences are those with the highest number of form submissions to the authority in the period being shown.</p>
       </div>
     </li>
@@ -19,7 +21,7 @@
   <nav id="applications-nav"></nav>
   <h2>Total form submissions per week over the last 9 weeks and top licences by submission volume in this time</h2>
 
-  <figure class="graph applications-graph" id="applications-by-licence"></figure>
+  <figure class="graph timeseries-graph" id="applications-by-licence"></figure>
 </section>
 
 <section>
@@ -27,7 +29,7 @@
   <ul class="module-actions">
     <li class="info">
       <div>
-        <p>Data sources: GOV.UK licensing database</p>
+        <p>Data source: GOV.UK licensing database</p>
         <p>Table includes all licences offered by the authority that have had at least 1 submission since being offered on GOV.UK</p>
       </div>
     </li>

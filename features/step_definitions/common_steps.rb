@@ -1,13 +1,44 @@
 Given(/^the flag (.+) is (not )?set$/) do |flag, status|
-  Settings::feature_toggles[flag.to_sym] = !(status == 'not ')
+  Rails.application.config.feature_toggles[flag.to_sym] = !(status == 'not ')
 end
+
+Given(/^The ([\w-]+) ([\w-]+) bucket returns the response in "(.*?)"$/) do |service, bucket, fixture_file|
+  BackdropStubController.register(service, bucket, fixture_file)
+end
+
+Then(/^I should see the module "(.*?)"$/) do |module_title|
+  @module = page.find(:xpath, "//section[contains(h1, '#{module_title}')]")
+
+  @module.should be_visible
+end
+
+Then /^the module should contain a link to "(.*?)"$/ do |url|
+  @module.should have_link(nil, href: url)
+end
+
+Then /^the module should contain the text "(.*?)"$/ do |text|
+  @module.should have_content(text)
+end
+
+Then /^the module should contain a graph$/ do
+  @module.should have_xpath("./figure/*[name()='svg']")
+end
+
+Then /^the module should contain a table$/ do
+  @module.should have_css("table")
+end
+
+Then /^the module should contain (\d+) tabs?$/ do |tab_count|
+  @module.should have_xpath("./nav//li[#{tab_count}]")
+end
+
 
 When(/^I go to (.*)$/) do |url|
   visit url
 end
 
 When(/^I click on "(.*?)"$/) do |name|
-  click_link(name)
+  find(:xpath, "//a[contains(text(),'#{name}')]").click
 end
 
 Then(/^I should be at (.*)$/) do |path|
@@ -65,9 +96,13 @@ Then(/^the (\d+)(?:st|nd|rd|th) section description should be "(.*?)"$/) do |pos
 end
 
 Then(/^the navigation link for "(.*?)" should be active$/) do |link_title|
-  page.find("#global nav li.sub-level a.current").should have_content(link_title)
+  page.find("nav.performance-nav li a.active").should have_content(link_title)
 end
 
 Then(/^I see a link to "(.*?)"$/) do |url|
-  page.all("#content a[href=\"#{url}\"]").count.should == 1
+  page.all("#content a[href=\"#{url}\"]").count.should >= 1
+end
+
+Then(/^show me the page$/) do
+  puts page.html
 end

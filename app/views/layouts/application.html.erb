@@ -7,6 +7,18 @@
 </head>
 <body>
 
+<nav id="proposition-menu">
+  <a href="/performance" id="proposition-name">
+    Performance
+    <span class="alpha-tag">Alpha</span>
+  </a>
+  <ul id="proposition-links">
+    <li><a href="/performance/dashboard" class="">GOV.UK performance</a></li>
+    <li><a href="http://transactionsexplorer.cabinetoffice.gov.uk/" class="">Transactions Explorer</a></li>
+    <li><%= main_navigation_link_to "Services", services_path %></li>
+  </ul>
+</nav>
+
 <%# Configuration variable added to wrapper element because slimmer removes body attributes %>
 <%
    data = {
@@ -21,14 +33,14 @@
 %>
 <%= content_tag :div, id: "wrapper", data: data do %>
 
-  <header id="global">
-    <%= render :partial => "navigation" rescue nil %>
-  </header>
-  
-  <section id="content" class="group">
-    <%= yield %>
+  <main id="content" class="group">
+    <div class="performance-platform-outer">
+      <%= render :partial => "navigation" rescue nil%>
+      <%= yield %>
+    </div>
+
     <div id="report-a-problem"></div>
-  </section>
+  </main>
 <% end %>
 
 <%= javascript_include_tag 'vendor/require', data: { main: requirejs_main_path } %>

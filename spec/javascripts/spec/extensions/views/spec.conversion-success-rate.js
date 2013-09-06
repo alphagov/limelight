@@ -25,15 +25,15 @@ function (SuccessRateView, Collection) {
       it("returns a success rate fraction when both start and end values are available", function () {
         collection.reset([
           {
-            eventCategory: 'licensingUserJourney:end',
+            step: 'licensingUserJourney:end',
             uniqueEvents: 100
           },
           {
-            eventCategory: 'licensingUserJourney:downloadFormPage',
+            step: 'licensingUserJourney:downloadFormPage',
             uniqueEvents: 200
           },
           {
-            eventCategory: 'ignored',
+            step: 'ignored',
             uniqueEvents: 23
           }
         ]);
@@ -45,14 +45,37 @@ function (SuccessRateView, Collection) {
         expect(view.getValue()).toEqual(0.5);
       });
 
+      it("returns 0 when end value is 0", function () {
+        collection.reset([
+          {
+            step: 'licensingUserJourney:end',
+            uniqueEvents: 0
+          },
+          {
+            step: 'licensingUserJourney:downloadFormPage',
+            uniqueEvents: 200
+          },
+          {
+            step: 'ignored',
+            uniqueEvents: 23
+          }
+        ]);
+        var view = new SuccessRateView({
+          collection: collection,
+          startStep: 'licensingUserJourney:downloadFormPage',
+          endStep: 'licensingUserJourney:end'
+        });
+        expect(view.getValue()).toEqual(0);
+      });
+
       it("returns null when either start or end value are not available", function () {
         collection.reset([
           {
-            eventCategory: 'licensingUserJourney:end',
+            step: 'licensingUserJourney:end',
             uniqueEvents: 100
           },
           {
-            eventCategory: 'ignored',
+            step: 'ignored',
             uniqueEvents: 23
           }
         ]);
@@ -72,7 +95,7 @@ function (SuccessRateView, Collection) {
 
         jasmine.renderView(view, function () {
           expect(view.$el.html()).toEqual(
-            '<strong>23%</strong> average completion rate'
+            '<strong>23%</strong>'
           );
         });
       });

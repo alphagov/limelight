@@ -1,0 +1,59 @@
+<% content_for :title do %><%= transaction_title %> - FCO - Service performance - GOV.UK<% end %>
+
+<% @js_config = {
+	"controller"   => "fco/controllers/overview",
+	"service-name" => service_name,
+} %>
+
+<%= render(partial: "common/copy/dashboard_header", locals: {title: transaction_title, copy: explanatory_copy}) %>
+
+<% if Rails.application.config.feature_toggles[:show_fco_visitors_realtime] %>
+  <section>
+    <h1>Live digital service usage</h1>
+    <ul class="module-actions">
+      <li class="info">
+        <div>
+          <p>Data source: Google Analytics</p>
+          <p>Shows estimated number of users currently accessing the transaction online.</p>
+        </div>
+      </li>
+    </ul>
+    <h2>Users currently browsing the service</h2>
+    <div id="number-of-visitors-realtime"></div>
+  </section>
+<% end %>
+
+<section class="graph volumetrics">
+  <h1>Applications and digital completion rate</h1>
+  <ul class="module-actions">
+    <li class="info">
+      <div>
+        <p>Data source: Google Analytics (unique visitor numbers based on sampled data)</p>
+        <p>Application counts based on unique visitors to the final page of the transaction.</p>
+        <p>Completion rate calculated as percentage of unique visitors who arrived at the final page of the transaction out of those who arrived at the start page.</p>
+      </div>
+    </li>
+  </ul>
+  <h3>Applications</h3>
+  <p id="volumetrics-submissions-selected" class="impact-number"></p>
+  <figure class="graph timeseries-graph" id="volumetrics-submissions"></figure>
+  <h3>Completion rate</h3>
+  <p id="volumetrics-completion-selected" class="impact-number"></p>
+  <figure class="graph timeseries-graph" id="volumetrics-completion"></figure>
+</section>
+
+<section class="graph">
+  <h1>Submission drop-offs</h1>
+  <ul class="module-actions">
+    <li class="info">
+      <div>
+        <p>Data source: Google Analytics (unique visitor numbers based on sampled data)</p>
+        <p>Calculated as percentage of unique visitors who arrived at each stage out of those who started the transaction.</p>
+      </div>
+    </li>
+  </ul>
+  <h2>Percentages of unique visitors at each stage of the digital transaction <span class="group0">two weeks ago</span> compared with <span class="group1">last week</span></h2>
+  <figure class="graph conversion-graph" id="applications-conversion-graph"></figure>
+</section>
+
+<%= render(partial: "common/modules/availability") if Rails.application.config.feature_toggles[:show_fco_availability] %>

@@ -31,7 +31,7 @@ function (Line, Collection) {
         selectedGroup: collection.at(0),
         selectedGroupIndex: 0,
         selectedModel: { a: 1 },
-        selectedModelIndex: 2,
+        selectedModelIndex: 2
       });
       spyOn(Line.prototype, "onChangeSelected");
     });
@@ -64,12 +64,13 @@ function (Line, Collection) {
 
       it("renders paths for each group in the collection in reverse order with sections for each point in the timeseries", function() {
         var view = new Line({
+          interactive: false,
           wrapper: wrapper,
           collection: collection,
-          x: function (model, index, group, groupIndex) {
+          x: function (group, groupIndex, model, index) {
             return model.get('a') + index;
           },
-          y: function (model, index, group, groupIndex) {
+          y: function (group, groupIndex, model, index) {
             var attr = group.get('testAttr');
             return model.get(attr) + index;
           }
@@ -82,12 +83,13 @@ function (Line, Collection) {
 
       it("highlights the current selection", function () {
         var view = new Line({
+          interactive: false,
           wrapper: wrapper,
           collection: collection,
-          x: function (model, index, group, groupIndex) {
+          x: function (group, groupIndex, model, index) {
             return model.get('a') + index;
           },
-          y: function (model, index, group, groupIndex) {
+          y: function (group, groupIndex, model, index) {
             var attr = group.get('testAttr');
             return model.get(attr) + index;
           }
@@ -106,12 +108,13 @@ function (Line, Collection) {
       var view;
       beforeEach(function() {
         view = new Line({
+          interactive: false,
           wrapper: wrapper,
           collection: collection,
-          x: function (model, index, group, groupIndex) {
+          x: function (group, groupIndex, model, index) {
             return model.get('a') + index;
           },
-          y: function (model, index, group, groupIndex) {
+          y: function (group, groupIndex, model, index) {
             var attr = group.get('testAttr');
             return model.get(attr) + index;
           }
@@ -143,30 +146,33 @@ function (Line, Collection) {
       var view;
       beforeEach(function() {
         view = new Line({
+          interactive: false,
           wrapper: wrapper,
           collection: collection,
-          x: function (model) {
+          x: function (group, groupIndex, model, index) {
             return model.get('a');
           },
-          y: function (model) {
+          y: function (group, groupIndex, model, index) {
             return model.get('b');
           }
         });
       });
 
       it("calculates distance to an interpolated position between points and picks closest model", function () {
-        var res = view.getDistanceAndClosestModel(collection.at(0), {
+        var res = view.getDistanceAndClosestModel(collection.at(0), 0, {
           x: 2.5,
-          y: 10
+          y: -3
         });
         expect(res.dist).toEqual(6.5);
+        expect(res.diff).toEqual(-6.5);
         expect(res.index).toEqual(1);
 
-        var res = view.getDistanceAndClosestModel(collection.at(0), {
+        var res = view.getDistanceAndClosestModel(collection.at(0), 0, {
           x: 7,
           y: 8
         });
         expect(res.dist).toEqual(0);
+        expect(res.diff).toEqual(0);
         expect(res.index).toEqual(2);
       });
     });
@@ -176,12 +182,13 @@ function (Line, Collection) {
       var view;
       beforeEach(function() {
         view = new Line({
+          interactive: false,
           wrapper: wrapper,
           collection: collection,
-          x: function (model) {
+          x: function (group, groupIndex, model, index) {
             return model.get('a');
           },
-          y: function (model) {
+          y: function (group, groupIndex, model, index) {
             return model.get('b');
           }
         });

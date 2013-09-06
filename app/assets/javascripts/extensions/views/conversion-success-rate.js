@@ -11,15 +11,15 @@ function (View) {
 
       getValue: function () {
         var start = this.collection.where({
-          eventCategory: this.startStep
+          step: this.startStep
         });
         var end = this.collection.where({
-          eventCategory: this.endStep
+          step: this.endStep
         });
 
         var value = null;
-        if (start.length && end.length) {
-          value = end[0].get('uniqueEvents') / start[0].get('uniqueEvents') || null;
+        if (start.length && end.length && start[0].get('uniqueEvents') != 0) {
+          value = end[0].get('uniqueEvents') / start[0].get('uniqueEvents');
         }
 
         return value;
@@ -34,7 +34,7 @@ function (View) {
         this.$el.html([
           '<strong>',
           Math.round(value * 100),
-          '%</strong> average completion rate'
+          '%</strong>'
         ].join(''));
       }
 

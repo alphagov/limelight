@@ -1,30 +1,28 @@
-<% content_for :title do %>Licensing - Performance Platform - GOV.UK<% end %>
+<% content_for :title do %>Licensing - Service performance - GOV.UK<% end %>
 
 <% @js_config = { "controller" => "licensing/controllers/overview" } %>
 
 <header>
-  <p class="category-title">
-    <% if Settings.feature_toggles[:show_services] %>
-    <%= link_to "Services", services_path %>
-    <% else %>
-    <%= link_to "Performance Platform", '/performance' %>
-    <% end %>
-  </p>
-  <h1>Licensing performance <span class="tagline">(licences and authorities on GOV.UK only)</span></h1>
+  <h1>
+      <span class="strapline">Service performance</span>
+      Licensing
+      <span class="tagline">(licences and authorities on GOV.UK only)</span>
+  </h1>
 </header>
 
-<% if Settings.feature_toggles[:show_licensing_visitors_realtime] %>
+<% if Rails.application.config.feature_toggles[:show_licensing_visitors_realtime] %>
   <section>
     <h1>Live service usage</h1>
     <ul class="module-actions">
       <li class="info">
         <div>
+          <p>Data source: Google Analytics</p>
           <p>Shows estimated number of users currently accessing licensing pages.</p>
         </div>
       </li>
     </ul>
     <h2>Users actively browsing licensing pages now</h2>
-    <p id="number-of-visitors-realtime" class="impact-number"></p>
+    <div id="number-of-visitors-realtime"></div>
   </section>
 <% end %>
 
@@ -33,37 +31,38 @@
   <ul class="module-actions">
     <li class="info">
       <div>
-        <p>Data sources: GOV.UK licensing database</p>
+        <p>Data source: GOV.UK licensing database</p>
       </div>
     </li>
   </ul>
   <nav id="applications-nav"></nav>
   <h2>Total form submissions per week over the last 9 weeks</h2>
-  <figure class="graph applications-graph" id="total-applications"></figure>
+  <figure class="graph timeseries-graph" id="total-applications"></figure>
 </section>
 
-<% if Settings.feature_toggles[:show_licensing_overview_success_rate] %>
-  <section class="half-width">
+<% if Rails.application.config.feature_toggles[:show_licensing_overview_success_rate] %>
+  <section class="half-width row-start">
     <h1>Completion rate</h1>
     <ul class="module-actions">
       <li class="info">
         <div>
-          <p>Data sources: Google Analytics (unique visitors numbers based on sampled data)</p>
+          <p>Data source: Google Analytics (unique visitor numbers based on sampled data)</p>
           <p>Completion calculated as percentage of unique visitors who arrived at the done page out of those who arrived at the download form page.</p>
         </div>
       </li>
     </ul>
-    <h2>Completion rate for all submissions last month</h2>
+    <h2>Completion rate for all submissions for last week</h2>
     <p id="applications-success-rate" class="impact-number"></p>
+    <p class="stat-description">average completion rate</p>
   </section>
 <% end %>
 
-<section class="graph<% if Settings.feature_toggles[:show_licensing_overview_success_rate] %> half-width<% end %>">
+<section class="graph<% if Rails.application.config.feature_toggles[:show_licensing_overview_success_rate] %> half-width<% end %>">
   <h1>Submission drop-offs</h1>
   <ul class="module-actions">
     <li class="info">
       <div>
-        <p>Data sources: Google Analytics (unique visitors numbers based on sampled data)</p>
+        <p>Data source: Google Analytics (unique visitor numbers based on sampled data)</p>
         <p>Shows only those stages that are common across all licensing submissions (some licences have additional fee payment stages which are not included).</p>
         <p>Calculated as percentage of unique visitors who arrived at each stage out of those who arrived at the download form page.</p>
       </div>
@@ -73,12 +72,14 @@
   <figure class="graph conversion-graph" id="applications-conversion-graph"></figure>
 </section>
 
+<%= render(partial: "common/modules/availability") %>
+
 <section>
   <h1>Top licences last week</h1>
   <ul class="module-actions">
     <li class="info">
       <div>
-        <p>Data sources: GOV.UK licensing database</p>
+        <p>Data source: GOV.UK licensing database</p>
         <p>Top licences sorts submissions per licence in the past week by submission volume. Those with the highest submission volume are included in the table.</p>
       </div>
     </li>
@@ -93,7 +94,7 @@
   <ul class="module-actions">
     <li class="info">
       <div>
-        <p>Data sources: GOV.UK licensing database</p>
+        <p>Data source: GOV.UK licensing database</p>
         <p>Top authorities sorts submissions per authority in the past week by submission volume. Those with the highest submission volume are included in the table.</p>
       </div>
     </li>
@@ -102,4 +103,3 @@
   <article class="top5-table-wrapper" id="top5-authorities-table"></article>
   <p><%= link_to "See all authorities", :action => "authorities" %></p>
 </section>
-

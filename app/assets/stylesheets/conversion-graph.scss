@@ -1,8 +1,15 @@
 @import 'typography';
 
-.conversion-graph {
-    max-width: 954px;
+.graph {
+  .conversion-graph {
     max-height: 200px;
+    min-height: 100px;
+  }
+}
+.conversion-graph {
+    &:hover {
+      max-height: 300px;
+    }
 
     .x-axis {
       .selected text {
@@ -28,7 +35,7 @@
 
     .bar {
       text {
-        @include core-19;
+        @include core-19($tabular-numbers: true) ;
       }
 
       rect {
@@ -144,15 +151,9 @@
 }
 
 @media (max-width: 640px) {
-  
   .half-width .conversion-graph {
     max-width: 954px;
-    max-height: 300px;
-    .arrow {
-      display:none;
-    }
   }
-
 }
 
 

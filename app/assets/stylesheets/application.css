@@ -11,18 +11,22 @@
  */
 
  /*
+ = require change
  = require legacy
  = require layout
  = require typography
  = require nav
  = require table
  = require graph
- = require applications-graph
+ = require licensing
  = require conversion-graph
+ = require volumetrics-availability
  = require applicationstable
  = require top5table
  = require filteredlist
  = require tabs
  = require module-actions
  = require impact-number
+ = require tooltip
+ = require vehicle-licensing
  */

@@ -1,12 +1,13 @@
-<% content_for :title do %>Authorities - Performance Platform - GOV.UK<% end %>
+<% content_for :title do %>Authorities - Licensing performance - GOV.UK<% end %>
 <% @js_config = { "controller" => "licensing/controllers/authorities" } %>
 
 <header>
-  <p class="category-title"><%= link_to "Licensing performance", :action => "index" %></p>
-  <h1>Authorities <span class="tagline">(authorities on GOV.UK only)</span></h1>
+  <h1>
+      <span class="strapline">Licensing performance</span>
+      Authorities
+      <span class="tagline">(authorities on GOV.UK only)</span>
+  </h1>
 </header>
-
-<h2>Licensing authorities on GOV.UK</h2>
 
 <div id="filter-wrapper"></div>
 

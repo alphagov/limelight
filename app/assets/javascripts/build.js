@@ -2,13 +2,19 @@
   name: "main",
 
   deps: [
-    "licensing/controllers/preprocessors/module_touch_actions",
-    "licensing/controllers/preprocessors/partial_experience_warning",
+    "common/controllers/services",
+    "fco/controllers/overview",
+    "hmrc/controllers/overview",
     "licensing/controllers/authorities",
     "licensing/controllers/licences",
     "licensing/controllers/overview",
     "licensing/controllers/per_authority",
-    "licensing/controllers/per_licence"
+    "licensing/controllers/per_licence",
+    "common/preprocessors/module_touch_actions",
+    "common/preprocessors/partial_experience_warning",
+    "lpa/controllers/overview",
+    "vehicle-licensing/controllers/overview",
+    "vehicle-licensing/controllers/vehicle-licensing-service"
   ],
 
   out: "production.js",

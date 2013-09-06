@@ -1,0 +1,105 @@
+@import 'typography';
+
+.failures {
+
+  ul.module-actions {
+    margin-top:-36px;
+    margin-bottom: 44px;
+  }
+  
+  .failures-table {
+
+    th, td {
+      white-space: normal;
+    }
+
+    th.count,
+    td.count {
+      width: 9em;
+    }
+
+    th.fraction,
+    td.fraction {
+      width: 9em;
+    }
+
+    th.change,
+    td.change {
+      width: 10em;
+    }
+  }
+}
+
+.digital-takeup {
+  ul.module-actions {
+    margin-top:-36px;
+    margin-bottom: 44px;
+  }
+
+  p.impact-number {
+    float:left;
+  }
+
+  .graph {
+    margin-left: 12.5em;
+    min-height: 135px;
+    max-height: 200px;
+
+    margin-right:-30px;
+    .inner {
+      left: 65px;
+      right:30px;
+    }
+    .cursorLine {
+      display: none;
+    }
+  }
+}
+
+#customer-satisfaction {
+
+  position: relative;
+
+  .previous-month {
+    position: absolute;
+    bottom: 0;
+    left: 16em;
+  }
+
+  .change {
+    @include core-24($tabular-numbers: true) ;
+  }
+
+  @media (max-width: 850px) {
+    p.impact-number strong {
+      @include bold-48($tabular-numbers: true);
+    }
+    .previous-month {
+      left: 11em;
+
+      .change {
+        @include core-19($tabular-numbers: true);
+      }
+    }
+  }
+
+  @media (max-width: 640px) {
+    p.impact-number strong {
+      // Revert back to default impact number size for small screen sizes.
+      // GOV.UK frontend toolkit rule decreases font size automatically
+      // for small screens.
+      @include bold-80($tabular-numbers: true);
+    }
+
+    .previous-month {
+      p {
+        margin-bottom: 0;
+      }
+
+      .change {
+        @include core-24($tabular-numbers: true);
+      }
+    }
+  }
+
+}

@@ -1,8 +1,9 @@
 define([
   'extensions/views/view',
+  'extensions/models/model',
   'backbone'
 ],
-function (View, Backbone) {
+function (View, Model, Backbone) {
   describe("View", function() {
     it("inherits from Backbone.View", function() {
       var view = new View();
@@ -157,6 +158,20 @@ function (View, Backbone) {
         expect(formatNumericLabel(499)).toBe('499');
       });
 
+      it("should display real numbers from 0 to 9.99 with two decimal digits", function() {
+        expect(formatNumericLabel(0.00123)).toBe('0');
+        expect(formatNumericLabel(0.123)).toBe('0.12');
+        expect(formatNumericLabel(1.234)).toBe('1.23');
+        expect(formatNumericLabel(9.994)).toBe('9.99');
+        expect(formatNumericLabel(9.996)).toBe('10');
+      });
+
+      it("should display real numbers from 10 to 99.9 with one decimal digits", function() {
+        expect(formatNumericLabel(12.34)).toBe('12.3');
+        expect(formatNumericLabel(99.94)).toBe('99.9');
+        expect(formatNumericLabel(99.96)).toBe('100');
+      });
+
       it("should display numbers from 500 to 499499 as fractions of 1k", function() {
         expect(formatNumericLabel(500)).toBe('0.50k');
         expect(formatNumericLabel(777)).toBe('0.78k');
@@ -187,6 +202,15 @@ function (View, Backbone) {
         expect(formatNumericLabel(100000000)).toBe('100m');
         expect(formatNumericLabel(234568234)).toBe('235m');
         expect(formatNumericLabel(499499499)).toBe('499m');
+      });
+
+      it("should format negative numbers", function() {
+        expect(formatNumericLabel(-0.001)).toBe('0');
+        expect(formatNumericLabel(-0.123)).toBe('-0.12');
+        expect(formatNumericLabel(-1.234)).toBe('-1.23');
+        expect(formatNumericLabel(-12.34)).toBe('-12.3');
+        expect(formatNumericLabel(-123.4)).toBe('-123');
+        expect(formatNumericLabel(-1234)).toBe('-1.23k');
       });
 
       describe("generative tests", function() {
@@ -237,6 +261,123 @@ function (View, Backbone) {
           expect(formatNumericLabel(9099000)).toBe("9.10m");
           expect(formatNumericLabel(1009900)).toBe("1.01m");
         })
+      });
+    });
+
+    describe("formatPercentage", function () {
+      var format = View.prototype.formatPercentage;
+
+      it("formats a number as percentage string with no decimals", function () {
+        expect(format(0.011)).toEqual('1%');
+        expect(format(1)).toEqual('100%');
+      });
+
+      it("formats a number as percentage string with set number of decimals", function () {
+        expect(format(0.011, 2)).toEqual('1.10%');
+        expect(format(1, 2)).toEqual('100.00%');
+      });
+
+      it("does not try to format invalid inputs", function () {
+        expect(format(null)).toBe(null);
+        expect(format(undefined)).toBe(undefined);
+        expect(isNaN(format(NaN))).toBe(true);
+        expect(format('foo')).toBe('foo');
+      });
+    });
+
+    describe("formatPeriod", function () {
+      var format = View.prototype.formatPeriod;
+      var moment = Model.prototype.moment;
+
+      it("formats single days", function () {
+        var model = new Model({
+          _start_at: moment('2013-08-19'),
+          _end_at: moment('2013-08-20')
+        });
+        expect(format(model, 'week')).toEqual('19 Aug 2013');
+        expect(format(model, 'day')).toEqual('19 Aug 2013');
+      });
+
+      it("formats as single days when there is no end date defined", function () {
+        var model = new Model({
+          _start_at: moment('2013-08-19')
+        });
+        expect(format(model, 'week')).toEqual('19 Aug 2013');
+        expect(format(model, 'day')).toEqual('19 Aug 2013');
+      });
+
+      it("formats daily date periods mid-month", function () {
+        var model = new Model({
+          _start_at: moment('2013-08-19'),
+          _end_at: moment('2013-08-26')
+        });
+        expect(format(model, 'week')).toEqual('19 to 25 Aug 2013');
+        expect(format(model, 'day')).toEqual('19 to 25 Aug 2013');
+      });
+
+      it("formats daily date periods across month boundaries", function () {
+        var model = new Model({
+          _start_at: moment('2013-08-26'),
+          _end_at: moment('2013-09-02')
+        });
+        expect(format(model, 'week')).toEqual('26 Aug to 1 Sep 2013');
+        expect(format(model, 'day')).toEqual('26 Aug to 1 Sep 2013');
+      });
+
+      it("formats as single month when there is no end date defined", function () {
+        var model = new Model({
+          _start_at: moment('2013-08-01')
+        });
+        expect(format(model, 'month')).toEqual('August 2013');
+      });
+
+      it("formats monthly date periods for a single month", function () {
+        var model = new Model({
+          _start_at: moment('2013-08-01'),
+          _end_at: moment('2013-09-01')
+        });
+        expect(format(model, 'month')).toEqual('August 2013');
+      });
+
+      it("formats monthly date periods across months", function () {
+        var model = new Model({
+          _start_at: moment('2013-08-01'),
+          _end_at: moment('2013-10-01')
+        });
+        expect(format(model, 'month')).toEqual('Aug to Sep 2013');
+      });
+
+      it("formats monthly date periods across years", function () {
+        var model = new Model({
+          _start_at: moment('2013-08-01'),
+          _end_at: moment('2014-02-01')
+        });
+        expect(format(model, 'month')).toEqual('Aug 2013 to Jan 2014');
+      });
+    });
+
+    describe("pluralise", function () {
+      var pluralise = View.prototype.pluralise;
+
+      it("displays a string as singular when there is exactly one thing", function () {
+        expect(pluralise('foo', 1)).toEqual('foo');
+      });
+
+      it("displays a string as plural when there is no thing", function () {
+        expect(pluralise('foo', 0)).toEqual('foos');
+        expect(pluralise('foo', null)).toEqual('foos');
+        expect(pluralise('foo')).toEqual('foos');
+      });
+
+      it("displays a string as plural when there are multiple things", function () {
+        expect(pluralise('foo', 2)).toEqual('foos');
+        expect(pluralise('foo', 3)).toEqual('foos');
+        expect(pluralise('foo', 0.8)).toEqual('foos');
+      });
+
+      it("supports irregular pluralisation", function () {
+        expect(pluralise('foo', 1, 'fooos')).toEqual('foo');
+        expect(pluralise('foo', 2, 'fooos')).toEqual('fooos');
       });
     });
 

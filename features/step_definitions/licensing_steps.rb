@@ -20,3 +20,6 @@ Then(/^there should be (\d+) authorities$/) do |num_authorities|
   page.all("#authorities-list li").count.should == num_authorities.to_i
 end
 
+Given(/^Limelight is running$/) do
+  #empty
+end

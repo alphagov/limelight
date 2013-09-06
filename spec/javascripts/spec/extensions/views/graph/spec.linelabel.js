@@ -1,6 +1,6 @@
 define([
   'extensions/views/graph/linelabel',
-  'extensions/collections/collection'
+  'extensions/collections/graphcollection'
 ],
 function (LineLabel, Collection) {
   
@@ -9,15 +9,22 @@ function (LineLabel, Collection) {
 
       var el, wrapper, lineLabel, collection;
       beforeEach(function() {
-        collection = new Collection([
-          { y: 30, yLabel: 30, title: 'Title 1', id: 'id1' },
-          { y: 80, yLabel: 80, title: 'Title 2', id: 'id2' }
-        ]);
+        collection = new Collection();
+        collection.reset([
+          { y: 30, yLabel: 30, title: 'Title 1', id: 'id1', href: '/link1', values: [
+            { _count: 10 }, { _count: 20 }, { _count: 30, _start_at: moment('2013-08-26'), _end_at: moment('2013-09-02') }
+          ] },
+          { y: 80, yLabel: 80, title: 'Title 2', id: 'id2', href: '/link2', values: [
+            { _count: 60 }, { _count: 70 }, { _count: 80, _start_at: moment('2013-08-26'), _end_at: moment('2013-09-02') }
+          ] }
+        ], {parse: true});
 
         el = $('<div></div>').appendTo($('body'));
         wrapper = LineLabel.prototype.d3.select(el[0]).append('svg').append('g');
 
         lineLabel = new LineLabel({
+          interactive: false,
+          showSquare: false,
           collection: collection
         });
         lineLabel.wrapper = wrapper;
@@ -25,7 +32,8 @@ function (LineLabel, Collection) {
         lineLabel.linePaddingInner = 20;
         lineLabel.linePaddingOuter = 30;
         lineLabel.graph = {
-          innerWidth: 400
+          innerWidth: 400,
+          valueAttr: '_count'
         };
         lineLabel.margin = {
           top: 100,
@@ -34,8 +42,8 @@ function (LineLabel, Collection) {
           left: 400
         };
         lineLabel.positions = [
-          { ideal: 30, min: 30 },
-          { ideal: 80, min: 80 }
+          { ideal: 30, min: 30, size: 20 },
+          { ideal: 80, min: 80, size: 30 }
         ];
         spyOn(lineLabel, "setLabelPositions");
       });
@@ -84,10 +92,174 @@ function (LineLabel, Collection) {
           expect(label2.select('text').text()).toEqual('Title 2');
           expect(label2.select('rect').attr('class')).toMatch('id2');
           expect(label2.select('rect').attr('class')).toMatch('square1');
-          expect(label1.select('rect').attr('x')).toEqual('0');
-          expect(label1.select('rect').attr('y')).toEqual('-10');
-          expect(label1.select('rect').attr('width')).toEqual('20');
-          expect(label1.select('rect').attr('height')).toEqual('20');
+          expect(label2.select('rect').attr('x')).toEqual('0');
+          expect(label2.select('rect').attr('y')).toEqual('-10');
+          expect(label2.select('rect').attr('width')).toEqual('20');
+          expect(label2.select('rect').attr('height')).toEqual('20');
+        });
+
+        it("does not render links by default", function () {
+          lineLabel.render();
+          expect(lineLabel.$el.find('.label-link').length).toEqual(0);
+        });
+
+        it("renders links at the correct position when enabled", function () {
+          lineLabel.attachLinks = true;
+          lineLabel.render();
+          var links = lineLabel.$el.find('.label-link');
+          expect(links.length).toEqual(2);
+
+          expect(links.eq(0).prop('style').top).toEqual('130px');
+          expect(links.eq(0).prop('style').height).toEqual('20px');
+          expect(links.eq(0).prop('style').left).toEqual('800px');
+          expect(links.eq(0).prop('style').width).toEqual('200px');
+          expect(links.eq(0).attr('href')).toEqual('/link1');
+
+          expect(links.eq(1).prop('style').top).toEqual('180px');
+          expect(links.eq(1).prop('style').height).toEqual('30px');
+          expect(links.eq(1).prop('style').left).toEqual('800px');
+          expect(links.eq(1).prop('style').width).toEqual('200px');
+          expect(links.eq(1).attr('href')).toEqual('/link2');
+        });
+
+        it("renders a label with additional value text when enabled", function () {
+          lineLabel.showValues = true;
+          lineLabel.render();
+
+          var labels = wrapper.select('.labels');
+          expect(labels.attr('transform')).toEqual('translate(500, 0)');
+          var label1 = labels.select('g:nth-child(1)');
+          var label2 = labels.select('g:nth-child(2)');
+          expect(label1.select('line').length).toEqual(1);
+          expect(label1.select('text.title').attr('transform')).toEqual('translate(0, 6)');
+          expect(label1.select('text.title').text()).toEqual('Title 1');
+          expect(label1.select('text.value').attr('transform')).toEqual('translate(0, 22)');
+          expect(label1.select('text.value').text()).toEqual('60');
+          expect(label2.select('line').length).toEqual(1);
+          expect(label2.select('text.title').attr('transform')).toEqual('translate(0, 6)');
+          expect(label2.select('text.title').text()).toEqual('Title 2');
+          expect(label2.select('text.value').attr('transform')).toEqual('translate(0, 22)');
+          expect(label2.select('text.value').text()).toEqual('210');
+        });
+
+        it("renders a label with additional value text and percentage when enabled", function () {
+          lineLabel.showValues = true;
+          lineLabel.showValuesPercentage = true;
+          lineLabel.render();
+
+          var labels = wrapper.select('.labels');
+          expect(labels.attr('transform')).toEqual('translate(500, 0)');
+          var label1 = labels.select('g:nth-child(1)');
+          var label2 = labels.select('g:nth-child(2)');
+          expect(label1.select('line').length).toEqual(1);
+          expect(label1.select('text.title').attr('transform')).toEqual('translate(0, 6)');
+          expect(label1.select('text.title').text()).toEqual('Title 1');
+          expect(label1.select('text.value').attr('transform')).toEqual('translate(0, 22)');
+          expect(label1.select('text.value').text()).toEqual('60 (22%)');
+          expect(label2.select('line').length).toEqual(1);
+          expect(label2.select('text.title').attr('transform')).toEqual('translate(0, 6)');
+          expect(label2.select('text.title').text()).toEqual('Title 2');
+          expect(label2.select('text.value').attr('transform')).toEqual('translate(0, 22)');
+          expect(label2.select('text.value').text()).toEqual('210 (78%)');
+        });
+
+
+        it("renders a summary label when enabled", function () {
+          lineLabel.showSummary = true;
+          lineLabel.showValues = true;
+          lineLabel.showValuesPercentage = true;
+          lineLabel.render();
+
+          var labels = wrapper.select('.labels');
+          var label1 = labels.select('g:nth-child(1)');
+          var label2 = labels.select('g:nth-child(2)');
+          var label3 = labels.select('g:nth-child(3)');
+          expect(label1.attr('class')).toContain('summary');
+          expect(label1.select('line').length).toEqual(1);
+          expect(label1.select('text.title').attr('transform')).toEqual('translate(0, 6)');
+          expect(label1.select('text.title').text()).toEqual('Total');
+          expect(label1.select('text.value').attr('transform')).toEqual('translate(0, 22)');
+          expect(label1.select('text.value').text()).toEqual('270 (100%)');
+          expect(label2.select('line').length).toEqual(1);
+          expect(label2.select('text.title').attr('transform')).toEqual('translate(0, 6)');
+          expect(label2.select('text.title').text()).toEqual('Title 1');
+          expect(label2.select('text.value').attr('transform')).toEqual('translate(0, 22)');
+          expect(label2.select('text.value').text()).toEqual('60 (22%)');
+          expect(label3.select('line').length).toEqual(1);
+          expect(label3.select('text.title').attr('transform')).toEqual('translate(0, 6)');
+          expect(label3.select('text.title').text()).toEqual('Title 2');
+          expect(label3.select('text.value').attr('transform')).toEqual('translate(0, 22)');
+          expect(label3.select('text.value').text()).toEqual('210 (78%)');
+        });
+
+        it("does not render a time period label by default", function () {
+          lineLabel.render();
+          expect(lineLabel.$el.find('figcaption.timeperiod').length).toEqual(0);
+        });
+
+        it("renders a time period label when enabled", function () {
+          lineLabel.showTimePeriod = true;
+          lineLabel.render();
+          expect(lineLabel.$el.find('figcaption.timeperiod').length).toEqual(1);
+          expect(lineLabel.$el.find('figcaption.timeperiod')).toHaveHtml('Last 3 weeks')
+        });
+
+      });
+
+      describe("event handling", function () {
+        var el, wrapper, lineLabel, options;
+        beforeEach(function() {
+
+          el = $('<div></div>').appendTo($('body'));
+          wrapper = LineLabel.prototype.d3.select(el[0]).append('svg').append('g');
+          options = {
+            wrapper: wrapper,
+            collection: collection,
+            interactive: false,
+            attachLinks: true,
+            graph: {
+              innerWidth: 400
+            },
+            margin: {
+              top: 100,
+              right: 200,
+              bottom: 300,
+              left: 400
+            },
+            positions: [
+              { ideal: 30, min: 30, size: 20 },
+              { ideal: 80, min: 80, size: 30 }
+            ]
+          }
+          spyOn(LineLabel.prototype, "setLabelPositions");
+        });
+
+        afterEach(function() {
+          el.remove();
+        });
+
+        describe("events", function () {
+          it("listens for mousemove events for links on non-touch devices", function () {
+            LineLabel.prototype.modernizr = { touch: false };
+            lineLabel = new LineLabel(options);
+            lineLabel.render();
+            lineLabel.$el.find('.label-link').eq(0).trigger('mousemove');
+            expect(collection.selectedIndex).toBe(0);
+
+            $('body').trigger('mousemove');
+            expect(collection.selectedIndex).toBe(null);
+          });
+
+          it("listens for touchstart events for links on touch devices", function () {
+            LineLabel.prototype.modernizr = { touch: true };
+            lineLabel = new LineLabel(options);
+            lineLabel.render();
+            lineLabel.$el.find('.label-link').eq(1).trigger('touchstart');
+            expect(collection.selectedIndex).toBe(1);
+
+            $('body').trigger('touchstart');
+            expect(collection.selectedIndex).toBe(null);
+          });
         });
       });
 
@@ -104,6 +276,34 @@ function (LineLabel, Collection) {
           lineLabel.onChangeSelected(null, null);
           expect(labels.select('g:nth-child(1)').attr('class').indexOf('selected')).toBe(-1);
           expect(labels.select('g:nth-child(2)').attr('class').indexOf('selected')).toBe(-1);
+        });
+
+        it("displays the values for the current selection", function () {
+          lineLabel.showValues = true;
+          lineLabel.showValuesPercentage = true;
+          lineLabel.showSummary = true;
+          lineLabel.showTimePeriod = true;
+          lineLabel.render();
+
+          var labels = wrapper.select('.labels');
+          var summary = labels.select('g:nth-child(1)');
+          var label1 = labels.select('g:nth-child(2)');
+          var label2 = labels.select('g:nth-child(3)');
+
+          var models = collection.map(function (group) {
+            return group.get('values').at(1);
+          });
+          collection.selectItem(null, 2);
+          expect(summary.select('text.value').text()).toEqual('110 (100%)');
+          expect(label1.select('text.value').text()).toEqual('30 (27%)');
+          expect(label2.select('text.value').text()).toEqual('80 (73%)');
+          expect(lineLabel.$el.find('figcaption.timeperiod')).toHaveHtml('26 Aug to 1 Sep 2013')
+
+          collection.selectItem(null, null);
+          expect(summary.select('text.value').text()).toEqual('270 (100%)');
+          expect(label1.select('text.value').text()).toEqual('60 (22%)');
+          expect(label2.select('text.value').text()).toEqual('210 (78%)');
+          expect(lineLabel.$el.find('figcaption.timeperiod')).toHaveHtml('Last 3 weeks')
         });
       });
 
@@ -131,25 +331,24 @@ function (LineLabel, Collection) {
 
     });
 
-
     describe("setLabelPositions", function() {
-      var el, wrapper, lineLabel;
+      var el, wrapper, lineLabel, graph;
       beforeEach(function() {
         var collection = new Collection([
           {
             id: 'a',
             values: new Collection([
-              { _count: 1 },
-              { _count: 4 },
-              { _count: 7 }
+              { _count: 1, alternative: 8 },
+              { _count: 4, alternative: 5 },
+              { _count: 7, alternative: 2 }
             ])
           },
           {
             id: 'b',
             values: new Collection([
-              { _count: 2 },
-              { _count: 5 },
-              { _count: 8 }
+              { _count: 2, alternative: 9 },
+              { _count: 5, alternative: 6 },
+              { _count: 8, alternative: 3 }
             ])
           }
         ]);
@@ -158,18 +357,31 @@ function (LineLabel, Collection) {
         yScale.plan = function (val) {
           return val * val;
         };
+        graph = {
+          valueAttr: '_count',
+          innerWidth: 100,
+          innerHeight: 100,
+          getYPos: function (groupIndex, modelIndex) {
+            return collection.at(groupIndex).get('values').at(modelIndex).get(graph.valueAttr);
+          },
+          getY0Pos: function (groupIndex, modelIndex) {
+            if (groupIndex > 0) {
+              return collection.at(groupIndex - 1).get('values').at(modelIndex).get(graph.valueAttr);
+            } else {
+              return 0;
+            }
+          }
+        };
         lineLabel = new LineLabel({
           scales: {
             y: yScale
           },
+          interactive: false,
           collection: collection,
           offset: 100,
           linePaddingInner: 20,
           linePaddingOuter: 30,
-          graph: {
-            innerWidth: 100,
-            innerHeight: 100
-          }
+          graph: graph
         });
 
         el = $('<div></div>').appendTo($('body'));
@@ -183,7 +395,8 @@ function (LineLabel, Collection) {
       });
 
       it("positions labels vertically so they do not collide and snaps to half pixels to avoid antialiasing", function() {
-        wrapper.selectAll('text').each(function (metaModel) {
+        lineLabel.applyConfig('overlay');
+        wrapper.selectAll('g').each(function (metaModel) {
           spyOn(this, "getBBox").andReturn({
             height: 20
           });
@@ -197,13 +410,44 @@ function (LineLabel, Collection) {
         var startPositions = lineLabel.calcPositions.argsForCall[0][0];
         expect(lineLabel.scales.y).toHaveBeenCalledWith(7);
         expect(startPositions[0]).toEqual({
-          ideal: 49, // yScale was applied to last element in line 'a'
+          ideal: 49, // yScale was applied to '_count' attribute of last element in line 'a'
           size: 20,
           id: 'a'
         });
         expect(lineLabel.scales.y).toHaveBeenCalledWith(8);
         expect(startPositions[1]).toEqual({
-          ideal: 64, // yScale was applied to last element in line 'b'
+          ideal: 64, // yScale was applied to '_count' attribute of last element in line 'b'
+          size: 20,
+          id: 'b'
+        });
+
+        expect(wrapper.select('g:nth-child(1)').attr('transform')).toEqual('translate(0, 20.5)');
+        expect(wrapper.select('g:nth-child(2)').attr('transform')).toEqual('translate(0, 30.5)');
+      });
+
+      it("positions labels closest to the centre of the area in stack configuration", function() {
+        lineLabel.applyConfig('stack');
+        wrapper.selectAll('g').each(function (metaModel) {
+          spyOn(this, "getBBox").andReturn({
+            height: 20
+          });
+        });
+        spyOn(lineLabel, "calcPositions").andReturn([
+          { min: 20 },
+          { min: 30 }
+        ]);
+        lineLabel.setLabelPositions(wrapper.selectAll('g'));
+        expect(lineLabel.calcPositions).toHaveBeenCalled();
+        var startPositions = lineLabel.calcPositions.argsForCall[0][0];
+        expect(lineLabel.scales.y).toHaveBeenCalledWith(3.5);
+        expect(startPositions[0]).toEqual({
+          ideal: 12.25, // centre of first area
+          size: 20,
+          id: 'a'
+        });
+        expect(lineLabel.scales.y).toHaveBeenCalledWith(7.5);
+        expect(startPositions[1]).toEqual({
+          ideal: 56.25, // centre of second area
           size: 20,
           id: 'b'
         });
@@ -217,6 +461,7 @@ function (LineLabel, Collection) {
       var el, wrapper, lineLabel;
       beforeEach(function() {
         lineLabel = new LineLabel({
+          interactive: false,
           collection: {
             on: jasmine.createSpy()
           }
@@ -308,6 +553,7 @@ function (LineLabel, Collection) {
       var line;
       beforeEach(function() {
         line = new LineLabel({
+          interactive: false,
           collection: {
             on: jasmine.createSpy()
           }

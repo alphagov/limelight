@@ -1,14 +1,16 @@
 @import 'typography';
 
 p.impact-number {
-  @include core-19;
-  color:$primary-colour;
-  & strong {
-    @include bold-80;
-    font-size:120px;
-    font-size:12rem;
-    font-family: ntatabularnumbers, nta, Arial, sans-serif;
-    margin-bottom:-.1em;
-    display:block
+  margin-bottom: 4px;
+
+  strong {
+    color: $primary-colour;
+    @include bold-80($tabular-numbers: true) ;
+    margin-bottom: -.1em;
+    display: block;
   }
+}
+
+p.stat-description {
+  margin-top: 0.1em;
 }

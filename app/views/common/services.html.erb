@@ -2,7 +2,6 @@
 <% @js_config = { "controller" => "common/controllers/services" } %>
 
 <header>
-  <p class="category-title"><%= link_to "Performance Platform", '/performance' %></p>
   <h1>Services</h1>
   <h2>Services integrated with the Performance Platform</h2>
 </header>
@@ -17,11 +16,31 @@
 
   <dl>
     <% @services.each do |letter, group| %>
-    <dt><%= letter.upcase %></dt>
+    <dt><%= letter %></dt>
     <dd>
       <ol>
         <% group.each do |service| %>
-        <li><%= link_to service[:name], service[:path] %></li>
+        <li><%= link_to service.name, dashboard_path(service.slug) %></li>
+        <% end %>
+      </ol>
+    </dd>
+    <% end %>
+  </dl>
+</section>
+
+<section id="service-groups-list" class="entity-type">
+  <header>
+    <h2>Service groups</h2>
+    <p class="count"><%= @num_service_groups %></p>
+  </header>
+
+  <dl>
+    <% @service_groups.each do |letter, group| %>
+    <dt><%= letter %></dt>
+    <dd>
+      <ol>
+        <% group.each do |service| %>
+        <li><%= link_to service.name, dashboard_path(service.slug) %></li>
         <% end %>
       </ol>
     </dd>
