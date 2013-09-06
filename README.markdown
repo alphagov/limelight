@@ -50,8 +50,12 @@ java -jar selenium-server-standalone-2.33.0.jar
 Run the tests:
 - `BROWSER_NAME`: eg. firefox, ie, chrome, safari
 - `DRIVER_HOST`: The IP address of the host running the selenium server.
+- `APP_HOST`: The host name where the app server is already running.
+- `APP_HOST_IP`: The IP address where the app server will be run.
 
-    BROWSER_NAME=firefox DRIVER_HOST=10.0.2.2 bundle exec cucumber -p selenium
+Use *either* `APP_HOST` or `APP_HOST_IP`.
+
+    APP_HOST_IP=10.0.0.1 BROWSER_NAME=firefox DRIVER_HOST=10.0.2.2 bundle exec cucumber -p selenium
 
 
 **Cucumber tests through Sauce:**

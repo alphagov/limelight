@@ -12,10 +12,14 @@ if ENV["CUCUMBER_PROFILE"] == 'selenium'
   browser_platform = ENV["BROWSER_PLATFORM"]
   browser_version = ENV["BROWSER_VERSION"]
 
-  app_host = ENV["APP_HOST"] || 'http://limelight.dev.gov.uk'
+  if ENV["APP_HOST"]
+    Capybara.app_host = ENV["APP_HOST"]
+    Capybara.run_server = false
+  else
+    Capybara.app_host = "http://#{ENV["APP_HOST_IP"]}:49221"
+    Capybara.server_port = 49221
+  end
 
-  Capybara.app_host = app_host
-  Capybara.run_server = false
 
   capabilities = {
     :browser_name => browser_name
