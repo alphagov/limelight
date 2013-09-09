@@ -12,11 +12,13 @@ env:
     - secure: "POCDb9nm0jgXCeRMqz2Ul+KPmZAQpve0IxFL0WQ1Ad9RxiK8rQzRkoHnc1RY\ntFDYN9x5EpQbIn1wmOPLEMZhMp0uibtlraSeYSYwoIVpbK2A5jZ1r83x5PEY\n/TzM2A8eun0nQWm/xwwC6cx2jiuhWZ/nw8ODCb0ln9QXKIhgPvc="
     - secure: "GH6Kx/tbkr5VqWsOAJjdsDC+bwFr6A5yZ05hhJIbRLyNT+h4aGIkNXqMOSQ9\nxtXUM/2nxGEQ+YizUcawUGs9XlvhUTCyy9pl/XcaiZ5WCaNkviZfTJWmQ8pQ\nM2mS9NZcWt9G3ZT/yv1ZWEE/SCRHuvDfhSLApbGcNYLULrPRZwc="
     - GOVUK_ASSET_HOST='https://static.production.alphagov.co.uk'
-    - BROWSER='windows xp,firefox'
-    - USE_TUNNEL=1
+    - RUN_SERVER=true
+    - APP_HOST='http://127.0.0.1:49221'
     - CAPYBARA_WAIT_TIME=30
+before_script:
+  - curl https://gist.github.com/santiycr/5139565/raw/sauce_connect_setup.sh | bash
 script:
   - bundle exec rake test:all --trace
-  - bundle exec cucumber -p sauce
+  - bundle exec rake sauce:cucumber
 notifications:
   email: false
