@@ -8,6 +8,11 @@ namespace :sauce do
       report_dir = "reports"
       FileUtils::mkdir_p(report_dir)
     end
+
+
+    if ENV["RUN_SERVER"]
+      Rake::Task[ "dev:rails:start" ].execute
+    end
     
     path = Rails.root.join("config", "sauce_browser_matrix.json")
     @browsers = JSON.parse(IO.read(path))
@@ -40,6 +45,11 @@ namespace :sauce do
         puts "Failed: #{browser.join('_')}"
       end
     end
+
+    if ENV["RUN_SERVER"]
+      Rake::Task[ "dev:rails:stop" ].execute
+    end
+    
   end
 
   Cucumber::Rake::Task.new(:'run_browser_tests')
