@@ -10,7 +10,7 @@ namespace :sauce do
     path = Rails.root.join("config", "sauce_browser_matrix.json")
     @browsers = JSON.parse(IO.read(path))
 
-    Parallel.map(@browsers, :in_threads => @browsers.size) do |browser|
+    Parallel.map(@browsers, :in_threads => 1) do |browser|
       begin
 
         options = browser.pop if browser.length >= 4
