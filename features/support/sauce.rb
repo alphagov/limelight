@@ -1,5 +1,4 @@
 if ENV["CUCUMBER_PROFILE"] == 'sauce'
-  puts "Using sauce"
 
   require 'sauce/utilities'
   require 'sauce/capybara'

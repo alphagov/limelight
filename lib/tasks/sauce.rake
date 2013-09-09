@@ -4,8 +4,10 @@ require 'parallel'
 namespace :sauce do
   desc "Run all features against all browsers in parallel"
   task :cucumber => :environment do
-    report_dir = "reports"
-    FileUtils::mkdir_p(report_dir)
+    if ENV["SAVE_REPORTS"]
+      report_dir = "reports"
+      FileUtils::mkdir_p(report_dir)
+    end
     
     path = Rails.root.join("config", "sauce_browser_matrix.json")
     @browsers = JSON.parse(IO.read(path))
@@ -15,12 +17,17 @@ namespace :sauce do
 
         options = browser.pop if browser.length >= 4
 
-        report_file = "#{browser.join('_').gsub(' ', '_')}.json"
+
+        if ENV["SAVE_REPORTS"]
+          report_file = "#{browser.join('_').gsub(' ', '_')}.json"
+          format_options = "--format #{ENV["FORMAT"] || "json"} --out '#{report_dir}/#{report_file}'"
+        else
+          format_options = ""
+        end
         
         ENV["CUCUMBER_OPTS"] = [
           "--profile sauce",
-          "--format #{ENV["FORMAT"] || "json"}",
-          "--out '#{report_dir}/#{report_file}'",
+          format_options,
           options,
           "BROWSER='#{browser.join(',')}'"
         ].join(' ')
