@@ -22,5 +22,5 @@ Feature: Visiting per-authority
     Then I should get back a status of 200
     And the navigation link for "Authorities" should be active
     And the page title should be "Fake authority 1"
-    And the 2nd subtitle should be "Licence submissions"
-    And the 2nd section description should be "Licences offered by Fake authority 1 on GOV.UK"
+    And the 1st subtitle should be "Licence submissions"
+    And the 1st section description should be "Licences offered by Fake authority 1 on GOV.UK"

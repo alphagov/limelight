@@ -22,5 +22,5 @@ Feature: Visiting per-licence
        Then I should get back a status of 200
         And the navigation link for "Licences" should be active
         And the page title should be "Application to licence a street collection (submissions made through GOV.UK only)"
-        And the 2nd subtitle should be "Submissions per authority"
-        And the 2nd section description should be "Authorities offering Application to licence a street collection on GOV.UK"
+        And the 1st subtitle should be "Submissions per authority"
+        And the 1st section description should be "Authorities offering Application to licence a street collection on GOV.UK"
