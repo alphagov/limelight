@@ -20,7 +20,7 @@ Feature: Listing authorities
     And the 3rd title in the 2nd group should be "Fake authority 2"
     And the 3rd link in the 2nd group should be "/performance/licensing/authorities/fake-authority-2"
 
-  @no-selenium
+  @no-selenium @svg
   Scenario: there are no authorities
     Given API responds with no_authorities.json
     When I go to /performance/licensing/authorities
