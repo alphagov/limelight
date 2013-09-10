@@ -123,6 +123,7 @@ function (LineLabel, Collection) {
         });
 
         it("renders a label with additional value text when enabled", function () {
+          spyOn(lineLabel, "getNodeHeight").andReturn(18);
           lineLabel.showValues = true;
           lineLabel.render();
 
@@ -134,6 +135,7 @@ function (LineLabel, Collection) {
           expect(label1.select('text.title').attr('transform')).toEqual('translate(0, 6)');
           expect(label1.select('text.title').text()).toEqual('Title 1');
           expect(label1.select('text.value').attr('transform')).toEqual('translate(0, 18)');
+          expect(lineLabel.getNodeHeight).toHaveBeenCalledWith(label1.select('text.value').node());
           expect(label1.select('text.value').text()).toEqual('60');
           expect(label2.select('line').length).toEqual(1);
           expect(label2.select('text.title').attr('transform')).toEqual('translate(0, 6)');
@@ -143,6 +145,7 @@ function (LineLabel, Collection) {
         });
 
         it("renders a label with additional value text and percentage when enabled", function () {
+          spyOn(lineLabel, "getNodeHeight").andReturn(18);
           lineLabel.showValues = true;
           lineLabel.showValuesPercentage = true;
           lineLabel.render();
@@ -165,6 +168,7 @@ function (LineLabel, Collection) {
 
 
         it("renders a summary label when enabled", function () {
+          spyOn(lineLabel, "getNodeHeight").andReturn(18);
           lineLabel.showSummary = true;
           lineLabel.showValues = true;
           lineLabel.showValuesPercentage = true;

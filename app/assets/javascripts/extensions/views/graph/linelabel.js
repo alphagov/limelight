@@ -308,6 +308,20 @@ function (require, Component, TimePeriod) {
       }
     },
 
+    /**
+     * Pass a selection or a node
+     */
+    getNodeHeight: function(selection){
+      var node;
+      // if it's a seleciton, get the node
+      if(selection.node){
+        node = selection.node();
+      } else {
+        node = selection;
+      }
+      return node.getBBox().height;
+    },
+
     updateLabelContent: function (selection, d) {
       var xOffset = this.getXOffset();
 
@@ -318,8 +332,8 @@ function (require, Component, TimePeriod) {
       if (d.value != null) {
         var text = selection.selectAll("text.value");
         text.text(this.formatNumericLabel(d.value));
-        var textHeight = text.node().getBBox().height;
-        text.attr('transform', 'translate(' + xOffset + ', ' + textHeight + ')');
+
+        text.attr('transform', 'translate(' + xOffset + ', ' + this.getNodeHeight(text.node()) + ')');
 
         if (this.showValuesPercentage && d.value) {
           text.append('tspan')
