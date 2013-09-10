@@ -29,9 +29,7 @@ Limelight::Application.configure do
   config.assets.debug = true
 
   if ENV.has_key?("USE_STUB_API")
-    config.assets.paths << Rails.root.join("fakeapi")
-    config.use_api_stub = true
-    config.additional_requirejs_dependencies = "fakeapi"
+    config.use_stub_api = true
   end
 
 end

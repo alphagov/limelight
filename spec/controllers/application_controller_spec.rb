@@ -2,7 +2,7 @@ require "spec_helper"
 
 describe ApplicationController do
 
-  describe "use_api_stub" do
+  describe "use_stub_api" do
     controller do
       def index
         @my_action_data = backdrop_api.my_action_data
@@ -10,8 +10,8 @@ describe ApplicationController do
       end
     end
 
-    it "should use the api stub when use_api_stub is true" do
-      Rails.configuration.use_api_stub = true
+    it "should use the api stub when use_stub_api is true" do
+      Rails.configuration.use_stub_api = true
       BackdropAPI.should_not_receive(:new)
       BackdropAPIStub.any_instance.should_receive(:my_action_data).and_return({"foo" => "bar"})
 
@@ -22,8 +22,8 @@ describe ApplicationController do
       assigns(:my_action_data).should == {"foo" => "bar"}
     end
 
-    it "should use the real api when use_api_stub is false" do
-      Rails.configuration.use_api_stub = false
+    it "should use the real api when use_stub_api is false" do
+      Rails.configuration.use_stub_api = false
       BackdropAPIStub.should_not_receive(:new)
       BackdropAPI.any_instance.should_receive(:my_action_data).and_return({"bar" => "foo"})
 
