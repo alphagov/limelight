@@ -37,6 +37,10 @@ if ENV["CUCUMBER_PROFILE"] == 'sauce'
       c[:start_tunnel] = false
     end
 
+    if ENV['TRAVIS_JOB_NUMBER']
+      c[:tunnel_identifier] = ENV['TRAVIS_JOB_NUMBER']
+    end
+
     platform, name, version = ENV["BROWSER"].split(',')
     
     c[:browsers] = [[platform, name, version]]
