@@ -4,6 +4,7 @@ Feature: uptime and response time for lpa dashboard
   I want to know the availability of my service
   So that I can better interpret usage data
 
+  @svg
   Scenario: looking up the uptime
     Given The lasting-power-of-attorney monitoring bucket returns the response in "availability.json"
     When I go to /performance/lasting-power-of-attorney
@@ -11,6 +12,7 @@ Feature: uptime and response time for lpa dashboard
      And the module should display an uptime of 85%
      And the module should display a response time of 150ms
 
+  @svg
   Scenario: conversion funnel
     Given The lpa journey bucket returns the response in "lpa_journey.json"
     When I go to /performance/lasting-power-of-attorney
