@@ -1,9 +1,10 @@
-require 'cucumber/rake/task'
-require 'parallel'
-
 namespace :sauce do
   desc "Run all features against all browsers in parallel"
   task :cucumber => :environment do
+    
+    require 'cucumber/rake/task'
+    require 'parallel'
+
     if ENV["SAVE_REPORTS"]
       report_dir = "reports"
       FileUtils::mkdir_p(report_dir)
