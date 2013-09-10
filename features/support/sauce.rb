@@ -1,6 +1,7 @@
 if ENV["CUCUMBER_PROFILE"] == 'sauce'
-
+  require 'sauce'
   require 'sauce/utilities'
+  require 'sauce/cucumber'
   require 'sauce/capybara'
   require 'sauce/parallel'
 
