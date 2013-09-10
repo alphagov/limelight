@@ -3,7 +3,7 @@ define([
   'extensions/collections/graphcollection'
 ],
 function (LineLabel, Collection) {
-  
+
   describe("LineLabel Component", function () {
     describe("rendering tests", function () {
 
@@ -133,12 +133,12 @@ function (LineLabel, Collection) {
           expect(label1.select('line').length).toEqual(1);
           expect(label1.select('text.title').attr('transform')).toEqual('translate(0, 6)');
           expect(label1.select('text.title').text()).toEqual('Title 1');
-          expect(label1.select('text.value').attr('transform')).toEqual('translate(0, 22)');
+          expect(label1.select('text.value').attr('transform')).toEqual('translate(0, 18)');
           expect(label1.select('text.value').text()).toEqual('60');
           expect(label2.select('line').length).toEqual(1);
           expect(label2.select('text.title').attr('transform')).toEqual('translate(0, 6)');
           expect(label2.select('text.title').text()).toEqual('Title 2');
-          expect(label2.select('text.value').attr('transform')).toEqual('translate(0, 22)');
+          expect(label2.select('text.value').attr('transform')).toEqual('translate(0, 18)');
           expect(label2.select('text.value').text()).toEqual('210');
         });
 
@@ -154,12 +154,12 @@ function (LineLabel, Collection) {
           expect(label1.select('line').length).toEqual(1);
           expect(label1.select('text.title').attr('transform')).toEqual('translate(0, 6)');
           expect(label1.select('text.title').text()).toEqual('Title 1');
-          expect(label1.select('text.value').attr('transform')).toEqual('translate(0, 22)');
+          expect(label1.select('text.value').attr('transform')).toEqual('translate(0, 18)');
           expect(label1.select('text.value').text()).toEqual('60 (22%)');
           expect(label2.select('line').length).toEqual(1);
           expect(label2.select('text.title').attr('transform')).toEqual('translate(0, 6)');
           expect(label2.select('text.title').text()).toEqual('Title 2');
-          expect(label2.select('text.value').attr('transform')).toEqual('translate(0, 22)');
+          expect(label2.select('text.value').attr('transform')).toEqual('translate(0, 18)');
           expect(label2.select('text.value').text()).toEqual('210 (78%)');
         });
 
@@ -174,21 +174,22 @@ function (LineLabel, Collection) {
           var label1 = labels.select('g:nth-child(1)');
           var label2 = labels.select('g:nth-child(2)');
           var label3 = labels.select('g:nth-child(3)');
+
           expect(label1.attr('class')).toContain('summary');
           expect(label1.select('line').length).toEqual(1);
           expect(label1.select('text.title').attr('transform')).toEqual('translate(0, 6)');
           expect(label1.select('text.title').text()).toEqual('Total');
-          expect(label1.select('text.value').attr('transform')).toEqual('translate(0, 22)');
+          expect(label1.select('text.value').attr('transform')).toEqual('translate(0, 18)');
           expect(label1.select('text.value').text()).toEqual('270 (100%)');
           expect(label2.select('line').length).toEqual(1);
           expect(label2.select('text.title').attr('transform')).toEqual('translate(0, 6)');
           expect(label2.select('text.title').text()).toEqual('Title 1');
-          expect(label2.select('text.value').attr('transform')).toEqual('translate(0, 22)');
+          expect(label2.select('text.value').attr('transform')).toEqual('translate(0, 18)');
           expect(label2.select('text.value').text()).toEqual('60 (22%)');
           expect(label3.select('line').length).toEqual(1);
           expect(label3.select('text.title').attr('transform')).toEqual('translate(0, 6)');
           expect(label3.select('text.title').text()).toEqual('Title 2');
-          expect(label3.select('text.value').attr('transform')).toEqual('translate(0, 22)');
+          expect(label3.select('text.value').attr('transform')).toEqual('translate(0, 18)');
           expect(label3.select('text.value').text()).toEqual('210 (78%)');
         });
 
@@ -650,5 +651,5 @@ function (LineLabel, Collection) {
       });
     });
   });
-  
+
 });

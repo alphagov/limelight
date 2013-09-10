@@ -123,8 +123,8 @@ function (require, Component, TimePeriod) {
         }
       }
 
-      var selection = this.componentWrapper.selectAll('g.summary')
-          .data([d]);
+      var selection = this.componentWrapper.selectAll('g.summary').data([d]);
+
       selection.exit().remove();
       var enterSelection = selection.enter().append('g').attr('class', 'summary');
       this.enter(enterSelection);
@@ -317,8 +317,9 @@ function (require, Component, TimePeriod) {
 
       if (d.value != null) {
         var text = selection.selectAll("text.value");
-        text.text(this.formatNumericLabel(d.value))
-          .attr('transform', 'translate(' + xOffset + ', 32)');
+        text.text(this.formatNumericLabel(d.value));
+        var textHeight = text.node().getBBox().height;
+        text.attr('transform', 'translate(' + xOffset + ', ' + textHeight + ')');
 
         if (this.showValuesPercentage && d.value) {
           text.append('tspan')
