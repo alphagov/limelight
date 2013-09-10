@@ -9,8 +9,8 @@ matrix:
     - rvm: 2.0.0
 env:
   global:
-    - secure: "POCDb9nm0jgXCeRMqz2Ul+KPmZAQpve0IxFL0WQ1Ad9RxiK8rQzRkoHnc1RY\ntFDYN9x5EpQbIn1wmOPLEMZhMp0uibtlraSeYSYwoIVpbK2A5jZ1r83x5PEY\n/TzM2A8eun0nQWm/xwwC6cx2jiuhWZ/nw8ODCb0ln9QXKIhgPvc="
-    - secure: "GH6Kx/tbkr5VqWsOAJjdsDC+bwFr6A5yZ05hhJIbRLyNT+h4aGIkNXqMOSQ9\nxtXUM/2nxGEQ+YizUcawUGs9XlvhUTCyy9pl/XcaiZ5WCaNkviZfTJWmQ8pQ\nM2mS9NZcWt9G3ZT/yv1ZWEE/SCRHuvDfhSLApbGcNYLULrPRZwc="
+    - secure: "SPkvVOl32mVTKB0cYA3zXtyksQcKmb4hDI6wPSzqxKVy+Ugv+vsR/x7wUd6ilMEKekFBbOsXysnWrHRfBevm6j9zh5TA40BZhReNFHI2h0sNlZjklqolQY/mEP82dYKHKYeH/McG3bQU+NdTo0UFl6v6CGVMF/V4qRR895GLTLw="
+    - secure: "cMatu5jn1qabWT8qaoAk2qHrzmWyrmxkUW3XUrLeKLLgfuFN6uOkOz/JXdbVEV1AOCgwlwaDDruZkWhBjeKJO73+biM/gHK7cOOuqY5XIEnBfiGIGUR53aaMNjmjHlRSH1MlkwVGtrmrRmw9XNjXsmCsfBIOdkOVYIkzbe8buGw="
     - GOVUK_ASSET_HOST='https://static.production.alphagov.co.uk'
     - RUN_SERVER=true
     - APP_HOST='http://127.0.0.1:49221'
