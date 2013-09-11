@@ -61,7 +61,7 @@ describe ApplicationController do
     let(:port) {"4321"}
     before {Rails.configuration.backdrop_port = port}
     it "should return the configured port" do
-      @controller.backdrop_port.should == port 
+      @controller.backdrop_port.should == ":#{port}" 
     end
   end
 

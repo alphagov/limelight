@@ -5,7 +5,6 @@ Feature: Listing authorities
 
   @javascript
   Scenario: there are two authorities
-    Then pry me up
     When I go to /performance/licensing/authorities
     Then I should get back a status of 200
     And the navigation link for "Authorities" should be active
