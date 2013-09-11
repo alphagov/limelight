@@ -37,7 +37,11 @@ describe ApplicationController do
     end
 
     context "when use_stub_api is false" do
-      before {Rails.configuration.use_stub_api = false}
+      let(:url) {"http://my.backdrop/path"}
+      before do
+        Rails.configuration.use_stub_api = false
+        Rails.configuration.backdrop_url = url
+      end
 
       it "should use the real api with the backdrop url alone" do
         BackdropAPI.should_receive(:new)
