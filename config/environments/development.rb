@@ -28,8 +28,6 @@ Limelight::Application.configure do
   # Expands the lines which load the assets
   config.assets.debug = true
 
-  if ENV.has_key?("USE_STUB_API")
-    config.use_stub_api = true
-  end
+  config.use_stub_api = ENV["USE_STUB_API"]
 
 end

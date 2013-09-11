@@ -17,6 +17,10 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def backdrop_port
+    Rails.application.config.backdrop_port
+  end
+
   def backdrop_url
     Rails.application.config.backdrop_url
   end
