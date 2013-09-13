@@ -11,7 +11,7 @@ Feature: Overview page
   Scenario: live service module
     Given The licensing realtime bucket returns the response in "licensing_realtime.json"
     When I go to /performance/licensing
-    Then I should see the module "Live service usage"
+    Then I should see the module "Real-time usage"
      And the module should contain the text "11 users online now"
 
   Scenario: form submissions module
