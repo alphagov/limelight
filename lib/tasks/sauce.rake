@@ -43,7 +43,8 @@ namespace :sauce do
           options,
           "--tags ~@wip",
           "BROWSER='#{browser.join(',')}'",
-          "NO_SPECIFIED_CAPYBARA_PORT=true"
+          "NO_SPECIFIED_CAPYBARA_PORT=true",
+          "CAPYBARA_WAIT_TIME=30"
         ].join(' ')
         
         Rake::Task[ "sauce:run_browser_tests" ].execute
