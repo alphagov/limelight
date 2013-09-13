@@ -12,16 +12,16 @@
 
 <% if Rails.application.config.feature_toggles[:show_licensing_visitors_realtime] %>
   <section>
-    <h1>Live service usage</h1>
+    <h1>Real-time usage</h1>
     <ul class="module-actions">
       <li class="info">
         <div>
           <p>Data source: Google Analytics</p>
-          <p>Shows estimated number of users currently accessing licensing pages.</p>
+          <p>Shows the estimated number of users currently accessing licensing pages on GOV.UK.</p>
         </div>
       </li>
     </ul>
-    <h2>Users actively browsing licensing pages now</h2>
+        <h2>Live number of users on any page within the service</h2>
     <div id="number-of-visitors-realtime"></div>
   </section>
 <% end %>
