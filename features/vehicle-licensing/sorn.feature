@@ -10,7 +10,6 @@ Feature: SORN dashboard
      Then I should see the module "Applications"
       And the module should contain a graph
 
-  @svg
    Scenario: looking at the SORN error codes module
      When I go to /performance/sorn
      Then I should see the module "Error codes (web)"
@@ -23,14 +22,12 @@ Feature: SORN dashboard
      And the module should display an uptime of 85%
      And the module should display a response time of 150ms
 
-  @svg
   Scenario: customer satisfaction module
      When I go to /performance/sorn
      Then I should see the module "Customer satisfaction"
       And the module should contain the text "92.5% August 2013"
       And the module should contain the text "0% July 2013"
 
-  @svg
   Scenario: looking for live users
      When I go to /performance/sorn
      Then I should see the module "Users on start page"

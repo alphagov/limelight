@@ -10,7 +10,6 @@ Feature: Tax disc dashboard
     Then I should see the module "Applications"
     And the module should contain a graph
 
-  @svg
   Scenario: looking at the tax disc error codes module
     When I go to /performance/tax-disc
     Then I should see the module "Error codes (web)"
@@ -23,14 +22,12 @@ Feature: Tax disc dashboard
      And the module should display an uptime of 85%
      And the module should display a response time of 150ms
 
-  @svg
   Scenario: customer satisfaction module
      When I go to /performance/tax-disc
      Then I should see the module "Customer satisfaction"
       And the module should contain the text "93.8% August 2013"
       And the module should contain the text "-1.34% July 2013"
 
-  @svg
   Scenario: looking for live users
      When I go to /performance/tax-disc
      Then I should see the module "Users on start page"

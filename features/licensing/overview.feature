@@ -8,7 +8,6 @@ Feature: Overview page
        When I go to /performance/licensing
        Then I should get back a status of 200
 
-  @svg
   Scenario: live service module
     When I go to /performance/licensing
     Then I should see the module "Live service usage"
