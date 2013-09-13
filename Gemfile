@@ -54,6 +54,8 @@ group :test, :development do
   gem "jasmine", "1.3.2"
   gem "jasmine-phantom", "0.0.9"
 
+  gem "jshint_on_rails", "1.0.3"
+
   gem 'fakeweb', "1.3.0"
   gem 'pry-rails', "~> 0.3.2"
 end

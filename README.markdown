@@ -32,11 +32,26 @@ USE_STUB_API=true rails s
 
 If you use the latter you will need to set up [slimmer](https://github.com/alphagov/slimmer) yourself.
 
-## Running tests
+## Tests
 
-**All tests:**
+To run all tests:
 
-    bundle exec rake test:all
+`bundle exec rake test:all`
+
+To run the feature tests:
+
+* Passing tests: `bundle exec rake cucumber:ok`
+* Work in progress: `bundle exec rake cucumber:wip`
+
+To run Javascript tests:
+
+* In the browser: `bundle exec rake jasmine`
+* In CI: `bundle exec rake jasmine:phantomjs:ci`
+* With code coverage: `bundle exec rake jasmine:blanketjs`
+
+To run Javascript style checks:
+
+`bundle exec rake jshint`
 
 **Cucumber tests through Selenium:**
 
