@@ -6,31 +6,23 @@ Limelight is the app serving the 'new' frontend of the performance platform. (Th
 https://github.com/alphagov/datainsight-frontend). It gets data from the backdrop api (https://github.com/alphagov/backdrop) and 
 converts it into dashboards and visualisations using backbone and d3.js.
 
-## Starting Limelight serving it's own (stub) data
-
-Files are served from the `backdrop_stub_controller` which is only routed in dev and test environment. New fixtures can be added in the controller.
-
-```Shell
-BACKDROP_URL=/backdrop_stub bowl limelight
-```
-
 ## Starting Limelight with stub data
 
-To run limelight using stubbed data instead of the backend, set the environment variable `USE_STUB_API` to `true` when you run the application.
+To run limelight using stubbed data instead of the backend, set the environment variable `USE_STUB_API` to `true` when you run the application and provide the BACKDROP_PORT unless you are running on port 80. To register stubs, add them to the backdrop controller.
 
 Using `bowler`:
 
 ```Shell
-USE_STUB_API=true bowl limelight
+USE_STUB_API=true BACKDROP_PORT=3040 bowl limelight
 ```
 
 Using `rails`:
 
 ```Shell
-USE_STUB_API=true rails s
+USE_STUB_API=true BACKDROP_PORT=3000 rails s
 ```
 
-If you use the latter you will need to set up [slimmer](https://github.com/alphagov/slimmer) yourself.
+If you use the latter you will need to set up [slimmer](https://github.com/alphagov/slimmer) yourself or specify STATIC_DEV.
 
 ## Tests
 
@@ -82,9 +74,7 @@ java -jar Sauce-Connect.jar <sauce-user> <sauce-key>
 ```
 
 Run the tests:
-- `GOVUK_ASSET_HOST`: Override the asset host so that assets can be loaded from an already running app. Uses `slimmer/test` if not provided.
-- `BROWSER`: platform,browser(,version) see their [list of browsers](https://saucelabs.com/docs/platforms)
 
 ```shell
-GOVUK_ASSET_HOST='https://static.production.alphagov.co.uk' BROWSER="windows xp,firefox" SAUCE_USERNAME=your-sauce-user-name SAUCE_ACCESS_KEY=your-sauce-key bundle exec cucumber -p sauce
+bundle exec rake sauce:cucumber SAUCE_ACCESS_KEY=<sauce-user> SAUCE_USERNAME=<sauce-key> APP_HOST='http://127.0.0.1:49221' RUN_SERVER=true
 ```
