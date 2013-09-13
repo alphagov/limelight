@@ -8,10 +8,10 @@ class BackdropStubController < ApplicationController
       [
           StubConfig.new({'service' => 'licensing', 'api_name' => 'realtime'}, 'licensing_realtime.json'),
           StubConfig.new({'service' => 'licensing', 'api_name' => 'monitoring'}, 'licensing_availability_response.json'),
-          StubConfig.new({'service' => 'licensing', 'api_name' => 'application', 'group_by' => "authorityUrlSlug"}, 'authorities.json'),
-          StubConfig.new({'service' => 'licensing', 'api_name' => 'application', 'group_by' => "licenceUrlSlug"}, 'licences.json'),
           StubConfig.new({'service' => 'licensing', 'api_name' => 'application', 'filter_by' => 'licenceUrlSlug:application-to-licence-a-street-collection'}, 'application-to-licence-a-street-collection.json'),
           StubConfig.new({'service' => 'licensing', 'api_name' => 'application', 'filter_by' => 'authorityUrlSlug:fake-authority-1'}, 'fake-authority-1.json'),
+          StubConfig.new({'service' => 'licensing', 'api_name' => 'application', 'group_by' => "authorityUrlSlug"}, 'authorities.json'),
+          StubConfig.new({'service' => 'licensing', 'api_name' => 'application', 'group_by' => "licenceUrlSlug"}, 'licences.json'),
           StubConfig.new({'service' => 'licensing', 'api_name' => 'applications'}, 'licensing_applications.json'),
           StubConfig.new({'filter_by' => 'dataType:licensing_overview_journey'}, 'licensing_overview_journey.json'),
           StubConfig.new({'service' => 'pay-legalisation-post', 'api_name' => 'journey'}, 'fco_overview_journey.json'),

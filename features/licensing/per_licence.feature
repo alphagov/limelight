@@ -3,7 +3,7 @@ Feature: Visiting per-licence
   I want to see details about specific licences
   So I can find out how a specific licence is performing
   
-  @svg
+  @svg @javascript
   Scenario: visiting per-licence page on an SVG browser
        When I go to /performance/licensing/licences/application-to-licence-a-street-collection
        Then I should get back a status of 200
@@ -14,7 +14,7 @@ Feature: Visiting per-licence
         And the 2nd subtitle should be "Submissions per authority"
         And the 2nd section description should be "Authorities offering Application to licence a street collection on GOV.UK"
 
-  @no-svg
+  @no-svg @javascript
   Scenario: visiting per-licence page on a non-SVG browser
        When I go to /performance/licensing/licences/application-to-licence-a-street-collection
        Then I should get back a status of 200
