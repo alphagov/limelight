@@ -21,9 +21,9 @@ Feature: Overview page
      And the module should contain a graph
      And the module should contain 2 tabs
 
-  Scenario: completion rate module
+  Scenario: application submissions rate module
     When I go to /performance/licensing
-    Then I should see the module "Completion rate"
+    Then I should see the module "Application submissions rate"
 
   Scenario: submission drop-offs module
     When I go to /performance/licensing
