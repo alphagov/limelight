@@ -42,7 +42,7 @@
 
 <% if Rails.application.config.feature_toggles[:show_licensing_overview_success_rate] %>
   <section class="half-width row-start">
-    <h1>Completion rate</h1>
+    <h1>Application submissions rate</h1>
     <ul class="module-actions">
       <li class="info">
         <div>
@@ -51,9 +51,9 @@
         </div>
       </li>
     </ul>
-    <h2>Completion rate for all submissions for last week</h2>
+    <h2>Submission rate for all digital applications last week</h2>
     <p id="applications-success-rate" class="impact-number"></p>
-    <p class="stat-description">average completion rate</p>
+    <p class="stat-description">average submission rate</p>
   </section>
 <% end %>
 
