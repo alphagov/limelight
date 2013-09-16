@@ -16,9 +16,9 @@ env:
     - APP_HOST='http://127.0.0.1:49221'
     - CAPYBARA_WAIT_TIME=30
 before_script:
-  - curl https://gist.github.com/abersager/6521086/raw/sauce_connect_setup.sh | bash
+  - if [ $TRAVIS_BRANCH = "master" ] ; then curl https://gist.github.com/abersager/6521086/raw/sauce_connect_setup.sh | bash ; fi
 script:
   - bundle exec rake test:all --trace
-  - bundle exec rake sauce:cucumber
+  - if [ $TRAVIS_BRANCH = "master" ] ; then bundle exec rake sauce:cucumber ; fi
 notifications:
   email: false
