@@ -5,15 +5,15 @@ function (GraphCollection) {
 
   var Collection = GraphCollection.extend({
 
-    serviceName: 'hmrc_preview',
-    apiName: 'volumes',
+    serviceName: 'land_registry',
+    apiName: 'search_index_map',
 
     parse: function (response) {
       var items = {
         "B2B": {},
         "BUSINESS_GATEWAY": {},
         "PORTAL_APPLICATION": {},
-        "POSTAL_APPLICATION": {},
+        "POSTAL_APPLICATION": {}
       };
       _.each(response.data, function(d) {
         for (var key in Object.keys(items)) {
@@ -33,16 +33,6 @@ function (GraphCollection) {
       });
       return [
         {
-          id: 'b2b',
-          title: 'B2B',
-          values: items.B2B
-        },
-        {
-          id: 'businessGateway',
-          title: 'Business Gateway',
-          values: items.BUSINESS_GATEWAY
-        },
-        {
           id: 'portalApplications',
           title: 'Portal',
           values: items.PORTAL_APPLICATION
@@ -51,6 +41,16 @@ function (GraphCollection) {
           id: 'postalApplications',
           title: 'Postal',
           values: items.POSTAL_APPLICATION
+        },
+        {
+          id: 'b2b',
+          title: 'B2B',
+          values: items.B2B
+        },
+        {
+          id: 'businessGateway',
+          title: 'Business Gateway',
+          values: items.BUSINESS_GATEWAY
         }
       ];
     }

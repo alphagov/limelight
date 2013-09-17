@@ -1,0 +1,82 @@
+{
+  "data": [
+    {
+      "B2B": "3,163", 
+      "BUSINESS_GATEWAY": "1,232", 
+      "PORTAL_APPLICATION": "34,197", 
+      "POSTAL_APPLICATION": "11,187", 
+      "Total": "49,779", 
+      "_id": "52381be2686c8214961de2c7", 
+      "_month_start_at": "2013-02-01T00:00:00", 
+      "start_at": "2013-02-01T00:00:00+00:00", 
+      "_updated_at": "2013-09-17T09:07:46.016000", 
+      "_week_start_at": "2013-01-28T00:00:00", 
+      "end_at": "2013-03-01T00:00:00+00:00"
+    }, 
+    {
+      "B2B": "3,061", 
+      "BUSINESS_GATEWAY": "1,285", 
+      "PORTAL_APPLICATION": "33,447", 
+      "POSTAL_APPLICATION": "10,836", 
+      "Total": "48,629", 
+      "_id": "52381be2686c8214961de2c8", 
+      "_month_start_at": "2013-03-01T00:00:00", 
+      "start_at": "2013-03-01T00:00:00+00:00", 
+      "_updated_at": "2013-09-17T09:07:46.017000", 
+      "_week_start_at": "2013-02-25T00:00:00", 
+      "end_at": "2013-04-01T00:00:00+00:00"
+    }, 
+    {
+      "B2B": "2,838", 
+      "BUSINESS_GATEWAY": "1,398", 
+      "PORTAL_APPLICATION": "36,582", 
+      "POSTAL_APPLICATION": "10,236", 
+      "Total": "51,054", 
+      "_id": "52381be2686c8214961de2c9", 
+      "_month_start_at": "2013-04-01T00:00:00", 
+      "start_at": "2013-04-01T00:00:00+00:00", 
+      "_updated_at": "2013-09-17T09:07:46.017000", 
+      "_week_start_at": "2013-04-01T00:00:00", 
+      "end_at": "2013-05-01T00:00:00+00:00"
+    }, 
+    {
+      "B2B": "2,972", 
+      "BUSINESS_GATEWAY": "1,573", 
+      "PORTAL_APPLICATION": "37,048", 
+      "POSTAL_APPLICATION": "10,148", 
+      "Total": "51,741", 
+      "_id": "52381be2686c8214961de2ca", 
+      "_month_start_at": "2013-05-01T00:00:00", 
+      "start_at": "2013-05-01T00:00:00+00:00", 
+      "_updated_at": "2013-09-17T09:07:46.018000", 
+      "_week_start_at": "2013-04-29T00:00:00", 
+      "end_at": "2013-06-01T00:00:00+00:00"
+    }, 
+    {
+      "B2B": "2,957", 
+      "BUSINESS_GATEWAY": "1,390", 
+      "PORTAL_APPLICATION": "35,578", 
+      "POSTAL_APPLICATION": "9,634", 
+      "Total": "49,559", 
+      "_id": "52381be2686c8214961de2cb", 
+      "_month_start_at": "2013-06-01T00:00:00", 
+      "start_at": "2013-06-01T00:00:00+00:00", 
+      "_updated_at": "2013-09-17T09:07:46.018000", 
+      "_week_start_at": "2013-05-27T00:00:00", 
+      "end_at": "2013-07-01T00:00:00+00:00"
+    }, 
+    {
+      "B2B": "3,011", 
+      "BUSINESS_GATEWAY": "1,574", 
+      "PORTAL_APPLICATION": "41,702", 
+      "POSTAL_APPLICATION": "10,436", 
+      "Total": "56,723", 
+      "_id": "52381be2686c8214961de2cc", 
+      "_month_start_at": "2013-07-01T00:00:00", 
+      "start_at": "2013-07-01T00:00:00+00:00", 
+      "_updated_at": "2013-09-17T09:07:46.018000", 
+      "_week_start_at": "2013-07-01T00:00:00", 
+      "end_at": "2013-08-01T00:00:00+00:00"
+    }
+  ]
+}

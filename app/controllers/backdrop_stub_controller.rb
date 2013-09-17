@@ -20,7 +20,8 @@ class BackdropStubController < ApplicationController
           StubConfig.new({'service' => 'vehicle-licensing', 'api_name' => 'channels'}, 'vehicle_licensing_channels.json'),
           StubConfig.new({'service' => 'vehicle-licensing', 'api_name' => 'customer-satisfaction'}, 'vehicle_licensing_customer_satisfaction.json'),
           StubConfig.new({'service' => 'sorn', 'api_name' => 'realtime'}, 'licensing_realtime.json'),
-          StubConfig.new({'service' => 'tax-disc', 'api_name' => 'realtime'}, 'licensing_realtime.json')
+          StubConfig.new({'service' => 'tax-disc', 'api_name' => 'realtime'}, 'licensing_realtime.json'),
+          StubConfig.new({'service' => 'land_registry', 'api_name' => 'search_index_map'}, 'land_registry.json')
       ])
 
   def serve_fixture
