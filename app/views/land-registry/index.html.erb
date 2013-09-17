@@ -1,0 +1,27 @@
+<% content_for :title do %>Land Registry - Service performance - GOV.UK<% end %>
+
+<% @js_config = {
+  "controller" => "land-registry/controllers/overview"
+} %>
+
+<header>
+  <h1>
+    <span class="strapline">Service performance</span>
+    Land Registry preview: SIMS
+  </h1>
+</header>
+
+<section class="graph">
+  <h1>SIMS by input channel</h1>
+  <ul class="module-actions">
+    <li class="info">
+      <div>
+        <p>Data Source: Land Registry</p>
+      </div>
+    </li>
+  </ul>
+  <!--<h2>
+    Explanatory text?
+  </h2>-->
+  <figure class="graph timeseries-graph" id="sims-by-input-channel"></figure>
+</section>
