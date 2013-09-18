@@ -1,4 +1,4 @@
-worker_processes 4
+worker_processes 2 
 before_exec do |server|
   ENV["BUNDLE_GEMFILE"] = "#{ENV.fetch('GOVUK_APP_ROOT')}/Gemfile"
 end
