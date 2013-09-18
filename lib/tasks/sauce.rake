@@ -69,5 +69,7 @@ namespace :sauce do
     end
   end
 
-  Cucumber::Rake::Task.new(:'run_browser_tests')
+  if Rails.env.development? || Rails.env.test?
+    Cucumber::Rake::Task.new(:'run_browser_tests')
+  end
 end
