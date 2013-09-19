@@ -52,6 +52,29 @@ function (Component) {
         });
         path.attr('d', line(group.get('values').models));
         path.attr('class', 'line line' + groupIndex + ' ' + group.get('id'));
+
+        group.get('values').each(function (model, index) {
+          var x = that.x.call(that, group, groupIndex, model, index),
+              y = that.y.call(that, group, groupIndex, model, index),
+              showTerminator = false;
+
+          if (index > 0 && that.y.call(that, group, groupIndex, model, index - 1) === null) {
+            showTerminator = true;
+          }
+          if (index < group.get('values').models.length - 1 &&
+              that.y.call(that, group, groupIndex, model, index + 1) === null)
+          {
+            showTerminator = true;
+          }
+
+          if (showTerminator) {
+            var terminator = groupSelection.append("circle");
+            terminator.attr("class", "terminator line" + groupIndex);
+            terminator.attr("cx", x);
+            terminator.attr("cy", y);
+            terminator.attr("r", 1.5);
+          }
+        });
       });
 
       for (var i = groups.length - 1; i >= 0; i--){
