@@ -5,7 +5,7 @@ function (Component) {
   var Line = Component.extend({
 
     interactive: true,
-    
+
     drawCursorLine: false,
     
     x: function (group, groupIndex, model, index) {
@@ -29,40 +29,41 @@ function (Component) {
       selection.exit().remove();
       
       var enterSelection = selection.enter();
-      var enterGroup = enterSelection.append('g').attr('class', 'group')
-          .append('path');
+      enterSelection.append('g').attr('class', 'group').append('path');
         
       var that = this;
-      var line = d3.svg.line();
+
 
       var groups = [];
       selection.each(function (group, groupIndex) {
         var groupSelection = d3.select(this);
         groups.push(groupSelection);
         var path = groupSelection.select('path');
-        line.x(function (model, index) {
-          return that.x.call(that, group, groupIndex, model, index);
-        });
-        line.y(function (model, index) {
-          return that.y.call(that, group, groupIndex, model, index);
-        });
-        line.defined(function (model, index) {
-          var yPos = that.y.call(that, group, groupIndex, model, index);
-          return yPos !== null;
-        });
+        var getX = function (model, index) {
+          return that.x(group, groupIndex, model, index);
+        };
+        var getY = function (model, index) {
+          return that.y(group, groupIndex, model, index);
+        };
+
+        var line = d3.svg.line()
+          .x(getX)
+          .y(getY)
+          .defined(function (model, index) { return getY(model, index) !== null; });
+
         path.attr('d', line(group.get('values').models));
         path.attr('class', 'line line' + groupIndex + ' ' + group.get('id'));
 
         group.get('values').each(function (model, index) {
-          var x = that.x.call(that, group, groupIndex, model, index),
-              y = that.y.call(that, group, groupIndex, model, index),
+          var x = getX(model, index),
+              y = getY(model, index),
               showTerminator = false;
 
-          if (index > 0 && that.y.call(that, group, groupIndex, model, index - 1) === null) {
+          if (index > 0 && getY(model, index - 1) === null) {
             showTerminator = true;
           }
-          if (index < group.get('values').models.length - 1 &&
-              that.y.call(that, group, groupIndex, model, index + 1) === null)
+          if (index < group.get('values').size() - 1 &&
+              getY(model, index + 1) === null)
           {
             showTerminator = true;
           }
