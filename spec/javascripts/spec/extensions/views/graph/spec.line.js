@@ -5,7 +5,7 @@ define([
 function (Line, Collection) {
   
   describe("Line Component", function () {
-    var el, wrapper, collection;
+    var el, wrapper, collection, view;
     beforeEach(function() {
       el = $('<div></div>').appendTo($('body'));
       wrapper = Line.prototype.d3.select(el[0]).append('svg').append('g');
@@ -37,6 +37,18 @@ function (Line, Collection) {
         selectedModel: { a: 1 },
         selectedModelIndex: 2
       });
+      view = new Line({
+        interactive: false,
+        wrapper: wrapper,
+        collection: collection,
+        x: function (group, groupIndex, model, index) {
+          return model.get('a');
+        },
+        y: function (group, groupIndex, model, index) {
+          var attr = group.get('testAttr');
+          return model.get(attr);
+        }
+      });
       spyOn(Line.prototype, "onChangeSelected");
     });
 
@@ -67,58 +79,20 @@ function (Line, Collection) {
       });
 
       it("renders paths for each group in the collection in reverse order with sections for each point in the timeseries", function() {
-        var view = new Line({
-          interactive: false,
-          wrapper: wrapper,
-          collection: collection,
-          x: function (group, groupIndex, model, index) {
-            return model.get('a') + index;
-          },
-          y: function (group, groupIndex, model, index) {
-            var attr = group.get('testAttr');
-            return model.get(attr) + index;
-          }
-        });
         view.render();
 
-        expect(wrapper.select('g.group:nth-child(1) path').attr('d')).toEqual('M1,3L5,7L9,11L13,14L16,17');
-        expect(wrapper.select('g.group:nth-child(2) path').attr('d')).toEqual('M1,2L5,6L9,10L12,13L15,16');
+        expect(wrapper.select('g.group:nth-child(1) path').attr('d')).toEqual('M1,3L4,6L7,9L10,11L12,13');
+        expect(wrapper.select('g.group:nth-child(2) path').attr('d')).toEqual('M1,2L4,5L7,8L9,10L11,12');
       });
 
       it("renders multiple paths when there are gaps in the data", function() {
         collection.at(0).get('values').at(2).set('b', null);
-
-        var view = new Line({
-          interactive: false,
-          wrapper: wrapper,
-          collection: collection,
-          x: function (group, groupIndex, model, index) {
-            return model.get('a') + index;
-          },
-          y: function (group, groupIndex, model, index) {
-            var attr = group.get('testAttr');
-            return model.get(attr);
-          }
-        });
         view.render();
 
-        expect(wrapper.select('g.group:nth-child(2) path').attr('d')).toEqual('M1,2L5,5M12,10L15,12');
+        expect(wrapper.select('g.group:nth-child(2) path').attr('d')).toEqual('M1,2L4,5M9,10L11,12');
       });
 
       it("highlights the current selection", function () {
-        var view = new Line({
-          interactive: false,
-          wrapper: wrapper,
-          collection: collection,
-          x: function (group, groupIndex, model, index) {
-            return model.get('a') + index;
-          },
-          y: function (group, groupIndex, model, index) {
-            var attr = group.get('testAttr');
-            return model.get(attr) + index;
-          }
-        });
-
         view.render();
 
         expect(view.onChangeSelected).toHaveBeenCalledWith(
@@ -129,21 +103,7 @@ function (Line, Collection) {
 
     describe("onChangeSelected", function () {
 
-      var view;
       beforeEach(function() {
-        view = new Line({
-          interactive: false,
-          wrapper: wrapper,
-          collection: collection,
-          x: function (group, groupIndex, model, index) {
-            return model.get('a') + index;
-          },
-          y: function (group, groupIndex, model, index) {
-            var attr = group.get('testAttr');
-            return model.get(attr) + index;
-          }
-        });
-
         view.render();
       });
 
@@ -161,26 +121,12 @@ function (Line, Collection) {
         view.onChangeSelected.originalValue.call(view, collection.at(1), 1, collection.at(1).get('values').at(1), 1);
         expect(view.componentWrapper.select('path.line1').attr('class').indexOf('selected')).not.toBe(-1);
         expect(view.componentWrapper.selectAll('.selectedIndicator')[0].length).toEqual(1);
-        expect(view.componentWrapper.selectAll('.selectedIndicator').attr('cx')).toEqual('5');
-        expect(view.componentWrapper.selectAll('.selectedIndicator').attr('cy')).toEqual('7');
+        expect(view.componentWrapper.selectAll('.selectedIndicator').attr('cx')).toEqual('4');
+        expect(view.componentWrapper.selectAll('.selectedIndicator').attr('cy')).toEqual('6');
       });
     });
 
     describe("getDistanceAndClosestModel", function () {
-      var view;
-      beforeEach(function() {
-        view = new Line({
-          interactive: false,
-          wrapper: wrapper,
-          collection: collection,
-          x: function (group, groupIndex, model, index) {
-            return model.get('a');
-          },
-          y: function (group, groupIndex, model, index) {
-            return model.get('b');
-          }
-        });
-      });
 
       it("calculates distance to an interpolated position between points and picks closest model", function () {
         var res = view.getDistanceAndClosestModel(collection.at(0), 0, {
@@ -242,19 +188,7 @@ function (Line, Collection) {
 
     describe("onHover", function () {
 
-      var view;
       beforeEach(function() {
-        view = new Line({
-          interactive: false,
-          wrapper: wrapper,
-          collection: collection,
-          x: function (group, groupIndex, model, index) {
-            return model.get('a');
-          },
-          y: function (group, groupIndex, model, index) {
-            return model.get('b');
-          }
-        });
         spyOn(collection, "selectItem");
       });
 
