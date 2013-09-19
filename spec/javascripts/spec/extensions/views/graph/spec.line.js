@@ -15,7 +15,9 @@ function (Line, Collection) {
           values: new Collection([
             { a: 1, b: 2},
             { a: 4, b: 5},
-            { a: 7, b: 8}
+            { a: 7, b: 8},
+            { a: 9, b: 10},
+            { a: 11, b: 12}
           ])
         },
         {
@@ -23,7 +25,9 @@ function (Line, Collection) {
           values: new Collection([
             { a: 1, b: 3, c: 3},
             { a: 4, b: 6, c: 6},
-            { a: 7, b: 9, c: 9}
+            { a: 7, b: 9, c: 9},
+            { a: 10, b: 11, c: 11},
+            { a: 12, b: 13, c: 13}
           ])
         }
       ]);
@@ -77,8 +81,28 @@ function (Line, Collection) {
         });
         view.render();
 
-        expect(wrapper.select('g.group:nth-child(1) path').attr('d')).toEqual('M1,3L5,7L9,11');
-        expect(wrapper.select('g.group:nth-child(2) path').attr('d')).toEqual('M1,2L5,6L9,10');
+        expect(wrapper.select('g.group:nth-child(1) path').attr('d')).toEqual('M1,3L5,7L9,11L13,14L16,17');
+        expect(wrapper.select('g.group:nth-child(2) path').attr('d')).toEqual('M1,2L5,6L9,10L12,13L15,16');
+      });
+
+      xit("renders multiple paths when there are gaps in the data", function() {
+        collection.at(0).get('values').at(2).set('b', null);
+
+        var view = new Line({
+          interactive: false,
+          wrapper: wrapper,
+          collection: collection,
+          x: function (group, groupIndex, model, index) {
+            return model.get('a') + index;
+          },
+          y: function (group, groupIndex, model, index) {
+            var attr = group.get('testAttr');
+            return model.get(attr) + index;
+          }
+        });
+        view.render();
+
+        expect(wrapper.select('g.group:nth-child(2) path').attr('d')).toEqual('M1,3L5,7L9,11');
       });
 
       it("highlights the current selection", function () {
@@ -197,8 +221,14 @@ function (Line, Collection) {
         expect(res.dist).toEqual(0);
         expect(res.diff).toEqual(0);
         expect(res.index).toEqual(2);
+      });
 
+
+      it("selected the first point when no other points have a value", function() {
+        collection.at(0).get('values').at(1).set('b', null);
         collection.at(0).get('values').at(2).set('b', null);
+        collection.at(0).get('values').at(3).set('b', null);
+        collection.at(0).get('values').at(4).set('b', null);
         res = view.getDistanceAndClosestModel(collection.at(0), 0, {
           x: 7,
           y: 2
@@ -208,6 +238,7 @@ function (Line, Collection) {
         expect(res.index).toEqual(0);
       });
     });
+
 
     describe("onHover", function () {
 
