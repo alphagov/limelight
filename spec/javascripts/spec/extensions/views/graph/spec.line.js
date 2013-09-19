@@ -85,7 +85,7 @@ function (Line, Collection) {
         expect(wrapper.select('g.group:nth-child(2) path').attr('d')).toEqual('M1,2L5,6L9,10L12,13L15,16');
       });
 
-      xit("renders multiple paths when there are gaps in the data", function() {
+      it("renders multiple paths when there are gaps in the data", function() {
         collection.at(0).get('values').at(2).set('b', null);
 
         var view = new Line({
@@ -97,12 +97,12 @@ function (Line, Collection) {
           },
           y: function (group, groupIndex, model, index) {
             var attr = group.get('testAttr');
-            return model.get(attr) + index;
+            return model.get(attr);
           }
         });
         view.render();
 
-        expect(wrapper.select('g.group:nth-child(2) path').attr('d')).toEqual('M1,3L5,7L9,11');
+        expect(wrapper.select('g.group:nth-child(2) path').attr('d')).toEqual('M1,2L5,5M12,10L15,12');
       });
 
       it("highlights the current selection", function () {

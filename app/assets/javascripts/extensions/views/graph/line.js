@@ -46,6 +46,10 @@ function (Component) {
         line.y(function (model, index) {
           return that.y.call(that, group, groupIndex, model, index);
         });
+        line.defined(function (model, index) {
+          var yPos = that.y.call(that, group, groupIndex, model, index);
+          return yPos !== null;
+        });
         path.attr('d', line(group.get('values').models));
         path.attr('class', 'line line' + groupIndex + ' ' + group.get('id'));
       });
