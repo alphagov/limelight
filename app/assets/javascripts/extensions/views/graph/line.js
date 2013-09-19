@@ -2,6 +2,10 @@ define([
   'extensions/views/graph/component'
 ],
 function (Component) {
+  var LineRenderer = function() {
+
+  }
+
   var Line = Component.extend({
 
     interactive: true,
@@ -24,16 +28,13 @@ function (Component) {
     render: function () {
       Component.prototype.render.apply(this, arguments);
       
-      var selection = this.componentWrapper.selectAll('g.group')
-          .data(this.collection.models);
+      var selection = this.componentWrapper
+        .selectAll('g.group')
+        .data(this.collection.models);
+      selection.enter().append('g').attr('class', 'group').append('path');
       selection.exit().remove();
-      
-      var enterSelection = selection.enter();
-      enterSelection.append('g').attr('class', 'group').append('path');
         
       var that = this;
-
-
       var groups = [];
       selection.each(function (group, groupIndex) {
         var groupSelection = d3.select(this);
