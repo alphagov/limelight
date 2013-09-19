@@ -34,7 +34,7 @@ function (Component) {
         
       var that = this;
       var line = d3.svg.line();
-      
+
       var groups = [];
       selection.each(function (group, groupIndex) {
         var groupSelection = d3.select(this);
@@ -53,7 +53,7 @@ function (Component) {
         path.attr('d', line(group.get('values').models));
         path.attr('class', 'line line' + groupIndex + ' ' + group.get('id'));
       });
-      
+
       for (var i = groups.length - 1; i >= 0; i--){
         this.moveToFront(groups[i]);
       };
@@ -65,10 +65,6 @@ function (Component) {
         currentSelection.selectedModel,
         currentSelection.selectedModelIndex
       );
-    },
-    
-    lineClassed: function (group, index) {
-      return 'line line' + index + ' ' + group.get('id');
     },
 
     onChangeSelected: function (groupSelected, groupIndexSelected, modelSelected, indexSelected) {
