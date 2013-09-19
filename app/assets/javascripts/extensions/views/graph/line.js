@@ -38,7 +38,7 @@ function (Component) {
       selection.each(function (group, groupIndex) {
         var groupSelection = d3.select(this);
         groups.push(groupSelection);
-        var path = groupSelection.select('path');
+
         var getX = function (model, index) {
           return that.x(group, groupIndex, model, index);
         };
@@ -51,29 +51,21 @@ function (Component) {
           .y(getY)
           .defined(function (model, index) { return getY(model, index) !== null; });
 
-        path.attr('d', line(group.get('values').models));
-        path.attr('class', 'line line' + groupIndex + ' ' + group.get('id'));
+        groupSelection.select('path')
+          .attr('d', line(group.get('values').models))
+          .attr('class', 'line line' + groupIndex + ' ' + group.get('id'));
 
         group.get('values').each(function (model, index) {
-          var x = getX(model, index),
-              y = getY(model, index),
-              showTerminator = false;
-
-          if (index > 0 && getY(model, index - 1) === null) {
-            showTerminator = true;
-          }
-          if (index < group.get('values').size() - 1 &&
-              getY(model, index + 1) === null)
-          {
-            showTerminator = true;
-          }
+          var missingPreviousPoint = (index > 0 && getY(model, index - 1) === null),
+              missingNextPoint = (index < group.get('values').size() - 1 && getY(model, index + 1) === null),
+              showTerminator = missingPreviousPoint || missingNextPoint;
 
           if (showTerminator) {
-            var terminator = groupSelection.append("circle");
-            terminator.attr("class", "terminator line" + groupIndex);
-            terminator.attr("cx", x);
-            terminator.attr("cy", y);
-            terminator.attr("r", 1.5);
+            groupSelection.append("circle")
+              .attr("class", "terminator line" + groupIndex)
+              .attr("cx", getX(model, index))
+              .attr("cy", getY(model, index))
+              .attr("r", 1.5);
           }
         });
       });
