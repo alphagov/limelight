@@ -2,8 +2,48 @@ define([
   'extensions/views/graph/component'
 ],
 function (Component) {
-  var LineRenderer = function() {
 
+  var LineRenderer = function(that, selection, group, groupIndex) {
+    var getX = function (model, index) {
+      return that.x(group, groupIndex, model, index);
+    };
+    var getY = function (model, index) {
+      return that.y(group, groupIndex, model, index);
+    };
+
+    var line = d3.svg.line()
+      .x(getX)
+      .y(getY)
+      .defined(function (model, index) { return getY(model, index) !== null; });
+
+    var renderLine = function() {
+      selection.select('path')
+        .attr('d', line(group.get('values').models))
+        .attr('class', 'line line' + groupIndex + ' ' + group.get('id'));
+    };
+
+    var renderTerminators = function() {
+      group.get('values').each(function (model, index) {
+        var missingPreviousPoint = (index > 0 && getY(model, index - 1) === null),
+            missingNextPoint = (index < group.get('values').size() - 1 && getY(model, index + 1) === null),
+            showTerminator = missingPreviousPoint || missingNextPoint;
+
+        if (showTerminator) {
+          selection.append("circle")
+            .attr("class", "terminator line" + groupIndex)
+            .attr("cx", getX(model, index))
+            .attr("cy", getY(model, index))
+            .attr("r", 1.5);
+        }
+      });
+    };
+
+    return {
+      render: function() {
+        renderLine();
+        renderTerminators();
+      }
+    };
   }
 
   var Line = Component.extend({
@@ -39,41 +79,12 @@ function (Component) {
       selection.each(function (group, groupIndex) {
         var groupSelection = d3.select(this);
         groups.push(groupSelection);
-
-        var getX = function (model, index) {
-          return that.x(group, groupIndex, model, index);
-        };
-        var getY = function (model, index) {
-          return that.y(group, groupIndex, model, index);
-        };
-
-        var line = d3.svg.line()
-          .x(getX)
-          .y(getY)
-          .defined(function (model, index) { return getY(model, index) !== null; });
-
-        groupSelection.select('path')
-          .attr('d', line(group.get('values').models))
-          .attr('class', 'line line' + groupIndex + ' ' + group.get('id'));
-
-        group.get('values').each(function (model, index) {
-          var missingPreviousPoint = (index > 0 && getY(model, index - 1) === null),
-              missingNextPoint = (index < group.get('values').size() - 1 && getY(model, index + 1) === null),
-              showTerminator = missingPreviousPoint || missingNextPoint;
-
-          if (showTerminator) {
-            groupSelection.append("circle")
-              .attr("class", "terminator line" + groupIndex)
-              .attr("cx", getX(model, index))
-              .attr("cy", getY(model, index))
-              .attr("r", 1.5);
-          }
-        });
+        LineRenderer(that, groupSelection, group, groupIndex).render();
       });
 
       for (var i = groups.length - 1; i >= 0; i--){
         this.moveToFront(groups[i]);
-      };
+      }
 
       var currentSelection = this.collection.getCurrentSelection();
       this.onChangeSelected(
