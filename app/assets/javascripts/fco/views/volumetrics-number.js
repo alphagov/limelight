@@ -2,18 +2,23 @@ define([
   'extensions/views/single-stat'
 ],
 function (SingleStatView) {
-  var CompletionNumberView = SingleStatView.extend({
+  var NumberView = SingleStatView.extend({
 
     changeOnSelected: true,
+    labelPrefix: '',
+
+    formatValue: function(value) {
+      return this.formatNumericLabel(value);
+    },
 
     getValue: function () {
-      return this.formatPercentage(this.collection.at(0).get('totalCompletion'));
+      return this.formatValue(this.collection.at(0).get(this.valueAttr));
     },
 
     getLabel: function () {
       var weeks = this.collection.at(0).get('weeks'),
           unavailableWeeks = weeks.total - weeks.available,
-          label = ['last', weeks.total, 'weeks'];
+          label = [this.labelPrefix, 'last', weeks.total, 'weeks'];
 
       if (unavailableWeeks > 0) {
         label = label.concat([
@@ -27,7 +32,7 @@ function (SingleStatView) {
     },
 
     getValueSelected: function (selection) {
-      return this.formatPercentage(selection.selectedModel.get('completion'));
+      return this.formatValue(selection.selectedModel.get(this.selectionValueAttr));
     },
 
     getLabelSelected: function (selection) {
@@ -35,5 +40,5 @@ function (SingleStatView) {
     }
   });
 
-  return CompletionNumberView;
+  return NumberView;
 });
