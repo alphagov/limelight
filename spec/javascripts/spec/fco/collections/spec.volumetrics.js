@@ -74,7 +74,6 @@ define(['fco/collections/volumetrics'],
             });
           };
 
-
       beforeEach(function () {
         volumetricsCollection = collectionFor(someFakeFCOTransactionData);
       });
@@ -115,10 +114,10 @@ define(['fco/collections/volumetrics'],
       });
 
       xit("should ignore missing data for applications", function () {
-        var applicationsSeries = volumetricsCollection.applicationsSeries();
+        var applicationsSeries = collectionFor(missingData).applicationsSeries();
 
         expect(applicationsSeries.weeksWithData).toBe(2);
-        expect(applicationsSeries.mean).toBeCloseTo(3.33, 0.01);
+        expect(applicationsSeries.mean).toBeCloseTo(3.5, 0.01);
       });
       
       it("should map applications to application series", function () {
