@@ -156,7 +156,7 @@ define(['fco/collections/volumetrics'],
         expect(thirdValue.get('completion')).toBeCloseTo(0.4444, 0.001);
       });
 
-      xit("should have null completion rate for missing data", function () {
+      it("should have null completion rate for missing data", function () {
         var completionWithMissingData = collectionFor(missingData).completionSeries().values;
         var missingValue = completionWithMissingData.at(7);
 

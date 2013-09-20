@@ -25,6 +25,9 @@ function (Collection, Group, dateFunctions) {
     if (_.isObject(existingStartedEvent) && _.isObject(existingCompletedEvent)) {
       completion = existingCompletedEvent.uniqueEvents / existingStartedEvent.uniqueEvents;
     }
+    if (isNaN(completion)) {
+      completion = null;
+    }
     return completion;
   }
 
