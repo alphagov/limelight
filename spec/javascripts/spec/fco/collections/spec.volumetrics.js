@@ -174,12 +174,12 @@ define(['fco/collections/volumetrics'],
         var paddedValue = paddedValues.pop();
         expect(paddedValue.get('_start_at')).toBeMoment(moment("2013-06-03T01:00:00+01:00"));
         expect(paddedValue.get('_end_at')).toBeMoment(moment("2013-06-10T01:00:00+01:00"));
-        expect(paddedValue.get('uniqueEvents')).toBe(0);
+        expect(paddedValue.get('uniqueEvents')).toBe(null);
 
         var paddedValue2 = paddedValues.pop();
         expect(paddedValue2.get('_start_at')).toBeMoment(moment("2013-05-27T01:00:00+01:00"));
         expect(paddedValue2.get('_end_at')).toBeMoment(moment("2013-06-03T01:00:00+01:00"));
-        expect(paddedValue2.get('uniqueEvents')).toBe(0);
+        expect(paddedValue2.get('uniqueEvents')).toBe(null);
       });
 
       it("should query for 9 weeks of data for completion series", function () {

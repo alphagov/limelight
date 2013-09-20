@@ -78,7 +78,7 @@ function (Collection, Group, dateFunctions) {
         return {
           _start_at: timestamp.clone().add(1, 'hours'),
           _end_at: timestamp.clone().add(1, 'hours').add(1, 'weeks'),
-          uniqueEvents: _.isUndefined(existingEvent) ? 0 : existingEvent.uniqueEvents
+          uniqueEvents: _.isUndefined(existingEvent) ? null : existingEvent.uniqueEvents
         };
       });
 
