@@ -99,6 +99,7 @@ define(['fco/collections/volumetrics'],
         var applicationsSeries = volumetricsCollection.applicationsSeries();
         expect(applicationsSeries.title).toBe("Done");
         expect(applicationsSeries.id).toBe("done");
+        expect(applicationsSeries.totalWeeks).toBe(3);
         expect(applicationsSeries.weeksWithData).toBe(3);
         expect(applicationsSeries.mean).toBeCloseTo(3.33, 0.01);
         expect(applicationsSeries.values).not.toBeUndefined();
@@ -108,6 +109,7 @@ define(['fco/collections/volumetrics'],
         var completionSeries = volumetricsCollection.completionSeries();
         expect(completionSeries.title).toBe("Completion rate");
         expect(completionSeries.id).toBe("completion");
+        expect(completionSeries.totalWeeks).toBe(3);
         expect(completionSeries.weeksWithData).toBe(3);
         expect(completionSeries.totalCompletion).toBeCloseTo(0.476, 0.01);
         expect(completionSeries.values.length).not.toBeUndefined();
@@ -116,12 +118,14 @@ define(['fco/collections/volumetrics'],
       it("should ignore missing data for applications", function () {
         var applicationsSeries = collectionFor(missingData).applicationsSeries();
 
+        expect(applicationsSeries.totalWeeks).toBe(3);
         expect(applicationsSeries.weeksWithData).toBe(2);
         expect(applicationsSeries.mean).toBeCloseTo(3.5, 0.01);
       });
       it("should ignore missing data for completion rate", function () {
         var completionSeries = collectionFor(missingData).completionSeries();
 
+        expect(completionSeries.totalWeeks).toBe(3);
         expect(completionSeries.weeksWithData).toBe(2);
         expect(completionSeries.totalCompletion).toBeCloseTo(0.5, 0.01);
       });

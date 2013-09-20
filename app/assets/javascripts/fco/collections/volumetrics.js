@@ -85,6 +85,7 @@ function (Collection, Group, dateFunctions) {
       return {
         id: "done",
         title: "Done",
+        totalWeeks: applicationEvents.length,
         weeksWithData: weeksWithData,
         mean: this.numberOfJourneyCompletions() / weeksWithData,
         values: new Collection(values)
@@ -112,6 +113,7 @@ function (Collection, Group, dateFunctions) {
       return {
         id: "completion",
         title: "Completion rate",
+        totalWeeks: completedApplicationEvents.length,
         weeksWithData: countProvidedData(completedApplicationEvents),
         totalCompletion: this.completionRate(),
         values: new Collection(values)
