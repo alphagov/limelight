@@ -10,11 +10,19 @@ function (require, CompletionNumberView) {
     },
 
     getLabel: function () {
-      return [
-        'mean per week over the last',
-        this.collection.at(0).get('weeks').total,
-        'weeks'
-      ].join(' ');
+      var weeks = this.collection.at(0).get('weeks'),
+          unavailableWeeks = weeks.total - weeks.available,
+          label = ['mean per week over the last', weeks.total, 'weeks'];
+
+      if (unavailableWeeks > 0) {
+        label = label.concat([
+          "<span class='unavailable'>(" + unavailableWeeks,
+          this.pluralise('week', unavailableWeeks),
+          "unavailable)</span>"
+        ]);
+      }
+
+      return label.join(' ');
     },
 
     getValueSelected: function (selection) {

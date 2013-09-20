@@ -18,7 +18,6 @@ Feature: FCO volumetrics graph
     Then the completion rate should display "7% last 9 weeks (1 week unavailable)"
 
   @svg
-  @wip
   Scenario: checking applications completed with missing data
     When I go to /performance/deposit-foreign-marriage
     Then the applications completed should display "20.4 mean per week over the last 9 weeks (1 week unavailable)"
