@@ -155,6 +155,15 @@ define(['fco/collections/volumetrics'],
         expect(thirdValue.get('_end_at')).toBeMoment(moment("2013-07-01T01:00:00+01:00"));
         expect(thirdValue.get('completion')).toBeCloseTo(0.4444, 0.001);
       });
+
+      xit("should have null completion rate for missing data", function () {
+        var completionWithMissingData = collectionFor(missingData).completionSeries().values;
+        var missingValue = completionWithMissingData.at(7);
+
+        expect(missingValue.get('_start_at')).toBeMoment(moment("2013-06-17T01:00:00+01:00"));
+        expect(missingValue.get('_end_at')).toBeMoment(moment("2013-06-24T01:00:00+01:00"));
+        expect(missingValue.get('completion')).toBe(null);
+      });
       
       it("should query for 9 weeks of data for application series", function () {
         expect(volumetricsCollection.applicationsSeries().values.length).toBe(9);
