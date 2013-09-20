@@ -11,7 +11,19 @@ function (SingleStatView) {
     },
 
     getLabel: function () {
-      return 'last ' + this.collection.at(0).get('weeks').total + ' weeks';
+      var weeks = this.collection.at(0).get('weeks'),
+          unavailableWeeks = weeks.total - weeks.available,
+          label = ['last', weeks.total, 'weeks'];
+
+      if (unavailableWeeks > 0) {
+        label = label.concat([
+          "<span class='unavailable'>(" + unavailableWeeks,
+          this.pluralise('week', unavailableWeeks),
+          "unavailable)</span>"
+        ]);
+      }
+
+      return label.join(' ');
     },
 
     getValueSelected: function (selection) {
