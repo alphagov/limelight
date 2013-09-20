@@ -191,10 +191,10 @@ define(['fco/collections/volumetrics'],
         var paddedValue = paddedValues.pop();
         expect(paddedValue.get('_start_at')).toBeMoment(moment("2013-06-03T01:00:00+0100"));
         expect(paddedValue.get('_end_at')).toBeMoment(moment("2013-06-10T01:00:00+01:00"));
-        expect(paddedValue.get('completion')).toBe(0);
+        expect(paddedValue.get('completion')).toBe(null);
       });
 
-      it("should have a completion rate of 0 when there's no done event for the timestamp", function () {
+      it("should have a completion rate of null when there's no done event for the timestamp", function () {
         var events = { data: [
           {
             _timestamp: "2013-06-09T23:00:00+00:00",
@@ -207,7 +207,7 @@ define(['fco/collections/volumetrics'],
           serviceName: 'notARealFCOTransaction'
         });
 
-        expect(noDoneEventVolumetricsCollection.completionSeries().values.at(8).get('completion')).toBe(0);
+        expect(noDoneEventVolumetricsCollection.completionSeries().values.at(8).get('completion')).toBe(null);
       })
     });
   }

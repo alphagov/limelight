@@ -21,12 +21,12 @@ function (Collection, Group, dateFunctions) {
   }
 
   function findCompletion(existingStartedEvent, existingCompletedEvent) {
-    var completion = 0;
-    if (_.isObject(existingStartedEvent) && _.isObject(existingCompletedEvent)) {
+    var completion = null,
+        isValid = function(event) {
+          return _.isObject(event) && event.uniqueEvents != null;
+        };
+    if (isValid(existingStartedEvent) && isValid(existingCompletedEvent)) {
       completion = existingCompletedEvent.uniqueEvents / existingStartedEvent.uniqueEvents;
-    }
-    if (isNaN(completion)) {
-      completion = null;
     }
     return completion;
   }
