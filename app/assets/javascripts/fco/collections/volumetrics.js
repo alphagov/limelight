@@ -13,6 +13,13 @@ function (Collection, Group, dateFunctions) {
     });
   }
 
+  function countProvidedData(data) {
+    var providedData = _.filter(data, function (d) {
+      return d.uniqueEvents != null;
+    });
+    return providedData.length;
+  }
+
   function findCompletion(existingStartedEvent, existingCompletedEvent) {
     var completion = 0;
     if (_.isObject(existingStartedEvent) && _.isObject(existingCompletedEvent)) {
@@ -58,6 +65,7 @@ function (Collection, Group, dateFunctions) {
     applicationsSeries: function () {
       var data = this.pluck('data')[0];
       var applicationEvents = filterByEventCategory(data, DONE_STAGE_MATCHER);
+      var weeksWithData = countProvidedData(applicationEvents);
 
       var latestEventTimestamp = dateFunctions.latest(data, function (d) { return moment(d._timestamp); });
       var weekDates = dateFunctions.weeksFrom(latestEventTimestamp, 9);
@@ -74,8 +82,8 @@ function (Collection, Group, dateFunctions) {
       return {
         id: "done",
         title: "Done",
-        weeksWithData: applicationEvents.length,
-        mean: this.numberOfJourneyCompletions() / applicationEvents.length,
+        weeksWithData: weeksWithData,
+        mean: this.numberOfJourneyCompletions() / weeksWithData,
         values: new Collection(values)
       };
     },

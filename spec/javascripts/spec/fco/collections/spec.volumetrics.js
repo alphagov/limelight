@@ -113,7 +113,7 @@ define(['fco/collections/volumetrics'],
         expect(completionSeries.values.length).not.toBeUndefined();
       });
 
-      xit("should ignore missing data for applications", function () {
+      it("should ignore missing data for applications", function () {
         var applicationsSeries = collectionFor(missingData).applicationsSeries();
 
         expect(applicationsSeries.weeksWithData).toBe(2);
