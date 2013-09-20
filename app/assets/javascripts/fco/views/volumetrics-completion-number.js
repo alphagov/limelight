@@ -11,7 +11,7 @@ function (SingleStatView) {
     },
 
     getLabel: function () {
-      return 'last ' + this.collection.at(0).get('weeksWithData') + ' weeks';
+      return 'last ' + this.collection.at(0).get('weeks').total + ' weeks';
     },
 
     getValueSelected: function (selection) {

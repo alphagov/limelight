@@ -12,7 +12,7 @@ function (require, CompletionNumberView) {
     getLabel: function () {
       return [
         'mean per week over the last',
-        this.collection.at(0).get('weeksWithData'),
+        this.collection.at(0).get('weeks').total,
         'weeks'
       ].join(' ');
     },
