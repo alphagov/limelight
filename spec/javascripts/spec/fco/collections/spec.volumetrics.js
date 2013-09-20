@@ -119,6 +119,12 @@ define(['fco/collections/volumetrics'],
         expect(applicationsSeries.weeksWithData).toBe(2);
         expect(applicationsSeries.mean).toBeCloseTo(3.5, 0.01);
       });
+      it("should ignore missing data for completion rate", function () {
+        var completionSeries = collectionFor(missingData).completionSeries();
+
+        expect(completionSeries.weeksWithData).toBe(2);
+        expect(completionSeries.totalCompletion).toBeCloseTo(0.5, 0.01);
+      });
       
       it("should map applications to application series", function () {
         var firstValue = volumetricsCollection.applicationsSeries().values.at(6);

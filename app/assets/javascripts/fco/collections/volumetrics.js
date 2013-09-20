@@ -109,7 +109,7 @@ function (Collection, Group, dateFunctions) {
       return {
         id: "completion",
         title: "Completion rate",
-        weeksWithData: completedApplicationEvents.length,
+        weeksWithData: countProvidedData(completedApplicationEvents),
         totalCompletion: this.completionRate(),
         values: new Collection(values)
       };
