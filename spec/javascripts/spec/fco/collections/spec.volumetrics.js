@@ -33,13 +33,50 @@ define(['fco/collections/volumetrics'],
       }
     ];
 
+    var missingData = [
+      {
+        _timestamp: "2013-06-09T23:00:00+00:00",
+        eventCategory: "fco-transaction-name:start",
+        uniqueEvents: 5
+      },
+      {
+        _timestamp: "2013-06-16T23:00:00+00:00",
+        eventCategory: "fco-transaction-name:start",
+        uniqueEvents: null
+      },
+      {
+        _timestamp: "2013-06-23T23:00:00+00:00",
+        eventCategory: "fco-transaction-name:start",
+        uniqueEvents: 9
+      },
+      {
+        _timestamp: "2013-06-09T23:00:00+00:00",
+        eventCategory: "fco-transaction-name:done",
+        uniqueEvents: 3
+      },
+      {
+        _timestamp: "2013-06-16T23:00:00+00:00",
+        eventCategory: "fco-transaction-name:done",
+        uniqueEvents: null
+      },
+      {
+        _timestamp: "2013-06-23T23:00:00+00:00",
+        eventCategory: "fco-transaction-name:done",
+        uniqueEvents: 4
+      }
+    ];
+
     describe("FCO volumetrics collections", function () {
-      var volumetricsCollection = undefined;
+      var volumetricsCollection = undefined,
+          collectionFor = function (data) {
+            return new VolumetricsCollection({ data: data }, {
+              serviceName: 'notARealFCOTransaction'
+            });
+          };
+
 
       beforeEach(function () {
-        volumetricsCollection = new VolumetricsCollection({ data: someFakeFCOTransactionData }, {
-          serviceName: 'notARealFCOTransaction'
-        });
+        volumetricsCollection = collectionFor(someFakeFCOTransactionData);
       });
 
       it("should query backdrop for journey data for the specified service", function () {
@@ -75,6 +112,13 @@ define(['fco/collections/volumetrics'],
         expect(completionSeries.weeksWithData).toBe(3);
         expect(completionSeries.totalCompletion).toBeCloseTo(0.476, 0.01);
         expect(completionSeries.values.length).not.toBeUndefined();
+      });
+
+      xit("should ignore missing data for applications", function () {
+        var applicationsSeries = volumetricsCollection.applicationsSeries();
+
+        expect(applicationsSeries.weeksWithData).toBe(2);
+        expect(applicationsSeries.mean).toBeCloseTo(3.33, 0.01);
       });
       
       it("should map applications to application series", function () {
