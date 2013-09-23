@@ -123,7 +123,7 @@ function (require, Line, Component) {
       for (var i = this.collection.models.length - 1; i >= 0; i--) {
         var group = this.collection.models[i];
         var distanceAndClosestModel = this.getDistanceAndClosestModel(
-          group, i, point, { allowNull: !this.selectGroup }
+          group, i, point, { allowMissingData: !this.selectGroup }
         );
 
         if (distanceAndClosestModel.diff > 0 || i === 0) {

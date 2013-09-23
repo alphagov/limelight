@@ -127,11 +127,11 @@ function (Component) {
      * @param {Number} point.x x-coordinate
      * @param {Number} point.y y-coordinate
      * @param {Object} [options={}] Options
-     * @param {Boolean} [options.allowNull=false] Accept data points with null value
+     * @param {Boolean} [options.allowMissingData=false] Accept data points with null value
      */
     getDistanceAndClosestModel: function (group, groupIndex, point, options) {
       options = _.extend({
-        allowNull: false
+        allowMissingData: false
       }, options);
 
       var values = group.get('values');
@@ -151,13 +151,13 @@ function (Component) {
       // with non-null values
       var leftIndex, rightIndex;
       for (var i = leftIndexStart; i >= 0; i--) {
-        if (options.allowNull || this.y(group, groupIndex, values.at(i), i) !== null) {
+        if (options.allowMissingData || this.y(group, groupIndex, values.at(i), i) !== null) {
           leftIndex = i;
           break;
         }
       }
       for (var i = rightIndexStart; i < values.length; i++) {
-        if (options.allowNull || this.y(group, groupIndex, values.at(i), i) !== null) {
+        if (options.allowMissingData || this.y(group, groupIndex, values.at(i), i) !== null) {
           rightIndex = i;
           break;
         }

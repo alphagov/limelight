@@ -163,7 +163,7 @@ function (Line, Collection) {
           x: 2.5,
           y: -3
         }, {
-          allowNull: true
+          allowMissingData: true
         });
         expect(res.dist).toEqual(6.5);
         expect(res.diff).toEqual(-6.5);
@@ -173,7 +173,7 @@ function (Line, Collection) {
           x: 7,
           y: 8
         }, {
-          allowNull: true
+          allowMissingData: true
         });
         expect(res.dist).toEqual(0);
         expect(res.diff).toEqual(0);
