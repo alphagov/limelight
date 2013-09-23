@@ -217,6 +217,27 @@ function (Stack, Collection) {
         view.onHover({ x: 1, y: 3 });
         expect(collection.selectItem.mostRecentCall.args).toEqual([null, 0]);
       });
+
+      it("selects closest point when hovering over missing data and missing data is not allowed", function() {
+        var missingDataIndex = 2;
+
+        collection.at(0).get('values').at(missingDataIndex).set('y', null);
+        collection.at(1).get('values').at(missingDataIndex).set('y', null);
+
+        view.onHover({ x: 3.1, y: missingDataIndex });
+        expect(collection.selectItem.mostRecentCall.args).toEqual([0, 3]);
+      });
+
+      it("selects missing data index when missing data is allowed", function() {
+        var missingDataIndex = 2;
+
+        collection.at(0).get('values').at(missingDataIndex).set('y', null);
+        collection.at(1).get('values').at(missingDataIndex).set('y', null);
+
+        view.allowMissingData = true;
+        view.onHover({ x: 3.1, y: missingDataIndex });
+        expect(collection.selectItem.mostRecentCall.args[1]).toEqual(missingDataIndex);
+      });
     });
   });
 });
