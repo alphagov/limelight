@@ -30,14 +30,15 @@ function (View) {
         label = this.getLabel();
       }
 
-      if (value === null) {
-        value = '(no data)';
-      }
-      
       var content = value;
-      if (this.valueTag) {
+      if (this.valueTag && value !== null) {
         content = '<' + this.valueTag + '>' + value + '</' + this.valueTag + '>';
-      } 
+      }
+
+      if (value === null) {
+        content = "<span class='no-data'>(no data)</span>";
+      }
+
       if (label) {
         content += ' ' + label;
       }
