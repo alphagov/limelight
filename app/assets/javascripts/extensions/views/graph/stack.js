@@ -38,7 +38,7 @@ function (require, Line, Component) {
     renderContent: function (selectionStacks, selectionLines) {
       var that = this;
       var getX = function (model, index) {
-        return that.x.call(that, null, 0, model, index)
+        return that.x.call(that, null, 0, model, index);
       };
 
       var yProperty = this.graph.stackYProperty || 'y';
@@ -54,13 +54,13 @@ function (require, Line, Component) {
       };
 
       var area = d3.svg.area()
-        .defined(function(d) { return d.y != null; })
+        .defined(function(d) { return d.y !== null; })
         .x(getX)
         .y0(getY0)
         .y1(getY);
         
       var line = d3.svg.line()
-        .defined(function(d) { return d.y != null; })
+        .defined(function(d) { return d.y !== null; })
         .x(getX)
         .y(getY);
 
