@@ -115,15 +115,19 @@ function (Component) {
         if (groupSelected) {
           var y = this.y(groupSelected, groupIndexSelected, modelSelected, indexSelected);
           if (y !== null) {
-            this.componentWrapper.append('circle').attr({
-              'class': 'selectedIndicator line' + groupIndexSelected,
-              cx: x,
-              cy: y,
-              r: 4
-            });
+            this.renderSelectionPoint(groupIndexSelected, x, y);
           }
         }
       }
+    },
+
+    renderSelectionPoint: function (groupIndexSelected, x, y) {
+      this.componentWrapper.append('circle').attr({
+        'class': 'selectedIndicator line' + groupIndexSelected,
+        cx: x,
+        cy: y,
+        r: 4
+      });
     },
 
     renderCursorLine: function (x) {
