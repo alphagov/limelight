@@ -14,10 +14,10 @@ Feature: Overview page
     Then I should see the module "Real-time usage"
      And the module should contain the text "11 users online now"
 
-  Scenario: form submissions module
+  Scenario: forms received module
     Given The licensing applications bucket returns the response in "licensing_applications.json"
     When I go to /performance/licensing
-    Then I should see the module "Form submissions"
+    Then I should see the module "Forms received"
      And the module should contain a graph
      And the module should contain 2 tabs
 
