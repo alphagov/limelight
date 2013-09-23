@@ -97,16 +97,14 @@ function (Component) {
     },
 
     onChangeSelected: function (groupSelected, groupIndexSelected, modelSelected, indexSelected) {
+      this.componentWrapper.selectAll('path.line').classed('selected', false);
+      if (groupSelected) {
+        var line = this.componentWrapper.select('path.line' + groupIndexSelected).classed('selected', true);
+        var group = line.node().parentNode;
+        group.parentNode.appendChild(group);
+      }
+
       this.componentWrapper.selectAll('.selectedIndicator').remove();
-      this.collection.each(function (group, groupIndex) {
-        var selected = (groupIndexSelected === groupIndex);
-        var line = this.componentWrapper.select('path.line' + groupIndex);
-        line.classed('selected', selected);
-        if (selected) {
-          var group = line.node().parentNode;
-          group.parentNode.appendChild(group);
-        }
-      }, this);
       if (modelSelected) {
         var x = this.x(groupSelected, groupIndexSelected, modelSelected, indexSelected);
         if (this.drawCursorLine) {
