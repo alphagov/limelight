@@ -108,15 +108,16 @@ function (Component) {
         }
       }, this);
       if (modelSelected) {
-        var x = this.x(groupSelected, groupIndexSelected, modelSelected, indexSelected);
+        var x = this.x(groupSelected, groupIndexSelected, modelSelected, indexSelected),
+            y = this.y(groupSelected, groupIndexSelected, modelSelected, indexSelected);
         if (this.drawCursorLine) {
           this.renderCursorLine(x);
         }
-        if (groupSelected) {
+        if (groupSelected && y !== null) {
           this.componentWrapper.append('circle').attr({
             'class': 'selectedIndicator line' + groupIndexSelected,
             cx: x,
-            cy: this.y(groupSelected, groupIndexSelected, modelSelected, indexSelected),
+            cy: y,
             r: 4
           });
         }
