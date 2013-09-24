@@ -22,10 +22,10 @@ function (Collection, Group, dateFunctions) {
 
   function findCompletion(existingStartedEvent, existingCompletedEvent) {
     var completion = null,
-        isValid = function(event) {
-          return _.isObject(event) && event.uniqueEvents != null;
+        hasUniqueEvent = function(event) {
+          return _.isObject(event) && event.uniqueEvents !== null;
         };
-    if (isValid(existingStartedEvent) && isValid(existingCompletedEvent)) {
+    if (hasUniqueEvent(existingStartedEvent) && hasUniqueEvent(existingCompletedEvent)) {
       completion = existingCompletedEvent.uniqueEvents / existingStartedEvent.uniqueEvents;
     }
     return completion;
