@@ -30,13 +30,13 @@ function (View) {
         label = this.getLabel();
       }
 
-      var content = value;
-      if (this.valueTag && value !== null) {
-        content = '<' + this.valueTag + '>' + value + '</' + this.valueTag + '>';
-      }
-
+      var content = null;
       if (value === null) {
         content = "<span class='no-data'>(no data)</span>";
+      } else if (this.valueTag) {
+        content = '<' + this.valueTag + '>' + value + '</' + this.valueTag + '>';
+      } else {
+        content = value;
       }
 
       if (label) {
