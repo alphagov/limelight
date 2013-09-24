@@ -54,13 +54,13 @@ function (require, Line, Component) {
       };
 
       var area = d3.svg.area()
-        .defined(function(d) { return d.y !== null; })
+        .defined(function(d) { return d[yProperty] !== null; })
         .x(getX)
         .y0(getY0)
         .y1(getY);
-        
+
       var line = d3.svg.line()
-        .defined(function(d) { return d.y !== null; })
+        .defined(function(d) { return d[yProperty] !== null; })
         .x(getX)
         .y(getY);
 
@@ -79,7 +79,6 @@ function (require, Line, Component) {
           .attr("class", function (group, index) {
             return 'line line' + (maxGroupIndex-index) + ' ' + group.get('id');
           });
-
       selectionLines.select('path').attr("d", function(group, groupIndex) {
         return line(group.get('values').models);
       });
