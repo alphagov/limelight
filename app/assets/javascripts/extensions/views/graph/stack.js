@@ -45,6 +45,11 @@ function (require, Line, Component) {
       var y0Property = this.graph.stackY0Property || 'y0';
 
       var yScale = this.scales.y;
+
+      var hasYValue = function(model) {
+        return model[yProperty] !== null;
+      }
+
       var getY = function (model, index) {
         return yScale(model[yProperty] + model[y0Property]);
       };
@@ -54,13 +59,13 @@ function (require, Line, Component) {
       };
 
       var area = d3.svg.area()
-        .defined(function(d) { return d[yProperty] !== null; })
+        .defined(hasYValue)
         .x(getX)
         .y0(getY0)
         .y1(getY);
 
       var line = d3.svg.line()
-        .defined(function(d) { return d[yProperty] !== null; })
+        .defined(hasYValue)
         .x(getX)
         .y(getY);
 
