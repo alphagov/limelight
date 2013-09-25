@@ -4,6 +4,7 @@ Feature: Services page
   So I can see a list of available services and navigate to them
 
 
+  @sauce
   Scenario: visiting services page
        When I go to /performance/services
        Then I should get back a status of 200
