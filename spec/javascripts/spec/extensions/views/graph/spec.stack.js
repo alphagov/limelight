@@ -99,6 +99,27 @@ function (Stack, Collection) {
         expect(group2.selectAll('path.stack').attr('d')).toEqual('M1.5,10L5.5,26L5.5,14L1.5,6ZM12.5,54L15.5,66L15.5,34L12.5,28Z');
       });
 
+      it("renders multiple paths when there are gaps in the data and when using custom stack properties", function() {
+        collection.at(0).get('values').at(2).set('b', null);
+        collection.at(1).get('values').at(2).set('b', null);
+        view.graph.stackYProperty = 'yCustom';
+        view.graph.stackY0Property = 'yCustom0';
+        stack.out(function (model, y0, y) {
+          delete model.y0;
+          delete model.y;
+          model.yCustom0 = y0;
+          model.yCustom = y;
+        });
+        view.graph.layers = stack(collection.models.slice().reverse());
+        view.render();
+        var group1 = wrapper.selectAll('g.group:nth-child(1)');
+        expect(group1.selectAll('path.line').attr('d')).toEqual('M1.5,6L5.5,14M12.5,28L15.5,34');
+        expect(group1.selectAll('path.stack').attr('d')).toEqual('M1.5,6L5.5,14L5.5,0L1.5,0ZM12.5,28L15.5,34L15.5,0L12.5,0Z');
+        var group2 = wrapper.selectAll('g.group:nth-child(2)');
+        expect(group2.selectAll('path.line').attr('d')).toEqual('M1.5,10L5.5,26M12.5,54L15.5,66');
+        expect(group2.selectAll('path.stack').attr('d')).toEqual('M1.5,10L5.5,26L5.5,14L1.5,6ZM12.5,54L15.5,66L15.5,34L12.5,28Z');
+      });
+
       it("ensures that elements are rendered in correct order after an element was selected", function () {
         // correct rendering order for stack is from bottom to top
         view.render();
