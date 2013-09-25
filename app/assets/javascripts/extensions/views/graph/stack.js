@@ -8,11 +8,6 @@ function (require, Line, Component) {
 
     selectGroup: true,
     
-    y0: function (group, groupIndex, model, index) {
-      var yPos = this.graph.getY0Pos(groupIndex, index);
-      return this.scales.y(yPos);
-    },
-
     render: function () {
       Component.prototype.render.apply(this, arguments);
 
