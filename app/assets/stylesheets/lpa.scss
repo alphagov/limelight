@@ -1,0 +1,18 @@
+@import 'typography';
+
+.help-usage-table {
+
+  th, td {
+    white-space: normal;
+  }
+
+  //th.helpName,
+  //td.helpName {
+  //  width: 9em;
+  //}
+
+  th.count,
+  td.count {
+    width: 9em;
+  }
+}
