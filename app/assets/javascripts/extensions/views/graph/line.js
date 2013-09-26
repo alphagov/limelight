@@ -2,10 +2,55 @@ define([
   'extensions/views/graph/component'
 ],
 function (Component) {
+
+  var LineRenderer = function(that, selection, group, groupIndex) {
+    var getX = function (model, index) {
+      return that.x(group, groupIndex, model, index);
+    };
+    var getY = function (model, index) {
+      return that.y(group, groupIndex, model, index);
+    };
+
+    var line = d3.svg.line()
+      .x(getX)
+      .y(getY)
+      .defined(function (model, index) { return getY(model, index) !== null; });
+
+    var renderLine = function() {
+      selection.select('path')
+        .attr('d', line(group.get('values').models))
+        .attr('class', 'line line' + groupIndex + ' ' + group.get('id'));
+    };
+
+    var renderTerminators = function() {
+      selection.selectAll(".terminator").remove();
+      group.get('values').each(function (model, index) {
+        var missingPreviousPoint = (index > 0 && getY(model, index - 1) === null),
+            missingNextPoint = (index < group.get('values').size() - 1 && getY(model, index + 1) === null),
+            showTerminator = missingPreviousPoint || missingNextPoint;
+
+        if (showTerminator) {
+          selection.append("circle")
+            .attr("class", "terminator line" + groupIndex)
+            .attr("cx", getX(model, index))
+            .attr("cy", getY(model, index))
+            .attr("r", 1.5);
+        }
+      });
+    };
+
+    return {
+      render: function() {
+        renderLine();
+        renderTerminators();
+      }
+    };
+  }
+
   var Line = Component.extend({
 
     interactive: true,
-    
+
     drawCursorLine: false,
     
     x: function (group, groupIndex, model, index) {
@@ -24,35 +69,23 @@ function (Component) {
     render: function () {
       Component.prototype.render.apply(this, arguments);
       
-      var selection = this.componentWrapper.selectAll('g.group')
-          .data(this.collection.models);
+      var selection = this.componentWrapper
+        .selectAll('g.group')
+        .data(this.collection.models);
+      selection.enter().append('g').attr('class', 'group').append('path');
       selection.exit().remove();
-      
-      var enterSelection = selection.enter();
-      var enterGroup = enterSelection.append('g').attr('class', 'group')
-          .append('path');
         
       var that = this;
-      var line = d3.svg.line();
-      
       var groups = [];
       selection.each(function (group, groupIndex) {
         var groupSelection = d3.select(this);
         groups.push(groupSelection);
-        var path = groupSelection.select('path');
-        line.x(function (model, index) {
-          return that.x.call(that, group, groupIndex, model, index);
-        });
-        line.y(function (model, index) {
-          return that.y.call(that, group, groupIndex, model, index);
-        });
-        path.attr('d', line(group.get('values').models));
-        path.attr('class', 'line line' + groupIndex + ' ' + group.get('id'));
+        LineRenderer(that, groupSelection, group, groupIndex).render();
       });
-      
+
       for (var i = groups.length - 1; i >= 0; i--){
         this.moveToFront(groups[i]);
-      };
+      }
 
       var currentSelection = this.collection.getCurrentSelection();
       this.onChangeSelected(
@@ -62,36 +95,37 @@ function (Component) {
         currentSelection.selectedModelIndex
       );
     },
-    
-    lineClassed: function (group, index) {
-      return 'line line' + index + ' ' + group.get('id');
-    },
 
     onChangeSelected: function (groupSelected, groupIndexSelected, modelSelected, indexSelected) {
+      this.componentWrapper.selectAll('path.line').classed('selected', false);
+      if (groupSelected) {
+        var line = this.componentWrapper.select('path.line' + groupIndexSelected).classed('selected', true);
+        var group = line.node().parentNode;
+        group.parentNode.appendChild(group);
+      }
+
       this.componentWrapper.selectAll('.selectedIndicator').remove();
-      this.collection.each(function (group, groupIndex) {
-        var selected = (groupIndexSelected === groupIndex);
-        var line = this.componentWrapper.select('path.line' + groupIndex);
-        line.classed('selected', selected);
-        if (selected) {
-          var group = line.node().parentNode;
-          group.parentNode.appendChild(group);
-        }
-      }, this);
       if (modelSelected) {
         var x = this.x(groupSelected, groupIndexSelected, modelSelected, indexSelected);
         if (this.drawCursorLine) {
           this.renderCursorLine(x);
         }
         if (groupSelected) {
-          this.componentWrapper.append('circle').attr({
-            'class': 'selectedIndicator line' + groupIndexSelected,
-            cx: x,
-            cy: this.y(groupSelected, groupIndexSelected, modelSelected, indexSelected),
-            r: 4
-          });
+          var y = this.y(groupSelected, groupIndexSelected, modelSelected, indexSelected);
+          if (y !== null) {
+            this.renderSelectionPoint(groupIndexSelected, x, y);
+          }
         }
       }
+    },
+
+    renderSelectionPoint: function (groupIndexSelected, x, y) {
+      this.componentWrapper.append('circle').attr({
+        'class': 'selectedIndicator line' + groupIndexSelected,
+        cx: x,
+        cy: y,
+        r: 4
+      });
     },
 
     renderCursorLine: function (x) {
@@ -127,11 +161,11 @@ function (Component) {
      * @param {Number} point.x x-coordinate
      * @param {Number} point.y y-coordinate
      * @param {Object} [options={}] Options
-     * @param {Boolean} [options.allowNull=false] Accept data points with null value
+     * @param {Boolean} [options.allowMissingData=false] Accept data points with null value
      */
     getDistanceAndClosestModel: function (group, groupIndex, point, options) {
       options = _.extend({
-        allowNull: false
+        allowMissingData: false
       }, options);
 
       var values = group.get('values');
@@ -151,13 +185,13 @@ function (Component) {
       // with non-null values
       var leftIndex, rightIndex;
       for (var i = leftIndexStart; i >= 0; i--) {
-        if (options.allowNull || this.y(group, groupIndex, values.at(i), i) !== null) {
+        if (options.allowMissingData || this.y(group, groupIndex, values.at(i), i) !== null) {
           leftIndex = i;
           break;
         }
       }
       for (var i = rightIndexStart; i < values.length; i++) {
-        if (options.allowNull || this.y(group, groupIndex, values.at(i), i) !== null) {
+        if (options.allowMissingData || this.y(group, groupIndex, values.at(i), i) !== null) {
           rightIndex = i;
           break;
         }
