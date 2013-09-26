@@ -11,15 +11,6 @@ function (Graph) {
       return ['stack', 'hour'];
     },
 
-    getScaledTime: function (d) {
-      if(d > 9999){
-        return d.toString().slice(0,-3);
-      }
-      else{
-        return d;
-      }
-    },
-
     components: function () {
       return [
         { view: this.sharedComponents.xaxis },
