@@ -8,7 +8,7 @@ function (SingleStatView) {
 
     getValue: function () {
       var responseTime = Math.round(this.collection.getAverageResponseTime());
-      return responseTime + 'ms';
+      return this.toSecondsOverThreshold(responseTime, 4);
     },
 
     getLabel: function () {
@@ -16,7 +16,7 @@ function (SingleStatView) {
     },
 
     getValueSelected: function (selection) {
-      return selection.selectedModel.get('avgresponse') + 'ms';
+      return this.toSecondsOverThreshold(selection.selectedModel.get('avgresponse'), 4);
     },
 
     getLabelSelected: function (selection) {

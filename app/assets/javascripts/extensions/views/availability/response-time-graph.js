@@ -17,13 +17,7 @@ function (Graph) {
         { view: this.sharedComponents.yaxis,options: {
             tickFormat: function () {
               return function (d) {
-                /*return this.getScaledTime(d) + 'ms';*/
-                if(d > 9999){
-                  return d.toString().slice(0,-3) + 's';
-                }
-                else{
-                  return d + 'ms';
-                }
+                return ResponseTimeGraph.prototype.toSecondsOverThreshold(d, 4);
               };
             }
           }
@@ -36,7 +30,7 @@ function (Graph) {
           view: this.sharedComponents.tooltip,
           options: {
             getValue: function (group, groupIndex, model, index) {
-              return model.get(this.graph.valueAttr) + 'ms';
+              return this.toSecondsOverThreshold(model.get(this.graph.valueAttr), 4);
             }
           }
         },

@@ -223,32 +223,39 @@ function (Backbone, moment, Modernizr) {
         }
       },
 
-      toSecondsOverThreshold: function (milliseconds, threshold) {
+      toSecondsOverThreshold: function (milliseconds, maxLength) {
+
+        var millisecondsToSeconds = function (t) {
+          return t/1000;
+        }
+
+        var roundWithPrecision = function (x,p) {
+          var a = [1,10,100,1000,10000,100000,1000000,10000000,100000000,1000000000,10000000000];
+          return Math.round(x*a[p])/a[p];
+        }
+
+        var visualLength = function (item) {
+          return item.toString().length;
+        }
+
         milliseconds = Math.round(milliseconds);
-        if(milliseconds > threshold){
-          var millisecondsToSeconds = this.millisecondsToSeconds(milliseconds);
-          if(millisecondsToSeconds < 100){
-            return millisecondsToSeconds + 's';
+
+        if(visualLength(milliseconds) > maxLength){
+          var seconds = millisecondsToSeconds(milliseconds);
+          var secondsWithPrecision = roundWithPrecision(seconds, 1);
+          if(visualLength(secondsWithPrecision) > maxLength){
+            return Math.round(seconds) + 's';        
           }
           else{
-            return Math.round(millisecondsToSeconds) + 's';        
+            return secondsWithPrecision + 's';
           }
         }
         else{
           return milliseconds + 'ms';
         }
+
       },
     
-      millisecondsToSeconds: function (t) {
-        var timeInSeconds = t/1000;
-        return this.round(timeInSeconds, 1);
-      },
-
-      round: function (x,p) {
-        var a=[1,10,100,1000,10000,100000,1000000,10000000,100000000,1000000000,10000000000];
-        return Math.round(x*a[p])/a[p];
-      },
-
       /**
        * Convenience method, gets object property or method result. The method
        * is passed no arguments and is executed in the object context.
