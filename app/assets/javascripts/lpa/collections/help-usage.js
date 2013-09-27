@@ -24,7 +24,7 @@ define([
         return _.map(response.data, function (d) {
           return {
             helpName: d.eventLabel,
-            count: d.uniqueEvents
+            count: d.uniqueEvents[0]
           }
         });
       }

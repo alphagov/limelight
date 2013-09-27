@@ -27,31 +27,16 @@ define([
           var response = {
             "data": [
               {
-                "timeSpan":"week",
-                "dataType":"lpa_journey",
-                "eventCategory":"stageprompt.lpa",
-                "eventAction":"help",
                 "eventLabel":"help1",
-                "_timestamp":"2013-06-30T23:00:00+00:00",
-                "uniqueEvents":123
+                "uniqueEvents": [123]
               },
               {
-                "timeSpan":"week",
-                "dataType":"lpa_journey",
-                "eventCategory":"stageprompt.lpa",
-                "eventAction":"help",
                 "eventLabel":"help2",
-                "_timestamp":"2013-06-30T23:00:00+00:00",
-                "uniqueEvents":456
+                "uniqueEvents":[456]
               },
               {
-                "timeSpan":"week",
-                "dataType":"lpa_journey",
-                "eventCategory":"stageprompt.lpa",
-                "eventAction":"help",
                 "eventLabel":"help3",
-                "_timestamp":"2013-06-30T23:00:00+00:00",
-                "uniqueEvents":789
+                "uniqueEvents":[789]
               }
             ]
           };
