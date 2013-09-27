@@ -23,7 +23,7 @@ define([
       parse: function (response) {
         return _.map(response.data, function (d) {
           return {
-            helpName: d.eventLabel,
+            description: d.eventLabel,
             count: d.uniqueEvents[0]
           }
         });

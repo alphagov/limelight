@@ -6,7 +6,7 @@ define([
 
       columns: [
         {
-          id: 'helpName',
+          id: 'description',
           title: 'Description',
           sortable: true
         },

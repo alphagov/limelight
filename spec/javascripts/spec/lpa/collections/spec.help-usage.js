@@ -23,7 +23,7 @@ define([
       });
 
       describe("parse", function () {
-        it("parses usage response", function () {
+        it("parses usage response from backdrop", function () {
           var response = {
             "data": [
               {
@@ -45,11 +45,11 @@ define([
 
           expect(collection.length).toEqual(3);
 
-          expect(collection.at(0).get('helpName')).toEqual('help1');
+          expect(collection.at(0).get('description')).toEqual('help1');
           expect(collection.at(0).get('count')).toEqual(123);
-          expect(collection.at(1).get('helpName')).toEqual('help2');
+          expect(collection.at(1).get('description')).toEqual('help2');
           expect(collection.at(1).get('count')).toEqual(456);
-          expect(collection.at(2).get('helpName')).toEqual('help3');
+          expect(collection.at(2).get('description')).toEqual('help3');
           expect(collection.at(2).get('count')).toEqual(789);
         });
       });
