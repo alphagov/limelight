@@ -11,8 +11,11 @@ You can run this either in your development VM or your host machine.
 - Install dependencies and run development server:
 
 ```
+start backdrop
 $ cd <limelight_repo>
 $ npm install
+$ git submodule init
+$ git submodule update
 $ grunt # Compiles SASS files, copies assets, runs tests, lints code
 $ grunt forever:start # Starts development server
 ```
