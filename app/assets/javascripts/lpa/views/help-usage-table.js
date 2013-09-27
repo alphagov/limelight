@@ -8,7 +8,7 @@ define([
 
     var sanitizeDescription = function (rawDescription) {
       var spaceSeparatedDescription = rawDescription.replace(/-/g, " "),
-          lowercaseDescription = spaceSeparatedDescription.replace(/lpa/g, "LPA");
+          lowercaseDescription = spaceSeparatedDescription.replace(/(\s|^)lpa(\s|$)/g, " LPA ");
       return capitalize(lowercaseDescription);
     };
 

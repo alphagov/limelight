@@ -39,10 +39,13 @@ define([
         var collection;
         beforeEach(function() {
           collection = new Collection([
-            { count: 4, description: 'capital' },
-            { count: 3, description: 'multiple-words' },
-            { count: 2, description: 'with-lpa-in-capitals' },
-            { count: 1, description: '2-with-numbers-42' }
+            { count: 1, description: 'capital' },
+            { count: 1, description: 'multiple-words' },
+            { count: 1, description: 'with-lpa-in-capitals' },
+            { count: 1, description: '2-with-numbers-42' },
+            { count: 1, description: 'have-lpa-in-word-like-alpaca' },
+            { count: 1, description: 'lpa-at-start' },
+            { count: 1, description: 'ending-in-lpa' }
           ]);
         });
 
@@ -55,6 +58,9 @@ define([
             expect(table.$el.find('.body tr:eq(1) td:eq(0)')).toHaveText('Multiple words');
             expect(table.$el.find('.body tr:eq(2) td:eq(0)')).toHaveText('With LPA in capitals');
             expect(table.$el.find('.body tr:eq(3) td:eq(0)')).toHaveText('2 with numbers 42');
+            expect(table.$el.find('.body tr:eq(4) td:eq(0)')).toHaveText('Have LPA in word like alpaca');
+            expect(table.$el.find('.body tr:eq(5) td:eq(0)')).toHaveText('LPA at start');
+            expect(table.$el.find('.body tr:eq(6) td:eq(0)')).toHaveText('Ending in LPA');
           });
         });
       });
