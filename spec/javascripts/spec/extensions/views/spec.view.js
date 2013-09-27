@@ -10,23 +10,23 @@ function (View, Model, Backbone) {
       expect(view instanceof Backbone.View).toBe(true);
     });
 
-    describe("toSecondsOverThreshold", function() {
+    describe("formatDuration", function() {
       describe("when there are more than threshold rounded milliseconds", function() {
         it("should return the number of milliseconds to seconds to two decimal places with s", function() {
           var view = View.prototype;
-          expect(view.toSecondsOverThreshold(1000,3)).toBe("1s");
-          expect(view.toSecondsOverThreshold(10000,4)).toBe("10s");
-          expect(view.toSecondsOverThreshold(10600,4)).toBe("10.6s");
-          expect(view.toSecondsOverThreshold(10670,4)).toBe("10.7s");
-          expect(view.toSecondsOverThreshold(10470,4)).toBe("10.5s");
-          expect(view.toSecondsOverThreshold(100470,4)).toBe("100s");
-          expect(view.toSecondsOverThreshold(100670,4)).toBe("101s");
+          expect(view.formatDuration(1000,3)).toBe("1s");
+          expect(view.formatDuration(10000,4)).toBe("10s");
+          expect(view.formatDuration(10600,4)).toBe("10.6s");
+          expect(view.formatDuration(10670,4)).toBe("10.7s");
+          expect(view.formatDuration(10470,4)).toBe("10.5s");
+          expect(view.formatDuration(100470,4)).toBe("100s");
+          expect(view.formatDuration(100670,4)).toBe("101s");
         });
       });
       describe("when there are fewer than threshold rounded milliseconds", function() {
         it("should return the number of milliseconds with ms", function() {
           var view = View.prototype;
-          expect(view.toSecondsOverThreshold(1000,4)).toBe("1000ms");
+          expect(view.formatDuration(1000,4)).toBe("1000ms");
         });
       });
     })

@@ -223,7 +223,7 @@ function (Backbone, moment, Modernizr) {
         }
       },
 
-      toSecondsOverThreshold: function (milliseconds, maxLength) {
+      formatDuration: function (milliseconds, maxLength) {
 
         var millisecondsToSeconds = function (t) {
           return t/1000;
