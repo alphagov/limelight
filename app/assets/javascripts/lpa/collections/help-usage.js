@@ -12,7 +12,7 @@ define([
           period: 'week',
           duration: 1,
           ago: 0,
-          filter_by: 'type:eventAction=help',
+          filter_by: 'eventAction:help',
           group_by: 'eventLabel',
           collect: [
             'uniqueEvents'
