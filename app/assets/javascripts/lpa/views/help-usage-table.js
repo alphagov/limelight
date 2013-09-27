@@ -2,17 +2,18 @@ define([
   'extensions/views/table/table'
 ],
   function (Table) {
-    var capitalize = function(string) {
-      return string.replace(/(?:^|\s)\S/, function(letter) { return letter.toUpperCase(); });
-    };
-
-    var sanitizeDescription = function (rawDescription) {
-      var spaceSeparatedDescription = rawDescription.replace(/-/g, " "),
-          lowercaseDescription = spaceSeparatedDescription.replace(/(\s|^)lpa(\s|$)/g, " LPA ");
-      return capitalize(lowercaseDescription);
-    };
 
     var HelpUsageTable = Table.extend({
+
+      capitalize: function(string) {
+        return string.replace(/(?:^|\s)\S/, function(letter) { return letter.toUpperCase(); });
+      },
+
+      sanitizeDescription: function (rawDescription) {
+        var spaceSeparatedDescription = rawDescription.replace(/-/g, " "),
+          lowercaseDescription = spaceSeparatedDescription.replace(/(\s|^)lpa(\s|$)/g, " LPA ");
+        return this.capitalize(lowercaseDescription);
+      },
 
       columns: [
         {
@@ -20,7 +21,7 @@ define([
           title: 'Description',
           sortable: true,
           getValue: function (model) {
-            return sanitizeDescription(model.get('description'));
+            return this.sanitizeDescription(model.get('description'));
           }
         },
         {
