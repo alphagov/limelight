@@ -13,6 +13,7 @@
         "Abandoned"
       ], 
       "count:sum": 41.0, 
+      "help_count:sum": 1000.0, 
       "_group_count": 1, 
       "reason": 0.0, 
       "description:set": [
@@ -32,6 +33,7 @@
         "User Cancelled Transaction"
       ], 
       "count:sum": 2446.0, 
+      "help_count:sum": 1000.0, 
       "_group_count": 1, 
       "reason": 5.0, 
       "description:set": [
@@ -51,6 +53,7 @@
         "Vehicle Not Found"
       ], 
       "count:sum": 1597.0, 
+      "help_count:sum": 1000.0, 
       "_group_count": 1, 
       "reason": 6.0, 
       "description:set": [
@@ -70,6 +73,7 @@
         "Incorrect Vehicle Details Displayed"
       ], 
       "count:sum": 707.0, 
+      "help_count:sum": 1000.0, 
       "_group_count": 1, 
       "reason": 7.0, 
       "description:set": [
@@ -89,6 +93,7 @@
         "Vehicle Not Eligible For EVL"
       ], 
       "count:sum": 1732.0, 
+      "help_count:sum": 1000.0, 
       "_group_count": 1, 
       "reason": 17.0, 
       "description:set": [
@@ -108,6 +113,7 @@
         "User Entered Cracked VRN"
       ], 
       "count:sum": 522.0, 
+      "help_count:sum": 1000.0, 
       "_group_count": 1, 
       "reason": 27.0, 
       "description:set": [
@@ -127,6 +133,7 @@
         "Workflow Timeout"
       ], 
       "count:sum": 3554.0, 
+      "help_count:sum": 1000.0, 
       "_group_count": 1, 
       "reason": 40.0, 
       "description:set": [
@@ -146,6 +153,7 @@
         "No VRM found for V5 (or more than one found)"
       ], 
       "count:sum": 951.0, 
+      "help_count:sum": 1000.0, 
       "_group_count": 1, 
       "reason": 49.0, 
       "description:set": [
@@ -165,6 +173,7 @@
         "A pending transaction exists for this vehicle"
       ], 
       "count:sum": 1294.0, 
+      "help_count:sum": 1000.0, 
       "_group_count": 1, 
       "reason": 50.0, 
       "description:set": [
@@ -184,6 +193,7 @@
         "The VRN created is invalid"
       ], 
       "count:sum": 12030.0, 
+      "help_count:sum": 1000.0, 
       "_group_count": 1, 
       "reason": 51.0, 
       "description:set": [
@@ -203,6 +213,7 @@
         "The V5 entered is invalid"
       ], 
       "count:sum": 6283.0, 
+      "help_count:sum": 1000.0, 
       "_group_count": 1, 
       "reason": 52.0, 
       "description:set": [
@@ -222,6 +233,7 @@
         "No Insurance Details Found"
       ], 
       "count:sum": 7049.0, 
+      "help_count:sum": 1000.0, 
       "_group_count": 1, 
       "reason": 1.0, 
       "description:set": [
@@ -241,6 +253,7 @@
         "No MOT Details Found"
       ], 
       "count:sum": 4081.0, 
+      "help_count:sum": 1000.0, 
       "_group_count": 1, 
       "reason": 2.0, 
       "description:set": [
@@ -260,6 +273,7 @@
         "VED Exemption Failure"
       ], 
       "count:sum": 32.0, 
+      "help_count:sum": 1000.0, 
       "_group_count": 1, 
       "reason": 3.0, 
       "description:set": [
@@ -279,6 +293,7 @@
         "User Did Not Accept MOT Declaration"
       ], 
       "count:sum": 16.0, 
+      "help_count:sum": 1000.0, 
       "_group_count": 1, 
       "reason": 9.0, 
       "description:set": [
@@ -298,6 +313,7 @@
         "Payment Not Authorised"
       ], 
       "count:sum": 1268.0, 
+      "help_count:sum": 1000.0, 
       "_group_count": 1, 
       "reason": 29.0, 
       "description:set": [
@@ -317,6 +333,7 @@
         "An error occurred retrieving the MID Insurance Certificate."
       ], 
       "count:sum": 29.0, 
+      "help_count:sum": 1000.0, 
       "_group_count": 1, 
       "reason": 30.0, 
       "description:set": [
@@ -336,6 +353,7 @@
         "An error occurred retrieving the MOT test Certificate."
       ], 
       "count:sum": 36.0, 
+      "help_count:sum": 1000.0, 
       "_group_count": 1, 
       "reason": 33.0, 
       "description:set": [
@@ -355,6 +373,7 @@
         "VED Exempt record not found on VA or DWP"
       ], 
       "count:sum": 57.0, 
+      "help_count:sum": 1000.0, 
       "_group_count": 1, 
       "reason": 46.0, 
       "description:set": [
@@ -374,6 +393,7 @@
         "System error occurred retrieving MOT details."
       ], 
       "count:sum": 37.0, 
+      "help_count:sum": 1000.0, 
       "_group_count": 1, 
       "reason": 47.0, 
       "description:set": [
@@ -393,6 +413,7 @@
         "Pending Payment"
       ], 
       "count:sum": 15.0, 
+      "help_count:sum": 1000.0, 
       "_group_count": 1, 
       "reason": 56.0, 
       "description:set": [
@@ -412,6 +433,7 @@
         "LPB Response Code was Card Validation Failure"
       ], 
       "count:sum": 3.0, 
+      "help_count:sum": 1000.0, 
       "_group_count": 1, 
       "reason": 60.0, 
       "description:set": [
@@ -431,6 +453,7 @@
         "LPB Response Code was Card Authentication Failure"
       ], 
       "count:sum": 10.0, 
+      "help_count:sum": 1000.0, 
       "_group_count": 1, 
       "reason": 62.0, 
       "description:set": [
@@ -450,6 +473,7 @@
         "LPB Response Code was Card Authoristation Failure"
       ], 
       "count:sum": 4.0, 
+      "help_count:sum": 1000.0, 
       "_group_count": 1, 
       "reason": 64.0, 
       "description:set": [
@@ -469,6 +493,7 @@
         "LPB Response Code was Technical Error"
       ], 
       "count:sum": 2.0, 
+      "help_count:sum": 1000.0, 
       "_group_count": 1, 
       "reason": 65.0, 
       "description:set": [
@@ -488,6 +513,7 @@
         "LPB Response Code was PSP Session Timeout"
       ], 
       "count:sum": 36.0, 
+      "help_count:sum": 1000.0, 
       "_group_count": 1, 
       "reason": 66.0, 
       "description:set": [

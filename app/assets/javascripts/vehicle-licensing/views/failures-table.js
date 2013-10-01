@@ -51,6 +51,15 @@ function (Table) {
             return '0';
           }
         }
+      },
+      {
+        id: 'description',
+        className: 'fraction numeric',
+        title: 'Percentage who used help module',
+        sortable: true,
+        getValue: function (model) {
+          return this.formatPercentage(model.get('help_fraction'));
+        }
       }
     ],
     

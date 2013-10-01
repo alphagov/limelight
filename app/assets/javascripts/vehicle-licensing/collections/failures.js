@@ -37,7 +37,8 @@ function (require, Collection, FailuresWeek) {
         var modelPrevious = previousByReason[model.get('reason')]
         model.set({
           change: modelPrevious ? model.get('count') - modelPrevious.get('count') : null,
-          fraction: model.get('count') / totalCount
+          fraction: model.get('count') / totalCount,
+          help_fraction: model.get('help_count') / totalCount
         });
 
         return model.attributes;

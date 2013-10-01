@@ -30,6 +30,7 @@ function (Collection) {
       return _.map(response.data, function (d) {
         return {
           count: d['count:sum'],
+          help_count: d['help_count:sum'],
           reason: d.reason,
           description: d.description[0]
         }
