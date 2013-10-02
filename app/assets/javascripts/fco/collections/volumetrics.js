@@ -7,12 +7,6 @@ function (Collection, Group, dateFunctions) {
   var START_STAGE_MATCHER = /start$/;
   var DONE_STAGE_MATCHER = /done$/;
 
-  function filterByEventCategory(data, matcher) {
-    return _.filter(data, function (d) {
-      return d.eventCategory.match(matcher) !== null;
-    });
-  }
-
   function uniqueEventsFor(data, matcher) {
     var events = _.filter(data, function (d) {
       return d.eventCategory.match(matcher) !== null;
@@ -23,13 +17,6 @@ function (Collection, Group, dateFunctions) {
     }
 
     return _.reduce(events, function (mem, d) { return mem + d.uniqueEvents; }, 0);
-  }
-
-  function countProvidedData(data) {
-    var providedData = _.filter(data, function (d) {
-      return d.uniqueEvents != null;
-    });
-    return providedData.length;
   }
 
   function findCompletion(event) {
@@ -73,14 +60,12 @@ function (Collection, Group, dateFunctions) {
 
     numberOfJourneyStarts: function () {
       var data = this.pluck('data')[0];
-      var startedEvents = filterByEventCategory(data, START_STAGE_MATCHER);
-      return _.reduce(startedEvents, function (mem, d) { return mem + d.uniqueEvents; }, 0);
+      return uniqueEventsFor(data, START_STAGE_MATCHER);
     },
 
     numberOfJourneyCompletions: function () {
       var data = this.pluck('data')[0];
-      var completionEvents = filterByEventCategory(data, DONE_STAGE_MATCHER);
-      return _.reduce(completionEvents, function (mem, d) { return mem + d.uniqueEvents; }, 0);
+      return uniqueEventsFor(data, DONE_STAGE_MATCHER);
     },
 
     completionRate: function () {
