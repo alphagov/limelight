@@ -15,7 +15,10 @@ function (GraphCollection, VolumetricsCollection,
     }
 
     var volumetricsCollection = new VolumetricsCollection([], {
-      serviceName: serviceName
+      serviceName: serviceName,
+      startMatcher: /start$/,
+      endMatcher: /done$/,
+      matchingAttribute: "eventCategory"
     });
 
     var volumetricsSubmissions = new GraphCollection();

@@ -258,7 +258,6 @@ define(['fco/collections/volumetrics'],
 
         it("should have a completion rate of 0 when there's no done event for the timestamp", function () {
           var data = {_timestamp: "2013-06-09T23:00:00+00:00", uniqueEvents: 5};
-          console.log("fco-transaction-name" + context.start_matcher_suffix);
           data[context.matching_attribute] = "fco-transaction-name" + context.start_matcher_suffix;
 
           var events = { data: [

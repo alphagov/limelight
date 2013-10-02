@@ -464,7 +464,7 @@
          "dataType":"lasting_power_of_attorney_journey",
          "eventAction":"page",
          "eventCategory":"stageprompt.lpa",
-         "eventLabel":"create/complete:done",
+         "eventLabel":"create/complete",
          "timeSpan":"week",
          "uniqueEvents":1418
       },
@@ -477,7 +477,7 @@
          "dataType":"lasting_power_of_attorney_journey",
          "eventAction":"page",
          "eventCategory":"stageprompt.lpa",
-         "eventLabel":"create/complete:done",
+         "eventLabel":"create/complete",
          "timeSpan":"week",
          "uniqueEvents":1418
       },
@@ -997,7 +997,7 @@
          "dataType":"lasting_power_of_attorney_journey",
          "eventAction":"page",
          "eventCategory":"stageprompt.lpa",
-         "eventLabel":"user/login:start",
+         "eventLabel":"user/login",
          "timeSpan":"week",
          "uniqueEvents":2571
       },
@@ -1010,7 +1010,7 @@
          "dataType":"lasting_power_of_attorney_journey",
          "eventAction":"page",
          "eventCategory":"stageprompt.lpa",
-         "eventLabel":"user/login:start",
+         "eventLabel":"user/login",
          "timeSpan":"week",
          "uniqueEvents":2571
       },

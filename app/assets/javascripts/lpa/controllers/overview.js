@@ -38,7 +38,10 @@ function (ApplicationsCollection, ApplicationsGraph,
 
       /*here*/
       var volumetricsCollection = new VolumetricsCollection([], {
-        serviceName: serviceName
+        serviceName: serviceName,
+        startMatcher: /user\/login/,
+        endMatcher: /create\/complete/,
+        matchingAttribute: "eventLabel"
       });
 
       var volumetricsCompletion = new GraphCollection();
