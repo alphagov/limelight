@@ -464,7 +464,20 @@
          "dataType":"lasting_power_of_attorney_journey",
          "eventAction":"page",
          "eventCategory":"stageprompt.lpa",
-         "eventLabel":"create/complete",
+         "eventLabel":"create/complete:done",
+         "timeSpan":"week",
+         "uniqueEvents":1418
+      },
+      {
+         "_id":"bGFzdGluZ19wb3dlcl9vZl9hdHRvcm5leV9qb3VybmV5XzIwMTMwOTIyMjMwMDAwX3dlZWtfY3JlYXRlL2NvbXBsZXRlX3N0YWdlcHJvbXB0LmxwYV9wYWdl",
+         "_month_start_at":"2013-09-01T00:00:00",
+         "_timestamp":"2013-09-15T23:00:00+00:00",
+         "_updated_at":"2013-10-01T10:14:30.546000",
+         "_week_start_at":"2013-09-09T00:00:00",
+         "dataType":"lasting_power_of_attorney_journey",
+         "eventAction":"page",
+         "eventCategory":"stageprompt.lpa",
+         "eventLabel":"create/complete:done",
          "timeSpan":"week",
          "uniqueEvents":1418
       },
@@ -984,7 +997,20 @@
          "dataType":"lasting_power_of_attorney_journey",
          "eventAction":"page",
          "eventCategory":"stageprompt.lpa",
-         "eventLabel":"user/login",
+         "eventLabel":"user/login:start",
+         "timeSpan":"week",
+         "uniqueEvents":2571
+      },
+      {
+         "_id":"bGFzdGluZ19wb3dlcl9vZl9hdHRvcm5leV9qb3VybmV5XzIwMTMwOTIyMjMwMDAwX3dlZWtfdXNlci9sb2dpbl9zdGFnZXByb21wdC5scGFfcGFnZQ==",
+         "_month_start_at":"2013-09-01T00:00:00",
+         "_timestamp":"2013-09-15T23:00:00+00:00",
+         "_updated_at":"2013-10-01T10:14:30.572000",
+         "_week_start_at":"2013-09-09T00:00:00",
+         "dataType":"lasting_power_of_attorney_journey",
+         "eventAction":"page",
+         "eventCategory":"stageprompt.lpa",
+         "eventLabel":"user/login:start",
          "timeSpan":"week",
          "uniqueEvents":2571
       },
