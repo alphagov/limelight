@@ -70,6 +70,7 @@ function (Collection, Group, dateFunctions) {
       var applicationEvents = filterByEventCategory(data, DONE_STAGE_MATCHER);
       var weeksWithData = countProvidedData(applicationEvents);
 
+      var earliestEventTimestamp = dateFunctions.earliest(data, function (d) { return moment(d._timestamp); });
       var latestEventTimestamp = dateFunctions.latest(data, function (d) { return moment(d._timestamp); });
       var weekDates = dateFunctions.weeksFrom(latestEventTimestamp, 9);
 
@@ -86,7 +87,7 @@ function (Collection, Group, dateFunctions) {
         id: "done",
         title: "Done",
         weeks: {
-          total: applicationEvents.length,
+          total: dateFunctions.numberOfWeeksInPeriod(earliestEventTimestamp, latestEventTimestamp) + 1,
           available: weeksWithData
         },
         mean: this.numberOfJourneyCompletions() / weeksWithData,
@@ -98,7 +99,9 @@ function (Collection, Group, dateFunctions) {
       var data = this.pluck('data')[0];
       var startedApplicationEvents = filterByEventCategory(data, START_STAGE_MATCHER);
       var completedApplicationEvents = filterByEventCategory(data, DONE_STAGE_MATCHER);
+      var weeksWithData = countProvidedData(completedApplicationEvents);
 
+      var earliestEventTimestamp = dateFunctions.earliest(data, function (d) { return moment(d._timestamp); });
       var latestEventTimestamp = dateFunctions.latest(data, function (d) { return moment(d._timestamp); });
       var weekDates = dateFunctions.weeksFrom(latestEventTimestamp, 9);
 
@@ -116,8 +119,8 @@ function (Collection, Group, dateFunctions) {
         id: "completion",
         title: "Completion rate",
         weeks: {
-          total: completedApplicationEvents.length,
-          available: countProvidedData(completedApplicationEvents)
+          total: dateFunctions.numberOfWeeksInPeriod(earliestEventTimestamp, latestEventTimestamp) + 1,
+          available: weeksWithData
         },
         totalCompletion: this.completionRate(),
         values: new Collection(values)

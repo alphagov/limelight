@@ -40,11 +40,6 @@ define(['fco/collections/volumetrics'],
         uniqueEvents: 5
       },
       {
-        _timestamp: "2013-06-16T23:00:00+00:00",
-        eventCategory: "fco-transaction-name:start",
-        uniqueEvents: null
-      },
-      {
         _timestamp: "2013-06-23T23:00:00+00:00",
         eventCategory: "fco-transaction-name:start",
         uniqueEvents: 9
@@ -53,11 +48,6 @@ define(['fco/collections/volumetrics'],
         _timestamp: "2013-06-09T23:00:00+00:00",
         eventCategory: "fco-transaction-name:done",
         uniqueEvents: 3
-      },
-      {
-        _timestamp: "2013-06-16T23:00:00+00:00",
-        eventCategory: "fco-transaction-name:done",
-        uniqueEvents: null
       },
       {
         _timestamp: "2013-06-23T23:00:00+00:00",
