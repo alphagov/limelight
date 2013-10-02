@@ -117,6 +117,7 @@ define(['fco/collections/volumetrics'],
       sharedBehaviourForVolumetrics({
         data: someFakeFCOTransactionDataCategory,
         start_matcher: /start$/,
+        start_matcher_suffix: "start",
         end_matcher: /done$/,
         matching_attribute: "eventCategory"
       });
@@ -124,21 +125,24 @@ define(['fco/collections/volumetrics'],
       sharedBehaviourForVolumetricsWithMissingData({
         data: missingDataCategory,
         start_matcher: /start$/,
+        start_matcher_suffix: "start",
         end_matcher: /done$/,
         matching_attribute: "eventCategory"
       });
 
       sharedBehaviourForVolumetrics({
         data: someFakeFCOTransactionDataLabel,
-        start_matcher: /_begin/,
-        end_matcher: /_end/,
+        start_matcher: /_begin$/,
+        start_matcher_suffix: "_begin",
+        end_matcher: /_end$/,
         matching_attribute: "eventLabel"
       });
 
       sharedBehaviourForVolumetricsWithMissingData({
         data: missingDataLabel,
-        start_matcher: /_begin/,
-        end_matcher: /_end/,
+        start_matcher: /_begin$/,
+        start_matcher_suffix: "_begin",
+        end_matcher: /_end$/,
         matching_attribute: "eventLabel"
       });
 
@@ -253,16 +257,19 @@ define(['fco/collections/volumetrics'],
         });
 
         it("should have a completion rate of 0 when there's no done event for the timestamp", function () {
+          var data = {_timestamp: "2013-06-09T23:00:00+00:00", uniqueEvents: 5};
+          console.log("fco-transaction-name" + context.start_matcher_suffix);
+          data[context.matching_attribute] = "fco-transaction-name" + context.start_matcher_suffix;
+
           var events = { data: [
-            {
-              _timestamp: "2013-06-09T23:00:00+00:00",
-              eventCategory: "fco-transaction-name:start",
-              uniqueEvents: 5
-            }
+            data
           ]};
 
           var noDoneEventVolumetricsCollection = new VolumetricsCollection(events, {
-            serviceName: 'notARealFCOTransaction'
+            serviceName: 'notARealFCOTransaction',
+            startMatcher: context.start_matcher,
+            endMatcher: context.end_matcher,
+            matchingAttribute: context.matching_attribute
           });
 
           expect(noDoneEventVolumetricsCollection.completionSeries().values.at(8).get('completion')).toBe(0);

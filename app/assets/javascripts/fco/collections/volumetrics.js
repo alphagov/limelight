@@ -4,8 +4,6 @@ define([
   'extensions/mixins/date-functions'
 ],
 function (Collection, Group, dateFunctions) {
-  var START_STAGE_MATCHER = /start$/;
-  var DONE_STAGE_MATCHER = /done$/;
 
   var VolumetricsCollection = Collection.extend({
     model: Group,
@@ -14,6 +12,9 @@ function (Collection, Group, dateFunctions) {
 
     initialize: function (models, options) {
       this.serviceName = options.serviceName;
+      this.startMatcher= options.startMatcher;
+      this.endMatcher= options.endMatcher;
+      this.matchingAttribute= options.matchingAttribute;
       Collection.prototype.initialize.apply(this, arguments);
       this.query.set('period', 'week', {silent: true, utc: false});
       delete this.query.attributes.period;
@@ -21,8 +22,8 @@ function (Collection, Group, dateFunctions) {
 
     uniqueEventsFor: function (data, matcher) {
       var events = _.filter(data, function (d) {
-        return d.eventCategory.match(matcher) !== null;
-      });
+        return d[this.matchingAttribute].match(matcher) !== null;
+      }, this);
 
       if (events.length === 0) {
         return 0;
@@ -52,20 +53,20 @@ function (Collection, Group, dateFunctions) {
       return _.map(eventsByTimestamp, function (events) {
         return {
           _timestamp: events[0]._timestamp,
-          totalStarted: this.uniqueEventsFor(events, START_STAGE_MATCHER),
-          totalCompleted: this.uniqueEventsFor(events, DONE_STAGE_MATCHER)
+          totalStarted: this.uniqueEventsFor(events, this.startMatcher),
+          totalCompleted: this.uniqueEventsFor(events, this.endMatcher)
         };
       }, this);
     },
 
     numberOfJourneyStarts: function () {
       var data = this.pluck('data')[0];
-      return this.uniqueEventsFor(data, START_STAGE_MATCHER);
+      return this.uniqueEventsFor(data, this.startMatcher);
     },
 
     numberOfJourneyCompletions: function () {
       var data = this.pluck('data')[0];
-      return this.uniqueEventsFor(data, DONE_STAGE_MATCHER);
+      return this.uniqueEventsFor(data, this.endMatcher);
     },
 
     completionRate: function () {
