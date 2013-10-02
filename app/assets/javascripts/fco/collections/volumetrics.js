@@ -13,6 +13,18 @@ function (Collection, Group, dateFunctions) {
     });
   }
 
+  function uniqueEventsFor(data, matcher) {
+    var events = _.filter(data, function (d) {
+      return d.eventCategory.match(matcher) !== null;
+    });
+
+    if (events.length === 0) {
+      return 0;
+    }
+
+    return _.reduce(events, function (mem, d) { return mem + d.uniqueEvents; }, 0);
+  }
+
   function countProvidedData(data) {
     var providedData = _.filter(data, function (d) {
       return d.uniqueEvents != null;
@@ -20,13 +32,11 @@ function (Collection, Group, dateFunctions) {
     return providedData.length;
   }
 
-  function findCompletion(existingStartedEvent, existingCompletedEvent) {
-    var completion = null,
-        hasUniqueEvent = function(event) {
-          return _.isObject(event) && event.uniqueEvents !== null;
-        };
-    if (hasUniqueEvent(existingStartedEvent) && hasUniqueEvent(existingCompletedEvent)) {
-      completion = existingCompletedEvent.uniqueEvents / existingStartedEvent.uniqueEvents;
+  function findCompletion(event) {
+    var completion = null;
+
+    if (event != null) {
+      completion = event.totalCompleted / event.totalStarted;
     }
     return completion;
   }
@@ -34,6 +44,18 @@ function (Collection, Group, dateFunctions) {
   function getEventForTimestamp(events, timestamp) {
     return _.find(events, function (d) {
       return moment(d._timestamp).isSame(timestamp);
+    });
+  }
+
+  function eventsFrom(data) {
+    var eventsByTimestamp = _.groupBy(data, function (d) { return d._timestamp; });
+
+    return _.map(eventsByTimestamp, function (events) {
+      return {
+        _timestamp: events[0]._timestamp,
+        totalStarted: uniqueEventsFor(events, START_STAGE_MATCHER),
+        totalCompleted: uniqueEventsFor(events, DONE_STAGE_MATCHER)
+      };
     });
   }
 
@@ -67,19 +89,20 @@ function (Collection, Group, dateFunctions) {
 
     applicationsSeries: function () {
       var data = this.pluck('data')[0];
-      var applicationEvents = filterByEventCategory(data, DONE_STAGE_MATCHER);
-      var weeksWithData = countProvidedData(applicationEvents);
+      var events = eventsFrom(data);
 
-      var earliestEventTimestamp = dateFunctions.earliest(data, function (d) { return moment(d._timestamp); });
-      var latestEventTimestamp = dateFunctions.latest(data, function (d) { return moment(d._timestamp); });
+      var weeksWithData = events.length;
+
+      var earliestEventTimestamp = dateFunctions.earliest(events, function (d) { return moment(d._timestamp); });
+      var latestEventTimestamp = dateFunctions.latest(events, function (d) { return moment(d._timestamp); });
       var weekDates = dateFunctions.weeksFrom(latestEventTimestamp, 9);
 
       var values = _.map(weekDates, function (timestamp) {
-        var existingEvent = getEventForTimestamp(applicationEvents, timestamp);
+        var existingEvent = getEventForTimestamp(events, timestamp);
         return {
           _start_at: timestamp.clone().add(1, 'hours'),
           _end_at: timestamp.clone().add(1, 'hours').add(1, 'weeks'),
-          uniqueEvents: _.isUndefined(existingEvent) ? null : existingEvent.uniqueEvents
+          uniqueEvents: _.isUndefined(existingEvent) ? null : existingEvent.totalCompleted
         };
       });
 
@@ -97,21 +120,20 @@ function (Collection, Group, dateFunctions) {
 
     completionSeries: function () {
       var data = this.pluck('data')[0];
-      var startedApplicationEvents = filterByEventCategory(data, START_STAGE_MATCHER);
-      var completedApplicationEvents = filterByEventCategory(data, DONE_STAGE_MATCHER);
-      var weeksWithData = countProvidedData(completedApplicationEvents);
+      var events = eventsFrom(data);
 
-      var earliestEventTimestamp = dateFunctions.earliest(data, function (d) { return moment(d._timestamp); });
-      var latestEventTimestamp = dateFunctions.latest(data, function (d) { return moment(d._timestamp); });
+      var weeksWithData = events.length;
+
+      var earliestEventTimestamp = dateFunctions.earliest(events, function (d) { return moment(d._timestamp); });
+      var latestEventTimestamp = dateFunctions.latest(events, function (d) { return moment(d._timestamp); });
       var weekDates = dateFunctions.weeksFrom(latestEventTimestamp, 9);
 
       var values = _.map(weekDates, function (timestamp) {
-        var existingStartEvent = getEventForTimestamp(startedApplicationEvents, timestamp);
-        var existingCompletionEvent = getEventForTimestamp(completedApplicationEvents, timestamp);
+        var existingEvent = getEventForTimestamp(events, timestamp);
         return {
           _start_at: timestamp.clone().add(1, 'hours'),
           _end_at: timestamp.clone().add(1, 'hours').add(1, 'weeks'),
-          completion: findCompletion(existingStartEvent, existingCompletionEvent)
+          completion: findCompletion(existingEvent)
         };
       });
 

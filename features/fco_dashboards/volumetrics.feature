@@ -9,7 +9,7 @@ Feature: FCO volumetrics graph
   @svg
   Scenario: checking applications completed for pay-register-death-abroad
      When I go to /performance/pay-register-death-abroad
-     Then the applications completed should display "2.67 mean per week over the last 6 weeks"
+     Then the applications completed should display "1.33 mean per week over the last 6 weeks"
 
   @svg
   Scenario: checking total completion rate with missing data
