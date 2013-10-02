@@ -7,45 +7,6 @@ function (Collection, Group, dateFunctions) {
   var START_STAGE_MATCHER = /start$/;
   var DONE_STAGE_MATCHER = /done$/;
 
-  function uniqueEventsFor(data, matcher) {
-    var events = _.filter(data, function (d) {
-      return d.eventCategory.match(matcher) !== null;
-    });
-
-    if (events.length === 0) {
-      return 0;
-    }
-
-    return _.reduce(events, function (mem, d) { return mem + d.uniqueEvents; }, 0);
-  }
-
-  function findCompletion(event) {
-    var completion = null;
-
-    if (event != null) {
-      completion = event.totalCompleted / event.totalStarted;
-    }
-    return completion;
-  }
-
-  function getEventForTimestamp(events, timestamp) {
-    return _.find(events, function (d) {
-      return moment(d._timestamp).isSame(timestamp);
-    });
-  }
-
-  function eventsFrom(data) {
-    var eventsByTimestamp = _.groupBy(data, function (d) { return d._timestamp; });
-
-    return _.map(eventsByTimestamp, function (events) {
-      return {
-        _timestamp: events[0]._timestamp,
-        totalStarted: uniqueEventsFor(events, START_STAGE_MATCHER),
-        totalCompleted: uniqueEventsFor(events, DONE_STAGE_MATCHER)
-      };
-    });
-  }
-
   var VolumetricsCollection = Collection.extend({
     model: Group,
 
@@ -58,14 +19,53 @@ function (Collection, Group, dateFunctions) {
       delete this.query.attributes.period;
     },
 
+    uniqueEventsFor: function (data, matcher) {
+      var events = _.filter(data, function (d) {
+        return d.eventCategory.match(matcher) !== null;
+      });
+
+      if (events.length === 0) {
+        return 0;
+      }
+
+      return _.reduce(events, function (mem, d) { return mem + d.uniqueEvents; }, 0);
+    },
+
+    findCompletion: function (event) {
+      var completion = null;
+
+      if (event != null) {
+        completion = event.totalCompleted / event.totalStarted;
+      }
+      return completion;
+    },
+
+    getEventForTimestamp: function (events, timestamp) {
+      return _.find(events, function (d) {
+        return moment(d._timestamp).isSame(timestamp);
+      });
+    },
+
+    eventsFrom: function (data) {
+      var eventsByTimestamp = _.groupBy(data, function (d) { return d._timestamp; });
+
+      return _.map(eventsByTimestamp, function (events) {
+        return {
+          _timestamp: events[0]._timestamp,
+          totalStarted: this.uniqueEventsFor(events, START_STAGE_MATCHER),
+          totalCompleted: this.uniqueEventsFor(events, DONE_STAGE_MATCHER)
+        };
+      }, this);
+    },
+
     numberOfJourneyStarts: function () {
       var data = this.pluck('data')[0];
-      return uniqueEventsFor(data, START_STAGE_MATCHER);
+      return this.uniqueEventsFor(data, START_STAGE_MATCHER);
     },
 
     numberOfJourneyCompletions: function () {
       var data = this.pluck('data')[0];
-      return uniqueEventsFor(data, DONE_STAGE_MATCHER);
+      return this.uniqueEventsFor(data, DONE_STAGE_MATCHER);
     },
 
     completionRate: function () {
@@ -74,7 +74,7 @@ function (Collection, Group, dateFunctions) {
 
     series: function (config) {
       var data = this.pluck('data')[0];
-      var events = eventsFrom(data);
+      var events = this.eventsFrom(data);
 
       var weeksWithData = events.length;
 
@@ -83,12 +83,12 @@ function (Collection, Group, dateFunctions) {
       var weekDates = dateFunctions.weeksFrom(latestEventTimestamp, 9);
 
       var values = _.map(weekDates, function (timestamp) {
-        var existingEvent = getEventForTimestamp(events, timestamp);
+        var existingEvent = this.getEventForTimestamp(events, timestamp);
         return _.extend(config.modelAttribute(existingEvent), {
           _start_at: timestamp.clone().add(1, 'hours'),
           _end_at: timestamp.clone().add(1, 'hours').add(1, 'weeks')
         });
-      });
+      }, this);
 
       return _.extend(config.collectionAttribute(events), {
         id: config.id,
@@ -128,7 +128,7 @@ function (Collection, Group, dateFunctions) {
         title: "Completion rate",
         modelAttribute: function (event) {
           return {
-            completion: findCompletion(event)
+            completion: that.findCompletion(event)
           };
         },
         collectionAttribute: function () {
@@ -139,7 +139,8 @@ function (Collection, Group, dateFunctions) {
       }
 
       return this.series(completionConfiguration);
-    }
+    } 
+
   });
 
   return VolumetricsCollection;
