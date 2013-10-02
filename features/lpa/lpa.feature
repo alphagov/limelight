@@ -21,3 +21,13 @@ Feature: uptime and response time for lpa dashboard
     When I go to /performance/lasting-power-of-attorney
     Then I should see the module "Help usage"
       And the module should contain a table
+
+  @svg
+  Scenario: checking total completion rate for pay-register-death-abroad
+     When I go to /performance/lasting-power-of-attorney
+     Then the completion rate should display "2% last 3 weeks"
+
+  @svg
+  Scenario: checking total completion rate with missing data
+    When I go to /performance/lasting-power-of-attorney
+    Then the completion rate should display "7% last 9 weeks (1 week unavailable)"
