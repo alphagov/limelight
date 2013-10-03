@@ -38,9 +38,16 @@
 
   p.impact-number {
     float:left;
-    @include core-16($tabular-numbers: true);
+
     strong {
       @include bold-48($tabular-numbers: true);
+
+      @media (max-width: 640px) {
+        @include bold-80($tabular-numbers: true);
+      }
+      @media (max-width: 500px) {
+        @include bold-48($tabular-numbers: true);
+      }
     }
   }
 
