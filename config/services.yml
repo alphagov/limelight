@@ -36,3 +36,6 @@ dashboards:
   - slug: tax-disc
     name: Tax disc
     feature_toggle: evl_dashboard
+  - slug: home
+    name: Home
+    excluded_from_list: true
