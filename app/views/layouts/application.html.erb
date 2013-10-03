@@ -8,14 +8,14 @@
 <body>
 
 <nav id="proposition-menu">
-  <a href="/performance" id="proposition-name">
+  <a href="/performance/home" id="proposition-name">
     Performance
     <span class="alpha-tag">Alpha</span>
   </a>
   <ul id="proposition-links">
+    <li><%= main_navigation_link_to "Services", services_path %></li>
     <li><a href="/performance/dashboard" class="">GOV.UK performance</a></li>
     <li><a href="/performance/transactions-explorer" class="">Transactions Explorer</a></li>
-    <li><%= main_navigation_link_to "Services", services_path %></li>
   </ul>
 </nav>
 
