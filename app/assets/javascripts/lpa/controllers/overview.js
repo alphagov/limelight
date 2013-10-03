@@ -6,21 +6,18 @@ define([
   'extensions/views/conversion-graph/conversion-graph',
   'lpa/collections/help-usage', 'lpa/views/help-usage-table',
   'common/controllers/availability-module',
-  'extensions/collections/graphcollection',
-  'fco/collections/volumetrics',
-  'fco/views/volumetrics-submissions-graph',
-  'fco/views/volumetrics-completion-graph',
-  'fco/views/volumetrics-number'
+  'lpa/controllers/volumetrics-module'
 ],
-function (ApplicationsCollection, ApplicationsGraph,
-          MultiConversionCollection, ConversionSeries, ConversionGraph,
-          HelpUsageCollection, HelpUsageTable,
-          availabilityModule, GraphCollection, VolumetricsCollection,
-          VolumetricsSubmissionsGraph, VolumetricsCompletionGraph
-          , VolumetricsNumberView) {
+function (ApplicationsCollection, 
+          ApplicationsGraph,
+          MultiConversionCollection, 
+          ConversionSeries, 
+          ConversionGraph,
+          HelpUsageCollection, 
+          HelpUsageTable,
+          availabilityModule, 
+          volumetricsModule) {
   return function () {
-
-    var serviceName = $("#wrapper").data("service-name");
 
     if (!$('.lte-ie8').length) {
 
@@ -35,38 +32,6 @@ function (ApplicationsCollection, ApplicationsGraph,
 
         applicationsCollection.fetch();
       }
-
-      /*here*/
-      var volumetricsCollection = new VolumetricsCollection([], {
-        serviceName: serviceName,
-        startMatcher: /user\/login/,
-        endMatcher: /create\/complete/,
-        matchingAttribute: "eventLabel"
-      });
-
-      var volumetricsCompletion = new GraphCollection();
-      volumetricsCollection.on('reset', function () {
-        volumetricsCompletion.reset([volumetricsCollection.completionSeries()]);
-      });
-
-      var volumetricsCompletionNumber = new VolumetricsNumberView({
-        collection:volumetricsCompletion,
-        el:$('#volumetrics-completion-selected'),
-        valueAttr: 'totalCompletion',
-        selectionValueAttr: 'completion',
-        formatValue: function (value) {
-          return this.formatPercentage(value);
-        }
-      });
-
-      var volumetricsCompletionGraph = new VolumetricsCompletionGraph({
-        el:$('#volumetrics-completion'),
-        collection:volumetricsCompletion,
-        valueAttr:'completion'
-      });
-
-      volumetricsCollection.fetch();
-      /*here end*/
 
       if ($('#lpa-conversion-graph').length) {
         var conversionCollection = new MultiConversionCollection(null, {
@@ -92,5 +57,7 @@ function (ApplicationsCollection, ApplicationsGraph,
     helpUsageCollection.fetch();
 
     availabilityModule('lasting-power-of-attorney');
+
+    volumetricsModule();
   }
 });
