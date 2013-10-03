@@ -1,4 +1,4 @@
-define(['fco/collections/volumetrics'],
+define(['extensions/collections/volumetrics'],
   function (VolumetricsCollection) {
     var someFakeFCOTransactionDataLabel = [
       {
