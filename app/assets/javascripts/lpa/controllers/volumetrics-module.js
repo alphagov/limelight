@@ -1,7 +1,7 @@
 define([
   'extensions/collections/graphcollection',
   'extensions/collections/volumetrics',
-  'extensions/views/volumetrics/completion-graph',
+  'extensions/views/timeseries-graph/percentage-graph',
   'extensions/views/volumetrics/number'
 ],
 function (GraphCollection, 
