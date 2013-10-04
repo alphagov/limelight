@@ -5,7 +5,7 @@ define([
   'licensing/collections/applications-top5-lastweek',
   'licensing/views/top5table',
   'extensions/collections/graphcollection',
-  'extensions/collections/multiconversioncollection',
+  'extensions/collections/singleitemgraphcollection',
   'licensing/collections/conversion-series',
   'extensions/views/conversion-graph/conversion-graph',
   'extensions/views/tabs',
@@ -15,19 +15,19 @@ define([
   'common/controllers/availability-module'
 ], function (ApplicationsCollection, ApplicationsGraph, ApplicationsHeadlineView,
              Top5Collection, Top5Table, GraphCollection,
-             MultiConversionCollection, ConversionSeriesCollection, ConversionGraph,
+             SingleItemGraphCollection, ConversionSeriesCollection, ConversionGraph,
              Tabs, SuccessRateView,
              VisitorsRealtimeCollection, VisitorsRealtimeView,
              availabilityModule) {
   return function () {
 
-    var conversionCollection = new MultiConversionCollection(null, {
+    var conversionCollection = new SingleItemGraphCollection(null, {
       conversionCollection: ConversionSeriesCollection
     });
 
     var successRate = new SuccessRateView({
       el: $('#applications-success-rate'),
-      collection: conversionCollection.collectionInstances[1],
+      collection: conversionCollection.collectionInstances[0],
       startStep: "licensingUserJourney:downloadFormPage",
       endStep: "licensingUserJourney:end"
     });

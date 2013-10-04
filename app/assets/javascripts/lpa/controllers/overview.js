@@ -1,14 +1,14 @@
 define([
   'lpa/collections/application-method-over-time',
   'extensions/views/timeseries-graph/stacked-graph',
-  'extensions/collections/multiconversioncollection',
+  'extensions/collections/singleitemgraphcollection',
   'lpa/collections/conversion-series',
   'extensions/views/conversion-graph/conversion-graph',
   'lpa/collections/help-usage', 'lpa/views/help-usage-table',
   'common/controllers/availability-module'
 ],
 function (ApplicationsCollection, ApplicationsGraph,
-          MultiConversionCollection, ConversionSeries, ConversionGraph,
+          SingleItemGraphCollection, ConversionSeries, ConversionGraph,
           HelpUsageCollection, HelpUsageTable,
           availabilityModule) {
   return function () {
@@ -28,7 +28,7 @@ function (ApplicationsCollection, ApplicationsGraph,
       }
 
       if ($('#lpa-conversion-graph').length) {
-        var conversionCollection = new MultiConversionCollection(null, {
+        var conversionCollection = new SingleItemGraphCollection(null, {
           conversionCollection: ConversionSeries
         });
 

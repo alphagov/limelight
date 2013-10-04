@@ -1,11 +1,11 @@
 define([
   'extensions/collections/graphcollection',
-  'extensions/collections/multiconversioncollection',
+  'extensions/collections/singleitemgraphcollection',
   'fco/collections/conversion-series',
   'extensions/views/conversion-graph/conversion-graph',
   'extensions/views/conversion-success-rate'
 ],
-function (GraphCollection, MultiConversionCollection,
+function (GraphCollection, SingleItemGraphCollection,
           ConversionCollection, ConversionGraph, SuccessRateView) {
 
   return function (serviceName) {
@@ -15,7 +15,7 @@ function (GraphCollection, MultiConversionCollection,
       return;
     }
 
-    var conversionCollection = new MultiConversionCollection(null, {
+    var conversionCollection = new SingleItemGraphCollection(null, {
       conversionCollection: ConversionCollection,
       serviceName: serviceName
     });
