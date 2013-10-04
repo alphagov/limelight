@@ -1,7 +1,7 @@
 define([
   'extensions/collections/graphcollection',
   'extensions/collections/volumetrics',
-  'extensions/views/timeseries-graph/percentage-graph',
+  'extensions/views/volumetrics/completion-graph',
   'extensions/views/volumetrics/number'
 ],
 function (GraphCollection, 
@@ -13,12 +13,12 @@ function (GraphCollection,
     var serviceName = $("#wrapper").data("service-name");
 
     if (!$('.lte-ie8').length) {
-      if ($('#application-method-over-time').length) {
+      if ($('#volumetrics-completion').length) {
 
         var volumetricsCollection = new VolumetricsCollection([], {
           serviceName: serviceName,
           startMatcher: /user\/login/,
-          endMatcher: /create\/complete/,
+          endMatcher: /register\/confirmation/,
           matchingAttribute: "eventLabel"
         });
 
