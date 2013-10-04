@@ -63,7 +63,9 @@ function (Callout) {
         '<dt>Unique visitors to stage:</dt>',
         '<dd>',
         this.formatNumericLabel(model.get('uniqueEvents')),
-        '</dd>'
+        ' (',
+        this.formatPercentage(model.get('uniqueEventsNormalised')),
+        ')</dd>'
       ].join(''));
       
       el.empty().append(arrow, header, body);
