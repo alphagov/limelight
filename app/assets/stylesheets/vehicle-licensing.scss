@@ -66,6 +66,15 @@
     }
   }
 
+  @media (max-width: 640px) {
+
+    .graph {
+      .y-axis .tick:nth-child(even) text {
+        display:block;
+      }
+    }
+  }
+
   @media(max-width: 500px) {
     height:270px;
 
