@@ -13,7 +13,7 @@ function (GraphCollection,
     var serviceName = $("#wrapper").data("service-name");
 
     if (!$('.lte-ie8').length) {
-      if ($('#volumetrics-completion').length) {
+      if ($('#lpa-completion').length) {
 
         var volumetricsCollection = new VolumetricsCollection([], {
           serviceName: serviceName,
@@ -29,7 +29,7 @@ function (GraphCollection,
 
         var volumetricsCompletionNumber = new VolumetricsNumberView({
           collection:volumetricsCompletion,
-          el:$('#volumetrics-completion-selected'),
+          el:$('#lpa-completion-selected'),
           valueAttr: 'totalCompletion',
           selectionValueAttr: 'completion',
           formatValue: function (value) {
@@ -38,7 +38,7 @@ function (GraphCollection,
         });
 
         var volumetricsCompletionGraph = new VolumetricsCompletionGraph({
-          el:$('#volumetrics-completion'),
+          el:$('#lpa-completion'),
           collection:volumetricsCompletion,
           valueAttr:'completion'
         });

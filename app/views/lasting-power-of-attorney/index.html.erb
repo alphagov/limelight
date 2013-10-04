@@ -31,7 +31,7 @@
 </section>
 <% end %>
 
-<!--requires a feature toggle?-->
+<% if Rails.application.config.feature_toggles[:lpa_dashboard_completion_rate] %>
 <section class="graph completion-rate">
   <h1>Completion rate</h1>
   <ul class="module-actions">
@@ -44,10 +44,11 @@
       </div>
     </li>
   </ul>
-  <p id="volumetrics-completion-selected" class="impact-number"></p>
-  <figure class="graph timeseries-graph" id="volumetrics-completion"></figure>
+  <p id="lpa-completion-selected" class="impact-number"></p>
+  <figure class="graph timeseries-graph" id="lpa-completion"></figure>
   
 </section>
+<% end %>
 
 <% if Rails.application.config.feature_toggles[:lpa_conversion_funnel] %>
 <section class="graph">

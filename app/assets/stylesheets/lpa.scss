@@ -22,17 +22,17 @@
 
 .completion-rate {
   .impact-number {
-    padding-top:2em;
-    width: 12.3em;
     float:left;
-    @include core-16($tabular-numbers: true);
-    color: $black;
 
     strong {
-      @include bold-80($tabular-numbers: true);
-      margin-bottom:-.1em;
-      display:block
+      @include bold-48($tabular-numbers: true);
 
+      @media (max-width: 640px) {
+      // Revert back to default impact number size for small screen sizes.
+      // GOV.UK frontend toolkit rule decreases font size automatically
+      // for small screens.
+        @include bold-80($tabular-numbers: true);
+      }
     }
   }
 
