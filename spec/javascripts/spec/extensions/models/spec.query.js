@@ -7,7 +7,7 @@ function (Query) {
     describe("set", function () {
       
       beforeEach(function() {
-        setupMoment('2013-05-15 06:15:45', Query.prototype);
+        setupMoment('2013-05-15 06:15:45+00:00', Query.prototype);
       });
       
       it("sets start and end date for 'month' period using constructor", function () {
@@ -134,8 +134,8 @@ function (Query) {
         query.set('period', 'hour');
         expect(query.get('foo')).toEqual('bar');
         expect(query.get('period')).toEqual('hour');
-        expect(query.get('end_at').format()).toEqual('2013-05-15T05:00:00+00:00');
-        expect(query.get('start_at').format()).toEqual('2013-05-14T05:00:00+00:00');
+        expect(query.get('end_at').format()).toEqual('2013-05-15T06:00:00+00:00');
+        expect(query.get('start_at').format()).toEqual('2013-05-14T06:00:00+00:00');
       });
     });
 

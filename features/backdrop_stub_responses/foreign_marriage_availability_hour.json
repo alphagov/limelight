@@ -1,9 +1,9 @@
 {
     "data": [
-        { "uptime:sum": 900, "downtime:sum": 100, "unmonitored:sum": 0, "avgresponse:mean": 100000, "_end_at": "2013-06-17T17:00:00+00:00", "_start_at": "2013-06-17T16:00:00+00:00"},
-        { "uptime:sum": 900, "downtime:sum": 100, "unmonitored:sum": 0, "avgresponse:mean": 9000, "_end_at": "2013-06-17T18:00:00+00:00", "_start_at": "2013-06-17T17:00:00+00:00"},
+        { "uptime:sum": 900, "downtime:sum": 100, "unmonitored:sum": 0, "avgresponse:mean": 100, "_end_at": "2013-06-17T17:00:00+00:00", "_start_at": "2013-06-17T16:00:00+00:00"},
+        { "uptime:sum": 900, "downtime:sum": 100, "unmonitored:sum": 0, "avgresponse:mean": 100, "_end_at": "2013-06-17T18:00:00+00:00", "_start_at": "2013-06-17T17:00:00+00:00"},
         { "uptime:sum": 900, "downtime:sum": 100, "unmonitored:sum": 0, "avgresponse:mean": 100, "_end_at": "2013-06-17T19:00:00+00:00", "_start_at": "2013-06-17T18:00:00+00:00"},
-        { "uptime:sum": 900, "downtime:sum": 100, "unmonitored:sum": 0, "avgresponse:mean": 191000, "_end_at": "2013-06-17T20:00:00+00:00", "_start_at": "2013-06-17T19:00:00+00:00"},
+        { "uptime:sum": 900, "downtime:sum": 100, "unmonitored:sum": 0, "avgresponse:mean": 100, "_end_at": "2013-06-17T20:00:00+00:00", "_start_at": "2013-06-17T19:00:00+00:00"},
         { "uptime:sum": 900, "downtime:sum": 100, "unmonitored:sum": 0, "avgresponse:mean": 100, "_end_at": "2013-06-17T21:00:00+00:00", "_start_at": "2013-06-17T20:00:00+00:00"},
         { "uptime:sum": 900, "downtime:sum": 100, "unmonitored:sum": 0, "avgresponse:mean": 100, "_end_at": "2013-06-17T22:00:00+00:00", "_start_at": "2013-06-17T21:00:00+00:00"},
         { "uptime:sum": 900, "downtime:sum": 100, "unmonitored:sum": 0, "avgresponse:mean": 100, "_end_at": "2013-06-17T23:00:00+00:00", "_start_at": "2013-06-17T22:00:00+00:00"},

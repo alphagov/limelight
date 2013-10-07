@@ -1,6 +1,6 @@
 define([
   'extensions/collections/graphcollection',
-  'extensions/collections/availability-for-24-hours',
+  'extensions/collections/availability',
   'extensions/views/availability/uptime-number',
   'extensions/views/availability/uptime-graph',
   'extensions/views/availability/response-time-number',
@@ -50,7 +50,7 @@ function (GraphCollection, AvailabilityCollection,
     });
 
     var graphNav = new Tabs({
-      el: $("#applications-nav"),
+      el: $("#availability-nav"),
       model: availabilityCollection.query,
       attr: 'period',
       tabs: [
