@@ -5,7 +5,6 @@ define([
   'licensing/collections/applications-top5-lastweek',
   'licensing/views/top5table',
   'extensions/collections/graphcollection',
-  'extensions/collections/singleitemgraphcollection',
   'licensing/collections/conversion-series',
   'extensions/views/conversion-graph/conversion-graph',
   'extensions/views/tabs',
@@ -15,14 +14,14 @@ define([
   'common/controllers/availability-module'
 ], function (ApplicationsCollection, ApplicationsGraph, ApplicationsHeadlineView,
              Top5Collection, Top5Table, GraphCollection,
-             SingleItemGraphCollection, ConversionSeriesCollection, ConversionGraph,
+             ConversionSeriesCollection, ConversionGraph,
              Tabs, SuccessRateView,
              VisitorsRealtimeCollection, VisitorsRealtimeView,
              availabilityModule) {
   return function () {
 
-    var conversionCollection = new SingleItemGraphCollection(null, {
-      conversionCollection: ConversionSeriesCollection
+    var conversionCollection = new GraphCollection(null, {
+      collections: [ ConversionSeriesCollection ]
     });
 
     var successRate = new SuccessRateView({

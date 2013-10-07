@@ -1,7 +1,7 @@
 define([
   'lpa/collections/application-method-over-time',
   'extensions/views/timeseries-graph/stacked-graph',
-  'extensions/collections/singleitemgraphcollection',
+  'extensions/collections/graphcollection',
   'lpa/collections/conversion-series',
   'extensions/views/conversion-graph/conversion-graph',
   'lpa/collections/help-usage', 'lpa/views/help-usage-table',
@@ -10,7 +10,7 @@ define([
 ],
 function (ApplicationsCollection, 
           ApplicationsGraph,
-          SingleItemGraphCollection,
+          GraphCollection,
           ConversionSeries, 
           ConversionGraph,
           HelpUsageCollection, 
@@ -34,8 +34,8 @@ function (ApplicationsCollection,
       }
 
       if ($('#lpa-conversion-graph').length) {
-        var conversionCollection = new SingleItemGraphCollection(null, {
-          conversionCollection: ConversionSeries
+        var conversionCollection = new GraphCollection(null, {
+          collections: [  ConversionSeries ]
         });
 
         var conversionGraph = new ConversionGraph({
