@@ -116,6 +116,27 @@ function (Query) {
         expect(query.get('start_at')).not.toBeDefined()
       });
       
+      it("sets correct start and end_at for day period", function () {
+        var query = new Query({
+          foo: 'bar'
+        });
+        query.set('period', 'day');
+        expect(query.get('foo')).toEqual('bar');
+        expect(query.get('period')).toEqual('day');
+        expect(query.get('end_at').format()).toEqual('2013-05-15T00:00:00+00:00');
+        expect(query.get('start_at').format()).toEqual('2013-04-15T00:00:00+00:00');
+      });
+
+      it("sets correct start and end_at for hour period", function () {
+        var query = new Query({
+          foo: 'bar'
+        });
+        query.set('period', 'hour');
+        expect(query.get('foo')).toEqual('bar');
+        expect(query.get('period')).toEqual('hour');
+        expect(query.get('end_at').format()).toEqual('2013-05-15T05:00:00+00:00');
+        expect(query.get('start_at').format()).toEqual('2013-05-14T05:00:00+00:00');
+      });
     });
 
     describe("timezone handling", function() {
