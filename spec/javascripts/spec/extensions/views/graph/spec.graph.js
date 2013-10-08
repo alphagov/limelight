@@ -459,36 +459,28 @@ function (Graph, Collection, d3) {
       });
 
 
-      describe("day", function () {
+      function sharedSpecsForScalingBetweenFirstAndLastDates() {
         describe("calcXScale", function() {
-          it("scales domain from first Sunday to last Sunday", function() {
+          it("scales domain from first entry end date to last entry end date", function() {
             graph.applyConfig('day');
             var domain = graph.calcXScale().domain();
             expect(moment(domain[0]).format('YYYY-MM-DD')).toEqual('2013-01-20');
             expect(moment(domain[1]).format('YYYY-MM-DD')).toEqual('2013-02-03');
           });
-          
+
           it("scales range to inner width", function() {
             graph.applyConfig('day');
             expect(graph.calcXScale().range()).toEqual([0, 444]);
           });
         });
+      }
+
+      describe("day", function () {
+        sharedSpecsForScalingBetweenFirstAndLastDates();
       });
 
       describe("week", function () {
-        describe("calcXScale", function() {
-          it("scales domain from first Sunday to last Sunday", function() {
-            graph.applyConfig('week');
-            var domain = graph.calcXScale().domain();
-            expect(moment(domain[0]).format('YYYY-MM-DD')).toEqual('2013-01-20');
-            expect(moment(domain[1]).format('YYYY-MM-DD')).toEqual('2013-02-03');
-          });
-
-          it("scales range to inner width", function() {
-            graph.applyConfig('week');
-            expect(graph.calcXScale().range()).toEqual([0, 444]);
-          });
-        });
+        sharedSpecsForScalingBetweenFirstAndLastDates();
       });
 
       describe("hour", function () {
