@@ -1,21 +1,21 @@
 define([
-  'extensions/collections/availability-for-24-hours',
+  'extensions/collections/availability',
   'lodash'
 ],
-  function (AvailabilityFor24HoursCollection, _) {
-    describe('AvailabilityFor24HoursCollection', function () {
+  function (Availability, _) {
+    describe('Availability', function () {
       var availabilityData = {"data":[
         {
-          "uptime": 9,
-          "downtime": 1,
-          "unmonitored": 1,
-          "avgresponse": 321
+          "uptime:sum": 9,
+          "downtime:sum": 1,
+          "unmonitored:sum": 1,
+          "avgresponse:mean": 321
         },
         {
-          "uptime": 10,
-          "downtime": 0,
-          "unmonitored": 1,
-          "avgresponse": 345
+          "uptime:sum": 10,
+          "downtime:sum": 0,
+          "unmonitored:sum": 1,
+          "avgresponse:mean": 345
         }
       ]};
 
@@ -27,7 +27,7 @@ define([
 
       it("should use the specified service name in the url", function () {
         var collection =
-          new AvailabilityFor24HoursCollection(null, {
+          new Availability(null, {
             checkName: "anything",
             serviceName: "something-something-fco"
           });
@@ -39,18 +39,18 @@ define([
 
       it("should be created with correct query parameters", function () {
         var collection =
-          new AvailabilityFor24HoursCollection(null, {
+          new Availability(null, {
             checkName: "mycheck",
             serviceName: "anything"
           });
         var params = collection.queryParams();
-        expect(params.sort_by).toEqual("_timestamp:descending");
-        expect(params.limit).toEqual(24);
+        expect(params.period).toEqual("hour");
+        expect(params.collect).toEqual(["downtime:sum", "uptime:sum", "unmonitored:sum", "avgresponse:mean"]);
       });
 
       it("should provide percentage of uptime for all models", function () {
         var collection =
-          new AvailabilityFor24HoursCollection(availabilityData, options);
+          new Availability(availabilityData, options);
 
           var fractionOfUptime = collection.getFractionOfUptime();
 
@@ -60,7 +60,7 @@ define([
       it("should provide total uptime", function () {
 
         var collection =
-          new AvailabilityFor24HoursCollection(availabilityData, options);
+          new Availability(availabilityData, options);
 
         var totalUptime = collection._getTotalUptime();
 
@@ -69,10 +69,10 @@ define([
 
       it("should provide total (monitored) time", function () {
         var collection =
-          new AvailabilityFor24HoursCollection({"data": [{
-            "uptime": 1,
-            "downtime": 2,
-            "unmonitored": 3
+          new Availability({"data": [{
+            "uptime:sum": 1,
+            "downtime:sum": 2,
+            "unmonitored:sum": 3
           }]}, options);
 
         var totalTime = collection._getTotalTime();
@@ -82,10 +82,10 @@ define([
       
       it("should provide total monitored AND unmonitored time", function () {
         var collection =
-          new AvailabilityFor24HoursCollection({"data": [{
-            "uptime": 1,
-            "downtime": 2,
-            "unmonitored": 3
+          new Availability({"data": [{
+            "uptime:sum": 1,
+            "downtime:sum": 2,
+            "unmonitored:sum": 3
           }]}, options);
 
         var totalTime = collection._getTotalTime(true);
@@ -95,7 +95,7 @@ define([
 
       it("should provide total time for all models", function () {
         var collection =
-          new AvailabilityFor24HoursCollection(availabilityData, options);
+          new Availability(availabilityData, options);
 
         var totalTime = collection._getTotalTime();
 
@@ -104,7 +104,7 @@ define([
 
       it("should provide average response time", function () {
         var collection =
-          new AvailabilityFor24HoursCollection(availabilityData, options);
+          new Availability(availabilityData, options);
 
         var averageResponseTime = collection.getAverageResponseTime();
 
@@ -113,7 +113,7 @@ define([
 
       it("should throw an exception if created with no serviceName", function() {
         expect(function() {
-          new AvailabilityFor24HoursCollection([], { checkName: "anything" });
+          new Availability([], { checkName: "anything" });
         }).toThrow()
       });
 
@@ -121,17 +121,16 @@ define([
          response = {
            data: [
              {
-               "uptime": 900, "downtime": 100,
-               "unmonitored": 0,
-               "avgresponse": 100,
-               "check": "anything",
-               "_id": "08",
-               "_timestamp": "2013-06-17T16:00:00+00:00"
+               "uptime:sum": 900, "downtime:sum": 100,
+               "unmonitored:sum": 0,
+               "avgresponse:mean": 100,
+               "_end_at":"2013-06-17T16:00:00+00:00",
+               "_start_at":"2013-06-17T15:00:00+00:00"
              }
            ]
          }
          var collection =
-           new AvailabilityFor24HoursCollection(availabilityData, options);
+           new Availability(availabilityData, options);
 
          data = collection.parse(response);
 

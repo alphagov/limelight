@@ -2,7 +2,7 @@ define([
   'extensions/collections/graphcollection'
 ],
 function (GraphCollection) {
-  var AvailabilityFor24HoursCollection = GraphCollection.extend({
+  var Availability = GraphCollection.extend({
 
     initialize: function (models, options) {
       if (!_.isString(options.serviceName)) {
@@ -17,18 +17,23 @@ function (GraphCollection) {
 
     queryParams: function () {
       return {
-        sort_by: "_timestamp:descending",
-        limit: 24
+        period: "hour",
+        collect: ["downtime:sum", "uptime:sum", "unmonitored:sum", "avgresponse:mean"]
       };
     },
 
     parse: function (response) {
       var data = response.data;
       _.each(data, function (d) {
+        d.uptime = d["uptime:sum"];
+        d.downtime = d["downtime:sum"];
+        d.unmonitored = d["unmonitored:sum"];
+        d.avgresponse = d["avgresponse:mean"];
         d.total = d.downtime + d.uptime;
         d.uptimeFraction = d.uptime / d.total;
-        d._end_at = this.moment(d._timestamp);
-        d._start_at = this.moment(d._timestamp).subtract(1, "hours");
+        d._end_at = this.moment(d._end_at);
+        d._start_at = this.moment(d._start_at);
+        d._timestamp = d._end_at;
       });
       return {
         id: 'availability',
@@ -67,5 +72,5 @@ function (GraphCollection) {
 
   });
 
-  return AvailabilityFor24HoursCollection;
+  return Availability;
 });
