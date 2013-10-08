@@ -69,6 +69,8 @@ function (XAxis, Collection, moment) {
 
         var ticks = wrapper.selectAll('.tick')[0];
         expect(wrapper.selectAll('.tick')[0].length).toEqual(31);
+        expect(d3.select(ticks[0]).text()).toEqual('4 Mar');
+        expect(d3.select(ticks[1]).text()).toEqual('');
         expect(d3.select(ticks[7]).text()).toEqual('11 Mar');
         expect(d3.select(ticks[14]).text()).toEqual('18 Mar');
         expect(d3.select(ticks[21]).text()).toEqual('25 Mar');

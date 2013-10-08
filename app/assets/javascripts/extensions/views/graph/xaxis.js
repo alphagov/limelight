@@ -54,8 +54,9 @@ function (Axis) {
         tickFormat: function () {
           var moment = this.moment;
           return function (d, index) {
-            if (moment(d).days() == 1) {
-              return moment(d).format('D MMM');
+            var date = moment(d);
+            if (date.days() === 1) {
+              return date.format('D MMM');
             } else {
               return '';
             }
