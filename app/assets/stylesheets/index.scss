@@ -1,0 +1,142 @@
+@import '_typography';
+@import 'colours';
+
+#content .index {
+  
+  header{
+    border: none;
+    p.explanatory {
+      @include core-24;
+      width: 100%;
+      @media (min-width: 641px) {
+        width: 65.625%;
+      }
+    }
+  }
+
+  h2, h3 {
+    @include bold-24;
+    border-bottom: 5px solid $primary-colour;
+  }
+
+  h4 {
+    @include bold-19;
+  }
+
+  p, dl {
+    @include core-19;
+  }
+
+  article {
+    min-height: 0;
+  }
+
+  img {
+    display: block;
+    max-width: 100%;
+    margin-top: 1.579em;
+  }
+
+}
+
+.service-listing {
+  dl, ol, ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  dt {
+    margin: 0;
+    padding: 0;
+  }
+  dd {
+    margin: 0 0 0.75em 0;
+    padding: 0;
+    border-bottom: 1px solid $grey-3;
+  }
+
+  li {
+    border-top: 1px solid $grey-3;
+    padding:.3em 0;
+  }
+}
+
+.service-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  dt {
+    margin: 0;
+    padding: 0;
+  }
+  dd {
+    margin: 0 0 0.75em 0;
+    padding: 0;
+    border-bottom: 1px solid $grey-3;
+  }
+
+  ol {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  li {
+    border-top: 1px solid $grey-3;
+    padding:.3em 0;
+  }
+}
+
+@media (min-width: 641px) {
+  .cols2,
+  main#content section.cols2,
+  main#content article.cols2 {
+    width: 48.4375%;
+    float: left;
+    clear: none;
+    margin-right: 0;
+    margin-left: 3.125%;
+  }
+  .cols2,
+  main#content section.cols2:first-of-type,
+  main#content article.cols2:first-of-type {
+    margin-left: 0;
+  }
+  .cols3 {
+    width: 31.25%;
+    float: left;
+    clear: none;
+    margin-right: 0;
+    margin-left: 3.125%;
+  }
+  .cols3:first-of-type {
+    margin-left: 0;
+  }
+}
+
+@media (min-width: 761px) {
+  .service-list {
+    -webkit-column-count: 3;
+    -webkit-column-gap: 40px;
+    -moz-column-count: 3;
+    -moz-column-gap: 40px;
+    column-count: 3;
+    column-gap: 40px;
+
+    dl :nth-child(5),
+    dl :nth-child(7) {
+      -webkit-column-break-before: always;
+      -moz-column-break-before: always;
+      -o-column-break-before: always;
+      column-break-before: always;
+    }
+
+    dd, ol {
+      -webkit-column-break-inside:avoid;
+      -moz-column-break-inside:avoid;
+      -o-column-break-inside:avoid;
+      column-break-inside:avoid;
+    }
+  }
+}
