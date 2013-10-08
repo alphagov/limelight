@@ -1,6 +1,6 @@
 {
     "data": [
-        { "uptime:sum": 900, "downtime:sum": 100, "unmonitored:sum": 0, "avgresponse:mean": 100, "_end_at": "2013-06-17T17:00:00+00:00", "_start_at": "2013-06-17T16:00:00+00:00"},
+        { "uptime:sum": 700, "downtime:sum": 300, "unmonitored:sum": 0, "avgresponse:mean": 1000, "_end_at": "2013-06-17T17:00:00+00:00", "_start_at": "2013-06-17T16:00:00+00:00"},
         { "uptime:sum": 900, "downtime:sum": 100, "unmonitored:sum": 0, "avgresponse:mean": 100, "_end_at": "2013-06-17T18:00:00+00:00", "_start_at": "2013-06-17T17:00:00+00:00"},
         { "uptime:sum": 900, "downtime:sum": 100, "unmonitored:sum": 0, "avgresponse:mean": 100, "_end_at": "2013-06-17T19:00:00+00:00", "_start_at": "2013-06-17T18:00:00+00:00"},
         { "uptime:sum": 900, "downtime:sum": 100, "unmonitored:sum": 0, "avgresponse:mean": 100, "_end_at": "2013-06-17T20:00:00+00:00", "_start_at": "2013-06-17T19:00:00+00:00"},

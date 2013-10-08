@@ -44,7 +44,7 @@ define([
             serviceName: "anything"
           });
         var params = collection.queryParams();
-        expect(params.period).toEqual("hour");
+        expect(params.period).toEqual("day");
         expect(params.collect).toEqual(["downtime:sum", "uptime:sum", "unmonitored:sum", "avgresponse:mean"]);
       });
 

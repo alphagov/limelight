@@ -17,7 +17,7 @@ function (GraphCollection) {
 
     queryParams: function () {
       return {
-        period: "hour",
+        period: "day",
         collect: ["downtime:sum", "uptime:sum", "unmonitored:sum", "avgresponse:mean"]
       };
     },

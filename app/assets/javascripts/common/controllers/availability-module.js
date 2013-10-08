@@ -58,8 +58,7 @@ function (GraphCollection, AvailabilityCollection,
         {id: "hour", name: "24 hours"}
       ]
     });
-
-    availabilityCollection.query.set('period', 'day');
+    graphNav.render();
 
     availabilityCollection.fetch();
   };
