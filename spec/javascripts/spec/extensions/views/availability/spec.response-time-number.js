@@ -1,8 +1,9 @@
 define([
   'extensions/views/availability/response-time-number',
-  'extensions/collections/collection'
+  'extensions/collections/collection',
+  'extensions/models/model'
 ],
-  function (Number, Collection) {
+  function (Number, Collection, Model) {
 
     describe("configuration", function () {
 
@@ -18,7 +19,7 @@ define([
         return new CollectionWithPeriod();
       }
 
-      describe("label", function() {
+      describe("getLabel", function() {
         it("display label for last 24 hours", function () {
           var view = new Number({
             collection: collectionForPeriod('hour')
@@ -36,5 +37,31 @@ define([
         });
       });
 
+
+      describe("getLabelSelected", function () {
+         it("display hour range and day for hour query", function () {
+           var view = new Number({
+             collection: collectionForPeriod('hour')
+           });
+
+           var selection = new Model();
+           selection.set('_start_at', moment('2013-06-18T01:00:00+01:00'));
+           selection.set('_end_at', moment('2013-06-18T02:00:00+01:00'));
+
+           expect(view.getLabelSelected({ selectedModel: selection })).toEqual('1am to 2am,<br>18 June 2013');
+         });
+
+        it("display only date for day query", function () {
+           var view = new Number({
+             collection: collectionForPeriod('day')
+           });
+
+           var selection = new Model();
+           selection.set('_start_at', moment('2013-05-17T00:00:00+01:00'));
+           selection.set('_end_at', moment('2013-05-18T00:00:00+01:00'));
+
+           expect(view.getLabelSelected({ selectedModel: selection })).toEqual('17 May 2013');
+         });
+      });
     });
   });

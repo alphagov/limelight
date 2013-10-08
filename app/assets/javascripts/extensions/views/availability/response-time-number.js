@@ -13,16 +13,33 @@ function (SingleStatView) {
 
     labelPrefix: 'mean ',
 
-    periodLabel: {
-      hour: '24 hours',
-      day: '30 days'
+    config: {
+      hour: {
+        label: '24 hours',
+        selectionFormat: function (start, end) {
+          return [
+            start.format('ha'),
+            ' to ',
+            end.format('ha'),
+            ',<br>',
+            start.format('D MMMM YYYY')
+          ].join('')
+        }
+      },
+
+      day: {
+        label: '30 days',
+        selectionFormat: function (start, end) {
+          return start.format('D MMMM YYYY');
+        }
+      }
     },
 
 
     getLabel: function () {
       var period = this.collection.query.get('period');
 
-      return this.labelPrefix + 'for the last ' + this.periodLabel[period];
+      return this.labelPrefix + 'for the last ' + this.config[period].label;
     },
 
     getValueSelected: function (selection) {
@@ -33,14 +50,9 @@ function (SingleStatView) {
       var model = selection.selectedModel;
       var start = model.get('_start_at');
       var end = model.get('_end_at');
+      var period = this.collection.query.get('period');
 
-      return [
-        start.format('ha'),
-        ' to ',
-        end.format('ha'),
-        ',<br>',
-        start.format('D MMMM YYYY')
-      ].join('');
+      return this.config[period].selectionFormat(start, end);
     }
   });
 
