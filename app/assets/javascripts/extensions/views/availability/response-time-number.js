@@ -13,11 +13,16 @@ function (SingleStatView) {
 
     labelPrefix: 'mean ',
 
-    getLabel: function () {
-      var period = this.collection.query.get('period'),
-          periodLabel = period === 'day' ? '30 days' : '24 hours';
+    periodLabel: {
+      hour: '24 hours',
+      day: '30 days'
+    },
 
-      return this.labelPrefix + 'for the last ' + periodLabel;
+
+    getLabel: function () {
+      var period = this.collection.query.get('period');
+
+      return this.labelPrefix + 'for the last ' + this.periodLabel[period];
     },
 
     getValueSelected: function (selection) {
