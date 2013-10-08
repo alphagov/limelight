@@ -14,22 +14,21 @@ define([
 function (require, View, d3, XAxis, YAxis, Line, Stack, LineLabel, Hover, Callout, Tooltip) {
 
 
-  function scaleFromStartAndEndDates (dateFunction) {
+  function scaleFromStartAndEndDates (modelToDate) {
     return {
       getXPos: function(groupIndex, modelIndex) {
         groupIndex = groupIndex || 0;
         var model = this.collection.at(groupIndex, modelIndex);
-        return dateFunction(model);
+        return modelToDate(model);
       },
       calcXScale: function () {
-        var start, end, xScale;
-        var total = this.collection.first().get('values');
-        start = dateFunction(total.first());
-        end = dateFunction(total.last());
-        xScale = this.d3.time.scale();
-        xScale.domain([start.toDate(), end.toDate()]);
-        xScale.range([0, this.innerWidth]);
-        return xScale;
+        var total = this.collection.first().get('values'),
+            start = modelToDate(total.first()).toDate(),
+            end = modelToDate(total.last()).toDate();
+
+        return this.d3.time.scale()
+                .domain([start, end])
+                .range([0, this.innerWidth]);
       }
     };
   };
