@@ -459,9 +459,9 @@ function (Graph, Collection, d3) {
       });
 
 
-      function sharedSpecsForScalingBetweenFirstAndLastDates() {
+      function sharedSpecsForScalingBetweenStartAndEndDates() {
         describe("calcXScale", function() {
-          it("scales domain from first entry end date to last entry end date", function() {
+          it("scales domain from start entry end date to end entry end date", function() {
             graph.applyConfig('day');
             var domain = graph.calcXScale().domain();
             expect(moment(domain[0]).format('YYYY-MM-DD')).toEqual('2013-01-20');
@@ -476,11 +476,11 @@ function (Graph, Collection, d3) {
       }
 
       describe("day", function () {
-        sharedSpecsForScalingBetweenFirstAndLastDates();
+        sharedSpecsForScalingBetweenStartAndEndDates();
       });
 
       describe("week", function () {
-        sharedSpecsForScalingBetweenFirstAndLastDates();
+        sharedSpecsForScalingBetweenStartAndEndDates();
       });
 
       describe("hour", function () {
