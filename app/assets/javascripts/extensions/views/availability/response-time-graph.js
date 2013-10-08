@@ -8,7 +8,7 @@ function (Graph) {
     numYTicks: 3,
 
     getConfigNames: function () {
-      return ['stack', 'hour'];
+      return ['stack', this.collection.query.get('period')];
     },
 
     components: function () {
