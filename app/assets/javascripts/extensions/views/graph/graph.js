@@ -239,6 +239,24 @@ function (require, View, d3, XAxis, YAxis, Line, Stack, LineLabel, Hover, Callou
           return xScale;
         }
       },
+      day: {
+        getXPos: function(groupIndex, modelIndex) {
+          groupIndex = groupIndex || 0;
+          var model = this.collection.at(groupIndex, modelIndex);
+          return this.moment(model.get('_end_at')).subtract(1, 'days');
+        },
+        calcXScale: function () {
+          var start, end, xScale;
+          var total = this.collection.first().get('values');
+          // scale from first sunday to last sunday
+          start = moment(total.first().get('_end_at')).subtract(1, 'days');
+          end = moment(total.last().get('_end_at')).subtract(1, 'days');
+          xScale = this.d3.time.scale();
+          xScale.domain([start.toDate(), end.toDate()]);
+          xScale.range([0, this.innerWidth]);
+          return xScale;
+        }
+      },
       week: {
         getXPos: function(groupIndex, modelIndex) {
           groupIndex = groupIndex || 0;

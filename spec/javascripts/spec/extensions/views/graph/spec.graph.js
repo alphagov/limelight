@@ -459,6 +459,22 @@ function (Graph, Collection, d3) {
       });
 
 
+      describe("day", function () {
+        describe("calcXScale", function() {
+          it("scales domain from first Sunday to last Sunday", function() {
+            graph.applyConfig('day');
+            var domain = graph.calcXScale().domain();
+            expect(moment(domain[0]).format('YYYY-MM-DD')).toEqual('2013-01-20');
+            expect(moment(domain[1]).format('YYYY-MM-DD')).toEqual('2013-02-03');
+          });
+          
+          it("scales range to inner width", function() {
+            graph.applyConfig('day');
+            expect(graph.calcXScale().range()).toEqual([0, 444]);
+          });
+        });
+      });
+
       describe("week", function () {
         describe("calcXScale", function() {
           it("scales domain from first Sunday to last Sunday", function() {
@@ -467,7 +483,7 @@ function (Graph, Collection, d3) {
             expect(moment(domain[0]).format('YYYY-MM-DD')).toEqual('2013-01-20');
             expect(moment(domain[1]).format('YYYY-MM-DD')).toEqual('2013-02-03');
           });
-          
+
           it("scales range to inner width", function() {
             graph.applyConfig('week');
             expect(graph.calcXScale().range()).toEqual([0, 444]);
