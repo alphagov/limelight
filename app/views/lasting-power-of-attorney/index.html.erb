@@ -34,13 +34,14 @@
 <% if Rails.application.config.feature_toggles[:lpa_dashboard_completion_rate] %>
 <section class="graph completion-rate">
   <h1>Completion rate</h1>
+  <h2>Proportion of people who got to the end of the digital part of the service</h2>
   <ul class="module-actions">
     <li class="info">
       <div>
         <p>Data source: Google Analytics</p>
         <p><a href="/service-manual/measurement/completion-rate.html" rel="external" target="_blank">Completion rate</a> measures the proportion of people who started an application and were able to complete it.</p>
-        <p>It is calculated as percentage of unique visitors who arrived at the final page of the service out of those who arrived at the start page.</p>
-        <p>Completed applications count based on unique visitors to the final page of the service.</p>
+        <p>It is calculated as percentage of unique visitors who arrived at the final page of the digital service out of those who arrived at the login page.</p>
+        <p>This measures the digital service only, not the later postal journey.</p>
       </div>
     </li>
   </ul>
