@@ -159,11 +159,17 @@
   .half-width .conversion-graph {
     max-width: 954px;
   }
+
+  .graph {
+    .x-axis .tick:nth-child(even) text {
+      display: block;
+    }
+  }
 }
 
 
 @media (max-width: 320px) {
-  
+
   .conversion-graph {
     .x-axis text {
       font-size:8px;
