@@ -90,7 +90,7 @@ function (require, View, d3, XAxis, YAxis, Line, Stack, LineLabel, Hover, Callou
      * size.
      */
     scaleFactor: function () {
-      return this.$el.width() / this.width;
+      return $(this.svg.node()).width() / this.width;
     },
     
     // Not implemented; override in configuration or subclass
