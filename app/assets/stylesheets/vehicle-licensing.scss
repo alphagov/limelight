@@ -55,8 +55,10 @@
     margin-left: 12.5em;
     svg {
       min-height: 135px;
-      max-height: 200px;
+      max-height: 165px;
+      max-width: 790px;
     }
+
 
     margin-right:-30px;
     .inner {
@@ -86,12 +88,14 @@
 
     .graph {
       margin-left:0;
-      position:absolute;
-      left:0;
-      right:0;
+      .graph-wrapper {
+        position:absolute;
+        left:0;
+        right:0;
+      }
     }
     figure:nth-of-type(1) {
-      top: 110px;
+      top: 60px;
     }
 
     .impact-number {
