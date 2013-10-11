@@ -19,9 +19,8 @@ a[rel="external"] {
   }
 }
 
-
 #content {
-  
+
   header {
     h1 {
       @include bold-48;
@@ -39,6 +38,7 @@ a[rel="external"] {
         margin-bottom: 5px;
       }
     }
+
     h2 {
       @include core-16;
       margin:0;

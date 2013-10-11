@@ -1,8 +1,7 @@
-
 @import 'colours';
 
 ::-ms-clear {
-    display: none;
+  display: none;
 }
 
 .performance-hidden {
@@ -70,10 +69,7 @@ main#content {
   clear: both;
 }
 
-
-
 @media (max-width: 640px) {
-
   .performance-platform-outer {
     margin-left:15px;
     margin-right:15px;
@@ -82,7 +78,7 @@ main#content {
 
   main#content {
     padding: 0;
-    
+
     section {
       float:none;
       &.half-width {

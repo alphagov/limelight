@@ -168,7 +168,6 @@
   }
 
   .labels {
-
     line {
       fill: none;
       stroke: #444;
@@ -293,7 +292,6 @@
     display: none;
   }
 
-
   .timeperiod {
     position:absolute;
     @include core-16($tabular-numbers: true);
@@ -304,7 +302,6 @@
       top:-19px;
     }
   }
-
 }
 
 @media (max-width: 640px) {

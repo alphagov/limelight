@@ -1,14 +1,12 @@
 @import 'typography';
 
 .failures {
-
   ul.module-actions {
     margin-top:-36px;
     margin-bottom: 44px;
   }
-  
-  .failures-table {
 
+  .failures-table {
     th, td {
       white-space: normal;
     }
@@ -67,7 +65,6 @@
   }
 
   @media (max-width: 640px) {
-
     .graph {
       .y-axis .tick:nth-child(even) text {
         display:block;
@@ -99,7 +96,6 @@
 }
 
 #customer-satisfaction {
-
   position: relative;
 
   .previous-month {
@@ -143,5 +139,4 @@
       }
     }
   }
-
 }

@@ -12,7 +12,6 @@
       @include bold-48($tabular-numbers: true);
       margin-bottom:-.1em;
       display:block
-
     }
   }
 
@@ -46,14 +45,13 @@
   }
 
   @media (max-width: 880px) {
-    
     .graph {
       .x-axis .tick:nth-child(even) text {
         display:none;
       }
     }
   }
-  
+
   @media(max-width: 640px) {
     .graph {
       margin-right: 0;
@@ -101,6 +99,7 @@
       bottom: 20px;
     }
   }
+
   figure:nth-of-type(2) {
     .cursorLine.ascender {
       display: inherit;

@@ -6,6 +6,7 @@
     min-height: 100px;
   }
 }
+
 .conversion-graph {
   &:hover {
     max-height: 300px;
@@ -111,9 +112,9 @@
       margin-top:-40px;
       position:absolute;
       overflow:hidden;
-              transform: scaleX(2);
-          -ms-transform: scaleX(2);
       -webkit-transform: scaleX(2);
+          -ms-transform: scaleX(2);
+              transform: scaleX(2);
       text-shadow: 0 0 3px rgba(0, 0, 0, 0.65);
       color: $grey-4;
       font-size:20px;
@@ -167,9 +168,7 @@
   }
 }
 
-
 @media (max-width: 320px) {
-
   .conversion-graph {
     .x-axis text {
       font-size:8px;

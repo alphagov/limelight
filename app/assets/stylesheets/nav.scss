@@ -20,20 +20,20 @@ span.alpha-tag {
 }
 
 a:hover span.alpha-tag {
-    text-decoration: none;
+  text-decoration: none;
 }
 
 #global-header .header-proposition #proposition-links li {
-    a {
-        &.active {
-            color: $white;
-            border-bottom:1px solid $primary-colour;
-        }
-        &:hover {
-            border-bottom:1px solid $primary-colour;
-            text-decoration:none;
-        }
+  a {
+    &.active {
+      color: $white;
+      border-bottom:1px solid $primary-colour;
     }
+    &:hover {
+      border-bottom:1px solid $primary-colour;
+      text-decoration:none;
+    }
+  }
 }
 
 nav.performance-nav {
@@ -50,7 +50,7 @@ nav.performance-nav {
       display:inline;
     }
   }
-  
+
   a {
     color:$text-colour;
     text-decoration:none;
@@ -69,7 +69,6 @@ nav.performance-nav {
     }
   }
 }
-
 
 @media (max-width: 768px) {
   nav.performance-nav {
