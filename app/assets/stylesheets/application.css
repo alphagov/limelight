@@ -20,7 +20,7 @@
  = require graph
  = require licensing
  = require conversion-graph
- = require volumetrics-availability
+ = require double-decker-graph
  = require applicationstable
  = require top5table
  = require filteredlist

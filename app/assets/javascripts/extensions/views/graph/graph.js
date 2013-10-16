@@ -118,7 +118,7 @@ function (require, View, d3, XAxis, YAxis, Line, Stack, LineLabel, Hover, Callou
     resize: function () {
       var $svg = $(this.svg.node());
       $svg.attr('style', '');
-      var width = this.width = $svg.width();
+      var width = this.width = $svg.parent().width();
 
       // when both max-width and max-height are defined, scale graph according
       // to this aspect ratio
