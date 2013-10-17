@@ -2,13 +2,14 @@
 @import 'colours';
 
 #content .index {
-  
-  header{
+  header {
     border: none;
+
     p.explanatory {
-      @include core-24;
       width: 100%;
-      @media (min-width: 641px) {
+      @include core-24;
+
+      @media (min-width: 640px) {
         width: 65.625%;
       }
     }
@@ -50,6 +51,7 @@
     margin: 0;
     padding: 0;
   }
+
   dd {
     margin: 0 0 0.75em 0;
     padding: 0;
@@ -62,21 +64,23 @@
   }
 }
 
-@media (min-width: 641px) {
+@media (min-width: 640px) {
   .cols2,
-  main#content section.cols2,
-  main#content article.cols2 {
+  #content section.cols2,
+  #content article.cols2 {
     width: 48.4375%;
     float: left;
     clear: none;
     margin-right: 0;
     margin-left: 3.125%;
   }
+
   .cols2,
-  main#content section.cols2:first-of-type,
-  main#content article.cols2:first-of-type {
+  #content section.cols2:first-of-type,
+  #content article.cols2:first-of-type {
     margin-left: 0;
   }
+
   .cols3 {
     width: 31.25%;
     float: left;
@@ -84,6 +88,7 @@
     margin-right: 0;
     margin-left: 3.125%;
   }
+
   .cols3:first-of-type {
     margin-left: 0;
   }
