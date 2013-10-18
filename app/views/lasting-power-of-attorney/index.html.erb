@@ -15,7 +15,7 @@
 
 <% if Rails.application.config.feature_toggles[:lpa_dashboard_application_method] %>
 <section class="graph graph-with-labels application-method-over-time">
-  <h1>Applications</h1>
+  <h1>Completed Applications</h1>
   <h2><span class="group0">Non-digital</span> and <span class="group1">digital</span> applications over time</h2>
   <ul class="module-actions">
     <li class="info">
@@ -34,7 +34,7 @@
 <% if Rails.application.config.feature_toggles[:lpa_dashboard_completion_rate] %>
 <section class="graph single-decker-graph">
   <h1>Completion rate</h1>
-  <h2>Proportion of people who got to the end of the digital service</h2>
+  <h2>Proportion of people who completed both parts of the digital service, 'Make an LPA' and 'Register an LPA'</h2>
   <ul class="module-actions">
     <li class="info">
       <div>
