@@ -56,6 +56,7 @@ function (Callout) {
         ' to ',
         end.format('D MMM YYYY'),
         '</span> ',
+        'Stage: ',
         model.get('title')
       ].join(''));
 
