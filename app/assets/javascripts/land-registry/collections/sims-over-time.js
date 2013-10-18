@@ -5,23 +5,23 @@ function (GraphCollection) {
 
   var Collection = GraphCollection.extend({
 
-    serviceName: 'land_registry',
-    apiName: 'search_index_map',
+    serviceName: 'land-registry',
+    apiName: 'search-volumes',
 
     parse: function (response) {
       var items = {
-        "B2B": {},
-        "BUSINESS_GATEWAY": {},
-        "PORTAL_APPLICATION": {},
-        "POSTAL_APPLICATION": {}
+        "sims_B2B_applications": {},
+        "sims_business_gateway_applications": {},
+        "sims_portal_applications": {},
+        "sims_postal_applications": {}
       };
       _.each(response.data, function(d) {
         for (var key in Object.keys(items)) {
           var service =  Object.keys(items)[key];
-          items[service][d.start_at] = {
-            _count: parseFloat(d[service].replace(",", "")),
-            _start_at: this.moment(d.start_at),
-            _end_at: this.moment(d.end_at)
+          items[d.key][d._month_start_at] = {
+            _count: parseFloat(d.value),
+            _start_at: this.moment(d._month_start_at),
+            _end_at: this.moment(d._timestamp)
           };
         }
       }, this);
@@ -35,22 +35,22 @@ function (GraphCollection) {
         {
           id: 'portalApplications',
           title: 'Portal',
-          values: items.PORTAL_APPLICATION
+          values: items.sims_portal_applications
         },
         {
           id: 'postalApplications',
           title: 'Postal',
-          values: items.POSTAL_APPLICATION
+          values: items.sims_postal_applications
         },
         {
           id: 'b2b',
           title: 'B2B',
-          values: items.B2B
+          values: items.sims_B2B_applications
         },
         {
           id: 'businessGateway',
           title: 'Business Gateway',
-          values: items.BUSINESS_GATEWAY
+          values: items.sims_business_gateway_applications
         }
       ];
     }
