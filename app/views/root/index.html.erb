@@ -52,7 +52,16 @@
         <li><a href="/performance/dashboard">GOV.UK Overview</a></li>
         <li><a href="/performance/dashboard/government">Departments and policy</a></li>
       </ul>
-      <img src="//www.gov.uk/performance/dashboard/hourly-traffic.png" alt="" />
+      <% if @govuk_realtime_visitors %>
+        <p class='impact-number'>
+          <strong>
+            <%= @govuk_realtime_visitors %>
+          </strong>
+        </p>
+        <p>users on GOV.UK now</p>
+      <% else %>
+        <img src="/performance/dashboard/hourly-traffic.png" alt="" />
+      <% end %>
     </section>
   </div>
 

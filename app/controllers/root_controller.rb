@@ -10,6 +10,12 @@ class RootController < ApplicationController
     col3['Service Groups'] = @services.select { |s| s.is_group }.sort_by!(&:name)
 
     @columns = [col1, col2, col3]
+
+    govuk_realtime = backdrop_api.get('/performance/government/api/realtime?sort_by=_timestamp%3Adescending&limit=1').data['data'].first
+
+    if DateTime.strptime(govuk_realtime['_timestamp']) > (DateTime.now - 10.minutes)
+      @govuk_realtime_visitors = govuk_realtime['unique_visitors']
+    end
   end
 
   private
