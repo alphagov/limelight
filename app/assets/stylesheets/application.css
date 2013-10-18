@@ -20,7 +20,8 @@
  = require graph
  = require licensing
  = require conversion-graph
- = require volumetrics-availability
+ = require single-decker-graph
+ = require double-decker-graph
  = require applicationstable
  = require top5table
  = require filteredlist
@@ -29,4 +30,5 @@
  = require impact-number
  = require tooltip
  = require vehicle-licensing
+ = require lpa
  */

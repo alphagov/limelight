@@ -17,9 +17,9 @@ function (GraphCollection) {
     },
 
     seriesList: [
-      { id: 'manual', title: 'Manual' },
+      { id: 'fully-digital', title: 'Digital' },
       { id: 'assisted-digital', title: 'Post Office' },
-      { id: 'fully-digital', title: 'Digital' }
+      { id: 'manual', title: 'Manual' }
     ],
 
     parse: function (response) {
@@ -28,12 +28,6 @@ function (GraphCollection) {
       return _.map(this.seriesList, function (series) {
         var dataSeries = _.find(data, function (d) {
           return d.channel === series.id;
-        });
-
-        _.each(dataSeries.values, function (d) {
-          if (d['volume:sum'] == null) {
-            d['volume:sum'] = 0;
-          }
         });
 
         return _.extend({}, series, {

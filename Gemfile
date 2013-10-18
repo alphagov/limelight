@@ -4,7 +4,7 @@ source "https://BnrJb6FZyzspBboNJzYZ@gem.fury.io/govuk/"
 gem "rails", "3.2.14"
 gem "unicorn", "4.6.3"
 
-gem "slimmer", "3.19.0"
+gem "slimmer", "3.20.0"
 gem "songkick-transport", "1.0.1", :git => "git://github.com/songkick/transport.git"
 gem "httparty", "0.11.0"
 gem "multi_xml", "0.5.5"
@@ -45,7 +45,10 @@ group :test, :development do
   gem "rspec-rails", "2.14.0"
   
   gem "brakeman", "2.1.1"
-
+  gem 'parallel_tests', "0.15.0", :require => false
+  gem 'sauce', :require => false
+  gem 'sauce-cucumber', '3.1.1', :require => false
+  gem 'sauce-connect', "3.1.0", :require => false
   gem "cucumber-rails", "1.4.0", :require => false
   gem "poltergeist", "1.4.0"
   gem "jasmine", "1.3.2"

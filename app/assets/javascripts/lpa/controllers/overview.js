@@ -1,14 +1,22 @@
 define([
   'lpa/collections/application-method-over-time',
   'extensions/views/timeseries-graph/stacked-graph',
-  'extensions/collections/multiconversioncollection',
+  'extensions/collections/graphcollection',
   'lpa/collections/conversion-series',
   'extensions/views/conversion-graph/conversion-graph',
-  'common/controllers/availability-module'
+  'lpa/collections/help-usage', 'lpa/views/help-usage-table',
+  'common/controllers/availability-module',
+  'lpa/controllers/volumetrics-module'
 ],
-function (ApplicationsCollection, ApplicationsGraph,
-          MultiConversionCollection, ConversionSeries, ConversionGraph,
-          availabilityModule) {
+function (ApplicationsCollection, 
+          ApplicationsGraph,
+          GraphCollection,
+          ConversionSeries, 
+          ConversionGraph,
+          HelpUsageCollection, 
+          HelpUsageTable,
+          availabilityModule, 
+          volumetricsModule) {
   return function () {
 
     if (!$('.lte-ie8').length) {
@@ -26,8 +34,8 @@ function (ApplicationsCollection, ApplicationsGraph,
       }
 
       if ($('#lpa-conversion-graph').length) {
-        var conversionCollection = new MultiConversionCollection(null, {
-          conversionCollection: ConversionSeries
+        var conversionCollection = new GraphCollection(null, {
+          collections: [  ConversionSeries ]
         });
 
         var conversionGraph = new ConversionGraph({
@@ -39,6 +47,17 @@ function (ApplicationsCollection, ApplicationsGraph,
       }
     }
 
+    var helpUsageCollection = new HelpUsageCollection();
+
+    new HelpUsageTable({
+       el: $('.help-usage-table'),
+       collection: helpUsageCollection
+    });
+
+    helpUsageCollection.fetch();
+
     availabilityModule('lasting-power-of-attorney');
+
+    volumetricsModule();
   }
 });

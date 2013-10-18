@@ -1,14 +1,12 @@
 define([
   'extensions/collections/graphcollection',
-  'fco/collections/volumetrics',
+  'extensions/collections/volumetrics',
   'fco/views/volumetrics-submissions-graph',
-  'fco/views/volumetrics-submissions-number',
-  'fco/views/volumetrics-completion-graph',
-  'fco/views/volumetrics-completion-number'
+  'extensions/views/volumetrics/completion-graph',
+  'extensions/views/volumetrics/number'
 ],
 function (GraphCollection, VolumetricsCollection,
-  VolumetricsSubmissionsGraph, VolumetricsSubmissionsNumberView,
-  VolumetricsCompletionGraph, VolumetricsCompletionNumberView) {
+  VolumetricsSubmissionsGraph, VolumetricsCompletionGraph, VolumetricsNumberView) {
 
   return function (serviceName) {
     if ($('.lte-ie8').length) {
@@ -17,7 +15,10 @@ function (GraphCollection, VolumetricsCollection,
     }
 
     var volumetricsCollection = new VolumetricsCollection([], {
-      serviceName: serviceName
+      serviceName: serviceName,
+      startMatcher: /start$/,
+      endMatcher: /done$/,
+      matchingAttribute: "eventCategory"
     });
 
     var volumetricsSubmissions = new GraphCollection();
@@ -48,9 +49,12 @@ function (GraphCollection, VolumetricsCollection,
       }
     });
 
-    var volumetricsSubmissionsNumber = new VolumetricsSubmissionsNumberView({
+    var volumetricsSubmissionsNumber = new VolumetricsNumberView({
       collection:volumetricsSubmissions,
-      el:$('#volumetrics-submissions-selected')
+      el:$('#volumetrics-submissions-selected'),
+      valueAttr: 'mean',
+      selectionValueAttr: 'uniqueEvents',
+      labelPrefix: 'mean per week over the'
     });
 
     var volumetricsSubmissionsGraph = new VolumetricsSubmissionsGraph({
@@ -59,9 +63,14 @@ function (GraphCollection, VolumetricsCollection,
       valueAttr:'uniqueEvents'
     });
 
-    var volumetricsCompletionNumber = new VolumetricsCompletionNumberView({
+    var volumetricsCompletionNumber = new VolumetricsNumberView({
       collection:volumetricsCompletion,
-      el:$('#volumetrics-completion-selected')
+      el:$('#volumetrics-completion-selected'),
+      valueAttr: 'totalCompletion',
+      selectionValueAttr: 'completion',
+      formatValue: function (value) {
+        return this.formatPercentage(value);
+      }
     });
 
     var volumetricsCompletionGraph = new VolumetricsCompletionGraph({

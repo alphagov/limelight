@@ -22,7 +22,7 @@ function (View) {
 
       var value, label;
       var selection = this.collection.getCurrentSelection();
-      if (this.changeOnSelected && selection.selectedModel) {
+      if (selection.selectedModel) {
         value = this.getValueSelected(selection);
         label = this.getLabelSelected(selection);
       } else {
@@ -30,10 +30,15 @@ function (View) {
         label = this.getLabel();
       }
 
-      var content = value;
-      if (this.valueTag) {
+      var content = null;
+      if (value === null) {
+        content = "<span class='no-data'>(no data)</span>";
+      } else if (this.valueTag) {
         content = '<' + this.valueTag + '>' + value + '</' + this.valueTag + '>';
-      } 
+      } else {
+        content = value;
+      }
+
       if (label) {
         content += ' ' + label;
       }

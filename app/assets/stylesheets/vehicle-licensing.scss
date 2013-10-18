@@ -30,43 +30,6 @@
   }
 }
 
-.digital-takeup {
-  ul.module-actions {
-    margin-top:-36px;
-    margin-bottom: 44px;
-  }
-
-  p.impact-number {
-    float:left;
-
-    strong {
-      @include bold-48($tabular-numbers: true);
-
-      @media (max-width: 640px) {
-      // Revert back to default impact number size for small screen sizes.
-      // GOV.UK frontend toolkit rule decreases font size automatically
-      // for small screens.
-      @include bold-80($tabular-numbers: true);
-    }
-  }
-  }
-
-  .graph {
-    margin-left: 12.5em;
-    min-height: 135px;
-    max-height: 200px;
-
-    margin-right:-30px;
-    .inner {
-      left: 65px;
-      right:30px;
-    }
-    .cursorLine {
-      display: none;
-    }
-  }
-}
-
 #customer-satisfaction {
 
   position: relative;

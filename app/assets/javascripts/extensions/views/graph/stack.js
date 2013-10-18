@@ -7,17 +7,13 @@ function (require, Line, Component) {
   var Stack = Line.extend({
 
     selectGroup: true,
+    allowMissingData: false,
     
-    y0: function (group, groupIndex, model, index) {
-      var yPos = this.graph.getY0Pos(groupIndex, index);
-      return this.scales.y(yPos);
-    },
-
     render: function () {
       Component.prototype.render.apply(this, arguments);
 
       var layers = this.graph.layers;
-      
+
       var groupStacks = this.componentWrapper.selectAll('g.stacks').data([0]);
       groupStacks.enter().append('g').attr('class', 'stacks');
 
@@ -38,13 +34,18 @@ function (require, Line, Component) {
     renderContent: function (selectionStacks, selectionLines) {
       var that = this;
       var getX = function (model, index) {
-        return that.x.call(that, null, 0, model, index)
+        return that.x.call(that, null, 0, model, index);
       };
 
       var yProperty = this.graph.stackYProperty || 'y';
       var y0Property = this.graph.stackY0Property || 'y0';
 
       var yScale = this.scales.y;
+
+      var hasYValue = function(model) {
+        return model[yProperty] !== null;
+      }
+
       var getY = function (model, index) {
         return yScale(model[yProperty] + model[y0Property]);
       };
@@ -54,11 +55,13 @@ function (require, Line, Component) {
       };
 
       var area = d3.svg.area()
+        .defined(hasYValue)
         .x(getX)
         .y0(getY0)
         .y1(getY);
-        
+
       var line = d3.svg.line()
+        .defined(hasYValue)
         .x(getX)
         .y(getY);
 
@@ -77,7 +80,6 @@ function (require, Line, Component) {
           .attr("class", function (group, index) {
             return 'line line' + (maxGroupIndex-index) + ' ' + group.get('id');
           });
-
       selectionLines.select('path').attr("d", function(group, groupIndex) {
         return line(group.get('values').models);
       });
@@ -121,7 +123,7 @@ function (require, Line, Component) {
       for (var i = this.collection.models.length - 1; i >= 0; i--) {
         var group = this.collection.models[i];
         var distanceAndClosestModel = this.getDistanceAndClosestModel(
-          group, i, point
+          group, i, point, { allowMissingData: this.allowMissingData }
         );
 
         if (distanceAndClosestModel.diff > 0 || i === 0) {

@@ -18,9 +18,14 @@ function (Graph) {
         };
         stackOptions = {
           selectGroup: false,
+          allowMissingData: true,
           drawCursorLine: true,
           interactive: function (e) {
-            return e.slice % 3 !== 2;
+            if (this.graph.lineLabelOnTop()) {
+              return e.slice >= 3;
+            } else {
+              return e.slice % 3 !== 2;
+            }
           }
         };
       } else {

@@ -3,11 +3,20 @@
 @import 'colours';
 
 h2 {
-  @include core-19($tabular-numbers: true) ;
+  @include core-19;
 }
 
 p {
-  @include core-16($tabular-numbers: true) ;
+  @include core-16;
+}
+
+a[rel="external"] {
+  @include external-link-default;
+  @include external-link-16;
+
+  @media (max-width: 640px) {
+    @include external-link-14;
+  }
 }
 
 
@@ -15,29 +24,29 @@ p {
   
   header {
     h1 {
-      @include bold-48($tabular-numbers: true) ;
+      @include bold-48;
 
       span.tagline {
         display:block;
-        @include core-16($tabular-numbers: true) ;
+        @include core-16;
         color: $grey-1;
       }
 
       span.strapline {
         display: block;
-        @include core-27($tabular-numbers: true) ;
+        @include core-27;
         color: $grey-1;
         margin-bottom: 5px;
       }
     }
     h2 {
-      @include core-16($tabular-numbers: true) ;
+      @include core-16;
       margin:0;
       color: $grey-1;
     }
 
     p.category-title {
-      @include core-24($tabular-numbers: true) ;
+      @include core-24;
       color: $grey-1;
       margin-bottom:.5em;
 
@@ -52,7 +61,7 @@ p {
     }
 
     p.explanatory {
-      @include core-16($tabular-numbers: true) ;
+      @include core-16;
       color: $black;
       margin-bottom: -1em;
       padding: 0.6em 0 0 0;
@@ -64,12 +73,12 @@ p {
     margin-bottom:1.5em;
 
     h1 {
-      @include bold-24($tabular-numbers: true) ;
+      @include bold-24;
     }
 
     h2 {
       margin-top:0;
-      @include core-16($tabular-numbers: true) ;
+      @include core-16;
     }
   }
 }
