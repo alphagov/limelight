@@ -72,7 +72,11 @@ function (GraphCollection) {
       var total = values.reduce(function (memo, model) {
         return memo + model.get('avgresponse');
       }, 0);
-      return total / values.length;
+      if (total === 0) {
+        return null;
+      } else {
+        return total / values.length;
+      }
     }
 
   });

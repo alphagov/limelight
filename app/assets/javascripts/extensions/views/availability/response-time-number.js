@@ -6,11 +6,6 @@ function (SingleStatView) {
 
     changeOnSelected: true,
 
-    getValue: function () {
-      var responseTime = Math.round(this.collection.getAverageResponseTime());
-      return this.formatDuration(responseTime, 4);
-    },
-
     labelPrefix: 'mean ',
 
     config: {
@@ -23,7 +18,7 @@ function (SingleStatView) {
             end.format('ha'),
             ',<br>',
             start.format('D MMMM YYYY')
-          ].join('')
+          ].join('');
         }
       },
 
@@ -35,15 +30,28 @@ function (SingleStatView) {
       }
     },
 
+    getValue: function () {
+      var averageResponse = this.collection.getAverageResponseTime();
+      if (averageResponse === null) {
+        return "<span class='no-data'>(no data)</span>";
+      } else {
+        return this.formatDuration(Math.round(averageResponse), 4);
+      }
+    },
+
+    getValueSelected: function (selection) {
+      var responseTime = selection.selectedModel.get('avgresponse');
+      if (responseTime === null) {
+        return "<span class='no-data'>(no data)</span>";
+      } else {
+        return this.formatDuration(responseTime, 4);
+      }
+    },
 
     getLabel: function () {
       var period = this.collection.query.get('period');
 
       return this.labelPrefix + 'for the last ' + this.config[period].label;
-    },
-
-    getValueSelected: function (selection) {
-      return this.formatDuration(selection.selectedModel.get('avgresponse'), 4);
     },
 
     getLabelSelected: function (selection) {
