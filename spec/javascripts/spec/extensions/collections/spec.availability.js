@@ -34,7 +34,7 @@ define([
 
         var url = collection.url();
 
-        expect(url).toContain('/something-something-fco/')
+        expect(url).toContain('/something-something-fco/');
       });
 
       it("should be created with correct query parameters", function () {
@@ -79,7 +79,7 @@ define([
 
         expect(totalTime).toEqual(3);
       });
-      
+
       it("should provide total monitored AND unmonitored time", function () {
         var collection =
           new Availability({"data": [{
@@ -114,28 +114,49 @@ define([
       it("should throw an exception if created with no serviceName", function() {
         expect(function() {
           new Availability([], { checkName: "anything" });
-        }).toThrow()
+        }).toThrow();
       });
 
       it("should parse data with end_at as the timestamp and start at as an hour earlier", function() {
-         response = {
+        response = {
            data: [
-             {
-               "uptime:sum": 900, "downtime:sum": 100,
-               "unmonitored:sum": 0,
-               "avgresponse:mean": 100,
-               "_end_at":"2013-06-17T16:00:00+00:00",
-               "_start_at":"2013-06-17T15:00:00+00:00"
-             }
-           ]
-         }
-         var collection =
-           new Availability(availabilityData, options);
+            {
+              "_end_at": "2013-06-17T16:00:00+00:00",
+              "_start_at": "2013-06-17T15:00:00+00:00",
+              "uptime:sum": 900,
+              "downtime:sum": 100,
+              "unmonitored:sum": 0,
+              "avgresponse:mean": 100
+            }
+          ]
+        };
+        var collection = new Availability(availabilityData, options);
 
-         data = collection.parse(response);
+        data = collection.parse(response);
 
-         expect(data.values[0]._start_at).toEqual(moment("2013-06-17T15:00:00+00:00"));
-         expect(data.values[0]._end_at).toEqual(moment("2013-06-17T16:00:00+00:00"));
+        expect(data.values[0]._start_at).toEqual(moment("2013-06-17T15:00:00+00:00"));
+        expect(data.values[0]._end_at).toEqual(moment("2013-06-17T16:00:00+00:00"));
+      });
+
+      it("should parse null data without resorting to NaN", function() {
+        response = {
+           data: [
+            {
+              "_count": 0,
+              "_end_at": "2013-10-21T11:00:00+00:00",
+              "_start_at": "2013-10-21T10:00:00+00:00",
+              "uptime:sum": null,
+              "downtime:sum": null,
+              "unmonitored:sum": null,
+              "avgresponse:mean": null
+            }
+          ]
+        };
+        var collection = new Availability(availabilityData, options);
+        data = collection.parse(response);
+
+        expect(data.values[0].total).toEqual(null);
+        expect(data.values[0].uptimeFraction).toEqual(null);
       });
     });
   });

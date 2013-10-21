@@ -29,8 +29,13 @@ function (GraphCollection) {
         d.downtime = d["downtime:sum"];
         d.unmonitored = d["unmonitored:sum"];
         d.avgresponse = d["avgresponse:mean"];
-        d.total = d.downtime + d.uptime;
-        d.uptimeFraction = d.uptime / d.total;
+        if (d.downtime === null && d.uptime === null) {
+          d.total = null;
+          d.uptimeFraction = null;
+        } else {
+          d.total = d.downtime + d.uptime;
+          d.uptimeFraction = d.uptime / d.total;
+        }
         d._end_at = this.moment(d._end_at);
         d._start_at = this.moment(d._start_at);
         d._timestamp = d._end_at;
@@ -45,7 +50,7 @@ function (GraphCollection) {
     _getTotalUptime: function () {
       return this.at(0).get('values').reduce(function (memo, model) {
         return memo + model.get('uptime');
-      }, 0)
+      }, 0);
     },
 
     _getTotalTime: function ( includeUnmonitored ) {
@@ -55,7 +60,7 @@ function (GraphCollection) {
           res += model.get('unmonitored');
         }
         return res;
-      }, 0)
+      }, 0);
     },
 
     getFractionOfUptime: function () {
