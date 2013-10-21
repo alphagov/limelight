@@ -32,13 +32,8 @@ function (Graph) {
         {
           view: this.sharedComponents.tooltip,
           options: {
-            getValue: function (group, groupIndex, model, index) {
-              var responseTime = model.get(this.graph.valueAttr);
-              if (responseTime === null) {
-                return '';
-              } else {
-                return this.formatDuration(responseTime, 4);
-              }
+            formatValue: function (value) {
+              return this.formatDuration(value, 4);
             }
           }
         },

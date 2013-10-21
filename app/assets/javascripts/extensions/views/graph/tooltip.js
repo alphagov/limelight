@@ -31,6 +31,14 @@ function (Component, Pivot) {
       return model.get(this.graph.valueAttr);
     },
 
+    formatValue: function (value) {
+      return value;
+    },
+
+    formatMissingValue: function () {
+      return '(no data)';
+    },
+
     onChangeSelected: function (group, groupIndex, model, index) {
       var unselected = model == null;
       var selection = this.componentWrapper.selectAll('text');
@@ -42,11 +50,17 @@ function (Component, Pivot) {
 
       var value = this.getValue(group, groupIndex, model, index);
 
-      selection = selection.data([value, value])
-      selection.exit().remove()
+      if (value == null) {
+        value = this.formatMissingValue();
+      } else {
+        value = this.formatValue(value);
+      }
+
+      selection = selection.data([value, value]);
+      selection.exit().remove();
       selection.enter().append("text").attr('class', function (d, index) {
         return index === 0 ? 'tooltip-stroke' : 'tooltip-text';
-      }).attr('dy', this.textHeight)
+      }).attr('dy', this.textHeight);
 
       selection.text(value);
 

@@ -35,7 +35,7 @@ function (Tooltip, Model) {
           x: 110,
           y: 120,
           textWidth: 100,
-          modelValue: "Tooltip Text"
+          modelValue: "Tooltip Text",
         });
       });
 
@@ -63,6 +63,45 @@ function (Tooltip, Model) {
         tooltip.onChangeSelected(null, null, null, null);
         expect(wrapper.select('text.tooltip-text')[0][0]).toBeFalsy();
         expect(wrapper.select('text.tooltip-stroke')[0][0]).toBeFalsy();
+      });
+
+      it("displays (no data) when data is null", function () {
+        model.set('modelValue', null);
+        tooltip.render();
+        tooltip.onChangeSelected(null, null, model, 1);
+
+        expect(wrapper.select('text.tooltip-stroke').text()).toEqual("(no data)");
+      });
+
+      it("displays the value returned by getValue", function () {
+        tooltip.getValue = function (group, groupIndex, model, index) {
+          return 'foo';
+        };
+        tooltip.render();
+        tooltip.onChangeSelected(null, null, model, 1);
+
+        expect(wrapper.select('text.tooltip-stroke').text()).toEqual("foo");
+      });
+
+      it("formats using formatValue when there's data", function () {
+        tooltip.formatValue = function (value) {
+          return "The value is " + value + "!";
+        };
+        tooltip.render();
+        tooltip.onChangeSelected(null, null, model, 1);
+
+        expect(wrapper.select('text.tooltip-stroke').text()).toEqual("The value is Tooltip Text!");
+      });
+
+      it("formats using formatMissingValue when data is null", function () {
+        tooltip.formatMissingValue = function () {
+          return "There's no value here";
+        };
+        model.set('modelValue', null);
+        tooltip.render();
+        tooltip.onChangeSelected(null, null, model, 1);
+
+        expect(wrapper.select('text.tooltip-stroke').text()).toEqual("There's no value here");
       });
 
     });

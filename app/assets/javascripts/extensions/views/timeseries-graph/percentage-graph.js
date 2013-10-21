@@ -35,11 +35,7 @@ function (require, Graph) {
         {
           view: this.sharedComponents.tooltip,
           options: {
-            getValue: function (group, groupIndex, model, index) {
-              var value = model.get(this.graph.valueAttr);
-              if (value === null) {
-                return '';
-              }
+            formatValue: function (value) {
               value = value * 100;
               if (value !== 100) {
                 value = value.toFixed(1);
