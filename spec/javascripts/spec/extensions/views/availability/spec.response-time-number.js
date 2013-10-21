@@ -3,7 +3,7 @@ define([
   'extensions/collections/collection',
   'extensions/models/model'
 ],
-  function (Number, Collection, Model) {
+  function (ResponseTimeNumber, Collection, Model) {
 
     describe("configuration", function () {
 
@@ -21,7 +21,7 @@ define([
 
       describe("getLabel", function() {
         it("display label for last 24 hours", function () {
-          var view = new Number({
+          var view = new ResponseTimeNumber({
             collection: collectionForPeriod('hour')
           });
 
@@ -29,7 +29,7 @@ define([
         });
 
         it("display label for last 30 days", function () {
-          var view = new Number({
+          var view = new ResponseTimeNumber({
             collection: collectionForPeriod('day')
           });
 
@@ -40,7 +40,7 @@ define([
 
       describe("getLabelSelected", function () {
          it("display hour range and day for hour query", function () {
-           var view = new Number({
+           var view = new ResponseTimeNumber({
              collection: collectionForPeriod('hour')
            });
 
@@ -52,7 +52,7 @@ define([
          });
 
         it("display only date for day query", function () {
-           var view = new Number({
+           var view = new ResponseTimeNumber({
              collection: collectionForPeriod('day')
            });
 

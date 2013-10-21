@@ -8,12 +8,22 @@ function (require, ResponseTimeNumberView) {
     labelPrefix: '',
 
     getValue: function () {
-      return this.formatPercentage(this.collection.getFractionOfUptime());
+      var uptimeFraction = this.collection.getFractionOfUptime();
+      if (isNaN(uptimeFraction)) {
+        return "<span class='no-data'>(no data)</span>";
+      } else {
+        return this.formatPercentage(uptimeFraction);
+      }
     },
 
     getValueSelected: function (selection) {
       var model = selection.selectedModel;
-      return this.formatPercentage(model.get('uptimeFraction'));
+      var uptimeFraction = this.formatPercentage(model.get('uptimeFraction'));
+      if (uptimeFraction === null) {
+        return "<span class='no-data'>(no data)</span>";
+      } else {
+        return this.formatPercentage(uptimeFraction);
+      }
     }
   });
 
