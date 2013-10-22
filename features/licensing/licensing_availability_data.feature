@@ -9,4 +9,4 @@ Feature: Pingdom data for licensing
     When I go to /performance/licensing
     Then I should see the module "Service availability"
      And the module should display an uptime of 100%
-     And the module should display a response time of 423ms
+     And the module should display a response time of 406ms

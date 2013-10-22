@@ -47,6 +47,25 @@ function (Axis) {
           return _.map(values, this.getTick);
         }
       },
+      day: {
+        getTick: function (model) {
+          return moment(model.get('_end_at')).subtract(1, 'days').toDate();
+        },
+        tickFormat: function () {
+          var moment = this.moment;
+          return function (d, index) {
+            var date = moment(d);
+            if (date.days() === 1) {
+              return date.format('D MMM');
+            } else {
+              return '';
+            }
+          }
+        },
+        tickValues: function () {
+          return this.collection.first().get('values').map(this.getTick);
+        }
+      },
       week: {
         getTick: function (model) {
           return moment(model.get('_end_at')).subtract(1, 'days').toDate();

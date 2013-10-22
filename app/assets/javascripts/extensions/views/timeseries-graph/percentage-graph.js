@@ -28,14 +28,15 @@ function (require, Graph) {
         {
           view: this.sharedComponents.stack,
           options: {
-            drawCursorLine: true
+            drawCursorLine: true,
+            allowMissingData: true
           }
         },
         {
           view: this.sharedComponents.tooltip,
           options: {
-            getValue: function (group, groupIndex, model, index) {
-              var value = model.get(this.graph.valueAttr) * 100;
+            formatValue: function (value) {
+              value = value * 100;
               if (value !== 100) {
                 value = value.toFixed(1);
               }

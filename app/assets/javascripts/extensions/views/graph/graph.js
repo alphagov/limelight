@@ -12,7 +12,40 @@ define([
   './tooltip'
 ],
 function (require, View, d3, XAxis, YAxis, Line, Stack, LineLabel, Hover, Callout, Tooltip) {
-  
+
+
+  function scaleFromStartAndEndDates (modelToDate) {
+    return {
+      getXPos: function(groupIndex, modelIndex) {
+        groupIndex = groupIndex || 0;
+        var model = this.collection.at(groupIndex, modelIndex);
+        return modelToDate(model);
+      },
+      calcXScale: function () {
+        var total = this.collection.first().get('values'),
+            start = modelToDate(total.first()).toDate(),
+            end = modelToDate(total.last()).toDate();
+
+        return this.d3.time.scale()
+                .domain([start, end])
+                .range([0, this.innerWidth]);
+      }
+    };
+  };
+
+  function hourlyScale () {
+    return scaleFromStartAndEndDates(function (model) {
+      return this.moment(model.get('_timestamp'));
+    });
+  };
+
+  function dailyScale () {
+    return scaleFromStartAndEndDates(function (model) {
+      return this.moment(model.get('_end_at')).subtract(1, 'days');
+    });
+  };
+
+
   var Graph = View.extend({
     
     d3: d3,
@@ -235,41 +268,9 @@ function (require, View, d3, XAxis, YAxis, Line, Stack, LineLabel, Hover, Callou
     },
 
     configs: {
-      hour: {
-        getXPos: function (groupIndex, modelIndex) {
-          groupIndex = groupIndex || 0;
-          var model = this.collection.at(groupIndex, modelIndex);
-          return this.moment(model.get('_timestamp'));
-        },
-        calcXScale: function () {
-          var values = this.collection.first().get('values');
-          var start = moment(values.first().get('_timestamp'));
-          var end = moment(values.last().get('_timestamp'));
-          
-          var xScale = this.d3.time.scale();
-          xScale.domain([start.toDate(), end.toDate()]);
-          xScale.range([0, this.innerWidth]);
-          return xScale;
-        }
-      },
-      week: {
-        getXPos: function(groupIndex, modelIndex) {
-          groupIndex = groupIndex || 0;
-          var model = this.collection.at(groupIndex, modelIndex);
-          return this.moment(model.get('_end_at')).subtract(1, 'days');
-        },
-        calcXScale: function () {
-          var start, end, xScale;
-          var total = this.collection.first().get('values');
-          // scale from first sunday to last sunday
-          start = moment(total.first().get('_end_at')).subtract(1, 'days');
-          end = moment(total.last().get('_end_at')).subtract(1, 'days');
-          xScale = this.d3.time.scale();
-          xScale.domain([start.toDate(), end.toDate()]);
-          xScale.range([0, this.innerWidth]);
-          return xScale;
-        }
-      },
+      hour: hourlyScale(),
+      day: dailyScale(),
+      week: dailyScale(),
       month: {
         getXPos: function(groupIndex, modelIndex) {
           return modelIndex;

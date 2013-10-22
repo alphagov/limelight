@@ -5,17 +5,25 @@ define([
 function (require, ResponseTimeNumberView) {
   var UptimeNumberView = ResponseTimeNumberView.extend({
 
-    getValue: function () {
-      return this.formatPercentage(this.collection.getFractionOfUptime());
-    },
+    labelPrefix: '',
 
-    getLabel: function () {
-      return 'for the last 24 hours';
+    getValue: function () {
+      var uptimeFraction = this.collection.getFractionOfUptime();
+      if (isNaN(uptimeFraction)) {
+        return "<span class='no-data'>(no data)</span>";
+      } else {
+        return this.formatPercentage(uptimeFraction);
+      }
     },
 
     getValueSelected: function (selection) {
       var model = selection.selectedModel;
-      return this.formatPercentage(model.get('uptimeFraction'));
+      var uptimeFraction = this.formatPercentage(model.get('uptimeFraction'));
+      if (uptimeFraction === null) {
+        return "<span class='no-data'>(no data)</span>";
+      } else {
+        return this.formatPercentage(uptimeFraction);
+      }
     }
   });
 
