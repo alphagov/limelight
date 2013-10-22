@@ -32,8 +32,9 @@ class BackdropStubController < ApplicationController
           StubConfig.new({'service' => 'vehicle-licensing', 'api_name' => 'customer-satisfaction'}, 'vehicle_licensing_customer_satisfaction.json'),
           StubConfig.new({'service' => 'sorn', 'api_name' => 'monitoring'}, 'availability.json'),
           StubConfig.new({'service' => 'sorn', 'api_name' => 'realtime'}, 'licensing_realtime.json'),
-          StubConfig.new({'service' => 'tax-disc', 'api_name' => 'monitoring'}, 'availability.json'),
           StubConfig.new({'service' => 'tax-disc', 'api_name' => 'realtime'}, 'licensing_realtime.json'),
+          StubConfig.new({'service' => 'tax-disc', 'api_name' => 'monitoring'}, 'availability.json'),
+          StubConfig.new({'service' => 'land-registry', 'api_name' => 'search-index-map'}, 'land_registry.json'),
           StubConfig.new({'api_name' => 'monitoring'}, 'licensing_availability_response.json')
       ])
 

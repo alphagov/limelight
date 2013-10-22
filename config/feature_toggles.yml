@@ -5,6 +5,7 @@ show_licensing_visitors_realtime: release
 show_fco_visitors_realtime: dev
 fco_dashboards: dev
 hmrc_dashboards: dev
+land_registry_preview: dev
 lpa_dashboard: release
 lpa_dashboard_completion_rate: release
 lpa_dashboard_application_method: release
