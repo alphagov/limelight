@@ -39,3 +39,4 @@ dashboards:
   - slug: land-registry
     name: Land Registry
     excluded_from_list: true
+    feature_toggle: land_registry_preview
