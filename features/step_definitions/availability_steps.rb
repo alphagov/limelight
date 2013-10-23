@@ -1,10 +1,5 @@
 When(/^I select the "(.*?)" tab$/) do |tab|
   step "I click on \"#{tab}\""
-
-  10.times do
-    break if page.find('.uptime').text.include?(tab)
-    sleep(0.2)
-  end
 end
 
 Then(/^the module should display an uptime of (.*)$/) do |uptime|
