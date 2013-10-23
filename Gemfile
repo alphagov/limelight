@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 source "https://BnrJb6FZyzspBboNJzYZ@gem.fury.io/govuk/"
 
-gem "rails", "3.2.14"
+gem "rails", "3.2.15"
 gem "unicorn", "4.6.3"
 
 gem "slimmer", "3.20.0"
@@ -43,7 +43,7 @@ end
 
 group :test, :development do
   gem "rspec-rails", "2.14.0"
-  
+
   gem "brakeman", "2.1.1"
   gem 'parallel_tests', "0.15.0", :require => false
   gem 'sauce', :require => false

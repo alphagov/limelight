@@ -21,7 +21,8 @@ Feature: uptime and response time for fco transactions
   @svg
   Scenario: switching to 24 hour view
     Given I go to /performance/pay-foreign-marriage-certificates
-    When I select the "24 hours" tab
     Then I should see the module "Service availability"
+     And the module should display an uptime of 85%
+    When I select the "24 hours" tab
      And the module should display an uptime of 84%
      And the module should display a response time of 188ms
