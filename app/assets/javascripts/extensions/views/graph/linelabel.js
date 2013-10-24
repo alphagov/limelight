@@ -147,6 +147,8 @@ function (require, Component) {
         selection.selectAll('a').attr('href', function (group, groupIndex) {
           return group.get('href');
         });
+        enterSelection.append('span');
+        selection.selectAll('span').attr('class', 'meta');
       }
 
       selection.each(function(group, i) {
@@ -220,7 +222,8 @@ function (require, Component) {
     },
 
     setLabelContent: function (selection, group, groupIndex) {
-      var labelHTML = "<span class='label-title'>" + group.get('title') + "</span>";
+      var labelTitle = "<span class='label-title'>" + group.get('title') + "</span>",
+          labelMeta = '';
 
       if (this.showValues) {
         var attr = this.graph.valueAttr,
@@ -234,23 +237,24 @@ function (require, Component) {
         }
 
         if (value === null) {
-          labelHTML += "<span class='no-data'>(no data)</span>";
+          labelMeta += "<span class='no-data'>(no data)</span>";
         } else {
-          labelHTML += ("<span class='value'>" + this.formatNumericLabel(value) + "</span>");
+          labelMeta += ("<span class='value'>" + this.formatNumericLabel(value) + "</span>");
         }
 
         if (this.showValuesPercentage && value) {
           var fraction = this.collection.fraction(
             attr, groupIndex, selected.selectedModelIndex
           );
-          labelHTML += (" <span class='percentage'>(" + this.formatPercentage(fraction) + ")</span>");
+          labelMeta += (" <span class='percentage'>(" + this.formatPercentage(fraction) + ")</span>");
         }
       }
 
       if (this.attachLinks) {
-        selection.select('a').html(labelHTML);
+        selection.select('a').html(labelTitle);
+        selection.select('.meta').html(labelMeta);
       } else {
-        selection.html(labelHTML);
+        selection.html(labelTitle + labelMeta);
       }
 
     },
