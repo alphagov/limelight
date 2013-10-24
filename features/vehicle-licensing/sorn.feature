@@ -12,7 +12,7 @@ Feature: SORN dashboard
 
    Scenario: looking at the SORN error codes module
      When I go to /performance/sorn
-     Then I should see the module "Error codes (web)"
+     Then I should see the module "Recorded errors"
       And the module should contain a table
 
   @svg
