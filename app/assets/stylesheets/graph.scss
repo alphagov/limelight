@@ -25,7 +25,6 @@
   }
 
   .graph-wrapper {
-
     position:relative;
 
     .inner {
@@ -253,11 +252,6 @@
 
         &.selected {
           font-weight: bold;
-        }
-
-        a {
-          color: $text-colour;
-          text-decoration: none;
         }
 
         .label-title {
