@@ -76,9 +76,12 @@ function (LineLabel, Collection) {
           expect(lineLabel.$el.find('figcaption ol')).toHaveClass('squares');
         });
 
-        it("does not render links by default", function () {
+        it("does not render links, values, percentages or timeperiods by default", function () {
           lineLabel.render();
           expect(lineLabel.$el.find('figcaption li a').length).toEqual(0);
+          expect(lineLabel.$el.find('figcaption li span.value').length).toEqual(0);
+          expect(lineLabel.$el.find('figcaption li span.percentage').length).toEqual(0);
+          expect(lineLabel.$el.find('figcaption .summary span.timeperiod').length).toEqual(0);
         });
 
         it("renders links when enabled", function () {
@@ -104,6 +107,19 @@ function (LineLabel, Collection) {
           expect(label2.find('span.value')).toHaveText('210');
         });
 
+        it("renders links and additional value text when selected", function () {
+          lineLabel.attachLinks = true;
+          lineLabel.showValues = true;
+          lineLabel.render();
+
+          var link1 = lineLabel.$el.find('figcaption ol li a').eq(0);
+          expect(link1.text()).toEqual('Title 1');
+          var link2 = lineLabel.$el.find('figcaption ol li a').eq(1);
+          expect(link2.text()).toEqual('Title 2');
+          var spanValues = lineLabel.$el.find('figcaption ol li span.value');
+          expect(spanValues.length).toEqual(2);
+        });
+
         it("renders a label with additional value text and percentage when enabled", function () {
           lineLabel.showValues = true;
           lineLabel.showValuesPercentage = true;
@@ -124,12 +140,6 @@ function (LineLabel, Collection) {
           expect(summary.find('span.title')).toHaveText('Total');
           expect(summary.find('span.value')).toHaveText('270');
           expect(summary.find('span.percentage')).toHaveText('(100%)');
-        });
-
-        it("does not render a time period label by default", function () {
-          lineLabel.render();
-          var summary = lineLabel.$el.find('figcaption .summary');
-          expect(summary.find('span.timeperiod').length).toEqual(0);
         });
 
         it("renders a time period label when enabled", function () {
