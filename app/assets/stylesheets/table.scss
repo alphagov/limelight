@@ -112,10 +112,7 @@ article table {
 
         &.sortable {
             cursor:pointer;
-            
-            &:hover {
-                text-decoration: underline;
-            }
+            text-decoration: underline;
         }
 
         &.ascending:after {

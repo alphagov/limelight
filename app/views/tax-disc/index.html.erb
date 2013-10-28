@@ -1,6 +1,6 @@
 <%
   transaction_title = 'Tax disc'
-  explanatory_copy = 'Service provided by the DVLA to relicense vehicles that are kept on public roads. This service does not include first vehicle registrations.'
+  explanatory_copy = 'Figures for the service to relicense vehicles that are kept on public roads, provided by the DVLA. This service does not include first vehicle registrations.'
   transaction_shortname = 'Tax disc'
   @js_config = {
     "controller" => "vehicle-licensing/controllers/vehicle-licensing-service",
@@ -56,7 +56,6 @@
   id: "#{params[:slug]}-takeup"}) %>
 
 <%= render(partial: "vehicle-licensing/failures", locals: {
-  title: "Error codes (web)", 
   id: "#{params[:slug]}-failures",  
   transaction_title:transaction_title,
   transaction_shortname:transaction_shortname

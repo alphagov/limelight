@@ -28,7 +28,7 @@ a[rel="external"] {
 
       span.tagline {
         display:block;
-        @include core-16;
+        @include core-19;
         color: $grey-1;
       }
 
@@ -40,7 +40,7 @@ a[rel="external"] {
       }
     }
     h2 {
-      @include core-16;
+      @include core-19;
       margin:0;
       color: $grey-1;
     }

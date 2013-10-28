@@ -12,7 +12,7 @@ Feature: Tax disc dashboard
 
   Scenario: looking at the tax disc error codes module
     When I go to /performance/tax-disc
-    Then I should see the module "Error codes (web)"
+    Then I should see the module "Recorded errors"
      And the module should contain a table
 
   @svg

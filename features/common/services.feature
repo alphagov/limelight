@@ -8,7 +8,7 @@ Feature: Services page
        When I go to /performance/services
        Then I should get back a status of 200
         And the page title should be "Services"
-        And the page subtitle should be "Services integrated with the Performance Platform"
+        And the page subtitle should be "Services providing detailed performance data to GOV.UK"
         And the "services" count should be 10
         And the "service-groups" count should be 1
 
