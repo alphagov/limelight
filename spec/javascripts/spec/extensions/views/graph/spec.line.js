@@ -222,7 +222,7 @@ function (Line, Collection) {
         view.collection.selectedItem = view.collection.at(0);
         view.collection.at(0).get('values').selectItem(2);
         view.onHover({ x: 7, y: 8, toggle: true });
-        expect(collection.selectItem.mostRecentCall.args).toEqual([null, null]);
+        expect(collection.selectItem.mostRecentCall.args).toEqual([0, 2, { toggle : true }]);
       });
     });
   });

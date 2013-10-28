@@ -276,7 +276,7 @@ function (InterleavedBar, Collection) {
         view.collection.selectedItem = view.collection.at(0);
         view.collection.at(0).get('values').selectItem(0);
         view.onHover({ x: 9, y: 0, toggle: true});
-        expect(collection.selectItem.mostRecentCall.args).toEqual([null, null]);
+        expect(collection.selectItem.mostRecentCall.args).toEqual([0, 0, { toggle: true }]);
       });
     });
   });

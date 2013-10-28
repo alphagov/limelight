@@ -40,22 +40,34 @@ function (require, Collection, Group) {
      * @param {Number} index Index of item in group to select, or `null` to unselect
      * @param {Object} [options={}] Options
      * @param {Boolean} [options.silent=false] Suppress `change:selected` event
+     * @param {Boolean} [options.toggle=false] Unselect if selection is unchanged
      */
     selectItem: function (selectGroupIndex, selectIndex, options) {
+      options = _.extend({}, options);
       if (_.isUndefined(selectIndex)) {
         selectIndex = null;
       }
 
       this.selectedSlice = null;
       
+      var toggled = false;
       this.each(function (group, groupIndex) {
         var values = group.get('values');
-        if (selectGroupIndex == null || groupIndex === selectGroupIndex) {
-          values.selectItem(selectIndex, { silent: true });
-        } else {
-          values.selectItem(null, { silent: true });
+        var index = null;
+        if (selectGroupIndex == null || selectGroupIndex === groupIndex) {
+          if (options.toggle && values.selectedIndex === selectIndex) {
+            toggled = true;
+          } else {
+            index = selectIndex;
+          }
         }
+        values.selectItem(index, { silent: true });
       }, this);
+
+      if (toggled) {
+        selectGroupIndex = null;
+        selectIndex = null;
+      }
       
       var selectGroup = this.at(selectGroupIndex) || null;
       var selectModel = null;
@@ -72,7 +84,7 @@ function (require, Collection, Group) {
       
       Collection.prototype.selectItem.call(this, selectGroupIndex, { silent: true });
       
-      if (!options || !options.silent) {
+      if (!options.silent) {
         this.trigger('change:selected', selectGroup, selectGroupIndex, selectModel, selectIndex);
       }
     },

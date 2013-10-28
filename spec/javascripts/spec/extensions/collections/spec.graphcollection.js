@@ -98,48 +98,62 @@ function (GraphCollection, Collection, Group) {
       });
       
       describe("selectItem", function () {
+
+        var assertGroupSelection = function (group) {
+          if (group == null) {
+            expect(collection.selectedItem).toBe(null);
+            expect(collection.selectedIndex).toBe(null);
+          } else {
+            expect(collection.selectedItem).toBe(collection.at(group));
+            expect(collection.selectedIndex).toEqual(group);
+          }
+        };
+
+        var assertItemSelection = function (group, model) {
+          var selectedItem = collection.at(group).get('values').selectedItem;
+          if (model == null) {
+            expect(selectedItem).toBeFalsy();
+          } else {
+            expect(selectedItem).toBe(collection.at(group).get('values').at(model));
+          }
+        };
         
         it("selects a group", function () {
           collection.selectItem(1);
-          expect(collection.selectedItem).toBe(collection.at(1));
-          expect(collection.selectedIndex).toEqual(1);
-          expect(collection.at(0).get('values').selectedItem).toBeFalsy();
-          expect(collection.at(1).get('values').selectedItem).toBeFalsy();
+          assertGroupSelection(1);
+          assertItemSelection(0, null);
+          assertItemSelection(1, null);
           expect(spy).toHaveBeenCalledWith(collection.at(1), 1, null, null);
         });
         
         it("selects an item in a group and the group and unselects all other groups", function () {
           collection.selectItem(1, 1);
-          expect(collection.selectedItem).toBe(collection.at(1));
-          expect(collection.selectedIndex).toEqual(1);
-          expect(collection.at(0).get('values').selectedItem).toBeFalsy();
-          expect(collection.at(1).get('values').selectedItem).toBe(collection.at(1).get('values').at(1));
+          assertGroupSelection(1);
+          assertItemSelection(0, null);
+          assertItemSelection(1, 1);
           expect(spy).toHaveBeenCalledWith(collection.at(1), 1, collection.at(1).get('values').at(1), 1);
           
           collection.selectItem(0, 0);
-          expect(collection.selectedItem).toBe(collection.at(0));
-          expect(collection.selectedIndex).toEqual(0);
-          expect(collection.at(0).get('values').selectedItem).toBe(collection.at(0).get('values').at(0));
-          expect(collection.at(1).get('values').selectedItem).toBeFalsy();
+          assertGroupSelection(0);
+          assertItemSelection(0, 0);
+          assertItemSelection(1, null);
           expect(spy).toHaveBeenCalledWith(collection.at(0), 0, collection.at(0).get('values').at(0), 0);
         });
-        
+
         it("selects an item in all groups", function () {
           collection.selectItem(null, 1);
-          expect(collection.selectedItem).toBeFalsy();
-          expect(collection.selectedIndex).toBeFalsy();
-          expect(collection.at(0).get('values').selectedItem).toBe(collection.at(0).get('values').at(1));
-          expect(collection.at(1).get('values').selectedItem).toBe(collection.at(1).get('values').at(1));
+          assertGroupSelection(null);
+          assertItemSelection(0, 1);
+          assertItemSelection(1, 1);
           expect(spy).toHaveBeenCalledWith(null, null, [
             collection.at(0).get('values').at(1),
             collection.at(1).get('values').at(1)
           ], 1);
           
           collection.selectItem(null, 0);
-          expect(collection.selectedItem).toBeFalsy();
-          expect(collection.selectedIndex).toBeFalsy();
-          expect(collection.at(0).get('values').selectedItem).toBe(collection.at(0).get('values').at(0));
-          expect(collection.at(1).get('values').selectedItem).toBe(collection.at(1).get('values').at(0));
+          assertGroupSelection(null);
+          assertItemSelection(0, 0);
+          assertItemSelection(1, 0);
           expect(spy).toHaveBeenCalledWith(null, null, [
             collection.at(0).get('values').at(0),
             collection.at(1).get('values').at(0)
@@ -149,21 +163,64 @@ function (GraphCollection, Collection, Group) {
         it("unselects group and item", function () {
           collection.selectItem(1, 1);
           collection.selectItem(null);
-          expect(collection.selectedItem).toBe(null);
-          expect(collection.selectedIndex).toBe(null);
-          expect(collection.at(0).get('values').selectedItem).toBeFalsy();
-          expect(collection.at(1).get('values').selectedItem).toBeFalsy();
+          assertGroupSelection(null);
+          assertItemSelection(0, null);
+          assertItemSelection(1, null);
           expect(spy).toHaveBeenCalledWith(null, null, null, null);
         });
         
         it("unselects item but keeps group", function () {
           collection.selectItem(1, 1);
           collection.selectItem(1, null);
-          expect(collection.selectedItem).toBe(collection.at(1));
-          expect(collection.selectedIndex).toEqual(1);
-          expect(collection.at(0).get('values').selectedItem).toBeFalsy();
-          expect(collection.at(1).get('values').selectedItem).toBeFalsy();
+          assertGroupSelection(1);
+          assertItemSelection(0, null);
+          assertItemSelection(1, null);
           expect(spy).toHaveBeenCalledWith(collection.at(1), 1, null, null);
+        });
+
+        it("optionally toggles selection of a group", function () {
+          collection.selectItem(1, null, { toggle: true });
+          assertGroupSelection(1);
+          assertItemSelection(0, null);
+          assertItemSelection(1, null);
+          expect(spy).toHaveBeenCalledWith(collection.at(1), 1, null, null);
+
+          collection.selectItem(1, null, { toggle: true });
+          assertGroupSelection(null);
+          assertItemSelection(0, null);
+          assertItemSelection(1, null);
+          expect(spy).toHaveBeenCalledWith(collection.at(1), 1, null, null);
+        });
+
+        it("optionally toggles selection of item in a group", function () {
+          collection.selectItem(1, 1, { toggle: true });
+          assertGroupSelection(1);
+          assertItemSelection(0, null);
+          assertItemSelection(1, 1);
+          expect(spy).toHaveBeenCalledWith(collection.at(1), 1, collection.at(1).get('values').at(1), 1);
+  
+          collection.selectItem(1, 1, { toggle: true });
+          assertGroupSelection(null);
+          assertItemSelection(0, null);
+          assertItemSelection(1, null);
+          expect(spy).toHaveBeenCalledWith(null, null, null, null);
+        });
+
+        it("optionally toggles selection of an item across all group", function () {
+          collection.selectItem(null, 1, { toggle: true });
+          assertGroupSelection(null);
+          assertItemSelection(0, 1);
+          assertItemSelection(1, 1);
+          expect(spy).toHaveBeenCalledWith(null, null, [
+            collection.at(0).get('values').at(1),
+            collection.at(1).get('values').at(1)
+          ], 1);
+
+          collection.selectItem(null, 1, { toggle: true });
+          assertGroupSelection(null);
+          assertItemSelection(0, null);
+          assertItemSelection(1, null);
+          expect(spy).toHaveBeenCalledWith(null, null, null, null);
         });
 
         it("allows suppressing the change:selected event", function () {

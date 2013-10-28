@@ -269,12 +269,17 @@ function (Component) {
       // Selection bias - only switch between groups when new group is
       // significantly closer than currently selected group.
       var biasThreshold = 15;
+      var selectArgs = [];
       if (selectedIndex != null && bestGroupIndex !== selectedIndex
           && selectedDist < biasThreshold) {
-        this.selectItem(selectedIndex, selectedModelIndex, e.toggle);
+        selectArgs.push(selectedIndex, selectedModelIndex);
       } else {
-        this.selectItem(bestGroupIndex, bestModelIndex, e.toggle);
+        selectArgs.push(bestGroupIndex, bestModelIndex);
       }
+      if (e.toggle) {
+        selectArgs.push({ toggle: true });
+      }
+      this.collection.selectItem.apply(this.collection, selectArgs);
     }
   });
 
