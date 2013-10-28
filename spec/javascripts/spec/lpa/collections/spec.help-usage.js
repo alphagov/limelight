@@ -13,7 +13,7 @@ define([
 
           var params = collection.queryParams();
 
-          expect(params.filter_by).toEqual('eventAction:help');
+          expect(params.filter_by).toEqual('eventAction:help.inline');
           expect(params.group_by).toEqual('eventLabel');
           expect(params.collect).toEqual(['uniqueEvents']);
           expect(params.start_at).toBeMoment(moment('2013-09-23 00:00:00'));

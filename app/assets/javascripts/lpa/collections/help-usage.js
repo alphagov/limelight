@@ -9,7 +9,7 @@ define([
 
       queryParams: function () {
         return _.extend(this.lastWeekDateRangeParams(this.moment()), {
-          filter_by: 'eventAction:help',
+          filter_by: 'eventAction:help.inline',
           group_by: 'eventLabel',
           collect: [
             'uniqueEvents'
