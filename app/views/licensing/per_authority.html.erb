@@ -6,6 +6,8 @@
       <span class="strapline">Licensing performance</span>
       <%= @authority.name %>
   </h1>
+  <p class="explanatory">Figures from <strong><%= @authority.name %></strong> for all licensing forms received through GOV.UK.
+  </p>
 </header>
 
 <section class="graph graph-with-labels">
@@ -31,7 +33,7 @@
     <li class="info">
       <div>
         <p>Data source: GOV.UK licensing database</p>
-        <p>Table includes all licences offered by the authority that have had at least 1 submission received since being offered on GOV.UK</p>
+        <p>Does not include licences that have never received a submission via GOV.UK</p>
       </div>
     </li>
   </ul>

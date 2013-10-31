@@ -8,13 +8,13 @@ function (Graph) {
     numYTicks: 3,
 
     getConfigNames: function () {
-      return ['stack', 'hour'];
+      return ['stack', this.collection.query.get('period')];
     },
 
     components: function () {
       return [
         { view: this.sharedComponents.xaxis },
-        { view: this.sharedComponents.yaxis,options: {
+        { view: this.sharedComponents.yaxis, options: {
             tickFormat: function () {
               return function (d) {
                 return ResponseTimeGraph.prototype.formatDuration(d, 4);
@@ -24,13 +24,16 @@ function (Graph) {
         },
         {
           view: this.sharedComponents.stack,
-          options: { drawCursorLine: true }
+          options: {
+            drawCursorLine: true,
+            allowMissingData: true
+          }
         },
         {
           view: this.sharedComponents.tooltip,
           options: {
-            getValue: function (group, groupIndex, model, index) {
-              return this.formatDuration(model.get(this.graph.valueAttr), 4);
+            formatValue: function (value) {
+              return this.formatDuration(value, 4);
             }
           }
         },

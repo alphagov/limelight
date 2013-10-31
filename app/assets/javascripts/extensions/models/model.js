@@ -4,7 +4,7 @@ define([
 ],
 function (Backbone, moment) {
   var Model = Backbone.Model.extend({
-    
+
     moment: moment,
 
     /**
@@ -25,14 +25,14 @@ function (Backbone, moment) {
         if (!value) {
           return;
         }
-        
+
         var date = this.moment(value, this.defaultDateFormat);
         if (date.isValid()) {
           attributes[attr] = date;
         } else {
           console.warn(value, 'is not a valid date');
         }
-      })
+      });
 
       return attributes;
     }

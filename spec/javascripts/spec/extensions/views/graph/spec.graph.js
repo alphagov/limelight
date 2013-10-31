@@ -152,7 +152,7 @@ function (Graph, Collection, d3) {
     
     describe("resize", function () {
 
-      var graph, el, wrapper;
+      var graph, el, wrapper, style;
       beforeEach(function() {
         wrapper = $('<div id="jasmine-playground"></div>').appendTo($('body'));
         el = $('<div></div>').appendTo(wrapper);
@@ -162,19 +162,22 @@ function (Graph, Collection, d3) {
         });
         spyOn(graph, "render");
       });
+
+      function withGraphStyle(graphStyle) {
+        style = $('<style type="text/css">.graph {' + graphStyle + '}</style>').appendTo($('body'));
+        graph.svg.attr({"class":  "graph"});
+      }
       
       afterEach(function() {
         wrapper.remove();
+        style.remove();
       });
 
       it("re-scales graph according to aspect ratio when both max-width and max-height are defined", function () {
         wrapper.css({
           width: '150px'
         });
-        el.css({
-          'max-width': '200px',
-          'max-height': '100px'
-        });
+        withGraphStyle("max-width: 200px; max-height:100px;");
 
         graph.resize();
         expect(graph.width).toEqual(150);
@@ -185,11 +188,7 @@ function (Graph, Collection, d3) {
         wrapper.css({
           width: '150px'
         });
-        el.css({
-          'max-width': '200px',
-          'max-height': '100px',
-          'min-height': '80px'
-        });
+        withGraphStyle("max-width: 200px; max-height:100px; min-height:80px");
 
         graph.resize();
         expect(graph.width).toEqual(150);
@@ -198,12 +197,10 @@ function (Graph, Collection, d3) {
 
       it("re-scales graph according to defined height and available width", function () {
         wrapper.css({
-          width: '150px'
+          width: '150px',
+          height: '100px'
         });
-        el.css({
-          'max-width': '200px',
-          'height': '100px'
-        });
+        withGraphStyle("max-width: 200px;");
 
         graph.resize();
         expect(graph.width).toEqual(150);
@@ -214,10 +211,7 @@ function (Graph, Collection, d3) {
         wrapper.css({
           width: '150px'
         });
-        el.css({
-          'max-width': '200px',
-          'max-height': '100px'
-        });
+        withGraphStyle("max-width: 200px; max-height:100px;");
         graph.resize();
 
         var svg = graph.el.find('svg');
@@ -235,13 +229,10 @@ function (Graph, Collection, d3) {
       
       it("calculates inner dimensions and margin", function() {
         wrapper.css({
-          width: '150px'
+          width: '150px',
+          position: 'relative'
         });
-        el.css({
-          'position': 'relative',
-          'max-width': '200px',
-          'max-height': '100px'
-        });
+        withGraphStyle("max-width: 200px; max-height:100px;");
 
         el.find('.inner').css({
           position: 'absolute',
@@ -459,20 +450,28 @@ function (Graph, Collection, d3) {
       });
 
 
-      describe("week", function () {
+      function sharedSpecsForScalingBetweenStartAndEndDates() {
         describe("calcXScale", function() {
-          it("scales domain from first Sunday to last Sunday", function() {
-            graph.applyConfig('week');
+          it("scales domain from start entry end date to end entry end date", function() {
+            graph.applyConfig('day');
             var domain = graph.calcXScale().domain();
             expect(moment(domain[0]).format('YYYY-MM-DD')).toEqual('2013-01-20');
             expect(moment(domain[1]).format('YYYY-MM-DD')).toEqual('2013-02-03');
           });
-          
+
           it("scales range to inner width", function() {
-            graph.applyConfig('week');
+            graph.applyConfig('day');
             expect(graph.calcXScale().range()).toEqual([0, 444]);
           });
         });
+      }
+
+      describe("day", function () {
+        sharedSpecsForScalingBetweenStartAndEndDates();
+      });
+
+      describe("week", function () {
+        sharedSpecsForScalingBetweenStartAndEndDates();
       });
 
       describe("hour", function () {

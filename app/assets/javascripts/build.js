@@ -5,6 +5,7 @@
     "common/controllers/services",
     "fco/controllers/overview",
     "hmrc/controllers/overview",
+    "land-registry/controllers/overview",
     "licensing/controllers/authorities",
     "licensing/controllers/licences",
     "licensing/controllers/overview",

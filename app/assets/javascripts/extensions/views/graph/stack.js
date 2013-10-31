@@ -8,7 +8,7 @@ function (require, Line, Component) {
 
     selectGroup: true,
     allowMissingData: false,
-    
+
     render: function () {
       Component.prototype.render.apply(this, arguments);
 
@@ -30,7 +30,7 @@ function (require, Line, Component) {
 
       this.renderContent(selectionStacks, selectionLines);
     },
-    
+
     renderContent: function (selectionStacks, selectionLines) {
       var that = this;
       var getX = function (model, index) {
@@ -44,7 +44,7 @@ function (require, Line, Component) {
 
       var hasYValue = function(model) {
         return model[yProperty] !== null;
-      }
+      };
 
       var getY = function (model, index) {
         return yScale(model[yProperty] + model[y0Property]);
@@ -131,12 +131,15 @@ function (require, Line, Component) {
           selectedItemIndex = distanceAndClosestModel.index;
           break;
         }
-      };
+      }
 
-      if (this.selectGroup) {
-        this.selectItem(selectedGroupIndex, selectedItemIndex, e.toggle);
+      if (!this.selectGroup) {
+        selectedGroupIndex = null;
+      }
+      if (e.toggle) {
+        this.collection.selectItem(selectedGroupIndex, selectedItemIndex, { toggle: true });
       } else {
-        this.selectItem(null, selectedItemIndex, e.toggle);
+        this.collection.selectItem(selectedGroupIndex, selectedItemIndex);
       }
 
     }

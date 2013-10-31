@@ -17,7 +17,8 @@ class BackdropStubController < ApplicationController
           StubConfig.new({'service' => 'licensing', 'api_name' => 'applications'}, 'licensing_applications.json'),
           StubConfig.new({'filter_by' => 'dataType:licensing_overview_journey'}, 'licensing_overview_journey.json'),
           StubConfig.new({'service' => 'pay-legalisation-post', 'api_name' => 'journey'}, 'fco_overview_journey.json'),
-          StubConfig.new({'service' => 'pay-foreign-marriage-certificates', 'api_name' => 'monitoring'}, 'foreign_marriage_availability.json'),
+          StubConfig.new({'service' => 'pay-foreign-marriage-certificates', 'api_name' => 'monitoring', 'period' => 'hour'}, 'foreign_marriage_availability_hour.json'),
+          StubConfig.new({'service' => 'pay-foreign-marriage-certificates', 'api_name' => 'monitoring', 'period' => 'day'}, 'foreign_marriage_availability_day.json'),
           StubConfig.new({'service' => 'pay-register-death-abroad', 'api_name' => 'journey'}, 'pay-register-death-abroad-journey.json'),
           StubConfig.new({'service' => 'deposit-foreign-marriage', 'api_name' => 'journey'}, 'journey-with-missing-data.json'),
           StubConfig.new({'service' => 'lasting-power-of-attorney', 'api_name' => 'journey', 'group_by' => 'eventLabel', 'filter_by' => 'eventAction:help'}, 'lpa_help_usage.json'),
@@ -31,8 +32,9 @@ class BackdropStubController < ApplicationController
           StubConfig.new({'service' => 'vehicle-licensing', 'api_name' => 'customer-satisfaction'}, 'vehicle_licensing_customer_satisfaction.json'),
           StubConfig.new({'service' => 'sorn', 'api_name' => 'monitoring'}, 'availability.json'),
           StubConfig.new({'service' => 'sorn', 'api_name' => 'realtime'}, 'licensing_realtime.json'),
-          StubConfig.new({'service' => 'tax-disc', 'api_name' => 'monitoring'}, 'availability.json'),
           StubConfig.new({'service' => 'tax-disc', 'api_name' => 'realtime'}, 'licensing_realtime.json'),
+          StubConfig.new({'service' => 'tax-disc', 'api_name' => 'monitoring'}, 'availability.json'),
+          StubConfig.new({'service' => 'land-registry', 'api_name' => 'search-index-map'}, 'land_registry.json'),
           StubConfig.new({'api_name' => 'monitoring'}, 'licensing_availability_response.json'),
           StubConfig.new({'api_name' => 'realtime'}, 'licensing_realtime.json')
       ])

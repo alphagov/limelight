@@ -20,13 +20,13 @@ define([
             selectedModelIndex: null
           };
         }
-      }
+      };
 
       it("Should try to get a value from a collection", function () {
         spyOn(stubCollection, 'getValue').andCallThrough();
         view = new SingleStatView({
           collection: stubCollection,
-          getValue: function () { return this.collection.getValue(); } 
+          getValue: function () { return this.collection.getValue(); }
         });
         jasmine.renderView(view, function () {
           expect(stubCollection.getValue).toHaveBeenCalled();

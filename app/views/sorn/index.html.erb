@@ -1,6 +1,6 @@
 <%
   transaction_title = 'Statutory Off Road Notification'
-  explanatory_copy = 'Service to make a SORN. This must be made for a registered vehicle that is not being used on the road, and which has been taxed since 31 January 1998.'
+  explanatory_copy = 'Figures for the service to make a SORN for registered vehicles that are not being used on the road, and which have been taxed since 31 January 1998. This service is provided by the DVLA.'
   transaction_shortname = 'SORN'
 
   @js_config = {
@@ -27,6 +27,7 @@
 
 <section id="customer-satisfaction" class="half-width">
   <h1>Customer satisfaction</h1>
+  <h2>Average score of satisfied responses</h2>
   <ul class="module-actions">
     <li class="info">
       <div>
@@ -35,7 +36,6 @@
       </div>
     </li>
   </ul>
-  <h2>Average score of satisfied responses</h2>
   <p class="impact-number current-value"></p>
   <p class="stat-description current-date"></p>
   <div class="previous-month">
@@ -58,7 +58,6 @@
 
 <%= render(partial: "vehicle-licensing/failures", 
   locals: {
-    title: "Error codes (web)", 
     id: "#{params[:slug]}-failures",  
     transaction_title:transaction_title,
     transaction_shortname:transaction_shortname

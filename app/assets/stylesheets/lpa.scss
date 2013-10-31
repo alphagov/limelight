@@ -19,3 +19,12 @@
     }
   }
 }
+
+.application-method-over-time {
+  .graph {
+    .x-axis .tick:nth-child(even) text {
+      display:none;
+    }
+  }
+}
+

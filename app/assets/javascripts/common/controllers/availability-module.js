@@ -1,14 +1,16 @@
 define([
   'extensions/collections/graphcollection',
-  'extensions/collections/availability-for-24-hours',
+  'extensions/collections/availability',
   'extensions/views/availability/uptime-number',
   'extensions/views/availability/uptime-graph',
   'extensions/views/availability/response-time-number',
-  'extensions/views/availability/response-time-graph'
+  'extensions/views/availability/response-time-graph',
+  'extensions/views/tabs'
 ],
 function (GraphCollection, AvailabilityCollection,
           UptimeNumber, UptimeGraph,
-          ResponseTimeNumber, ResponseTimeGraph) {
+          ResponseTimeNumber, ResponseTimeGraph,
+          Tabs) {
 
   return function (serviceName, locator) {
 
@@ -46,6 +48,17 @@ function (GraphCollection, AvailabilityCollection,
       el: moduleEl.find('.response-time-graph'),
       collection: availabilityCollection
     });
+
+    var graphNav = new Tabs({
+      el: $("#availability-nav"),
+      model: availabilityCollection.query,
+      attr: 'period',
+      tabs: [
+        {id: "day", name: "30 days"},
+        {id: "hour", name: "24 hours"}
+      ]
+    });
+    graphNav.render();
 
     availabilityCollection.fetch();
   };

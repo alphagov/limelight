@@ -44,6 +44,18 @@ function (timezones, Model) {
     },
     
     periods: {
+      hour: {
+        boundary: function (date) {
+          return date.startOf('hour');
+        },
+        duration: 24
+      },
+      day: {
+        boundary: function (date) {
+          return date.startOf('day');
+        },
+        duration: 30
+      },
       week: {
         boundary: function (date) {
           return date.day(1).startOf('day');

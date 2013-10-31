@@ -175,7 +175,11 @@ function(require, Component) {
         }, this);
       }, this);
       
-      this.selectItem(best.groupIndex, best.index, e.toggle);
+      if (e.toggle) {
+        this.collection.selectItem(best.groupIndex, best.index, { toggle: true });
+      } else {
+        this.collection.selectItem(best.groupIndex, best.index);
+      }
     }
     
   });

@@ -12,7 +12,40 @@ define([
   './tooltip'
 ],
 function (require, View, d3, XAxis, YAxis, Line, Stack, LineLabel, Hover, Callout, Tooltip) {
-  
+
+
+  function scaleFromStartAndEndDates (modelToDate) {
+    return {
+      getXPos: function(groupIndex, modelIndex) {
+        groupIndex = groupIndex || 0;
+        var model = this.collection.at(groupIndex, modelIndex);
+        return modelToDate(model);
+      },
+      calcXScale: function () {
+        var total = this.collection.first().get('values'),
+            start = modelToDate(total.first()).toDate(),
+            end = modelToDate(total.last()).toDate();
+
+        return this.d3.time.scale()
+                .domain([start, end])
+                .range([0, this.innerWidth]);
+      }
+    };
+  };
+
+  function hourlyScale () {
+    return scaleFromStartAndEndDates(function (model) {
+      return this.moment(model.get('_timestamp'));
+    });
+  };
+
+  function dailyScale () {
+    return scaleFromStartAndEndDates(function (model) {
+      return this.moment(model.get('_end_at')).subtract(1, 'days');
+    });
+  };
+
+
   var Graph = View.extend({
     
     d3: d3,
@@ -69,14 +102,17 @@ function (require, View, d3, XAxis, YAxis, Line, Stack, LineLabel, Hover, Callou
         wrapper: this.wrapper,
         margin: this.margin,
         scales: this.scales
-      }
+      };
     },
     
     prepareGraphArea: function () {
+      var graphWrapper = this.graphWrapper = $('<div class="graph-wrapper"></div>');
+      graphWrapper.appendTo(this.$el);
+
       this.innerEl = $('<div class="inner"></div>');
-      this.innerEl.appendTo(this.$el);
+      this.innerEl.appendTo(graphWrapper);
       
-      var svg = this.svg = this.d3.select(this.$el[0]).append('svg');
+      var svg = this.svg = this.d3.select(graphWrapper[0]).append('svg');
       
       this.wrapper = svg.append('g')
         .classed('wrapper', true);
@@ -87,7 +123,7 @@ function (require, View, d3, XAxis, YAxis, Line, Stack, LineLabel, Hover, Callou
      * size.
      */
     scaleFactor: function () {
-      return this.$el.width() / this.width;
+      return $(this.svg.node()).width() / this.width;
     },
     
     // Not implemented; override in configuration or subclass
@@ -113,13 +149,15 @@ function (require, View, d3, XAxis, YAxis, Line, Stack, LineLabel, Hover, Callou
     },
 
     resize: function () {
-      var width = this.width = this.$el.width();
+      var $svg = $(this.svg.node());
+      $svg.attr('style', '');
+      var width = this.width = $svg.parent().width();
 
       // when both max-width and max-height are defined, scale graph according
       // to this aspect ratio
-      var maxWidth = this.pxToValue(this.$el.css('max-width'));
-      var maxHeight = this.pxToValue(this.$el.css('max-height'));
-      var minHeight = this.pxToValue(this.$el.css('min-height'));
+      var maxWidth = this.pxToValue($svg.css('max-width'));
+      var maxHeight = this.pxToValue($svg.css('max-height'));
+      var minHeight = this.pxToValue($svg.css('min-height'));
       if (maxWidth != null && maxHeight != null) {
         var aspectRatio = maxWidth / maxHeight;
         height = width / aspectRatio;
@@ -127,7 +165,7 @@ function (require, View, d3, XAxis, YAxis, Line, Stack, LineLabel, Hover, Callou
           height = Math.max(height, minHeight);
         }
       } else {
-        height = this.$el.height();
+        height = $svg.height();
       }
       this.height = height;
 
@@ -138,7 +176,7 @@ function (require, View, d3, XAxis, YAxis, Line, Stack, LineLabel, Hover, Callou
         viewBox: '0 0 ' + width + ' ' + height,
         style: 'max-width:' + width + 'px; max-height:' + height + 'px; display:block;'
       });
-      $(this.svg.node()).height(height);
+      $svg.height(height);
 
       var innerEl = this.innerEl;
       this.margin.top = innerEl.position().top;
@@ -175,6 +213,14 @@ function (require, View, d3, XAxis, YAxis, Line, Stack, LineLabel, Hover, Callou
         }
         this[key] = value;
       }, this);
+    },
+
+    /**
+     * The linelabel figcaption is positioned on top of the graph
+     * at small screen sizes using position static.
+     */
+    lineLabelOnTop: function () {
+      return this.$el.find('figcaption').css('position') === 'static';
     },
 
     /**
@@ -222,41 +268,9 @@ function (require, View, d3, XAxis, YAxis, Line, Stack, LineLabel, Hover, Callou
     },
 
     configs: {
-      hour: {
-        getXPos: function (groupIndex, modelIndex) {
-          groupIndex = groupIndex || 0;
-          var model = this.collection.at(groupIndex, modelIndex);
-          return this.moment(model.get('_timestamp'));
-        },
-        calcXScale: function () {
-          var values = this.collection.first().get('values');
-          var start = moment(values.first().get('_timestamp'));
-          var end = moment(values.last().get('_timestamp'));
-          
-          var xScale = this.d3.time.scale();
-          xScale.domain([start.toDate(), end.toDate()]);
-          xScale.range([0, this.innerWidth]);
-          return xScale;
-        }
-      },
-      week: {
-        getXPos: function(groupIndex, modelIndex) {
-          groupIndex = groupIndex || 0;
-          var model = this.collection.at(groupIndex, modelIndex);
-          return this.moment(model.get('_end_at')).subtract(1, 'days');
-        },
-        calcXScale: function () {
-          var start, end, xScale;
-          var total = this.collection.first().get('values');
-          // scale from first sunday to last sunday
-          start = moment(total.first().get('_end_at')).subtract(1, 'days');
-          end = moment(total.last().get('_end_at')).subtract(1, 'days');
-          xScale = this.d3.time.scale();
-          xScale.domain([start.toDate(), end.toDate()]);
-          xScale.range([0, this.innerWidth]);
-          return xScale;
-        }
-      },
+      hour: hourlyScale(),
+      day: dailyScale(),
+      week: dailyScale(),
       month: {
         getXPos: function(groupIndex, modelIndex) {
           return modelIndex;

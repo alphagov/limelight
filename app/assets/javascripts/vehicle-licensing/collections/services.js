@@ -18,14 +18,14 @@ function (GraphCollection) {
 
     seriesList: [
       {
-        id: 'sorn',
-        title: 'SORN',
-        href: '/performance/sorn'
-      },
-      {
         id: 'tax-disc',
         title: 'Tax disc',
         href: '/performance/tax-disc'
+      },
+      {
+        id: 'sorn',
+        title: 'SORN',
+        href: '/performance/sorn'
       }
     ],
 
@@ -35,12 +35,6 @@ function (GraphCollection) {
       return _.map(this.seriesList, function (series) {
         var dataSeries = _.find(data, function (d) {
           return d.service === series.id;
-        });
-
-        _.each(dataSeries.values, function (d) {
-          if (d['volume:sum'] == null) {
-            d['volume:sum'] = 0;
-          }
         });
 
         return _.extend({}, series, {
