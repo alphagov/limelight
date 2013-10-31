@@ -9,5 +9,5 @@ Feature: Homepage
     Then I should see a link to detailed dashboards
     And I should see a link to compare government services
     And I should see a link to govuk activity
-    And the homepage realtime module should display a user count of 15
+    And the homepage realtime module should display a user count of 13503
 

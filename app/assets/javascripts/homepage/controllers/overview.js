@@ -7,7 +7,7 @@ define([
     if ($('#govuk-realtime').length) {
       var updateInterval = 120 * 1000;
       var visitorsRealtimeCollection = new VisitorsRealtimeCollection([],{
-        serviceName: "govuk"
+        serviceName: "government"
       });
 
       var visitorsRealtimeView = new VisitorsRealtimeView({
