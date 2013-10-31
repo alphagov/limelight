@@ -122,5 +122,5 @@ Then(/^I should see a link to govuk activity$/) do
   step("I see a link to \"/performance/dashboard\"")
 end
 Then(/^the homepage realtime module should display a user count of (\d+)$/) do |number|
-  @module = page.find('#govuk-realtime strong').should have_content(number)
+  page.find('#govuk-realtime strong').should have_content(number)
 end
