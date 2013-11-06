@@ -8,7 +8,7 @@ class RootController < ApplicationController
     col2 = get_services_between('P', 'P')
     col3 = get_services_between('Q', 'Z')
 
-    col3['Service Groups'] = get_service_groups
+    col3['Service groups'] = get_service_groups
 
     @columns = [col1, col2, col3]
   end
