@@ -22,7 +22,7 @@
       <div class="cols3 service-listing">
         <dl>
           <% column.each do |title, services| %>
-            <dt><%= title %></dt>
+            <dt class='<%= title.sub(' ', '_').downcase! %>'><%= title %></dt>
             <dd>
               <ol>
                 <% services.each do |service| %>

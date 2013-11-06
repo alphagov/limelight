@@ -50,6 +50,15 @@
   dt {
     margin: 0;
     padding: 0;
+
+    &.t + dd {
+      border-bottom: none;
+    }
+
+    &.service_groups {
+      font-weight: bold;
+      margin-top: 3em;
+    }
   }
 
   dd {
