@@ -51,10 +51,12 @@ module ApplicationHelper
   end
 
   def current_main_navigation_path(parameters)
-    # Currently, everything in Limelight lives under the "Services" main nav
-    # item. As we add datainsight-frontend in, this method will need to get
-    # smarter.
-    services_path
+    # Decide which main navigation item to underline
+    if parameters['controller'] == 'root'
+      root_path
+    else
+      services_path
+    end
   end
 
 end
