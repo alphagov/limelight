@@ -10,14 +10,16 @@
 <% if Rails.application.config.feature_toggles[:show_fco_visitors_realtime] %>
   <section>
     <h1>Real-time usage</h1>
-    <ul class="module-actions">
-      <li class="info">
-        <div>
-          <p>Data source: Google Analytics</p>
-          <p>Shows the estimated number of users currently accessing the service on GOV.UK.</p>
-        </div>
-      </li>
-    </ul>
+    <aside class='more-info'>
+      <span class='more-info-link'>more info</span>
+      <ul>
+        <li>Data source: Google Analytics</li>
+        <li>
+          Shows the estimated number of users currently accessing
+          the service on GOV.UK.
+        </li>
+      </ul>
+    </aside>
     <h2>Live number of users on any page within the service</h2>
     <div id="number-of-visitors-realtime"></div>
   </section>
@@ -25,35 +27,41 @@
 
 <section class="graph double-decker-graph">
   <h1>Completion rate and completed applications</h1>
-  <ul class="module-actions">
-    <li class="info">
-      <div>
-        <p>Data source: Google Analytics (unique visitor numbers based on sampled data)</p>
-        <p><a href="/service-manual/measurement/completion-rate.html" rel="external" target="_blank">Completion rate</a> measures the proportion of people who started an application and were able to complete it.</p>
-        <p>It is calculated as percentage of unique visitors who arrived at the final page of the service out of those who arrived at the start page.</p>
-        <p>Completed applications count based on unique visitors to the final page of the service.</p>
-      </div>
-    </li>
-  </ul>
+  <aside class='more-info'>
+    <span class='more-info-link'>more info</span>
+    <ul>
+      <li>Data source: Google Analytics (unique visitor numbers based on sampled data)</li>
+      <li>
+        <a href="/service-manual/measurement/completion-rate.html" rel="external" target="_blank">Completion rate</a>
+        measures the proportion of people who started an application and were able to complete it.
+      </li>
+      <li>
+        It is calculated as percentage of unique visitors who arrived at the
+        final page of the service out of those who arrived at the start page.
+      </li>
+      <li>
+        Completed applications count based on unique visitors to the final
+        page of the service.
+      </li>
+    </ul>
+  </aside>
   <h3>Completion rate</h3>
   <p id="volumetrics-completion-selected" class="impact-number"></p>
   <figure class="graph timeseries-graph" id="volumetrics-completion"></figure>
   <h3>Completed applications</h3>
   <p id="volumetrics-submissions-selected" class="impact-number"></p>
   <figure class="graph timeseries-graph" id="volumetrics-submissions"></figure>
-  
 </section>
 
 <section class="graph">
   <h1>Users at each stage</h1>
-  <ul class="module-actions">
-    <li class="info">
-      <div>
-        <p>Data source: Google Analytics (unique visitor numbers based on sampled data)</p>
-        <p>The total number of unique users who arrived at each stage.</p>
-      </div>
-    </li>
-  </ul>
+  <aside class='more-info'>
+    <span class='more-info-link'>more info</span>
+    <ul>
+      <li>Data source: Google Analytics (unique visitor numbers based on sampled data)</li>
+      <li>The total number of unique users who arrived at each stage.</li>
+    </ul>
+  </aside>
   <h2>Number of users who completed important stages of the transaction last week</h2>
   <figure class="graph conversion-graph" id="applications-conversion-graph"></figure>
 </section>

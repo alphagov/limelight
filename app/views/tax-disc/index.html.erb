@@ -15,26 +15,30 @@
 <%= render(partial: "common/copy/dashboard_header", locals: {title: transaction_title, copy: explanatory_copy}) %>
 
 <%= render(partial: "vehicle-licensing/active-users", locals: {
-  title: "Users on start page",   
+  title: "Users on start page",
   data_source: "Google Analytics",
   description: "Shows the estimated number of users currently accessing the GOV.UK start page for the #{transaction_shortname} transaction.",
-  id: "#{params[:slug]}-volumes", 
+  id: "#{params[:slug]}-volumes",
   transaction_shortname:transaction_shortname,
   transaction_title: transaction_title
 }) %>
 
 <section id="customer-satisfaction" class="half-width">
   <h1>Customer satisfaction (web)</h1>
+  <aside class='more-info'>
+    <span class='more-info-link'>more info</span>
+    <ul>
+      <li>Data source: <abbr title="Driver and Vehicle Licensing Agency">DVLA</abbr> database</li>
+      <li>
+        Customer satisfaction is measured using a survey on a sample of
+        users at the point of transaction completion. It is measured on
+        a 5 point scale from most satisfied to least satisfied. The mean
+        of these responses is converted to a percentage for display purposes.
+      </li>
+      <li>Responses relate to the month the tax disc starts. In most cases the user would have completed the transaction before this date.</li>
+    </ul>
+  </aside>
   <h2>Average satisfaction score last month</h2>
-  <ul class="module-actions">
-    <li class="info">
-      <div>
-        <p>Data source: <abbr title="Driver and Vehicle Licensing Agency">DVLA</abbr> database</p>
-        <p>Customer satisfaction is measured using a survey on a sample of users at the point of transaction completion. It is measured on a 5 point scale from most satisfied to least satisfied. The mean of these responses is converted to a percentage for display purposes.</p>
-        <p>Responses relate to the month the tax disc starts. In most cases the user would have completed the transaction before this date.</p>
-      </div>
-    </li>
-  </ul>
   <p class="impact-number current-value"></p>
   <p class="stat-description current-date"></p>
   <div class="previous-month">
@@ -44,9 +48,9 @@
 </section>
 
 <%= render(partial: "vehicle-licensing/volumetrics", locals: {
-  title: "Applications by channel", 
-  description: "Tax disc applications per month broken down by channel", 
-  id: "vehicle-licensing-channels", 
+  title: "Applications by channel",
+  description: "Tax disc applications per month broken down by channel",
+  id: "vehicle-licensing-channels",
   info_text: "Shows the number of successful applications to renew a tax disc, broken down by channel",
   transaction_title:transaction_title,
   transaction_shortname:transaction_shortname
@@ -56,7 +60,7 @@
   id: "#{params[:slug]}-takeup"}) %>
 
 <%= render(partial: "vehicle-licensing/failures", locals: {
-  id: "#{params[:slug]}-failures",  
+  id: "#{params[:slug]}-failures",
   transaction_title:transaction_title,
   transaction_shortname:transaction_shortname
 }) %>

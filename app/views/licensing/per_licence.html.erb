@@ -6,39 +6,37 @@
       <span class="strapline">Licensing performance</span>
       <%= @licence.name %>
   </h1>
-  <p class="explanatory">Figures for all submissions for <strong><%= @licence.name %></strong> made via GOV.UK. 
+  <p class="explanatory">Figures for all submissions for <strong><%= @licence.name %></strong> made via GOV.UK.
   </p>
 </header>
 
 <section class="graph graph-with-labels">
   <h1>Forms received</h1>
-  <ul class="module-actions">
-    <li class="info">
-      <div>
-        <p>Data source: GOV.UK licensing database</p>
-        <p>Top authorities are those with the highest number of forms submissions received for the licence in the period being shown.</p>
-        <p>This does not measure whether a submission was subsequently paid for, valid or accepted by the authority.</p>
-      </div>
-    </li>
-  </ul>
+  <aside class='more-info'>
+    <span class='more-info-link'>more info</span>
+    <ul>
+      <li>Data source: GOV.UK licensing database</li>
+      <li>Top authorities are those with the highest number of forms submissions received for the licence in the period being shown.</li>
+      <li>This does not measure whether a submission was subsequently paid for, valid or accepted by the authority.</li>
+    </ul>
+  </aside>
   <nav id="applications-nav"></nav>
   <h2>Total forms received per week over the last 9 weeks and top authorities by volume in this time</h2>
-  
+
   <figure class="graph timeseries-graph" id="applications-by-authority"></figure>
 </section>
 
 <section>
   <h1>Submissions per authority</h1>
-  <ul class="module-actions">
-    <li class="info">
-      <div>
-        <p>Data source: GOV.UK licensing database</p>
-        <p>Does not include authorities that have never received a submission for this licence via GOV.UK</p>
-      </div>
-    </li>
-  </ul>
+  <aside class='more-info'>
+    <span class='more-info-link'>more info</span>
+    <ul>
+      <li>Data source: GOV.UK licensing database</li>
+      <li>Does not include authorities that have never received a submission for this licence via GOV.UK</li>
+    </ul>
+  </aside>
   <h2>Authorities offering <strong><%= @licence.name %></strong> on GOV.UK</h2>
-  
+
   <article class="table-wrapper" id="applications-table"></article>
 </section>
 
