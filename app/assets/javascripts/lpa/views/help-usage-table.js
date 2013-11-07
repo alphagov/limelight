@@ -10,9 +10,13 @@ define([
       },
 
       capitalizeSpecialWords: function(string) {
-        return string.replace(/(\s|^)lpa(\s|$)/g, " LPA ")
-                     .replace(/(\s|^)bacs(\s|$)/g, " BACS ")
-                     .replace(/(\s|^)i(\s|$)/g, " I ");
+        var specialWords = ["LPA", "BACS", "I"];
+
+        return _.reduce(specialWords, function (newString, word) {
+          var lowerCaseExpression = new RegExp("(\\s|^)" + word.toLowerCase() + "(\\s|$)", "g"),
+              upperCaseReplacement = " " + word + " ";
+          return newString.replace(lowerCaseExpression, upperCaseReplacement);
+        }, string);
       },
 
       sanitizeDescription: function (rawDescription) {
