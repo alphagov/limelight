@@ -4,9 +4,9 @@ define([
   'extensions/views/volumetrics/completion-graph',
   'extensions/views/volumetrics/number'
 ],
-function (GraphCollection, 
+function (GraphCollection,
           VolumetricsCollection,
-          VolumetricsCompletionGraph, 
+          VolumetricsCompletionGraph,
           VolumetricsNumberView) {
   return function () {
 
@@ -17,7 +17,7 @@ function (GraphCollection,
 
         var volumetricsCollection = new VolumetricsCollection([], {
           serviceName: serviceName,
-          startMatcher: /user\/login/,
+          startMatcher: /create\/lpa-type/,
           endMatcher: /register\/confirmation/,
           matchingAttribute: "eventLabel"
         });
@@ -47,5 +47,5 @@ function (GraphCollection,
 
       }
     }
-  }
+  };
 });

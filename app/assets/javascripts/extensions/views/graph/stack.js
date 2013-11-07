@@ -133,10 +133,13 @@ function (require, Line, Component) {
         }
       }
 
-      if (this.selectGroup) {
-        this.selectItem(selectedGroupIndex, selectedItemIndex, e.toggle);
+      if (!this.selectGroup) {
+        selectedGroupIndex = null;
+      }
+      if (e.toggle) {
+        this.collection.selectItem(selectedGroupIndex, selectedItemIndex, { toggle: true });
       } else {
-        this.selectItem(null, selectedItemIndex, e.toggle);
+        this.collection.selectItem(selectedGroupIndex, selectedItemIndex);
       }
 
     }

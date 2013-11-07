@@ -1,0 +1,74 @@
+<% content_for :title do %>Our Performance - GOV.UK<% end %>
+
+<% @js_config = { "controller" => "homepage/controllers/overview" } %>
+
+<div class="index">
+
+  <header>
+    <h1>Our Performance</h1>
+    <p class="explanatory">
+      On these performance pages you can find
+      <%= link_to "detailed dashboards", services_path %>
+      for a growing number of services,
+      <a href="/performance/transactions-explorer">compare all government services</a>,
+      or view <a href="/performance/dashboard">activity on GOV.UK</a>.
+    </p>
+  </header>
+
+  <section>
+    <h2>Detailed dashboards</h2>
+    <p>Services providing detailed performance data to GOV.UK</p>
+    <% @columns.each do |column| %>
+      <div class="cols3 service-listing">
+        <dl>
+          <% column.each do |title, services| %>
+            <dt class='<%= title.sub(' ', '_').downcase! %>'><%= title %></dt>
+            <dd>
+              <ol>
+                <% services.each do |service| %>
+                  <li><a href="/performance/<%= service.slug %>"><%= service.name %></a></li>
+                <% end %>
+              </ol>
+            </dd>
+          <% end %>
+        </dl>
+      </div>
+    <% end %>
+  </section>
+
+  <div>
+    <section class="cols2 service-listing">
+      <h2>Compare all services</h2>
+      <p>An overview of all transaction-based services the government provides.</p>
+      <ul>
+        <li><a href="/performance/transactions-explorer/all-services/by-transactions-per-year/descending">All services</a></li>
+        <li><a href="/performance/transactions-explorer/high-volume-services/by-transactions-per-year/descending">High-volume services</a></li>
+      </ul>
+      <%= image_tag "performance-intro-compare.png", alt:"" %>
+    </section>
+
+    <section class="cols2 service-listing">
+      <h2>Activity on GOV.UK</h2>
+      <p>Web traffic on our site, including a look at how our content is being used.</p>
+      <ul>
+        <li><a href="/performance/dashboard">GOV.UK Overview</a></li>
+        <li><a href="/performance/dashboard/government">Departments and policy</a></li>
+      </ul>
+      <p><strong>Users on GOV.UK:</strong></p>
+      <div id="govuk-realtime"></div>
+    </section>
+  </div>
+
+  <section>
+    <h3>Further information</h3>
+    <article class="cols2">
+      <h4><a href="/service-manual/measurement/other-kpis">How we measure performance</a></h4>
+      <p>Our guidance for government organisations on how to track the services they provide.</p>
+    </article>
+    <article class="cols2">
+      <h4><a href="http://digital.cabinetoffice.gov.uk/category/performance/">Performance at GOV.UK &mdash; Blog</a></h4>
+      <p>Lastest posts from the performance and analytics teams on the GDS blog.</p>
+    </article>
+  </section>
+
+</div>

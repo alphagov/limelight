@@ -1,5 +1,7 @@
 Limelight::Application.routes.draw do
-  match "/_status" => "healthcheck#index", via: :get
+  get "/performance" => "root#index", as: "root"
+
+  get "/_status" => "healthcheck#index", as: "status"
 
   match "/performance/services" => "common#services", via: :get, as: "services"
 

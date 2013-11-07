@@ -25,4 +25,4 @@ Feature: uptime and response time for lpa dashboard
   @svg
   Scenario: checking total completion rate with
     When I go to /performance/lasting-power-of-attorney
-    Then the lpa completion rate should display "4% last 4 weeks"
+    Then the lpa completion rate should display "21% last 6 weeks"
