@@ -12,7 +12,8 @@ define([
       sanitizeDescription: function (rawDescription) {
         var spaceSeparatedDescription = rawDescription.replace(/-/g, " "),
             lowercaseDescription = spaceSeparatedDescription.replace(/(\s|^)lpa(\s|$)/g, " LPA ")
-                                                            .replace(/ i(\s|$)/g, " I ");
+                                                            .replace(/(\s|^)bacs(\s|$)/g, " BACS ")
+                                                            .replace(/(\s|^)i(\s|$)/g, " I ");
         return this.capitalize(lowercaseDescription);
       },
 
