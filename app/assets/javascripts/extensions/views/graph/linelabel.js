@@ -9,7 +9,7 @@ function (require, Component) {
     offset: 20,
     linePaddingInner: 4,
     linePaddingOuter: 4,
-    overlapLabelTop: 0,
+    overlapLabelTop: 20,
     overlapLabelBottom: 20,
     labelOffset: 6,
 
