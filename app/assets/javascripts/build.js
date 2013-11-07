@@ -12,6 +12,7 @@
     "licensing/controllers/per_authority",
     "licensing/controllers/per_licence",
     "common/preprocessors/partial_experience_warning",
+    "common/preprocessors/module_actions",
     "lpa/controllers/overview",
     "vehicle-licensing/controllers/overview",
     "vehicle-licensing/controllers/vehicle-licensing-service"

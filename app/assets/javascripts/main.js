@@ -1,12 +1,5 @@
 $(document).ready(function () {
 
-  $(document).ready(function () {
-    $('.more-info-link').click(function (e) {
-      $(this).next('ul').toggleClass('js-clicked');
-      e.preventDefault();
-    });
-  });
-
   var baseUrl, d3Url, requireConfig;
 
   baseUrl = $('#wrapper').data('base-url') || '/limelight';
