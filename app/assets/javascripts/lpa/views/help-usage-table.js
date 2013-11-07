@@ -5,16 +5,20 @@ define([
 
     var HelpUsageTable = Table.extend({
 
-      capitalize: function(string) {
+      capitalizeFirstWord: function(string) {
         return string.replace(/(?:^|\s)\S/, function(letter) { return letter.toUpperCase(); });
+      },
+
+      capitalizeSpecialWords: function(string) {
+        return string.replace(/(\s|^)lpa(\s|$)/g, " LPA ")
+                     .replace(/(\s|^)bacs(\s|$)/g, " BACS ")
+                     .replace(/(\s|^)i(\s|$)/g, " I ");
       },
 
       sanitizeDescription: function (rawDescription) {
         var spaceSeparatedDescription = rawDescription.replace(/-/g, " "),
-            lowercaseDescription = spaceSeparatedDescription.replace(/(\s|^)lpa(\s|$)/g, " LPA ")
-                                                            .replace(/(\s|^)bacs(\s|$)/g, " BACS ")
-                                                            .replace(/(\s|^)i(\s|$)/g, " I ");
-        return this.capitalize(lowercaseDescription);
+            lowercaseDescription = this.capitalizeSpecialWords(spaceSeparatedDescription);
+        return this.capitalizeFirstWord(lowercaseDescription);
       },
 
       columns: [
