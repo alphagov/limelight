@@ -12,15 +12,14 @@
 
 <section class="graph graph-with-labels">
   <h1>Forms received</h1>
-  <ul class="module-actions">
-    <li class="info">
-      <div>
-        <p>Data source: GOV.UK licensing database</p>
-        <p>Top licences are those with the highest number of forms received by the authority in the period being shown.</p>
-        <p>This does not measure whether a submission was subsequently paid for, valid or accepted by the authority.</p>
-      </div>
-    </li>
-  </ul>
+  <aside class='more-info'>
+    <span class='more-info-link'>more info</span>
+    <ul>
+      <li>Data source: GOV.UK licensing database</li>
+      <li>Top licences are those with the highest number of forms received by the authority in the period being shown.</li>
+      <li>This does not measure whether a submission was subsequently paid for, valid or accepted by the authority.</li>
+    </ul>
+  </aside>
   <nav id="applications-nav"></nav>
   <h2>Total forms received per week over the last 9 weeks and top licences by volume in this time</h2>
 
@@ -29,16 +28,15 @@
 
 <section>
   <h1>Licence submissions received</h1>
-  <ul class="module-actions">
-    <li class="info">
-      <div>
-        <p>Data source: GOV.UK licensing database</p>
-        <p>Does not include licences that have never received a submission via GOV.UK</p>
-      </div>
-    </li>
-  </ul>
+  <aside class='more-info'>
+    <span class='more-info-link'>more info</span>
+    <ul>
+      <li>Data source: GOV.UK licensing database</li>
+      <li>Does not include licences that have never received a submission via GOV.UK</li>
+    </ul>
+  </aside>
   <h2>Licences offered by <strong><%= @authority.name %></strong> on GOV.UK</h2>
-  
+
   <article class="table-wrapper" id="applications-table"></article>
 </section>
 

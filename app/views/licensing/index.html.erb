@@ -13,14 +13,13 @@
 <% if Rails.application.config.feature_toggles[:show_licensing_visitors_realtime] %>
   <section>
     <h1>Real-time usage</h1>
-    <ul class="module-actions">
-      <li class="info">
-        <div>
-          <p>Data source: Google Analytics</p>
-          <p>Shows the estimated number of users currently accessing licensing pages on GOV.UK.</p>
-        </div>
-      </li>
-    </ul>
+    <aside class='more-info'>
+      <span class='more-info-link'>more info</span>
+      <ul>
+        <li>Data source: Google Analytics</li>
+        <li>Shows the estimated number of users currently accessing licensing pages on GOV.UK.</li>
+      </ul>
+    </aside>
     <h2>Live number of users on any page within the service</h2>
     <div id="number-of-visitors-realtime"></div>
   </section>
@@ -28,15 +27,14 @@
 
 <section class="graph">
   <h1>Forms received</h1>
-  <ul class="module-actions">
-    <li class="info">
-      <div>
-        <p>Data source: GOV.UK licensing database</p>
-        <p>Shows the total number licensing forms received by GOV.UK.</p>        
-        <p>This does not measure whether a submission was subsequently paid for, valid or accepted by the authority.</p>        
-      </div>
-    </li>
-  </ul>
+  <aside class='more-info'>
+    <span class='more-info-link'>more info</span>
+    <ul>
+      <li>Data source: GOV.UK licensing database</li>
+      <li>Shows the total number licensing forms received by GOV.UK.</li>
+      <li>This does not measure whether a submission was subsequently paid for, valid or accepted by the authority.</li>
+    </ul>
+  </aside>
   <nav id="applications-nav"></nav>
   <h2>Total forms received per week over the last 9 weeks</h2>
   <figure class="graph timeseries-graph" id="total-applications"></figure>
@@ -45,16 +43,15 @@
 <% if Rails.application.config.feature_toggles[:show_licensing_overview_success_rate] %>
   <section class="half-width row-start">
     <h1>Completion rate</h1>
-    <ul class="module-actions">
-      <li class="info">
-        <div>
-          <p>Data source: Google Analytics</p>
-          <p><a href="/service-manual/measurement/completion-rate.html" rel="external" target="_blank">Completion rate</a> measures the proportion of people who started a form submission and were able to complete it.</p>
-          <p>This measures submissions only, not whether a submission was valid or accepted by the authority.</p>
-          <p>It is calculated by dividing the number of unique visitors to the final page of a form submission by the number of unique visitors to the first page.</p>
-        </div>
-      </li>
-    </ul>
+    <aside class='more-info'>
+      <span class='more-info-link'>more info</span>
+      <ul>
+        <li>Data source: Google Analytics</li>
+        <li><a href="/service-manual/measurement/completion-rate.html" rel="external" target="_blank">Completion rate</a> measures the proportion of people who started a form submission and were able to complete it.</li>
+        <li>This measures submissions only, not whether a submission was valid or accepted by the authority.</li>
+        <li>It is calculated by dividing the number of unique visitors to the final page of a form submission by the number of unique visitors to the first page.</li>
+      </ul>
+    </aside>
     <h2>Percentage of users who successfully submitted a form</h2>
     <p id="applications-success-rate" class="impact-number"></p>
     <p class="stat-description">average last week</p>
@@ -63,15 +60,14 @@
 
 <section class="graph<% if Rails.application.config.feature_toggles[:show_licensing_overview_success_rate] %> half-width<% end %>">
   <h1>Users at each stage</h1>
-  <ul class="module-actions">
-    <li class="info">
-      <div>
-        <p>Data source: Google Analytics (unique visitor numbers based on sampled data)</p>
-        <p>Shows only those stages that are common across all licensing submissions (some licences have additional fee payment stages which are not included).</p>
-        <p>The total number of unique users who arrived at each stage.</p>
-      </div>
-    </li>
-  </ul>
+  <aside class='more-info'>
+    <span class='more-info-link'>more info</span>
+    <ul>
+      <li>Data source: Google Analytics (unique visitor numbers based on sampled data)</li>
+      <li>Shows only those stages that are common across all licensing submissions (some licences have additional fee payment stages which are not included).</li>
+      <li>The total number of unique users who arrived at each stage.</li>
+    </ul>
+  </aside>
   <h2>Number of users who completed important stages of the transaction last week</h2>
   <figure class="graph conversion-graph" id="applications-conversion-graph"></figure>
 </section>
@@ -80,14 +76,13 @@
 
 <section>
   <h1>Top licences last week</h1>
-  <ul class="module-actions">
-    <li class="info">
-      <div>
-        <p>Data source: GOV.UK licensing database</p>
-        <p>Top licences sorts submissions per licence in the past week by submission volume. Those with the highest submission volume are included in the table.</p>
-      </div>
-    </li>
-  </ul>
+  <aside class='more-info'>
+    <span class='more-info-link'>more info</span>
+    <ul>
+      <li>Data source: GOV.UK licensing database</li>
+      <li>Top licences sorts submissions per licence in the past week by submission volume. Those with the highest submission volume are included in the table.</li>
+    </ul>
+  </aside>
   <h2>Licences that received the most submissions last week</h2>
   <article class="top5-table-wrapper" id="top5-licences-table"></article>
   <p><%= link_to "See all licences", :action => "licences" %></p>
@@ -95,14 +90,13 @@
 
 <section>
   <h1>Top authorities last week</h1>
-  <ul class="module-actions">
-    <li class="info">
-      <div>
-        <p>Data source: GOV.UK licensing database</p>
-        <p>Top authorities sorts submissions per authority in the past week by submission volume. Those with the highest submission volume are included in the table.</p>
-      </div>
-    </li>
-  </ul>
+  <aside class='more-info'>
+    <span class='more-info-link'>more info</span>
+    <ul>
+      <li>Data source: GOV.UK licensing database</li>
+      <li>Top authorities sorts submissions per authority in the past week by submission volume. Those with the highest submission volume are included in the table.</li>
+    </ul>
+  </aside>
   <h2>Local and national authorities that received the most submissions last week</h2>
   <article class="top5-table-wrapper" id="top5-authorities-table"></article>
   <p><%= link_to "See all licensing authorities", :action => "authorities" %></p>

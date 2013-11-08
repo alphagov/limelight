@@ -16,17 +16,16 @@
 <% if Rails.application.config.feature_toggles[:lpa_dashboard_application_method] %>
 <section class="graph graph-with-labels application-method-over-time">
   <h1>Completed Applications</h1>
+  <aside class='more-info'>
+    <span class='more-info-link'>more info</span>
+    <ul>
+      <li>Data source: Office of the Public Guardian</li>
+      <li>Non-digital applications include all applications made using the traditional paper based forms.</li>
+      <li>Digital applications include applications created using the Lasting Power of Attorney digital service.</li>
+      <li>Applications are counted at point of receipt.</li>
+    </ul>
+  </aside>
   <h2><span class="group0">Non-digital</span> and <span class="group1">digital</span> applications over time</h2>
-  <ul class="module-actions">
-    <li class="info">
-      <div>
-        <p>Data source: Office of the Public Guardian</p>
-        <p>Non-digital applications include all applications made using the traditional paper based forms.</p>
-        <p>Digital applications include applications created using the Lasting Power of Attorney digital service.</p>
-        <p>Applications are counted at point of receipt.</p>
-      </div>
-    </li>
-  </ul>
   <figure class="graph" id="application-method-over-time"></figure>
 </section>
 <% end %>
@@ -34,35 +33,32 @@
 <% if Rails.application.config.feature_toggles[:lpa_dashboard_completion_rate] %>
 <section class="graph single-decker-graph">
   <h1>Completion rate</h1>
+  <aside class='more-info'>
+    <span class='more-info-link'>more info</span>
+    <ul>
+      <li>Data source: Google Analytics</li>
+      <li><a href="/service-manual/measurement/completion-rate.html" rel="external" target="_blank">Completion rate</a> measures the proportion of people who started an application and were able to complete it.</li>
+      <li>It is calculated as percentage of unique visitors who arrived at the final page of the digital service out of those who arrived at the 'Choose LPA type' page.</li>
+      <li>After using the digital service, users have further offline steps to complete, which this does not measure.</li>
+    </ul>
+  </aside>
   <h2>Proportion of people who completed both parts of the digital service, 'Make an LPA' and 'Register an LPA'</h2>
-  <ul class="module-actions">
-    <li class="info">
-      <div>
-        <p>Data source: Google Analytics</p>
-        <p><a href="/service-manual/measurement/completion-rate.html" rel="external" target="_blank">Completion rate</a> measures the proportion of people who started an application and were able to complete it.</p>
-        <p>It is calculated as percentage of unique visitors who arrived at the final page of the digital service out of those who arrived at the 'Choose LPA type' page.</p>
-        <p>After using the digital service, users have further offline steps to complete, which this does not measure.</p>
-      </div>
-    </li>
-  </ul>
   <p id="lpa-completion-selected" class="impact-number"></p>
   <figure class="graph timeseries-graph" id="lpa-completion"></figure>
-
 </section>
 <% end %>
 
 <% if Rails.application.config.feature_toggles[:lpa_conversion_funnel] %>
 <section class="graph">
   <h1>Stages of making an <abbr title="lasting power of attorney">LPA</abbr></h1>
-  <ul class="module-actions">
-    <li class="info">
-      <div>
-        <p>Data source: Google Analytics</p>
-        <p>Stages are in the order a user would see them as they progress through the transaction.</p>
-        <p>Shows significant stages only.</p>
-      </div>
-    </li>
-  </ul>
+  <aside class='more-info'>
+    <span class='more-info-link'>more info</span>
+    <ul>
+      <li>Data source: Google Analytics</li>
+      <li>Stages are in the order a user would see them as they progress through the transaction.</li>
+      <li>Shows significant stages only.</li>
+    </ul>
+  </aside>
   <h2>Number of visitors to stages a user goes through whilst making an <abbr title="lasting power of attorney">LPA</abbr>. Some stages may be repeated or returned to, as indicated by higher visitor numbers.</h2>
   <figure class="graph conversion-graph" id="lpa-conversion-graph"></figure>
 </section>
@@ -70,17 +66,15 @@
 
 <section class="help-usage">
   <h1>Help usage</h1>
+  <aside class='more-info'>
+    <span class='more-info-link'>more info</span>
+    <ul>
+      <li>Data source: Google Analytics</li>
+      <li>Help buttons are available to assist users as they complete the transaction.</li>
+      <li>Help usage counts the number of unique visitors who clicked on each help button.</li>
+    </ul>
   <h2>How often help buttons in the transaction were used last week</h2>
-  <ul class="module-actions">
-    <li class="info">
-      <div>
-        <p>Data source: Google Analytics</p>
-        <p>Help buttons are available to assist users as they complete the transaction.</p>
-        <p>Help usage counts the number of unique visitors who clicked on each help button.</p>
-      </div>
-    </li>
-  </ul>
-
+  </aside>
   <article class="help-usage-table"></article>
 </section>
 
