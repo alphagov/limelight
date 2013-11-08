@@ -15,6 +15,11 @@
     }
   }
 
+  section {
+    border-top: none;
+    padding-top: 0;
+  }
+
   h2, h3 {
     @include bold-24;
     border-bottom: 5px solid $primary-colour;
