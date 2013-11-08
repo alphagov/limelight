@@ -76,7 +76,7 @@
 
 // If JavaScript is enabled, disable the hover functionality
 // and use the jQuery click toggle.
-html.js #content .more-info {
+body.js-enabled #content .more-info {
   &:hover ul {
     display: none;
   }
