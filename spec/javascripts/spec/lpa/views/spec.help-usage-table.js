@@ -45,7 +45,9 @@ define([
             { count: 1, description: '2-with-numbers-42' },
             { count: 1, description: 'have-lpa-in-word-like-alpaca' },
             { count: 1, description: 'lpa-at-start' },
-            { count: 1, description: 'ending-in-lpa' }
+            { count: 1, description: 'ending-in-lpa' },
+            { count: 1, description: 'capital-i-in-i' },
+            { count: 1, description: 'capitalise-bacs' },
           ]);
         });
 
@@ -61,6 +63,8 @@ define([
             expect(table.$el.find('.body tr:eq(4) td:eq(0)')).toHaveText('Have LPA in word like alpaca');
             expect(table.$el.find('.body tr:eq(5) td:eq(0)')).toHaveText('LPA at start');
             expect(table.$el.find('.body tr:eq(6) td:eq(0)')).toHaveText('Ending in LPA');
+            expect(table.$el.find('.body tr:eq(7) td:eq(0)')).toHaveText('Capital I in I');
+            expect(table.$el.find('.body tr:eq(8) td:eq(0)')).toHaveText('Capitalise BACS');
           });
         });
       });
