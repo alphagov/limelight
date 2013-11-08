@@ -6,17 +6,13 @@ define([
     var HelpUsageTable = Table.extend({
 
       capitalizeFirstWord: function(string) {
-        return string.replace(/(?:^|\s)\S/, function(letter) { return letter.toUpperCase(); });
+        return string.charAt(0).toUpperCase() + string.slice(1);
       },
 
       capitalizeSpecialWords: function(string) {
-        var specialWords = ["LPA", "BACS", "I"];
-
-        return _.reduce(specialWords, function (newString, word) {
-          var lowerCaseExpression = new RegExp("(\\s|^)" + word.toLowerCase() + "(\\s|$)", "g"),
-              upperCaseReplacement = " " + word + " ";
-          return newString.replace(lowerCaseExpression, upperCaseReplacement);
-        }, string);
+        return string.replace(/\b(lpa|bacs|i)\b/g, function (s) {
+          return s.toUpperCase();
+        });
       },
 
       sanitizeDescription: function (rawDescription) {
