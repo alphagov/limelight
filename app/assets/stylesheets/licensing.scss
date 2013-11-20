@@ -6,6 +6,28 @@
     .x-axis .tick:nth-child(even) text {
       display:none;
     }
+
+    .legend {
+      @include core-14($tabular-numbers: true);
+    }
+  }
+}
+
+@media (max-width: 640px) {
+  #applications-by-licence,
+  #applications-by-authority {
+    .legend {
+      @include core-16($tabular-numbers: true);
+
+      ol {
+        width: 100%;
+        padding-left: 0;
+
+        li {
+          width: 45%;
+        }
+      }
+    }
   }
 }
 
@@ -20,7 +42,9 @@
     .inner {
       left: 30px;
       bottom: 30px;
-      right: 30%;
+    }
+    .legend ol li {
+      width: 90%;
     }
   }
 }

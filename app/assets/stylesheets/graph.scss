@@ -351,7 +351,7 @@
       }
 
       .graph {
-        top: 20px;
+        top: 10px;
 
         svg {
           clear: both;
@@ -363,6 +363,12 @@
       position: static;
       width: 100%;
       overflow:hidden;
+
+      ol li .label-title {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow:hidden;
+      }
 
       .summary {
         border: none;
@@ -422,5 +428,13 @@
         display:none;
       }
     }
+  }
+}
+
+
+
+@media (max-width: 440px) {
+  .graph .legend ol li {
+    width: 90%;
   }
 }
