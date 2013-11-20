@@ -311,8 +311,14 @@ function (require, Component) {
       labels.classed('selected', function (group, groupIndex) {
         return groupIndexSelected === groupIndex;
       });
+      labels.classed('not-selected', function (group, groupIndex) {
+        return groupIndexSelected != null && groupIndexSelected !== groupIndex;
+      });
       lines.classed('selected', function (group, groupIndex) {
         return groupIndexSelected === groupIndex;
+      });
+      lines.classed('not-selected', function (group, groupIndex) {
+        return groupIndexSelected != null && groupIndexSelected !== groupIndex;
       });
     },
 
