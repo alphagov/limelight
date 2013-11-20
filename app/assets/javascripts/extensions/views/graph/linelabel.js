@@ -49,6 +49,15 @@ function (require, Component) {
       this.renderSummary();
       this.renderLabels();
       this.renderLines();
+
+      if (!this.rendered) {
+        // On first render, height of multi-line labels is sometimes reported
+        // incorrectly. Work around by triggering re-render once.
+        this.rendered = true;
+        setTimeout(_.bind(function () {
+          this.render();
+        }, this), 0);
+      }
     },
 
     /**
