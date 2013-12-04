@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 source "https://BnrJb6FZyzspBboNJzYZ@gem.fury.io/govuk/"
 
-gem "rails", "3.2.15"
+gem "rails", "3.2.16"
 gem "unicorn", "4.6.3"
 
 gem "slimmer", "3.20.0"
@@ -59,3 +59,6 @@ group :test, :development do
   gem 'fakeweb', "1.3.0"
   gem 'pry-rails', "~> 0.3.2"
 end
+
+# Specify Tilt 1.3.7 to work around a Bundler bug
+gem 'tilt', '1.3.7'
