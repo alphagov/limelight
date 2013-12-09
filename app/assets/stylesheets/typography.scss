@@ -61,7 +61,7 @@ a[rel="external"] {
     }
 
     p.explanatory {
-      @include core-16;
+      @include core-24;
       color: $black;
       margin-bottom: -1em;
       padding: 0.6em 0 0 0;
@@ -81,13 +81,4 @@ a[rel="external"] {
       @include core-16;
     }
   }
-}
-
-p.explanatory-header {
-  font-size: 24px;
-  line-height: 1.25;
-  font-weight: 400;
-  text-transform: none;
-  width: 65.625%;
-  margin-bottom: 0;
 }
