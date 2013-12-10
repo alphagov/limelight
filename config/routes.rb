@@ -11,8 +11,8 @@ Limelight::Application.routes.draw do
 
   match "/performance/licensing/licences/:slug" => "licensing#per_licence", via: :get, as: "licence"
   match "/performance/licensing/authorities/:slug" => "licensing#per_authority", via: :get, as: "authority"
-  match "/performance/licensing/licences" => "licensing#licences", via: :get
-  match "/performance/licensing/authorities" => "licensing#authorities", via: :get
+  match "/performance/licensing/licences" => "licensing#licences", via: :get, as: "all_licenses"
+  match "/performance/licensing/authorities" => "licensing#authorities", via: :get, as: "all_authorities"
   match "/performance/licensing" => "licensing#index", via: :get, as: "licensing"
 
   get "/performance/:slug" => "dashboard#index", as: "dashboard"
