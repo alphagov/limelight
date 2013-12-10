@@ -1,0 +1,9 @@
+<div id="global-breadcrumb">
+  <ol class="group" role="breadcrumbs">
+    <li><a href="/performance">Performance</a></li>
+    <% if !current_page?(:action => 'index') %>
+        <li><%= link_to(controller: 'licensing', action: 'index') do %>Licensing overview<% end %></li>
+    <% end %>
+  </ol>
+  <div class="breadcrumb-break"></div>
+</div>
