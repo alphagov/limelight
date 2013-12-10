@@ -100,8 +100,8 @@ Then(/^the (\d+)(?:st|nd|rd|th) section description should be "(.*?)"$/) do |pos
   section.find("h2").should have_content(Regexp.new subtitle)
 end
 
-Then(/^the navigation link for "(.*?)" should be active$/) do |link_title|
-  page.find("nav.performance-nav li a.active").should have_content(link_title)
+Then(/^there should be a breadcrumb link for "(.*?)"$/) do |breadcrumb_title|
+  page.all("#global-breadcrumb li").last.should have_content(breadcrumb_title)
 end
 
 Then(/^I see a link to "(.*?)"$/) do |url|

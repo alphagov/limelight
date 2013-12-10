@@ -7,7 +7,7 @@ Feature: Visiting per-licence
   Scenario: visiting per-licence page on an SVG browser
        When I go to /performance/licensing/licences/application-to-licence-a-street-collection
        Then I should get back a status of 200
-        And the navigation link for "Licences" should be active
+        And there should be a breadcrumb link for "All licenses"
         And the page title should be "Application to licence a street collection"
         And the 1st subtitle should be "Forms received"
         And the 1st section description should be "Total forms received per week over the last 9 weeks and top authorities by volume in this time"
@@ -18,7 +18,6 @@ Feature: Visiting per-licence
   Scenario: visiting per-licence page on a non-SVG browser
        When I go to /performance/licensing/licences/application-to-licence-a-street-collection
        Then I should get back a status of 200
-        And the navigation link for "Licences" should be active
         And the page title should be "Application to licence a street collection"
         And the 1st subtitle should be "Submissions per authority"
         And the 1st section description should be "Authorities offering Application to licence a street collection on GOV.UK"
