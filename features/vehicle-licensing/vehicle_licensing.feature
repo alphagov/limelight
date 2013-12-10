@@ -19,15 +19,3 @@ Feature: Vehicle licensing dashboard
     When I go to /performance/vehicle-licensing
     Then I should see the module "Applications by channel"
      And the module should contain a graph
-
-  Scenario Outline: Navigating to related pages
-    When I go to /performance/vehicle-licensing
-     And I click on "<Title>"
-    Then I should get back a status of 200
-     And I should be at <Path>
-     And the page title should be "<Title>"
-    
-    Examples:
-      | Title                           | Path                      |
-      | Tax disc                        | /performance/tax-disc     |
-      | Statutory Off Road Notification | /performance/sorn         |

@@ -39,16 +39,3 @@ Feature: Tax disc dashboard
      Then I should see the module "Digital take-up"
       And the module should contain a graph
       And the module should contain the text "52.0% last 12 months"
-
-  Scenario Outline: Navigating to related pages
-    When I go to /performance/tax-disc
-     And I click on "<Title>"
-    Then I should get back a status of 200
-     And I should be at <Path>
-     And the page title should be "<Title>"
-    
-    Examples:
-      | Title                           | Path                           |
-      | Statutory Off Road Notification | /performance/sorn              |
-      | Vehicle licensing               | /performance/vehicle-licensing |
-
