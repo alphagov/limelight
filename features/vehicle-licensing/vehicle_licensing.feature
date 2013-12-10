@@ -28,6 +28,6 @@ Feature: Vehicle licensing dashboard
      And the page title should be "<Title>"
     
     Examples:
-      | Title       | Path                      |
-      | Tax disc    | /performance/tax-disc     |
-      | SORN        | /performance/sorn         |
+      | Title                           | Path                      |
+      | Tax disc                        | /performance/tax-disc     |
+      | Statutory Off Road Notification | /performance/sorn         |

@@ -8,7 +8,7 @@ Feature: Listing licences
        Then I should get back a status of 200
         And the navigation link for "Licences" should be active
         And there should be 2 licences
-        And the page title should be "Licences"
+        And the page title should be "All licences offered on GOV.UK"
         And the "licences" count should be 2
         And the 1st group title should be "A"
         And the 2nd group title should be "R"

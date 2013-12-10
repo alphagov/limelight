@@ -48,7 +48,7 @@ Feature: Tax disc dashboard
      And the page title should be "<Title>"
     
     Examples:
-      | Title             | Path                           |
-      | SORN              | /performance/sorn              |
-      | Vehicle licensing | /performance/vehicle-licensing |
+      | Title                           | Path                           |
+      | Statutory Off Road Notification | /performance/sorn              |
+      | Vehicle licensing               | /performance/vehicle-licensing |
 

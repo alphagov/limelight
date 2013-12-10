@@ -23,7 +23,7 @@ Feature: Services page
       | Title                                                      | Path                                           |
       | Deposit foreign marriage or civil partnership certificates | /performance/deposit-foreign-marriage          |
       | Tax disc                                                   | /performance/tax-disc                          |
-      | SORN                                                       | /performance/sorn                              |
+      | Statutory Off Road Notification                            | /performance/sorn                              |
       | Lasting Power of Attorney                                  | /performance/lasting-power-of-attorney         |
       | Licensing                                                  | /performance/licensing                         |  
       | Pay to get documents legalised by post                     | /performance/pay-legalisation-post             |  
