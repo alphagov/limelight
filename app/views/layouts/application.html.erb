@@ -29,10 +29,9 @@
 <%= content_tag :div, id: "wrapper", data: data do %>
 
   <main id="content" class="group">
-    <%= render :partial => "common/breadcrumbs" %>
+    <%= render :partial => "breadcrumbs" rescue render :partial => "common/default_breadcrumbs" %>
 
     <div class="performance-platform-outer">
-      <%= render :partial => "navigation" rescue nil%>
       <%= yield %>
     </div>
 
