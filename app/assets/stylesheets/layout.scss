@@ -10,14 +10,19 @@
 }
 
 .performance-platform-outer {
-  //border-top: 10px solid $primary-colour;
   margin:0 30px;
   padding-top:2em;
 }
 
-#global-breadcrumb ol {
-  border-top-color: $primary-colour;
-  border-bottom: 1px solid #BFC1C3;
+#global-breadcrumb {
+  ol {
+    border-top-color: $primary-colour;
+  }
+  .breadcrumb-break {
+    border-bottom: 1px solid #BFC1C3;
+    max-width: 960px;
+    margin: 0 30px;
+  }
 }
 
 #wrapper {
