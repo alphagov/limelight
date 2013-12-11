@@ -1,5 +1,8 @@
 dashboards:
   # Services
+  - slug: carers-allowance
+    name: Carer's Allowance
+    feature_toggle: carers_allowance
   - slug: deposit-foreign-marriage
     name: Deposit foreign marriage or civil partnership certificates
     feature_toggle: fco_dashboards

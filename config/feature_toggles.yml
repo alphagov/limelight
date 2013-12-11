@@ -14,3 +14,4 @@ show_lpa_availability: release
 lpa_conversion_funnel: release
 evl_dashboard: dev
 evl_availability_modules: dev
+carers_allowance: release
