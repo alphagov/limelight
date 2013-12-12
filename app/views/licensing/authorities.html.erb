@@ -4,9 +4,12 @@
 <header>
   <h1>
       <span class="strapline">Licensing performance</span>
-      Authorities
-      <span class="tagline">Figures for all authorities offering licenses through GOV.UK</span>
+      All authorities offering licences on GOV.UK
+      <span class="tagline">(authorities on GOV.UK only)</span>
   </h1>
+  <p class="explanatory">You can also see
+    <%= link_to({action: 'licences'} ) do %>all licenses<% end %>
+    offered on GOV.UK.</p>
 </header>
 
 <div id="filter-wrapper"></div>

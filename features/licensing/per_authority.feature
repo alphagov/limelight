@@ -7,7 +7,7 @@ Feature: Visiting per-authority
   Scenario: visiting per-authority page on an SVG browser
     When I go to /performance/licensing/authorities/fake-authority-1
     Then I should get back a status of 200
-    And the navigation link for "Authorities" should be active
+    And there should be a breadcrumb link for "All authorities"
     And the page title should be "Fake authority 1"
     And the 1st subtitle should be "Forms received"
     And the 1st section description should be "Total forms received per week over the last 9 weeks and top licences by volume in this time"
@@ -18,7 +18,6 @@ Feature: Visiting per-authority
   Scenario: visiting per-authority page on a non-SVG browser
     When I go to /performance/licensing/authorities/fake-authority-1
     Then I should get back a status of 200
-    And the navigation link for "Authorities" should be active
     And the page title should be "Fake authority 1"
     And the 1st subtitle should be "Licence submissions"
     And the 1st section description should be "Licences offered by Fake authority 1 on GOV.UK"

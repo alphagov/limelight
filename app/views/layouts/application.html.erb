@@ -12,11 +12,6 @@
     Performance
     <span class="alpha-tag">Alpha</span>
   </a>
-  <ul id="proposition-links">
-    <li><%= main_navigation_link_to "Services", services_path %></li>
-    <li><a href="/performance/dashboard" class="">GOV.UK performance</a></li>
-    <li><a href="/performance/transactions-explorer" class="">Transactions Explorer</a></li>
-  </ul>
 </nav>
 
 <%# Configuration variable added to wrapper element because slimmer removes body attributes %>
@@ -34,8 +29,9 @@
 <%= content_tag :div, id: "wrapper", data: data do %>
 
   <main id="content" class="group">
+    <%= render :partial => "breadcrumbs" rescue render :partial => "common/default_breadcrumbs" %>
+
     <div class="performance-platform-outer">
-      <%= render :partial => "navigation" rescue nil%>
       <%= yield %>
     </div>
 

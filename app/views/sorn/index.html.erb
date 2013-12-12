@@ -1,6 +1,5 @@
 <%
   transaction_title = 'Statutory Off Road Notification'
-  explanatory_copy = 'Figures for the service to make a SORN for registered vehicles that are not being used on the road, and which have been taxed since 31 January 1998. This service is provided by the DVLA.'
   transaction_shortname = 'SORN'
 
   @js_config = {
@@ -11,10 +10,14 @@
 
 <% content_for :title do %><%= transaction_title %> - Service performance - GOV.UK<% end %>
 
-<%= render :partial => "vehicle-licensing/vehicle_licensing_navigation" %>
-
-<%= render(partial: "common/copy/dashboard_header", locals: {
-    title: transaction_shortname + ' ('+transaction_title+')', copy: explanatory_copy}) %>
+<header>
+  <h1>
+    <span class="strapline">Service performance</span>
+    Statutory Off Road Notification
+  </h1>
+  <p class="explanatory">SORN is a service within <%= link_to("vehicle-licensing") do %>vehicle licensing<% end %>, which also covers <%= link_to('tax-disc') do %>tax disc<% end %>.</p>
+  <p class="explanatory">SORNs must be made for a registered vehicle that is not being used on the road, and which has been taxed since 31 January 1998.</p>
+</header>
 
 <%= render(partial: "vehicle-licensing/active-users", locals: {
   title: "Users on start page",

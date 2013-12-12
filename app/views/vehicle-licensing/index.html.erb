@@ -1,5 +1,3 @@
-<%= render :partial => "vehicle-licensing/vehicle_licensing_navigation" %>
-
 <% content_for :title do %>Vehicle licensing - Service performance - GOV.UK<% end %>
 
 <% @js_config = {
@@ -11,7 +9,7 @@
     <span class="strapline">Service group performance</span>
       Vehicle licensing
   </h1>
-  <p class="explanatory">Figures for a group of services relating to <strong>vehicle licensing</strong>: tax disc relicensing and making a SORN (Statutory Off Road Notification), excluding first registrations. These services are provided by the <abbr title="Driver and Vehicle Licensing Agency">DVLA</abbr>.</p>
+  <p class="explanatory">Vehicle licensing covers <%= link_to('tax-disc') do %>tax disc<% end %> relicensing and <%= link_to('sorn') do %><abbr title="Statutory Off Road Notification">SORN</abbr> (Statutory Off Road Notification)<% end %>, two services provided by <abbr title="Driver and Vehicle Licensing Agency">DVLA</abbr>. Does not include first registrations.</p>
 </header>
 
 <section class="graph graph-with-labels">

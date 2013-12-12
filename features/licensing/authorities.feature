@@ -7,9 +7,9 @@ Feature: Listing authorities
   Scenario: there are two authorities
     When I go to /performance/licensing/authorities
     Then I should get back a status of 200
-    And the navigation link for "Authorities" should be active
+    And there should be a breadcrumb link for "Licensing overview"
     And there should be 4 authorities
-    And the page title should be "Authorities"
+    And the page title should be "All authorities offering licences on GOV.UK"
     And the "authorities" count should be 4
     And the 1st group title should be "C"
     And the 2nd group title should be "F"
@@ -25,5 +25,4 @@ Feature: Listing authorities
   Scenario: there are no authorities
     When I go to /performance/licensing/authorities
     Then I should get back a status of 200
-     And the navigation link for "Authorities" should be active
      And there should be 0 authorities

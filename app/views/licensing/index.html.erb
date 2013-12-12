@@ -8,6 +8,9 @@
       Licensing overview
       <span class="tagline">(licences and authorities on GOV.UK only)</span>
   </h1>
+  <p class="explanatory">Licensing covers <%= link_to({action: 'licences'} ) do %>all licences<% end %>
+    that can be applied for online through GOV.UK. These can be offered by a range of
+    <%= link_to({action: 'authorities'} ) do %>local and national authorities<% end %>.</p>
 </header>
 
 <% if Rails.application.config.feature_toggles[:show_licensing_visitors_realtime] %>
