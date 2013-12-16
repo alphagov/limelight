@@ -15,8 +15,8 @@
     <span class="strapline">Service performance</span>
     Statutory Off Road Notification
   </h1>
-  <p class="explanatory">SORN is a service within <%= link_to("vehicle-licensing") do %>vehicle licensing<% end %>, which also covers <%= link_to('tax-disc') do %>tax disc<% end %>.</p>
-  <p class="explanatory">SORNs must be made for a registered vehicle that is not being used on the road, and which has been taxed since 31 January 1998.</p>
+  <p class="explanatory"><abbr title="Statutory Off Road Notification">SORN</abbr> is a service within <%= link_to("vehicle-licensing") do %>vehicle licensing<% end %>, which also covers <%= link_to('tax-disc') do %>tax disc<% end %>.</p>
+  <p class="explanatory"><abbr title="Statutory Off Road Notification">SORN</abbr>s must be made for a registered vehicle that is not being used on the road, and which has been taxed since 31 January 1998.</p>
 </header>
 
 <%= render(partial: "vehicle-licensing/active-users", locals: {
@@ -33,8 +33,11 @@
   <aside class='more-info'>
     <span class='more-info-link'>more info</span>
     <ul>
-      <li>Data source: Driver and Vehicle Licensing Agency database</li>
-      <li>Customer satisfaction with the SORN/Tax disc transaction is recorded on a scale of 1 to 5. 1 being most satisfied and 5 being least satisfied. The mean of these responses is converted to a percentage to display on the dashboard.</li>
+      <li>Data source: <abbr title="Driver and Vehicle Licensing Agency">DVLA</abbr> database</li>
+      <li>Customer satisfaction is measured using a survey on a sample of
+        users at the point of transaction completion. It is measured on
+        a 5 point scale from most satisfied to least satisfied. The mean
+        of these responses is converted to a percentage for display purposes.</li>
     </ul>
   </aside>
   <h2>Average score of satisfied responses</h2>
