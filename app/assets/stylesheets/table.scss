@@ -12,9 +12,11 @@ article.table-wrapper {
 }
 
 .outer-table-wrapper {
+    min-height: 5em;
+    margin-top: 1em;
+
     border: 1px solid #a1acb2;
-    background-color:#dee0e2;
-    margin-top:1em;
+    background-color: #dee0e2;
 }
 
 .inner-table-wrapper {
@@ -29,7 +31,7 @@ article.table-wrapper {
 article table {
     width: 100%;
     margin:0;
-    
+
     &.head {
         width: 100%;
         margin:0;
@@ -38,7 +40,7 @@ article table {
     thead {
         border-bottom: solid 1px #a1acb2;
     }
-    
+
     tbody {
       td.first-child {
           border-left:0;
@@ -101,7 +103,7 @@ article table {
         border-bottom:0;
         white-space:nowrap;
         word-wrap:break-word;
-        
+
         &.first-child {
             border-left:0;
         }
