@@ -9,7 +9,7 @@ Feature: Services page
        Then I should get back a status of 200
         And the page title should be "Services"
         And the page subtitle should be "Services providing detailed performance data to GOV.UK"
-        And the "services" count should be 11
+        And the "services" count should be 12
         And the "service-groups" count should be 1
 
   Scenario Outline: navigating to service

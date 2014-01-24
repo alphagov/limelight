@@ -45,3 +45,6 @@ dashboards:
     name: Vehicle licensing
     feature_toggle: evl_dashboard
     is_group: true
+  # Extras
+  - slug: g-cloud
+    name: G-Cloud
