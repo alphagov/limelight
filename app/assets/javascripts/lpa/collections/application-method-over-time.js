@@ -48,7 +48,7 @@ function (GraphCollection) {
       return [
         {
           id: 'non_digital',
-          title: 'Non-digital',
+          title: 'Paper form',
           values: items.non_digital
         },
         {
