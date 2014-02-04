@@ -90,7 +90,7 @@ function (VolumetricsCollection) {
       }, 
       {
         "id": "manual",
-        "title": "Manual",
+        "title": "DVLA centre",
         "values": [
           {
             "_end_at": "2012-09-01T00:00:00+00:00", 
