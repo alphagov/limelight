@@ -17,7 +17,7 @@ function (GraphCollection) {
     },
 
     seriesList: [
-      { id: 'fully-digital', title: 'Digital' },
+      { id: 'fully-digital', title: 'Digital and automated phone' },
       { id: 'assisted-digital', title: 'Post Office' },
       { id: 'manual', title: 'DVLA centre' }
     ],

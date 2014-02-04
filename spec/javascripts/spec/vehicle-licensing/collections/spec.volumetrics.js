@@ -58,7 +58,7 @@ function (VolumetricsCollection) {
     var expected = [
       {
         "id": "fully-digital",
-        "title": "Digital",
+        "title": "Digital and automated phone",
         "values": [
           {
             "_end_at": "2012-09-01T00:00:00+00:00", 
