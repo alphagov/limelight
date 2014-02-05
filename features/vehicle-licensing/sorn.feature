@@ -24,7 +24,7 @@ Feature: SORN dashboard
 
   Scenario: customer satisfaction module
      When I go to /performance/sorn
-     Then I should see the module "Customer satisfaction"
+     Then I should see the module "User satisfaction"
       And the module should contain the text "92.5% August 2013"
       And the module should contain the text "0% July 2013"
 
