@@ -73,7 +73,7 @@ function (ApplicationMethod) {
       var expected = [
         {
           "id": "non_digital",
-          "title": "Non-digital",
+          "title": "Paper form",
           "values": [{
             "_start_at": "2013-01-01T00:00:00+00:00",
             "_end_at": "2013-01-08T00:00:00+00:00",

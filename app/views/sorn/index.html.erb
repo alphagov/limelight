@@ -29,12 +29,12 @@
 }) %>
 
 <section id="customer-satisfaction" class="half-width">
-  <h1>Customer satisfaction</h1>
+  <h1>User satisfaction</h1>
   <aside class='more-info'>
     <span class='more-info-link'>more info</span>
     <ul>
       <li>Data source: <abbr title="Driver and Vehicle Licensing Agency">DVLA</abbr> database</li>
-      <li>Customer satisfaction is measured using a survey on a sample of
+      <li>User satisfaction is measured using a survey on a sample of
         users at the point of transaction completion. It is measured on
         a 5 point scale from most satisfied to least satisfied. The mean
         of these responses is converted to a percentage for display purposes.</li>
@@ -50,10 +50,10 @@
 </section>
 
 <%= render(partial: "vehicle-licensing/volumetrics", locals: {
-  title: "Applications by channel",
-  description: "Vehicle licensing applications per month broken down by channel",
+  title: "Applications breakdown",
+  description: "SORN applications per month broken into <span class='group0'>digital</span>, <span class='group1'>Post Office</span> and <span class='group2'>DVLA centre</span> applications",
   id: "vehicle-licensing-channels",
-  info_text: "Shows the monthly number of SORNs received by the DVLA, broken down by channel.",
+  info_text: "Shows the monthly number of SORNs received by the DVLA, broken into <span class='group0'>digital</span>, <span class='group1'>Post Office</span> and <span class='group2'>DVLA centre</span> applications.",
   transaction_title:transaction_title,
   transaction_shortname:transaction_shortname
 }) %>

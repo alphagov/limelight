@@ -24,7 +24,7 @@ Feature: Tax disc dashboard
 
   Scenario: customer satisfaction module
      When I go to /performance/tax-disc
-     Then I should see the module "Customer satisfaction"
+     Then I should see the module "User satisfaction"
       And the module should contain the text "93.8% August 2013"
       And the module should contain the text "-1.34% July 2013"
 

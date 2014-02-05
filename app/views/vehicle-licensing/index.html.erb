@@ -13,7 +13,7 @@
 </header>
 
 <section class="graph graph-with-labels">
-  <h1>Applications by service</h1>
+  <h1>Tax disc and SORN &ndash; breakdown</h1>
   <aside class='more-info'>
     <span class='more-info-link'>more info</span>
     <ul>
@@ -26,8 +26,8 @@
 </section>
 
 <%= render(partial: "vehicle-licensing/volumetrics", locals: {
-  title: "Applications by channel",
-  description: "Vehicle licensing applications per month broken down by channel",
+  title: "Digital, Post Office and DVLA centre – breakdown",
+  description: "Vehicle licensing per month broken down by Digital, Post Office and DVLA centre applications",
   id: "vehicle-licensing-channels",
-  info_text: 'The number of successful applications to renew a tax disc and the number of <abbr title="Statutory Off Road Notification">SORN</abbr>&rsquo;s received, broken by channel.'
+  info_text: 'The number of successful tax disc renewals and <abbr title="Statutory Off Road Notification">SORN</abbr>&rsquo;s received, broken down by Digital, Post Office and DVLA centre applications.'
 }) %>
