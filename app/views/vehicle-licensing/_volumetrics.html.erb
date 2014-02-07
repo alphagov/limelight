@@ -1,6 +1,6 @@
 <% id ||= "volumetrics" %>
-<% title ||= "Service Volumetrics" %>
-<% description ||= "Service Volumetrics by month" %>
+<% title ||= "Service volumetrics" %>
+<% description ||= "Service volumetrics by month" %>
 <% info_text ||= "The number of successful applications for a #{transaction_shortname}." %>
 <section class="graph graph-with-labels vehicle-licensing-volumetrics">
   <h1><%= title %></h1>
@@ -14,8 +14,7 @@
       <li>DVLA centre: applications made at local DVLA centres</li>
     </ul>
   </aside>
-  <h2 id="<%= id %>-headline"><%= description %></h2>
+  <h2 id="<%= id %>-headline"><%= raw description %></h2>
   <nav id="<%= id %>-nav"></nav>
   <figure class="graph timeseries-graph" id="<%= id %>"></figure>
 </section>
-
