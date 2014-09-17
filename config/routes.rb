@@ -15,6 +15,4 @@ Limelight::Application.routes.draw do
   match "/performance/licensing/authorities" => "licensing#authorities", via: :get, as: "all_authorities"
   match "/performance/licensing" => "licensing#index", via: :get, as: "licensing"
 
-  get "/performance/:slug" => "dashboard#index", as: "dashboard"
-
 end
