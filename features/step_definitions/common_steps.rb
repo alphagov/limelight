@@ -39,7 +39,13 @@ end
 
 
 When(/^I go to (.*)$/) do |url|
-  visit url
+  begin 
+    visit url
+  rescue Exception => e
+    p e
+    p e.backtrace.join("\n")
+    e.backtrace.each { |line| p line }
+  end
 end
 
 When(/^I click on "(.*?)"$/) do |name|
