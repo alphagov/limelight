@@ -7,7 +7,7 @@ GIT
       yajl-ruby (>= 1.1.0)
 
 GEM
-  remote: https://BnrJb6FZyzspBboNJzYZ@gem.fury.io/govuk/
+  remote: https://gem.fury.io/govuk/
   remote: https://rubygems.org/
   specs:
     actionmailer (3.2.18)
