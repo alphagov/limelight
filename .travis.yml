@@ -4,7 +4,9 @@ rvm:
   - 2.0.0
 matrix:
   allow_failures:
-    - rvm: 2.0.0
+    rvm:
+      - 1.9.3
+      - 2.0.0
 env:
   global:
     - secure: "SPkvVOl32mVTKB0cYA3zXtyksQcKmb4hDI6wPSzqxKVy+Ugv+vsR/x7wUd6ilMEKekFBbOsXysnWrHRfBevm6j9zh5TA40BZhReNFHI2h0sNlZjklqolQY/mEP82dYKHKYeH/McG3bQU+NdTo0UFl6v6CGVMF/V4qRR895GLTLw="
